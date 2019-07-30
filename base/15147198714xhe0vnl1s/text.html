@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/code/Transparency"><span style=" text-decoration: underline; color:#0000ff;">Прозрачная форма в VBA (регулировка прозрачности формы)</span></a> </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/taxonomy/term/14"><span style=" text-decoration: underline; color:#0000ff;">Макросы VBA Excel</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/code/another"><span style=" text-decoration: underline; color:#0000ff;">Разное</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/category/WinAPI"><span style=" text-decoration: underline; color:#0000ff;">Функции WinAPI</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/category/userform"><span style=" text-decoration: underline; color:#0000ff;">Форма ввода</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/category/Windows"><span style=" text-decoration: underline; color:#0000ff;">Средства Windows</span></a></li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/category/different"><span style=" text-decoration: underline; color:#0000ff;">Разное</span></a> </li></ul></td></tr></table>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">В данной статье собрано несколько примеров установки прозрачности форм (UserForm)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Во всех файлах для установки прозрачности используется WinAPI функция <span style=" font-weight:600;">SetLayeredWindowAttributes</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Примеры взять с форума ПланетаExcel, и немного переработаны.</p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large; font-weight:600;">Прозрачность форм можно задавать в широком диапазоне - от 0 (полностью прозрачная форма) до 255 (непрозрачная)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Также добавлен пример установки прозрачности самого Excel:</span><br />(перед запуском формы, окно Excel плавно «расстворяется» (исчезает), а после закрытия формы также плавно появляется вновь)</p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; color:#000080;">Sub</span><span style=" font-family:'monospace';"> ПлавноеИзменениеПрозрачностиExcel()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    hWnd&amp; = GetActiveWindow    </span><span style=" font-family:'monospace'; color:#008000;">' hWnd приложения Excel</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#000080;">Dim</span><span style=" font-family:'monospace';"> prozr </span><span style=" font-family:'monospace'; color:#000080;">As</span><span style=" font-family:'monospace';"> </span><span style=" font-family:'monospace'; color:#000080;">Long</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#008000;">' в течение нескольких секунд, постепенно делаем Excel прозрачным</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#000080;">For</span><span style=" font-family:'monospace';"> prozr = 255 </span><span style=" font-family:'monospace'; color:#000080;">To</span><span style=" font-family:'monospace';"> 0 </span><span style=" font-family:'monospace'; color:#000080;">Step</span><span style=" font-family:'monospace';"> -4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">        DoEvents</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">        SetTransparent hWnd&amp;, prozr     </span><span style=" font-family:'monospace'; color:#008000;">' изменяем прозрачность Excel</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#000080;">Next</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    UserForm1.Show    </span><span style=" font-family:'monospace'; color:#008000;">' отбражаем модальную форму</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'monospace'; color:#008000;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#008000;">' в течение нескольких секунд, постепенно делаем Excel снова видимым</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#000080;">For</span><span style=" font-family:'monospace';"> prozr = 0 </span><span style=" font-family:'monospace'; color:#000080;">To</span><span style=" font-family:'monospace';"> 255 </span><span style=" font-family:'monospace'; color:#000080;">Step</span><span style=" font-family:'monospace';"> 4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">        DoEvents</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">        SetTransparent hWnd&amp;, prozr   </span><span style=" font-family:'monospace'; color:#008000;">' изменяем прозрачность Excel</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    </span><span style=" font-family:'monospace'; color:#000080;">Next</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">    SetVisible hWnd&amp;, 255   </span><span style=" font-family:'monospace'; color:#008000;">' восстанавливаем видимость Excel</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; color:#000080;">End</span><span style=" font-family:'monospace';"> </span><span style=" font-family:'monospace'; color:#000080;">Sub</span></pre>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr></thead></table>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Вложение</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Размер</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Загрузки</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Последняя загрузка</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/Regulirovka_prozrachnosti_na_forme.xls"><span style=" text-decoration: underline; color:#0000ff;">Регулировка прозрачности формы (от 0 до 255)</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">35.5 КБ</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3 года 5 недель назад</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/Plavnoe_poyavlenie_i_ischezanie_formy.xls"><span style=" text-decoration: underline; color:#0000ff;">Плавное появление и исчезание формы VBA</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">47 КБ</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">89</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3 недели 3 дня назад</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/Regulirovka_prozrachnosti_prilozheniya_Excel.xls"><span style=" text-decoration: underline; color:#0000ff;">Плавно исчезающий Excel на время работы с формой</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">50.5 КБ</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3 года 5 недель назад</p></td></tr></table>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11851 просмотр </li></ul></td>
+<td></td></tr></table></body></html>

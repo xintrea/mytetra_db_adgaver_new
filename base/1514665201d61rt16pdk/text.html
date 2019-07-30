@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/code/CSV2Excel"><span style=" text-decoration: underline; color:#0000ff;">Загрузка файла CSV на лист Excel</span></a> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-size:8.25pt;"><br /></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Надстройка предназначена для облегчения импорта данных в Excel из текстовых файлов с разделителями (например, из CSV)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Пока во вложении - обычный файл Excel с нужными макросами, надстройку выложу позже</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">В надстройке применена </span><a href="http://excelvba.ru/code/GetCell"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">функция получения ссылки на заданную пользователем ячейку</span></a><span style=" font-size:8.25pt;">.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Основой для надстройки послужила </span><a href="http://excelvba.ru/code/TextFile2Array"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">функция загрузки CSV файла в двумерный массив</span></a></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Использовать функции файла (надстройки) совсем не сложно.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Вот несколько примеров: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span><span style=" font-family:'monospace'; font-size:8.25pt;"> ЗагрузитьТекстовыйФайлВАктивнуюЯчейку()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;">    CSV2Excel</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">End</span><span style=" font-family:'monospace'; font-size:8.25pt;"> </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span><span style=" font-family:'monospace'; font-size:8.25pt;"> ЗагрузитьCSVФайлВСледующуюПустуюЯчейкуПервогоСтолбца()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;">    CSV2Excel </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#800000;">&quot;a&quot;</span><span style=" font-family:'monospace'; font-size:8.25pt;">, , , , </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#800000;">&quot;*.csv&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">End</span><span style=" font-family:'monospace'; font-size:8.25pt;"> </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span><span style=" font-family:'monospace'; font-size:8.25pt;"> ЗагрузитьТекстовыйФайлВНовуюКнигу()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;">    </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#008000;">' текстовый файл с разделителем &quot;пробел&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt;">    CSV2Excel </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#800000;">&quot;NewWorkbook&quot;</span><span style=" font-family:'monospace'; font-size:8.25pt;">, </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#800000;">&quot;Импорт данных в новую книгу&quot;</span><span style=" font-family:'monospace'; font-size:8.25pt;">, , , , </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#800000;">&quot; &quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">End</span><span style=" font-family:'monospace'; font-size:8.25pt;"> </span><span style=" font-family:'monospace'; font-size:8.25pt; color:#000080;">Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr></thead></table>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Вложение</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Размер</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Загрузки</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Последняя загрузка</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/CSV2sheet.xls"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CSV2sheet.xls - файл с макросом импорта данных из CSV в Excel</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">45 КБ</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">260</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">1 день 39 минут назад</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/dannye.csv"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Файл csv (разделитель - точка с запятой) для тестирования надстройки</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">16.52 КБ</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">19</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3 года 22 недели назад</span></p></td></tr></table></td></tr></table></body></html>

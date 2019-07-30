@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">tiwer</span> <br />Поставь вызов функции на кнопку или сделай автоматически при запуске. Надо добавить проверку на старый файл с таким же именем. Если есть, то надо переименовывать старый файл. А еще лучше генерировать динамически новое имя файла по полной дате(дата и время) создания файла. <br /><br /><span style=" font-size:small; font-weight:600;">Код:</span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="3" bgcolor="#ffffff">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Function RepairDatabase(strSource As String, _ <br />        strDestination As String) As Boolean <br />        ' Input values: the paths and file names of <br />        ' the source and destination files. <br /> <br />    ' Trap for errors. <br />    On Error GoTo error_handler <br /> <br />    ' Compact and repair the database. Use the return value of <br />    ' the CompactRepair method to determine if the file was <br />    ' successfully compacted. <br />    RepairDatabase = _ <br />        Application.CompactRepair( _ <br />        LogFile:=True, _ <br />        SourceFile:=strSource, _ <br />        DestinationFile:=strDestination) <br /> <br />    ' Reset the error trap and exit the function. <br />    On Error GoTo 0 <br />    Exit Function <br /> <br />' Return False if an error occurs. <br />error_handler: <br />    RepairDatabase = False <br /> <br />End Function </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /> <br /><span style=" font-size:small; font-weight:600;">Добавлено:</span> <br /><span style=" font-weight:600;">Kat iynok</span> <br />А в чем заморочка? Сколько бы не было кнопок, всегда вызывается одна и та же форма. А затем одна и та же функция, которая принимает 3 параметра(имя проверяемой формы, login name, pass) и возвращает true или false.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td width="80%" bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">tiwer</span> <br />А ты параметры передавал? Покажи чему равны strSource и strDestination. <br /><span style=" font-size:small; font-weight:600;">Цитата:</span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="75%" cellspacing="0" cellpadding="3" bgcolor="#ffffff">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">не получается скопировать базу </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">А что получается? Системные сообщения? <br /><br /><span style=" font-size:small; font-weight:600;">Код:</span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="3" bgcolor="#ffffff">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;) <br />if fs.FileExists(&quot;c:\testfile.txt&quot;) =True then <br />    'do somthing <br />end if <br /> <br />filename = Replace(Date, &quot;/&quot;, &quot;_&quot;) &amp; Space(1) &amp; Replace(Time, &quot;:&quot;, &quot;-&quot;) <br /> </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:bottom;">
+<hr width="100%"/>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">pavelac</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> <br />Нечего тут гадать, мануал надо читать, он для этого предназначен <br />Вот у меня получилось как: <br /><br /></span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Цитата:</span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="75%" cellspacing="0" cellpadding="3" bgcolor="#ffffff">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> <br />DoCmd.TransferDatabase acLink, &quot;dBase 5.0&quot;, &quot;D:\XXX&quot;, acTable, &quot;yyy&quot;, &quot;yyy&quot; <br /> </span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Destination надо указывать.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p></td></tr></table></body></html>

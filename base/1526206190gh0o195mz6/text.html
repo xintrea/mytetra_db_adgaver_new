@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="post hentry uncustomized-post-template" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><h3 class="post-title entry-title" itemprop="name">
+Урок 7. Надписи и всплывающие подсказки. Пример стандартного меню.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-2508468859731493173" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Давайте добавим к созданной нами на прошлом уроке кнопке полноценную 
+всплывающую подсказку. Для этого добавим в тег button два статических 
+атрибута: <i><b>screentip</b>="Вывести окно приветствия"</i> и <i><b>supertip</b>="Вывести окно приветствия для получения удовольствия"</i>.
+ Запустим документ, и посмотрим, что получилось. Теперь, при наведении 
+мыши на кнопку, отображается всплывающая подсказка с текстом, 
+сформированном из значений обоих атрибутов.<br>
+<br>
+Что ещё можно задать в статических атрибутах для кнопки? Например, быстрые клавиши (<b>keytip</b>),
+ подсказки о которых появляются в интерфейсе после кратковременного 
+нажатия на клавишу Alt. Для одного элемента интерфейса можно задавать 
+последовательности до трёх клавиш, хотя в большинстве случаев достаточно
+ одной, максимум — двух, если количество элементов на вкладке достаточно
+ велико.<br>
+<br>
+Отдельно упомяну про атрибут <b>description</b>. В любом случае не будет
+ ошибкой, если он тоже будет заполнен текстом, но срабатывать он будет 
+только тогда, когда элемент с этим атрибутом будет помещён внутрь меню в
+ качестве пункта этого меню, а атрибут <b>itemSize</b> самого меню будет содержать значение large. Другими словами, <b>description</b> актуален<b> </b>только внутри меню с большими пунктами. Поэтому в нашем случае заполнять его пока не будем.<br>
+<br>
+Теперь я расскажу об одной интересной находке. Она будет интересна 
+приверженцам старого классического меню. Неожиданно оригинал кода 
+интерфейса находится (в составе предлагаемого шаблона документа) на 
+личном сайте начальника отдела артиллерийско-технической службы 
+подводной лодки военно-морских сил США в отставке:<br>
+<br>
+<a href="http://gregmaxey.mvps.org/word_tip_pages/ribbon_menu_control.html" target="_blank">http://gregmaxey.mvps.org/word_tip_pages/ribbon_menu_control.html</a>. <br>
+<br>
+Ниже можно скачать отдельно код интерфейса, переведённого мною на русский язык:<br>
+<a href="https://sites.google.com/site/fluentui/word2003UI.exportedUI">word2003UI.exportedUI</a><br>
+<br>
+Для тестирования сохраните скачанный файл на диске, откройте в Ribbon 
+XML Editor какой-нибудь новый документ Word и нажмите кнопку 
+«Импортировать файл настроек ленты»:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://1.bp.blogspot.com/-chMrdaQvpwE/VPRXvSRytMI/AAAAAAAAALY/qCIdNUv-dI8/s1600/import.png" imageanchor="1" style=""><img src="1.png" border="0"></a></div>
+<br>
+<br>
+Выберите скачанный файл. Его текст вставится в текущее окно. Первая 
+строчка будет закомментирована в целях совместимости с типом файла 
+«.exportedUI». Раскомментируйте её (для этого просто выделите весь 
+комментарий целиком и нажмите кнопку «Комментарий» в строке над окном, 
+четвёртую слева). Всё, теперь можете запустить документ на выполнение и 
+насладиться видом классического меню.<br>
+<br>
+В качестве альтернативного варианта можно просто открыть скачанный файл в
+ блокноте, и скопировать его содержимое непосредственно в окно Ribbon 
+XML Editor, но зачем делать лишние телодвижения?<br>
+<br>
+Самостоятельно рассмотрите код. Он весьма прост. В нём создаются 
+пользовательские меню, помещённые в горизонтальный контейнер (box) в 
+которые посредством атрибута <b>idMso</b> вставляются стандартные 
+элементы. Ниже контейнера в два ряда располагаются группы кнопок, 
+имитирующие классические панели инструментов. Ничего более сложного в 
+коде не производится.<br>
+<br>
+Замечу, что на вышеупомянутом сайте американского офицера можно найти 
+очень много полезной и интересной информации для новичков, владеющих 
+английским. Всё очень толково и грамотно, с иллюстрациями, разложено по 
+полочкам.</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a href="https://www.blogger.com/profile/15132597310126998409" rel="author" title="author profile">
+<span itemprop="name">dolbodub</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+на
+
+<a class="timestamp-link" href="http://fluentui.blogspot.ru/2015/03/7.html?m=1" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2015-03-02T15:40:00+03:00">15:40</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<div class="mobile-link-button goog-inline-block" id="mobile-share-button">
+<a href="javascript:void(0);">Поделиться</a>
+</div>
+<div class="goog-inline-block dummy-container"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1526205977092" name="I0_1526205977092" src="2.png" data-gapiattached="true" title="G+" width="100%" frameborder="0"></iframe></div></div>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>6 комментариев:</h4>
+<div class="comments-content">
+
+
+<div id="comment-holder">
+
+<div id="bc_0_7C" kind="c"><div id="bc_0_7CT"><div id="bc_0_6T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_6TB"><li id="bc_0_1B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c3963209629999161977" class="comment-block"><div id="bc_0_1M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/12318418639820678769">Unknown</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1447341121126&amp;m=1#c3963209629999161977">12 ноября, 2015 18:12</a></span></div><p id="bc_0_1MC" class="comment-content">Большое
+ спасибо! Очень ценная и полезная информация. А Вы не подскажете, как 
+убрать из всплывающей подсказки текст "Моя надстройка.xlam / Для 
+получения дополнительных сведений нажмите F1"? </p><span id="bc_0_1MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_1BR" class="comment-replies"><span id="bc_0_1b+seedCESVD" kind="d"><div id="bc_0_0T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_0TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_0TA" class="thread-arrow"></span><span id="bc_0_0TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_0TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_0TC" class="thread-chrome thread-expanded"><div><li id="bc_0_0B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c3436416100052196458" class="comment-block"><div id="bc_0_0M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1447354490388&amp;m=1#c3436416100052196458">12 ноября, 2015 21:54</a></span></div><p id="bc_0_0MC" class="comment-content">Хм... не знаю, как убрать. Странно, что такой текст имеется именно у menu.</p><span id="bc_0_0MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_0BR" class="comment-replies"></div><div id="bc_0_0B_box" class="comment-replybox-single"></div></li></div><div id="bc_0_0I" class="continue" kind="ci"><a href="javascript:;" target="_self">Ответить</a></div></ol><div id="bc_0_0T_box" class="comment-replybox-thread"></div></div></span></div><div id="bc_0_1B_box" class="comment-replybox-single"></div></li><li id="bc_0_5B" class="comment" kind="b"><div class="avatar-image-container"><img src="5.png"></div><div id="c2775477583423422464" class="comment-block"><div id="bc_0_5M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/12318418639820678769">Сергей Мартыненко</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1447396838555&amp;m=1#c2775477583423422464">13 ноября, 2015 09:40</a></span></div><p id="bc_0_5MC" class="comment-content">Этот текст появляется не совсем у menu, а именно под кнопками Button. Строка описания выглядит так:<br>button
+ id="Button0122" image="Durability" label="Прочность" size="large" 
+onAction="Files01" screentip="Расчёт прочности" supertip="Открыть файл 
+расчёта прочности" /<br>После моих screentip и supertip следует горизонтальная черта, под которой и располагается этот дурацкий текст.</p><span id="bc_0_5MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_5BR" class="comment-replies"><span id="bc_0_5b+seedCESXD" kind="d"><div id="bc_0_2T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_2TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_2TA" class="thread-arrow"></span><span id="bc_0_2TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_2TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_2TC" class="thread-chrome thread-expanded"><div><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c2874815520095412754" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1447424977004&amp;m=1#c2874815520095412754">13 ноября, 2015 17:29</a></span></div><p id="bc_0_2MC" class="comment-content">У
+ меня в Word 2013 этот текст только у кнопок menu. Впрочем, сути дела 
+это не меняет. В таких условиях остаётся только назвать файл надстройки 
+максимально информативно.</p><span id="bc_0_2MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_2BR" class="comment-replies"></div><div id="bc_0_2B_box" class="comment-replybox-single"></div></li><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="7.png"></div><div id="c119782242349192575" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1521546303853&amp;m=1#c119782242349192575">20 марта, 2018 14:45</a></span></div><p id="bc_0_3MC" class="comment-content">Нашли решение? </p><span id="bc_0_3MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_3BR" class="comment-replies"></div><div id="bc_0_3B_box" class="comment-replybox-single"></div></li><li id="bc_0_4B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c6308405269024951820" class="comment-block"><div id="bc_0_4M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/7.html?showComment=1521572312092&amp;m=1#c6308405269024951820">20 марта, 2018 21:58</a></span></div><p id="bc_0_4MC" class="comment-content">Думаю, решения нет.</p></div></li></div></ol></div></span></div></li></ol></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

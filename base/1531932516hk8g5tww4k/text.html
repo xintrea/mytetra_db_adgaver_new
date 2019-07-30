@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>Программное создание базы данных с помощью ADOX. Часть 1</h1>
+
+<div id="art_content">
+<div class="Small" align="right">Источник: <a target="_blank" href="http://www.interface.ru/iservices/goto.asp?Url=enc:rn%7Ej%40%255lhh%7Fiyckd4Yug5%3BxnsYv%5F4%5ByjECN7%3D2">Visual Basic на русском</a></div><div class="Small" align="right">Иноземцев Руслан</div>
+
+<p></p><h3>Что такое ADOX</h3>
+<p><b>Описание</b></p>
+<p>Microsoft? ActiveX? Data Objects Extensions for Data Definition 
+Language and Security (ADOX) - это официальное название от Microsoft. На
+ практике это дополнение к объектной и программной модели ADO. В 
+девичестве ADOX как я понимаю был DAO, хотя одно другого не отменяет. 
+Просто библиотека ADOX более современная, поддерживает работу с 
+современными базами данных MS SQL, Oracle и т.д. через ODBC и OLE DB и 
+позволяет управлять не только структурой базы данных но и ее 
+безопасностью (Группами и пользователями).<br> <br><b>Объектная модель</b><br><img src="1.png" border="0"><br>Из
+ представленной обектной модели видно, что ADOX позволяет работать с 
+пятью сущностями современной реляционной базы данных Таблицы(Tables), 
+Группы(Groups), Пользователи(Users), Процедуры(Procedures) и 
+Представления(Views).<br>Не будем пока заострять внимание на каждой из 
+этих сущностей. Подробно о них можно узнать обратившись к документации 
+по ADO Цель данной статьи показать основные этапы по программному 
+созданию и модификации базы данных средствами ADOX.</p>
+<h3>Программируем с ADOX</h3>
+<p><b>Необходимые ссылки и объекты</b></p>
+<p>Для начала работы с ADOX необходимо проставить ссылку в Project - 
+&gt; References текущего проекта на библиотеку Microsoft ADO Ext. 2.x 
+for DDL and Security. Где х в номере врсии может быть 5,6 или 7 в 
+зависимости от версии ADO с которой вы работаете. ADOX поставляется с 
+дистрибутивом MDAC (Microsoft Data Access Components) начиная с версии 
+2.5</p>
+<h4>Самый главный объект</h4>
+<p>Самым главным объектом, как это видно в объектной модели, является 
+объект Catalog. Он является по сути синонимом понятия база данных, 
+поскольку является родительским объектом для таблиц, процедур, 
+представлений и т.д. В коде вашего проекта следует создать и 
+инициировать объект ADOX.Catalog. К примеру так:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Private oCat as ADOX.Catalog</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>где нибудь в Form_Load() 
+</p><p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set oCat = New ADOX.Catalog</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<h4>Создание базы данных</h4>
+<p>Для создания новой базы данных можно использовать процедуру, приведенную ниже:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub CreateDatabase()</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   oCat.Create "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:\new.mdb"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>В приведенном примере создается новая база MS Access с именем new, в 
+корне диска c:. Следует отметить две важных детали. В случае если 
+поставщик доступа к данным (Provider) не поддерживает операцию создания 
+нового каталога (в нашем контексте базы данных) произойдет ошибка. И 
+второе, после успешного создания базы данных свойство ActiveConnection 
+нашего объекта oCat будет содержать ссылку на объект ADODB.Connection 
+соединения с вновь созданной базой данных.</p>
+<h4>Открытие существующей базы данных</h4>
+<p>Для открытия существующей базы данных можно использовать следующую процедуру:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub OpenDatabase()</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   oCat.ActiveConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:\new.mdb"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Данная процедура откроет базу данных new.mdb расположенную в корне диска с:. 
+</p><h3>Работа с таблицами Таблиц</h3>
+<h4>Добавление</h4>
+<p>Добавление таблицы к базе данных выполняется методом Append коллекции Tables объекта Catalog (мощно ввернул, внушает !!!)<br>Иными словами пишем в коде</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables.Append NewTable</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Где NewTable это объект Table.<br>Теперь превратим это сумбурное описание в процедуру.<br>
+</p><p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Sub AddTable()</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Dim oTable as new Table</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      oTable.Name = "MyTable"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      oCat.Tables.Append oTable</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Set oTable = Nothing</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<h4>Изменение</h4>
+<p>Для изменения свойств таблицы надо найти ее в коллекции oCat.Tables. 
+Это можно сделать указав в качестве индекса ее номер, который определить
+ сложно, или ее имя, что конечно более удобно.</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("MyTable").Name = "MyNewName"</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Кроме свойства Name для изменения также доступны коллекции:</p>
+<p><img src="2.png" border="0">  Indexes <br><img src="3.png" border="0">  Keys <br><img src="4.png" border="0">  Columns</p>
+<h4>Удаление</h4>
+<p>Чтобы удалить таблицу необходимо вызвать метод Delete коллекции Tables передав в качестве параметра имя таблицы.</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables.Delete "TableName"</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<h3>Работа с полями</h3>
+<h4>Добавление</h4>
+<p>Поля таблицы доступны через коллекцию Columns объекта Table. Для 
+добавления поля в таблицу испоьзуется метод Append колекции Columns. 
+Методу передаются один обязательный параметр, Имя поля и два 
+необязательных, его Тип и Размер. Значение по умолчанию для типа 
+adVarWchar. Значение по умолчанию для размера 0. Добавим в созданную 
+нами таблицу одно поле:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("MyNewTable").Columns.Append "Field1", adInteger</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Ниже преведена таблица допустимых типов:</p>
+<p>
+</p><table class="borderall" width="100%" cellpadding="2">
+<tbody>
+<tr>
+<td align="center"><b>Константа</b> </td>
+<td align="center"><b>Значение</b> </td>
+<td align="center"><b>Описание</b> </td></tr>
+<tr>
+<td>adBigInt</td>
+<td>20</td>
+<td>Indicates an eight-byte signed integer (DBTYPE_I8).</td></tr>
+<tr>
+<td>adBinary</td>
+<td>128</td>
+<td>Indicates a binary value (DBTYPE_BYTES).</td></tr>
+<tr>
+<td>adBoolean</td>
+<td>11</td>
+<td>Indicates a boolean value (DBTYPE_BOOL).</td></tr>
+<tr>
+<td>adBSTR</td>
+<td>8</td>
+<td>Indicates a null-terminated character string (Unicode) (DBTYPE_BSTR).</td></tr>
+<tr>
+<td>adChapter</td>
+<td>136</td>
+<td>Indicates a four-byte chapter value that identifies rows in a child rowset (DBTYPE_HCHAPTER).</td></tr>
+<tr>
+<td>adChar</td>
+<td>129</td>
+<td>Indicates a string value (DBTYPE_STR).</td></tr>
+<tr>
+<td>adCurrency</td>
+<td>6</td>
+<td>Indicates a currency value (DBTYPE_CY). Currency is a fixed-point 
+number with four digits to the right of the decimal point. It is stored 
+in an eight-byte signed integer scaled by 10,000.</td></tr>
+<tr>
+<td>adDate</td>
+<td>7</td>
+<td>Indicates a date value (DBTYPE_DATE). A date is stored as a double, 
+the whole part of which is the number of days since December 30, 1899, 
+and the fractional part of which is the fraction of a day.</td></tr>
+<tr>
+<td>adDBDate</td>
+<td>133</td>
+<td>Indicates a date value (yyyymmdd) (DBTYPE_DBDATE).</td></tr>
+<tr>
+<td>adDBTime</td>
+<td>134</td>
+<td>Indicates a time value (hhmmss) (DBTYPE_DBTIME).</td></tr>
+<tr>
+<td>adDBTimeStamp</td>
+<td>135</td>
+<td>Indicates a date/time stamp (yyyymmddhhmmss plus a fraction in billionths) (DBTYPE_DBTIMESTAMP).</td></tr>
+<tr>
+<td>adDecimal</td>
+<td>14</td>
+<td>Indicates an exact numeric value with a fixed precision and scale (DBTYPE_DECIMAL).</td></tr>
+<tr>
+<td>adDouble</td>
+<td>5</td>
+<td>Indicates a double-precision floating-point value (DBTYPE_R8).</td></tr>
+<tr>
+<td>adEmpty</td>
+<td>0</td>
+<td>Specifies no value (DBTYPE_EMPTY).</td></tr>
+<tr>
+<td>adError</td>
+<td>10</td>
+<td>Indicates a 32-bit error code (DBTYPE_ERROR).</td></tr>
+<tr>
+<td>adFileTime</td>
+<td>64</td>
+<td>Indicates a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (DBTYPE_FILETIME).</td></tr>
+<tr>
+<td>adGUID</td>
+<td>72</td>
+<td>Indicates a globally unique identifier (GUID) (DBTYPE_GUID).</td></tr>
+<tr>
+<td>adIDispatch</td>
+<td>9</td>
+<td>Indicates a pointer to an IDispatch interface on a COM object (DBTYPE_IDISPATCH). <br>Note This data type is currently not supported by ADO. Usage may cause unpredictable results.</td></tr>
+<tr>
+<td>adInteger</td>
+<td>3</td>
+<td>Indicates a four-byte signed integer (DBTYPE_I4).</td></tr>
+<tr>
+<td>adIUnknown</td>
+<td>13</td>
+<td>Indicates a pointer to an IUnknown interface on a COM object (DBTYPE_IUNKNOWN). <br>Note This data type is currently not supported by ADO. Usage may cause unpredictable results.</td></tr>
+<tr>
+<td>adLongVarBinary</td>
+<td>205</td>
+<td>Indicates a long binary value (Parameter object only).</td></tr>
+<tr>
+<td>adLongVarChar</td>
+<td>201</td>
+<td>Indicates a long string value (Parameter object only).</td></tr>
+<tr>
+<td>adLongVarWChar</td>
+<td>203</td>
+<td>Indicates a long null-terminated Unicode string value (Parameter object only).</td></tr>
+<tr>
+<td>adNumeric</td>
+<td>131</td>
+<td>Indicates an exact numeric value with a fixed precision and scale (DBTYPE_NUMERIC).</td></tr>
+<tr>
+<td>adPropVariant</td>
+<td>138</td>
+<td>Indicates an Automation PROPVARIANT (DBTYPE_PROP_VARIANT).</td></tr>
+<tr>
+<td>adSingle</td>
+<td>4</td>
+<td>Indicates a single-precision floating-point value (DBTYPE_R4).</td></tr>
+<tr>
+<td>adSmallInt</td>
+<td>2</td>
+<td>Indicates a two-byte signed integer (DBTYPE_I2).</td></tr>
+<tr>
+<td>adTinyInt</td>
+<td>16</td>
+<td>Indicates a one-byte signed integer (DBTYPE_I1).</td></tr>
+<tr>
+<td>adUnsignedBigInt</td>
+<td>21</td>
+<td>Indicates an eight-byte unsigned integer (DBTYPE_UI8).</td></tr>
+<tr>
+<td>adUnsignedInt</td>
+<td>19</td>
+<td>Indicates a four-byte unsigned integer (DBTYPE_UI4).</td></tr>
+<tr>
+<td>adUnsignedSmallInt</td>
+<td>18</td>
+<td>Indicates a two-byte unsigned integer (DBTYPE_UI2).</td></tr>
+<tr>
+<td>adUnsignedTinyInt</td>
+<td>17</td>
+<td>Indicates a one-byte unsigned integer (DBTYPE_UI1).</td></tr>
+<tr>
+<td>adUserDefined</td>
+<td>132</td>
+<td>Indicates a user-defined variable (DBTYPE_UDT).</td></tr>
+<tr>
+<td>adVarChar</td>
+<td>204</td>
+<td>Indicates a binary value (Parameter object only).</td></tr>
+<tr>
+<td>adVariant</td>
+<td>200</td>
+<td>Indicates a string value (Parameter object only).</td></tr>
+<tr>
+<td>adVarNumeric</td>
+<td>12</td>
+<td>Indicates an Automation Variant (DBTYPE_VARIANT). <br>Note This data type is currently not supported by ADO. Usage may cause unpredictable results.</td></tr>
+<tr>
+<td>adVarWChar</td>
+<td>139</td>
+<td>Indicates a numeric value (Parameter object only).</td></tr>
+<tr>
+<td>adWChar</td>
+<td>202</td>
+<td>Indicates a null-terminated Unicode character string (Parameter object only).</td></tr>
+<tr>
+<td>adVarBinary</td>
+<td>130</td>
+<td>Indicates a null-terminated Unicode character string (DBTYPE_WSTR).</td></tr></tbody></table><p></p>
+<h4>Изменение</h4>
+<p>Для изменения характеристик поля используется объект Column:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Dim MyColumn as Column</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Set MyColumn = oCat.Tables("MyNewTable").Columns(0) </p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   'или </p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Set MyColumn = oCat.Tables("MyNewTable").Columns("Field1") </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      MyColumn.Name = "NewField1"</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Свойства Type и DefaultSize открыты только для чтения после того, как поле было добавлено в коллекцию.</p>
+<h4>Удаление</h4>
+<p>Удалить поле из таблицы можно выполнив метод Delete коллекции Columns нужной таблицы, передав в качестве параметра имя поля.</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("MyNewTable").Columns.Delete "NewField1"</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<h3>Работа с индексами и ключами</h3>
+<p>Рассмотрим работу с этими объектами на следующем примере:</p>
+<p>Создаем объект типа Key. Под объектами key подразумеваются первичные и внешние ключи. Primary и Foreign соответственно.</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim kyForeign As New ADOX.Key</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">' определим foreign key</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.Name = "CustOrder" ' Дадим ему имя</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.Type = adKeyForeign ' Установим тип</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>так же доступны типы: adKeyPrimary и adKeyUnique<br>Далее указывается ссылка на связанную таблицу<br>
+</p><p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.RelatedTable = "Customers"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.Columns.Append "CustomerId" ' Сюда кладем имя ключевого поля</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.Columns("CustomerId").RelatedColumn = "CustomerId" ' Здесь имя поля в связанной таблице</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.UpdateRule = adRICascade ' Оговариваем правила контроля за каскадными обновлениями</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>доступны варианты:</p>
+<p><img src="5.png" border="0">  adRINone - ни каких действий каскадно не производится. (по умолчанию) <br><img src="6.png" border="0">  adRISetDefault - значение внешнего ключевого поля выставляется в значение по умолчанию. <br><img src="7.png" border="0">  adRISetNull - значение внешнего ключевого поля выставляется в Null</p>
+<p>Так же можно установиь правила для каскадного удаления свойству:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">kyForeign.DeleteRule</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">' Добавляем foreign key в коллекцию ключей</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("Orders").Keys.Append kyForeign</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'Удалить ключ можно следующим образом:</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("Orders").Keys.Delete kyForeign.Name</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Подобным же образом осущестляется работа с управлением индексами.</p>
+<p>Можно особо отметить следующую особенность:</p>
+<p>У таблицы есть коллекция индексов. А уже у каждого индекса есть 
+коллекция колонок т.е. полей входящих в этот индекс. Для простых 
+индексов состоящих из одного поля, в коллекции колонок содержится одна 
+колонка, для составных индексов в коллекции колонок индекса содержаться 
+колонки входящие в этот индекс. Опять мощьно ввернул! Вот пример. 
+Добавим к таблице составной индекс из двух полей Field1 и Filed2:</p>
+<p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Dim idx As New ADOX.Index</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   ' Зададим параметры индекса</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   idx.Name = "Index1"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   idx.Columns.Append "Field1"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   idx.Columns.Append "Field2"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   ' Добавляем индекс в коллекцию</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   oCat.Tables("MyNewTable").Indexes.Append idx</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table>
+<p>Для удаления индекса как и везде используем метод Delete: 
+</p><p>
+</p><table class="borderall" width="100%" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tbody>
+<tr>
+<td><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">oCat.Tables("MyNewTable").Indexes.Delete idx.name</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></tbody></table><p></p>
+</div>
+
+<br clear="all">
+
+<table class="breadcrumb" style="margin-bottom:8px;border-top:1px solid #898989;border-bottom:0;margin-top:16px;padding-top:2px;" width="100%" cellspacing="0" cellpadding="0" border="0"><tbody><tr>
+<td>
+
+<a href="http://www.interface.ru/home.asp">Главная страница</a>
+	
+- <a href="http://www.interface.ru/iservices/catalog.asp"><b>Программные продукты</b></a>
+
+- <a href="http://www.interface.ru/iservices/catalog.asp?catId=160"><b>Статьи</b></a>
+
+-
+	
+<a href="http://www.interface.ru/home.asp?catId=160&amp;cId=2"><b>Разработка ПО</b></a>, 
+<a href="http://www.interface.ru/home.asp?catId=160&amp;cId=33"><b>Интеграция приложений и данных</b></a></td></tr></tbody></table>
+</body>
+</html></p></body></html>

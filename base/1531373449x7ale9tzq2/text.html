@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/912.html"><font color="Red">064. Открытие бинарного файла.</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                Этот пример покажет Вам как управлять бинарными файлами 
+из Access, метод нужен для обращения к файлам отличным от Access
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">'==============================================================</font><br>
+<font color="#007700">' Создаем бинарный файл</font><br>
+<font color="#0000aa">Private Sub </font>butWrite_Click()<br>
+<font color="#0000aa">Dim </font>intFile <font color="#0000aa">As Integer</font><br>
+<font color="#0000aa">Dim </font>myRec <font color="#0000aa">As </font>AppRecord<br>
+    <br>
+    <br>
+<font color="#007700">'    Open Me.strPath For Binary Access Write As #intFile</font><br>
+<font color="#007700">'    Open Me.strPath For Random As #intFile Len = Len(myRec)</font><br>
+    intFile = FreeFile()<br>
+    Open Me.strPath <font color="#0000aa">For Binary As </font>#intFile<br>
+    <font color="#0000aa">With </font>myRec <font color="#007700">' Создание записи</font><br>
+        .ID = 125<br>
+        .Name1 = <font color="#660000">"Мой телефон"</font><br>
+        .Phone1 = 92345678<br>
+        .Date1 = <font color="#0000aa">Date</font><br>
+    <font color="#0000aa">End With</font><br>
+    Put #intFile, 1, myRec <font color="#007700">' Сохранение в файле</font><br>
+    <font color="#007700">' Закрываем файл</font><br>
+    Close #intFile<br>
+    <font color="#007700">' Отображение кнопки</font><br>
+    Form_Load<br>
+    <font color="#007700">' Сообщение</font><br>
+    MsgBox <font color="#660000">"Бинарный файл "</font> &amp; Me.strPath &amp; <font color="#660000">" создан!"</font>, vbExclamation, <font color="#660000">"www.leadersoft.ru"</font><br>
+<font color="#0000aa">End Sub</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

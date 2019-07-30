@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Модуль array. Массивы в python</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">Модуль array определяет массивы в python. Массивы очень похожи на </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/spiski-list-funkcii-i-metody-spiskov.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">списки</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;">, но с ограничением на тип данных и размер каждого элемента.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">Размер и тип элемента в массиве определяется при его создании и может принимать следующие значения:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:11pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td style=" vertical-align:bottom;">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Код типа</span></p></td>
+<td style=" vertical-align:bottom;">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Тип в C</span></p></td>
+<td style=" vertical-align:bottom;">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Тип в python</span></p></td>
+<td style=" vertical-align:bottom;">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Минимальный размер в байтах</span></p></td></tr></thead>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'b'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">signed char</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">1</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'B'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">unsigned char</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">1</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'h'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">signed short</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'H'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">unsigned short</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'i'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">signed int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'I'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">unsigned int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'l'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">signed long</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">4</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'L'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">unsigned long</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">4</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'q'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">signed long long</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">8</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'Q'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">unsigned long long</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">int</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">8</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'f'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">float</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">float</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">4</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">'d'</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">double</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">float</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">8</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">Класс </span><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.array</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(TypeCode [, инициализатор]) - новый массив, элементы которого ограничены TypeCode, и инициализатор, который должен быть списком, объектом, который поддерживает интерфейс буфера, или итерируемый объект.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.typecodes</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;"> - строка, содержащая все возможные типы в массиве.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">Массивы изменяемы</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">. Массивы поддерживают все списковые методы (индексация, срезы, умножения, итерации), и другие методы.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="id1"></a><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">М</span><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">етоды массивов (array) в python</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.typecode</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;"> - TypeCode символ, использованный при создании массива.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.itemsize</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;"> - размер в байтах одного элемента в массиве.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.append</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(х) - добавление элемента в конец массива.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.buffer_info</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">() - кортеж (ячейка памяти, длина). Полезно для низкоуровневых операций.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.byteswap</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">() - изменить порядок следования байтов в каждом элементе массива. Полезно при чтении данных из файла, написанного на машине с другим порядком байтов.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.count</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(х) - возвращает количество вхождений х в массив.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.extend</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(iter) - добавление элементов из объекта в массив.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.frombytes</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(b) - делает массив array из массива байт. Количество байт должно быть кратно размеру одного элемента в массиве.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.fromfile</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(F, N) - читает N элементов из </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/fajly-rabota-s-fajlami.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">файла</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;"> и добавляет их в конец массива. Файл должен быть открыт на бинарное чтение. Если доступно меньше N элементов, генерируется </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/isklyucheniya-v-python-konstrukciya-try-except-dlya-obrabotki-isklyuchenij.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">исключение</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;"> EOFError , но элементы, которые были доступны, добавляются в массив.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.fromlist</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(список) - добавление элементов из списка.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.index</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(х) - номер первого вхождения x в массив.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.insert</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(n, х) - включить новый пункт со значением х в массиве перед номером n. Отрицательные значения рассматриваются относительно конца массива.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.pop</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(i) - удаляет i-ый элемент из массива и возвращает его. По умолчанию удаляется последний элемент.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.remove</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(х) - удалить первое вхождение х из массива.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.reverse</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">() - обратный порядок элементов в массиве.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.tobytes</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">() - преобразование к байтам.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.tofile</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">(f) - запись массива в открытый файл.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:600;">array.tolist</span><span style=" font-family:'DejaVu Sans'; font-size:11pt;">() - преобразование массива в список.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:11pt;">Вот и всё, что можно было рассказать про массивы. Они используются редко, когда нужно достичь высокой скорости работы. В остальных случаях массивы можно заменить другими типами данных: </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/spiski-list-funkcii-i-metody-spiskov.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">списками</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;">, </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/kortezhi-tuple.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">кортежами</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;">, </span><a href="https://pythonworld.ru/tipy-dannyx-v-python/stroki-funkcii-i-metody-strok.html"><span style=" font-family:'DejaVu Sans'; font-size:11pt; text-decoration: underline; color:#0000ff;">строками</span></a><span style=" font-family:'DejaVu Sans'; font-size:11pt;">.</span></p></body></html>

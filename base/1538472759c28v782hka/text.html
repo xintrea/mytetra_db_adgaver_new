@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html><HEAD><TITLE>www.ПЕРВЫЕ ШАГИ.ru :: Шаг 11 - Метод OpenDatabase</TITLE><LINK href="/2.css" rel="stylesheet" type="text/css"><LINK href="3.png" rel="preload">
+<SCRIPT src="1.png"></SCRIPT>
+
+<SCRIPT src="2.png"></SCRIPT>
+
+<SCRIPT src="3.png" type="text/javascript"></SCRIPT>
+<LINK href="4.png" rel="preload">
+<SCRIPT src="4.png" type="text/javascript"></SCRIPT>
+</HEAD><BODY text="black" bgcolor="white" link="blue" alink="red" vlink="blue"><H2>Шаг 11 - Метод OpenDatabase</H2>
+<SCRIPT type="text/javascript">//<![CDATA[
+var _tmr = _tmr || [];
+_tmr.push({id:"23099",type:"pageView",start:(new Date()).getTime()});
+(function (d,w){
+var ts=d.createElement("script");ts.type="text/javascript";ts.async=true;
+ts.src=(d.location.protocol=="https:"?"https:":"http:")+"//top-fwz1.mail.ru/js/code.js";
+var f=function(){var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(ts,s);};
+if (w.opera == "[object Opera]"){d.addEventListener("DOMContentLoaded",f,false);}else{f();}
+})(document,window);
+//]]></SCRIPT>
+<NOSCRIPT>&lt;div style="position:absolute;left:-10000px;"&gt;&lt; img src="5.png" style="border:0;" height="1" width="1" alt="top@Mail.ru"/&gt;&lt; /div&gt;</NOSCRIPT><DIV style="margin: 10px;"><DIV style="margin-top: 100px; margin-left: 20px; float: right;"> 
+<SCRIPT type="text/javascript">
+    google_ad_client = "ca-pub-2721325097469880";
+    google_ad_slot = "4810385248";
+    google_ad_width = 120;
+    google_ad_height = 600;
+</SCRIPT>
+ <!-- vertical right column --> 
+<SCRIPT src="6.png" type="text/javascript"></SCRIPT>
+<INS id="aswift_1_expand" style="margin: 0px; padding: 0px; border: currentColor; border-image: none; width: 120px; height: 600px; display: inline-table; visibility: visible; position: relative; background-color: transparent;"><INS id="aswift_1_anchor" style="margin: 0px; padding: 0px; border: currentColor; border-image: none; width: 120px; height: 600px; display: block; visibility: visible; position: relative; background-color: transparent;"><IFRAME name="aswift_1" width="120" height="600" id="aswift_1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" vspace="0" hspace="0" allowfullscreen="true" style="left: 0px; top: 0px; width: 120px; height: 600px; position: absolute;" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}"></IFRAME></INS></INS> </DIV><P>Описание<BR> Открывает указанную базу данных в объекте <B>Workspace</B> и возвращает ссылку на объект <B>Database</B>, представляющий эту базу данных.<BR><PRE>Set базаДанных = рабочаяОбласть.OpenDatabase (имяБД, параметры, толькоЧтение, подключение)
+</PRE><P>Параметры<BR><B>базаДанных</B><BR> Объектная переменная, представляющая открываемый объект <B>Database</B>.<BR><B>рабочаяОбласть</B><BR> Необязательный.  Объектная переменная, представляющая существующий объект <B>Workspace</B>, который будет содержать базу данных.  Если аргумент рабочаяОбласть не задан, метод <B>OpenDatabase</B> использует стандартную рабочую область.<BR><B>имяБД</B><BR> Выражение или переменная типа <B>String</B>, задающая имя существующего файла базы данных с ядром <B>Microsoft Jet</B> или имя источника данных <B>ODBC</B>. Дополнительные сведения о значениях данного аргумента см. в разделе справки для свойства <B>Name</B>.<BR><B>параметры</B><BR> Необязательный.  Выражение или переменная типа <B>Variant</B>, задающая параметры базы данных.<BR><P>Для рабочей области ядра Microsoft Jet: <UL><LI><B>True</B> - Открытие базы данных для монопольного доступа. <LI><B>False</B> - (По умолчанию). Открытие базы данных для общего доступа. </LI></UL><P>Для рабочей области ODBCDirect: <UL><LI><B>dbDriverNoPrompt</B> - Диспетчер драйвера ODBC использует строку подключения, определяемую аргументами имяБД и подключение. Если этих данных недостаточно, возникает ошибка выполнения. <LI><B>dbDriverPrompt</B> - Диспетчер драйвера ODBC открывает диалоговое окно ODBC Data Sources, в котором отображаются данные, определяемые аргументами имяБД и подключение.  Строка подключения образуется из имени источника данных, которое пользователь выбирает в диалоговых окнах, или, если имя источника данных не задано пользователем, используется стандартный источник данных. <LI><B>dbDriverComplete</B> - (По умолчанию). Если в аргументах подключение и имяБД заданы все необходимые для подключения сведения, диспетчер драйвера ODBC использует строку из аргумента подключение.  В противном случае выполняются действия, аналогичные задаваемым константой dbDriverPrompt. <LI><B>dbDriverCompleteRequired</B> - Выполняются действия, аналогичные задаваемым константой dbDriverComplete, с тем лишь исключением, что драйвер ODBC отключает вывод приглашений на ввод сведений, не являющихся необходимыми для подключения. </LI></UL><P><B>толькоЧтение</B><BR> Необязательный.  Значение типа <B>Variant</B> (подтип <B>Boolean</B>), имеющее значение <B>True</B>, если база данных открывается только для чтения, и значение <B>False</B> (по умолчанию) при открытии базы данных с доступом для чтения и записи. <BR><B>подключение</B><BR> Необязательный.  Выражение или переменная типа <B>Variant</B> (подтип <B>String</B>), содержащая сведения о подключении, в том числе пароли.<BR><P>Замечания<BR> При открытии базы данных она автоматически добавляется в семейство <B>Databases</B>.  Кроме того, в рабочей области <B>ODBCDirect</B> создается объект <B>Connection</B>, соответствующий новому объекту <B>Database</B>.  Этот объект <B>Connection</B> добавляется в семейство <B>Connections</B> того же объекта <B>Workspace</B>.<BR>При указании аргумента имяБД необходимо иметь в виду следующее:<BR>1. Если задается имя базы данных, уже открытой для монопольного доступа другим пользователем, возникает ошибка.<BR>2. Если аргумент не задает имя существующей базы данных или допустимого источника данных <B>ODBC</B>, возникает ошибка.<BR>3. Если значением аргумента является пустая строка (""), а аргумент подключение имеет значение <B>"ODBC;"</B>, открывается диалоговое окно со списком имен всех зарегистрированных источников данных <B>ODBC</B>, в котором пользователь может выбрать нужную базу данных. 4. При открытии базы данных в рабочей области <B>ODBCDirect</B> с указанием имени источника данных в аргументе подключение пользователь имеет возможность задать в аргументе имяБД произвольную строку, которая в дальнейшем может использоваться в программах для ссылки на базу данных. Значение аргумента подключение образую два компонента: тип базы данных, за которым после точки с запятой (;) следуют необязательные аргументы.  Указание типа базы данных, например, "<B>ODBC</B>;" или "<B>FoxPro 2.5</B>;" является обязательным.  Необязательные аргументы, следующие в произвольном порядке, также разделяются символом точки с запятой.  Одним из параметров может быть пароль (если пароль определен).  Например: <r></r><PRE>"FoxPro 2.5; pwd=МойПароль"
+</PRE><P>Вызов метода <B>NewPassword</B> для объекта <B>Database</B>, не являющегося базой данных <B>ODBCDirect</B>, позволяет изменить параметр пароля, который задается в виде ";pwd=...".  При указании строки источника необходимо определить аргументы параметры и толькоЧтение.  Дополнительные сведения о синтаксисе см. в разделе справки для свойства <B>Connect</B>.<BR>Для закрытия базы данных и удаления объекта <B>Database</B> из семейства <B>Databases</B> следует применить к этому объекту метод <B>Close</B>.<BR>При подключении ядра <B>Microsoft Jet</B> к источнику данных <B>ODBC</B> пользователь имеет возможность повысить быстродействие приложения, открывая объект <B>Database</B>, подключенный к источнику данных <B>ODBC</B>, вместо присоединения отдельных объектов <B>TableDef</B> к конкретным таблицам в источнике данных <B>ODBC</B>.<BR><P>Пример<BR> Следующая программа использует метод <B>OpenDatabase</B> для открытия одной базы данных <B>Microsoft Jet</B> и двух баз данных <B>ODBC</B>, подключенных к ядру <B>Microsoft Jet</B>.<BR><PRE>Sub OpenDatabaseX()
+
+	Dim wrkJet As Workspace
+	Dim dbsNorthwind As Database
+	Dim dbsPubs As Database
+	Dim dbsPubs2 As Database
+	Dim dbsLoop As Database
+	Dim prpLoop As Property
+
+	<I>' Создает объект Workspace Microsoft Jet.</I>
+	Set wrkJet = CreateWorkspace("", "admin", "", dbUseJet)
+	<I>' Открывает для монопольного доступа аргумент Database, 
+	' представляющий сохраненную базу данных Microsoft Jet.</I>
+	MsgBox "Открытие базы данных 'Борей'..."
+	Set dbsNorthwind = wrkJet.OpenDatabase("Борей.mdb", True)
+	<I>' Открывает только для чтения объект Database,
+	' используя строку подключения.</I>
+	MsgBox "Открытие базы данных 'Publishers'..."
+	Set dbsPubs = wrkJet.OpenDatabase("Publishers", dbDriverNoPrompt, True, "ODBC;DATABASE=pubs;UID=sa;PWD=;DSN=Publishers")
+	<I>' Открывает только для чтения объект Database с вводом
+	' недостающих данных в диалоговое окно диспетчера 
+	' драйвера ODBC.</I>
+	MsgBox "Открытие копии базы данных 'Publishers'..."
+	Set dbsPubs2 = wrkJet.OpenDatabase("Publishers", dbDriverCompleteRequired, True, "ODBC;DATABASE=pubs;DSN=Publishers;")
+	<I>' Отображает семейство Databases.</I>
+	For Each dbsLoop In wrkJet.Databases
+		Debug.Print "Свойства объекта Database " &amp; dbsLoop.Name &amp; ":"
+		On Error Resume Next
+		<I>' Отображает семейство Properties каждого 
+		' объекта Database.</I>
+		For Each prpLoop In dbsLoop.Properties
+			If prpLoop.Name = "Connection" Then
+			<I>' Свойство фактически возвращает объект Connection.</I>
+				Debug.Print "    Connection[.Name] = " &amp; dbsLoop.Connection.Name
+			Else
+				Debug.Print "    " &amp; prpLoop.Name &amp; " = " &amp; prpLoop
+			End If
+		Next prpLoop
+		On Error GoTo 0
+	Next dbsLoop
+	dbsNorthwind.Close
+	dbsPubs.Close
+	dbsPubs2.Close
+	wrkJet.Close
+End Sub</PRE></DIV></BODY></HTML></p></body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>Выделение записи в Ленточной форме - 3 варианта (+ пример)</h1>
+<p class="CodeDescription"><span class="CodeSubHeader"><strong>Вариант 1</strong></span><br>
+(все поля данных недоступны для курсора) <br>
+---------------------------------------------------------------------------------------<br>
+01. Создаем доступное поле и его свойства: <br>
+        a. Рамка плоская и не видима <br>
+            b. Цвет фона (Back Color) = цвет выделения (в примере ярко синий)<br>
+            c. Фон = ПРОЗРАЧНЫЙ <br>
+            d. Длинна = Длинна формы <br>
+            e. Высота = по вкусу <br>
+            f. Размешение = поверх строки данных внизу<br>
+<br>
+02. Теперь при попадании курсора на это поле оно будет возвращать свой старый цвет фона т.е. будет эффект подчеркивания </p>
+
+
+<p class="CodeDescription" style="text-align: center;"><img src="1.png" alt="Picture"></p>
+
+<p class="CodeDescription"><span class="CodeSubHeader"><strong>Вариант 2</strong></span> <br>
+(аналогичен первому но поля уже доступны) <br>
+---------------------------------------------------------------------------------------<br>
+01. Задаем цвет фона полей = Желтый (или по вкусу) <br>
+02. Делаем фон области данных формы = белый (или по вкусу) <br>
+03. Делаем фон полей = прозрачный <br>
+04. Теперь при попадании курсора в поле оно будет восстанавливать свой фоновой цвет несмотря на прозрачность. </p>
+
+
+<p class="CodeDescription" style="text-align: center;"><img src="2.png" alt="Picture"></p>
+
+
+<p class="CodeDescription"><span class="CodeSubHeader"><strong>Вариант 3</strong></span> <br>
+(самый сложный с рисунками) <br>
+---------------------------------------------------------------------------------------<br>
+01. Создаем рисунок размером в 1 пиксел с цветом = Цвет выделения (желтый) <br>
+02. Создаем в таблице базовой для формы поле со свойствами: <br>
+            a. Название = GD_Ole (это как в примере на самом деле может быть любым) <br>
+            b. Размер поля = Байт <br>
+            c. Знач по умолчанию =0 <br>
+    03. Создаем таблицу «Pictures» для хранения рисунков с полями: <br>
+            a. PicID <br>
+                        i. Формат = Числовой <br>
+                        ii. Размер = Байт <br>
+                        iii. Входит в уник. Индекс <br>
+            b. Pic <br>
+                        i. Формат = Поле объекта OLE <br>
+04. Добавляем записи в таблицу «Pictures» (см. Пример) <br>
+            a. Первая с кодом =0 – пустая <br>
+            b. Вторая с кодом =1 в поле PIC вставляем рисунок скопированный в буфер обмена <br>
+            c. Третья (факультативно) аналогичным способом <br>
+05. Создаем запрос со связью базовой таблицы данных и таблицы Pictures 
+таким образом что бы поле картинки (PIC) зависело от значения поля 
+базовой таблицы данных (поле «GD_Ole») - см. запрос «FORM_List03_Set» <br>
+06. Базируем форму на запросе <br>
+07. Добавляем в форму поле «PIC» как присоединенную рамка обьекта <br>
+            а) поле «PIC» делаем недоступным для курсора <br>
+            b) Свойство «Установка размеров» = Вписать в рамку <br>
+            c) Помещаем его под все видимые (и прозрачные уже) поля <br>
+<br>
+08. Создаем в модуле формы две процедуры для выделения (GotFocus()) и 
+снятия выделения (LostFocus()) изменяя значение поля «GD_Ole» </p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Private Sub GotFocus() </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">	    Me![GD_Ole] = 1 </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">	    DoCmd.RunCommand acCmdSaveRecord </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">‘------------------------------------------------------ </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Private Sub LostFocus() </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">	    Me![GD_Ole] = 0 </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">	    DoCmd.RunCommand acCmdSaveRecord </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">‘------------------------------------------------------ </p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription">09. На событие Получение фокуса (GotFocus) каждого доступного поля формы вешаем вызов процедуры GotFocus() <br>
+10. На событие Потеря фокуса (LostFocus) каждого доступного поля формы вешаем вызов процедуры LostFocus() <br>
+<br>
+</p>
+
+<p class="CodeDescription" style="text-align: center;"><img src="3.png" alt="Picture"></p>
+<p class="CodeDescription" style="text-align: center;"><br><br><br><a href="http://msa.polarcom.ru/st/s0000093_LentFormSel_v02.zip" target="_blank">
+<img style="border-width: 0px" src="4.png" alt="Скачать" width="119" height="28"></a></p>
+
+        <p class="CodeAutor" style="text-align: center;">MSA-2003 ( 118 kB) Пример<br></p>
+</body>
+</html></p></body></html>

@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>Объект Dictionary</h1>
+
+<p class="paragraph">
+Содержание:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/WSH/Dictionary.html#1.">1. Создание объекта</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/WSH/Dictionary.html#2.">2. Свойства</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#2.1.">2.1. Count</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#2.2.">2.2. Item</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#2.3.">2.3. Key</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#2.4.">2.4. CompareMode</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/WSH/Dictionary.html#3.">3. Методы</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.1.">3.1. Add</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.2.">3.2. Exists</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.3.">3.3. Remove</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.4.">3.4. RemoveAll</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.5.">3.5. Items</a></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <a href="http://www.script-coding.com/WSH/Dictionary.html#3.6.">3.6. Keys</a></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="1.">1. Создание объекта</a></h2>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="2.">2. Свойства</a></h2>
+
+<h2 style="text-indent:1.3em"><a name="2.1.">2.1. Count</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Count</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Возвращаемое значение: число, количество элементов коллекции.
+</p>
+
+<p class="paragraph">
+Замечание: только чтение.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 2, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Count</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="2.2.">2.2. Item</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Item(&lt;Key&gt;)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Возвращаемое значение: элемент коллекции, соответствующий заданному ключу.
+</p>
+
+<p class="paragraph">
+Замечание: чтение и запись.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 2, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Item(1) = "Один"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Item(1)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Item(2)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="2.3.">2.3. Key</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Key(&lt;Key&gt;)=&lt;NewKey&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Возвращаемое значение: устанавливает новое значение ключа в коллекции.
+</p>
+
+<p class="paragraph">
+Замечание: запись.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 2, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Key(1) = "Eins"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Item("Eins")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Item(2)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="2.4.">2.4. CompareMode</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CompareMode</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Возвращаемое значение: устанавливает способ сравнения ключей коллекции. 
+Установка свойства возможна, только если коллекция пуста. Возможные 
+значения:
+</p>
+
+<ul style="text-indent:0em; margin-top:5; margin-bottom:5">
+<li>0 - Binary.</li>
+<li>1 - Text.</li>
+<li>2 - Database.</li>
+</ul>
+
+<p class="paragraph">
+Замечание: чтение и запись.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">On Error Resume Next</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.CompareMode = 1</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "A", "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If Not Err.Number=0 Then MsgBox "CompareMode = 1" &amp; vbCrLf &amp; Err.Description</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Err.Clear</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.RemoveAll</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.CompareMode = 0</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "A", "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If Not Err.Number=0 Then MsgBox "CompareMode = 0" &amp; vbCrLf &amp; Err.Description</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.">3. Методы</a></h2>
+
+<h2 style="text-indent:1.3em"><a name="3.1.">3.1. Add</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Add(&lt;Key&gt;,&lt;Item&gt;)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: добавляет элемент в коллекцию.
+</p>
+
+<p class="paragraph">
+Параметры:
+</p>
+
+<ul style="text-indent:0em; margin-top:5; margin-bottom:5">
+<li>&lt;Key&gt; - ключ.</li>
+<li>&lt;Item&gt; - элемент.</li>
+</ul>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.2.">3.2. Exists</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Exists(&lt;Key&gt;)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: проверяет существование ключа в коллекции. Если да, возвращает True, иначе - False.
+</p>
+
+<p class="paragraph">
+Параметры:
+</p>
+
+<ul style="text-indent:0em; margin-top:5; margin-bottom:5">
+<li>&lt;Key&gt; - ключ.</li>
+</ul>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If Dict.Exists(1) Then MsgBox "Ключ существует!"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.3.">3.3. Remove</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Remove(&lt;Key&gt;)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: удаляет ключ и его элемент из коллекции. Если такой ключ не существует, возникнет ошибка.
+</p>
+
+<p class="paragraph">
+Параметры:
+</p>
+
+<ul style="text-indent:0em; margin-top:5; margin-bottom:5">
+<li>&lt;Key&gt; - ключ.</li>
+</ul>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If Dict.Exists(1) Then Dict.Remove(1)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.4.">3.4. RemoveAll</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RemoveAll</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: очищает коллекцию.
+</p>
+
+<p class="paragraph">
+Параметры: нет.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.RemoveAll</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Dict.Count</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.5.">3.5. Items</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Items</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: возвращает массив элементов коллекции. Позволяет перебрать коллекцию в цикле.
+</p>
+
+<p class="paragraph">
+Параметры: нет.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arr = Dict.Items</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">For i=0 To Dict.Count-1</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    MsgBox Arr(i)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Next</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<h2 style="text-indent:1.3em"><a name="3.6.">3.6. Keys</a></h2>
+
+<p class="paragraph">
+Синтаксис:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Keys</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p class="paragraph">
+Назначение: возвращает массив ключей коллекции. Позволяет перебрать коллекцию в цикле.
+</p>
+
+<p class="paragraph">
+Параметры: нет.
+</p>
+
+<p class="paragraph">
+Пример:
+</p>
+
+<span style="color:navy; font-weight:bold">
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set Dict = CreateObject("Scripting.Dictionary")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add "a", "One"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dict.Add 1, "Two"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Arr = Dict.Keys</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">For i=0 To Dict.Count-1</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    MsgBox Arr(i)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Next</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</span>
+
+<p style="text-align:right">
+<small>Составление - <a href="http://www.script-coding.com/resume.html">Людоговский Александр</a></small>
+</p>
+
+<p><a href="http://www.script-coding.com/index.html">Перейти на главную страничку сайта (список статей, файлы для скачивания)</a></p>
+</body>
+</html></p></body></html>

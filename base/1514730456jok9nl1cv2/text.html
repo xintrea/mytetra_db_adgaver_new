@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что такое переменная и как правильно её объявить? </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Переменная - это некий контейнер, в котором VBA хранит данные. Если подробнее, то это как коробочка, в которую Вы можете положить что-то на хранение, а затем по мере необходимости достать. Только в данном случае в переменной мы храним число, строку или иные данные, которые затем можем извлекать из неё и использовать в коде по мере необходимости.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для чего нужна переменная? Чтобы хранить значение и применить его позже в любой момент. Например, в ячейке А1 записана сумма, а нажатием на кнопку запускается обновление отчета. После обновления отчета сумма в А1 изменится. Необходимо сверить сумму до обновления с суммой после и в зависимости от этого сделать какое-либо действие. Переменная как раз позволит запомнить значение ячейки до того, как она обновится и использовать именно это значение после обновления.</p>
+<hr />
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#demands"><span style=" text-decoration: underline; color:#0000ff;">Требования к переменным</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#types"><span style=" text-decoration: underline; color:#0000ff;">Типы данных, хранимых в переменных</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#declares"><span style=" text-decoration: underline; color:#0000ff;">Как объявлять переменные</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#names"><span style=" text-decoration: underline; color:#0000ff;">Как правильно назвать переменную</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#example"><span style=" text-decoration: underline; color:#0000ff;">Пример использования переменных</span></a></li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-peremennaya-i-kak-pravilno-eyo-obyavit/#constants"><span style=" text-decoration: underline; color:#0000ff;">Константы</span></a></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="demands"></a><br /> <br />Требования к переменным:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В качестве имен переменных можно использовать символы букв и числа, но первой в имени переменной всегда должна быть буква. Не допускается использование точки, запятой, пробела и иных знаков препинания, кроме нижнего подчеркивания. Длина имени не должна превышать 254 символов. Так же нельзя использовать в качестве имен для переменных зарезервированные константы редактора VBA<span style=" font-style:italic;">(например Sub, Msgbox, ubound, Date и т.п.)</span>. Так же для переменных неважен регистр букв.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="types"></a><br /> <br />Теперь рассмотрим основные декларированные в VBA типы данных, которые можно хранить в переменных:</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="600" cellspacing="1" cellpadding="1"><thead>
+<tr>
+<td width="100">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Тип данных</span></p></td>
+<td width="70">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Занимает байт в памяти</span></p></td>
+<td width="450">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Пределы значений</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Byte</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Целые числа от <span style=" font-weight:600;">0</span> до <span style=" font-weight:600;">255</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Boolean</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">True</span> или <span style=" font-weight:600;">False</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Integer</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Целые числа от (<span style=" font-weight:600;">-32768</span>) до <span style=" font-weight:600;">32767</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Long</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Целые числа от (<span style=" font-weight:600;">-2147483648</span>) до <span style=" font-weight:600;">2147483647</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Single</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От (<span style=" font-weight:600;">–3.402823Е+38</span>) до (<span style=" font-weight:600;">–1.401298Е-45</span>) и от <span style=" font-weight:600;">1.401298Е-45</span> до <span style=" font-weight:600;">3.402823Е+38</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Double</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От <span style=" font-weight:600;">±1.79769313486232Е+308</span> до <span style=" font-weight:600;">±4.94065645841247Е-324</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Decimal</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От <span style=" font-weight:600;">±79228162514264337593543950335</span> без десятичных знаков до <span style=" font-weight:600;">±7,9228162514264337593543950335</span> с 28-ю знаками после запятой</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От (<span style=" font-weight:600;">–922337203685477.5808</span>) до <span style=" font-weight:600;">922337203685477.5807</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Date</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От <span style=" font-weight:600;">01.01.100</span> до <span style=" font-weight:600;">31.12.9999</span>(не надо путать с датами в Excel - 01.01.1900 до 31.12.2078)</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">String</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">От <span style=" font-weight:600;">0</span> до <span style=" font-weight:600;">65400</span> символов для фиксированных строк и чуть более 2 млрд. для строк переменной длины</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Любой объект</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Array</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Определяется кол-вом и размером элементов</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Variant</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">от 16-ти</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Любой из встроенных типов данных</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как видно из таблицы больше всего памяти занимает Variant. Притом этом если он хранит числовые данные. Если же такая переменная будет хранить данные строкового типа(текст), то размер занимаемой памяти будет измеряться уже начиная с 22 байт + длина строки, хранящейся в переменной. Чем больше памяти занимает переменная, тем дольше она инициализируется в памяти и тем медленнее код будет выполняться. Вот поэтому и важно явно задавать тип данных, хранимых в переменной - это называется <span style=" font-weight:600;">объявить переменную</span>.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">Тип данных Decimal больше не используется, поэтому объявить переменную данного типа в VBA не получится - подобная попытка приведет к синтаксической ошибке. Для работы с данными типа Decimal переменную необходимо изначально объявить как Variant или вообще без типа (например Dim a), т.к. тип данных Variant используется в VBA по умолчанию и принимает любой тип данных.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же переменным можно назначать и другие типы данных, которых нет в таблице выше - это типы, которые поддерживаются объектной моделью приложений, к которым &quot;подключен&quot; VBA. Например, если зайти в VBA из Excel, то библиотека типов объектной модели Excel подключена по умолчанию и для переменных становится доступно множество типов этой объектной модели. Многие из них знакомы всем: Workbook, Worksheet, Range, Cells, Chart и т.д. Т.е. это книги, листы, ячейки, диаграммы. Типов много, почти на каждый объект и коллекцию. Рассматривать здесь все бессмысленно. Могу лишь привести пару строк кода: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75107207089393"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im rRange as Range 'назначили переменной тип ячейка/диапазон Set rRange = Range(&quot;A1&quot;) 'присвоили ссылку на ячейку A1 текущего листа </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px;">2 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75107207089393-1"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im rRange as Range 'назначили переменной тип ячейка/диапазон</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a48f2bf75107207089393-2"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">et rRange = Range(&quot;A1&quot;) 'присвоили ссылку на ячейку A1 текущего листа</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Про объявление переменных подробно написано чуть ниже.<br />А более подробно про обращение к диапазонам из VBA можно почитать в этой статье: <a href="http://www.excel-vba.ru/chto-umeet-excel/kak-obratitsya-k-diapazonu-iz-vba/"><span style=" text-decoration: underline; color:#0000ff;">Как обратиться к диапазону из VBA</span></a></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="declares"></a><br /> <br />как объявлять переменные<br />На самом деле все очень просто. Это делается при помощи операторов области действия: <span style=" color:#0000ff;">Dim</span>, <span style=" color:#0000ff;">Public</span>,<span style=" color:#0000ff;">Static</span> и оператора присвоения типа <span style=" color:#0000ff;">As</span>. Самый распространенный оператор - <span style=" color:#0000ff;">Dim</span>. Его и возьмем в качестве примера. Синтаксис объявления: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75119601392600"></a><span style=" font-size:12px;">[</span><span style=" font-size:12px;">оператор области действия] Имя_переменной As [тип данных] </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75119601392600-1"></a><span style=" font-size:12px;">[</span><span style=" font-size:12px;">оператор области действия] Имя_переменной As [тип данных]</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Очень частая ошибка при объявлении переменных, совершаемая начинающими изучать VBA: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75124909980437"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1, MyVar2, MyVar3 As Integer </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75124909980437-1"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1, MyVar2, MyVar3 As Integer</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вроде бы исходя из логики всем переменным присвоен тип данных <span style=" color:#0000ff;">Integer</span>. Но это ошибочное суждение. Тип <span style=" color:#0000ff;">Integer</span> присвоен только последней переменной, к которой он &quot;привязан&quot; оператором <span style=" color:#0000ff;">As</span> - <span style=" font-weight:600;">MyVar3</span>. Все остальные переменные имеют тип данных <span style=" color:#0000ff;">Variant</span>. Т.е. если Вы не задаете переменной тип хранимых данных явно<span style=" font-style:italic;">(т.е. не указываете для неё тип данных)</span>, то VBA сам присваивает такой переменной тип данных <span style=" color:#0000ff;">Variant</span>, т.к. он может хранить любой тип данных. А вот так выглядит правильное присвоение типа данных: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf7512f997186917"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1 As Integer, MyVar2 As Integer, MyVar3 As Integer </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf7512f997186917-1"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1 As Integer, MyVar2 As Integer, MyVar3 As Integer</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это и есть объявление переменных. Т.е. сначала идет оператор области действия (<span style=" color:#0000ff;">Dim</span>, <span style=" color:#0000ff;">Public</span>,<span style=" color:#0000ff;">Static</span>), сразу за ним имя переменной, затем оператор <span style=" color:#0000ff;">As</span> и тип.<br />Но это не все. Некоторые типы переменным можно присваивать еще короче - даже без оператора <span style=" color:#0000ff;">As</span>: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75139885930648"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1%, MyVar2%, MyVar3% </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75139885930648-1"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">im MyVar1%, MyVar2%, MyVar3%</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Всего шесть типов, которые можно объявить подобным методом:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />! - Single<br /># - Double<br />$ - String<br />% - Integer<br />&amp; - Long<br />@ - Currency</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />На что стоит обратить внимание, при объявлении переменных подобным образом: между именем переменной и знаком типа не должно быть пробелов.<br />Я лично предпочитаю использовать первый метод, т.е. полное указание типа. Это читабельнее и понятнее. Но это мои предпочтения и в своих кодах Вы вправе использовать удобный Вам метод - ошибки не будет.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь разберемся с операторами области действия(Dim, Public и Static):</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim - данный оператор используется для объявления переменной, значение которой будет храниться только в той процедуре, внутри которой данная переменная объявлена. Во время запуска процедуры такая переменная инициализируется в памяти, Вы можете использовать её значение внутри только этой процедуры и по завершению процедуры переменная выгружается из памяти(обнуляется) и данные по ней теряются. Переменную, объявленную подобным образом еще называют <span style=" font-weight:600;">локальной переменной</span>. Однако с помощью данного оператора можно объявить переменную, которая будет доступна в любой процедуре модуля. Необходимо объявить переменную вне процедуры - в области объявлений(читать как первой строкой в модуле, после строк объявлений типа - Option Explicit). Тогда значение переменной будет доступно в любой процедуре лишь того модуля, в котором данная переменная была объявлена. Такие переменные называются <span style=" font-weight:600;">переменными уровня модуля</span>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Static - данный оператор используется для объявления переменной, значение которой предполагается использовать внутри процедуры, но не теряя значения данной переменной по завершении процедуры. Переменные данного типа обычно используют в качестве накопительных счетчиков. Такая переменная инициализируется в памяти при первом запуске процедуры, в которой она объявлена. По завершении процедуры данные по переменной не выгружаются из памяти, но однако они не доступны в других процедурах. Как только Вы запустите процедуру с этой переменной еще раз - данные по такой переменной будут доступны в том виде, в котором были до завершения процедуры. Выгружается из памяти такая переменная только после закрытия проекта<span style=" font-style:italic;">(книги с кодом)</span>. В простонародье такие переменные чаще называют <span style=" font-weight:600;">глобальными</span>(возможно из-за того, что раньше подобные переменные объявлялись при помощи оператора Global, который в настоящее время устарел и не используется)</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public - данный оператор используется для объявления переменной, значение которой будет храниться в любой процедуре проекта. Переменная, объявленная подобным образом, должна быть объявлена вне процедуры - в области объявлений. Такая переменная загружается в память во время загрузки проекта<span style=" font-style:italic;">(при открытии книги)</span> и хранит значение до выгрузки проекта<span style=" font-style:italic;">(закрытия книги)</span>. Использовать её можно в любом модуле и любой процедуре проекта. <span style=" font-weight:600;">Важно:</span> объявлять подобным образом переменную необходимо строго в <a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-modul-kakie-byvayut-moduli#StandartModule"><span style=" text-decoration: underline; color:#0000ff;">стандартном модуле</span></a>. Такие переменные называются <span style=" font-weight:600;">переменными уровня проекта</span>.<br />Для большего понимания того, где и как объявлять переменные уровня проекта два небольших примера.<br />Неправильное объявление<br /></li>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75149138249953"></a><span style=" font-size:12px;">O</span><span style=" font-size:12px;">ption Explicit Sub main() Public MyVariable As String MyVariable = &quot;Глобальная переменная&quot; 'показываем текущее значение переменной MsgBox MyVariable 'пробуем изменить значение переменной Call sub_main 'показываем измененное значение переменной MsgBox MyVariable End Sub 'доп.процедура изменения значения переменной Sub ChangeMyVariable() MyVariable = &quot;Изменили её значение&quot; End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:80px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Option Explicit</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub main()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Public MyVariable As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MyVariable = &quot;Глобальная переменная&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'показываем текущее значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox MyVariable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'пробуем изменить значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Call sub_main</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'показываем измененное значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox MyVariable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'доп.процедура изменения значения переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub ChangeMyVariable()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MyVariable = &quot;Изменили её значение&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />переменные не будут видны во всех модулях всех процедур и функций проекта, потому что:<br />1. Оператор Public недопустим внутри процедуры(между Sub и End Sub), поэтому VBA при попытке выполнения такой процедуры обязательно выдаст ошибку - <span style=" font-weight:600;">Invalid Attribut in Sub or Function</span>.<br />2. Даже если Public заменить на Dim - это уже будет переменная уровня процедуры и для других процедур будет недоступна.<br />3. Т.к. объявление неверное - вторая процедура(ChangeMyVariable) ничего не знает о переменной MyVariable и естественно, не сможет изменить именно её.<br />Правильное объявление<br /></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75155992857717"></a><span style=" font-size:12px;">'</span><span style=" font-size:12px;">выше глобальных переменных и констант могут быть только декларации: Option Explicit 'принудительное объявление переменных Option Base 1 'нижняя граница объявляемых массивов начинается с 1 Option Compare Text 'сравнение текста без учета регистра 'глобальная переменная - первой строкой, выше всех процедур Public MyVariable As String 'далее процедуры и функции Sub main() MyVariable = &quot;Глобальная переменная&quot; 'показываем текущее значение переменной MsgBox MyVariable, vbInformation, &quot;www.excel-vba.ru&quot; 'пробуем изменить значение переменной Call ChangeMyVariable 'показываем измененное значение переменной MsgBox MyVariable, vbInformation, &quot;www.excel-vba.ru&quot; End Sub 'доп.процедура изменения значения переменной Sub ChangeMyVariable() MyVariable = &quot;Изменили её значение&quot; End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:80px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'выше глобальных переменных и констант могут быть только декларации:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Option Explicit     'принудительное объявление переменных</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Option Base 1       'нижняя граница объявляемых массивов начинается с 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Option Compare Text 'сравнение текста без учета регистра</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'глобальная переменная - первой строкой, выше всех процедур</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Public MyVariable As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'далее процедуры и функции</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub main()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MyVariable = &quot;Глобальная переменная&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'показываем текущее значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox MyVariable, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'пробуем изменить значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Call ChangeMyVariable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'показываем измененное значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox MyVariable, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'доп.процедура изменения значения переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub ChangeMyVariable()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MyVariable = &quot;Изменили её значение&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Если при этом вместо Public записать Dim, то эта переменная будет доступна из всех функций и процедур того модуля, в котором записана, но недоступна для функций и процедур других модулей.<br />Переменные уровня проекта <span style=" font-weight:600;">невозможно объявить внутри модулей классов</span>(ClassModule, ЭтаКнига(ThisWorkbook), модули листов, модули форм(UserForm) - подробнее про типы модулей: <a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-modul-kakie-byvayut-moduli/"><span style=" text-decoration: underline; color:#0000ff;">Что такое модуль? Какие бывают модули?</span></a>) </p>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Операторы области действия так же могут применяться и к процедурам. Для процедур доступен еще один оператор области действия - Private. Объявленная подобным образом процедура доступна только из того модуля, в котором записана и такая процедура не видна в диалоговом окне вызова макросов(<span style=" font-weight:600;">Alt</span>+<span style=" font-weight:600;">F8</span>)</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="names"></a><br /> <br />Как правильно назвать переменную:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;Что самое сложное в работе программиста? - выдумывать имена переменным.&quot; :-)А ведь придумать имя переменной тоже не так-то просто. Можно, конечно, давать им имена типа: <span style=" font-weight:600;">a</span>, <span style=" font-weight:600;">d</span>, <span style=" font-weight:600;">f</span>, <span style=" font-weight:600;">x</span>, <span style=" font-weight:600;">y</span> и т.д.(я сам иногда так делаю, но либо в простых кодах, либо для специального запутывания кода). Но стоит задуматься: а как Вы с ними будете управляться в большом коде? Код строк на 10 еще потерпит такие имена, а вот более крупные проекты - не советовал бы я в них оперировать такими переменными. Вы сами запутаетесь какая переменная как объявлена и какой тип данных может хранить и что за значение ей присвоено. Поэтому лучше всего давать переменным осмысленные имена и следовать соглашению об именовании переменных. Что за соглашение? Все очень просто: перед основным названием переменной ставится префикс, указывающий на тип данных, который мы предполагаем хранить в данной переменной. Про имеющиеся типы данных я уже рассказал выше. А ниже приведена примерная таблица соответствий префиксов типам данных:</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="600" cellspacing="1" cellpadding="1"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Префикс</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Тип хранимых данных</span></p></td></tr></thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">b</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Boolean</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">bt</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Byte</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">i</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Integer</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">l</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Long</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">s</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Single</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">d</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Double</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">c</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dt</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Date</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">str</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">String</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">obj</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">v</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Variant</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Лично я немного для себя её переделал, т.к. некоторые обозначения мне кажутся скудными. Например <span style=" color:#0000ff;">Double</span> я обозначаю как <span style=" font-weight:600;">dbl</span>, а <span style=" color:#0000ff;">Single</span> как <span style=" font-weight:600;">sgl</span>. Это мне кажется более наглядным.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В чем еще плюс явного указания префикса данных. В VBA есть такие операторы как Def, при помощи которых можно указать тип данных по умолчанию для переменных, первая буква имени которых попадает в заданный в операторе диапазон. Например: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75165918516008"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">efBool B Sub test() Dim bCheck End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">DefBool B</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub test()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim bCheck</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Автоматически переменной bCheck будет присвоен тип Boolean, т.к. она начинается с буквы b - регистр здесь не имеет значения(впрочем как в VBA в целом). Оператор Def задается в области объявления. Можно задать не одну букву, а целый диапазон букв: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75170169329427"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">efBool B-C Sub test() Dim bCheck, cCheck End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">DefBool B-C</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub test()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim bCheck, cCheck</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Но я считаю, что одной буквы для одного типа вполне достаточно. Можно задать сразу несколько операторов Def. </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf7517a813843133"></a><span style=" font-size:12px;">D</span><span style=" font-size:12px;">efBool B DefStr S Sub test() Dim bCheck, sCheck End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">DefBool B</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">DefStr S</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub test()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim bCheck, sCheck</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ниже приведен полный перечень операторов типов и данные, которые задает каждый из них:<br /><span style=" font-weight:600;">DefBool</span> - Задает тип Boolean<br /><span style=" font-weight:600;">DefByte</span> - Задает тип Byte<br /><span style=" font-weight:600;">DefCur</span> - Задает тип Currency<br /><span style=" font-weight:600;">DefDate</span> - Задает тип Date<br /><span style=" font-weight:600;">DefDbl</span> - Задает тип Double<br /><span style=" font-weight:600;">DefInt</span> - Задает тип Integer<br /><span style=" font-weight:600;">DefLng</span> - Задает тип Long<br /><span style=" font-weight:600;">DefObj</span> - Задает тип Object<br /><span style=" font-weight:600;">DefSng</span> - Задает тип Single<br /><span style=" font-weight:600;">DefStr</span> - Задает тип String<br /><span style=" font-weight:600;">DefVar</span> - Задает тип Variant<br />По умолчанию в VBA применена инструкция DefVar для всех переменных. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ну и немаловажный момент это непосредственно осмысленное имя переменной. Имя переменной должно примерно отражать то, что в ней будет храниться. Например, Вы создаете отчет и Вам надо объявить две переменные: одна имя листа, другая имя книги. Можно было сделать так: <span style=" font-weight:600;">str1</span>, <span style=" font-weight:600;">str2</span>. Коротко, здорово. Но если подумать - и как можно понять, какая из этих переменных что хранит? Никак. Надо просматривать код и вспоминать, какой переменной какое значение было присвоено. Не совсем удобно, правда? А если бы Вы задали имена так: <span style=" font-weight:600;">strBookName</span>, <span style=" font-weight:600;">strSheetName</span>, то вроде как более понятно, что мы в них будем хранить.Это удобно не только вам самим при работе с кодом, но и другим людям, которые, возможно в будущем будут пользоваться Вашим кодом. Им будет удобнее читать код, если он будет оформлен грамотно, а переменные названы осмысленно. И не стоит экономить на длине имени - имя должно быть понятным. Без фанатизма, конечно :-). Хоть VBA и позволяет нам создавать переменные длиной до 254 символов, но читать такую переменную так же неудобно, как и с одним символом. Но здесь уже все зависит от Ваших предпочтений и фантазии.<br /><span style=" font-weight:600;">Небольшое дополнение:</span> лучше привыкать давать названия переменным на латинице(т.е. английский алфавит), т.к. для VBA английский язык &quot;родной&quot; и лучше использовать его.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="example"></a><br /> <br />Небольшой пример использования переменных в кодах: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75186412803638"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub main() 'объявляем переменные с назначением конкретных типов 'As String - текст 'As Long - целое число Dim sAddress As String, sNewAddress As String, sShName As String Dim lRow As Long Dim rRange as Range 'назначили переменной тип ячейка/диапазон 'присвоили переменной rRange ссылку на текущую выделенную ячейку Set rRange = Selection 'меняем выделение - выделяем ячейку D9 Range(&quot;D9&quot;).Select 'назначаем переменной адрес выделенных ячеек sAddress = Selection.Address 'назначаем переменной lRow значение первой строки выделенной области lRow = Selection.Row 'показываем сообщение MsgBox &quot;Адрес выделенной области: &quot; &amp; sAddress, vbInformation, &quot;www.excel-vba.ru&quot; MsgBox &quot;Номер первой строки: &quot; &amp; lRow, vbInformation, &quot;www.excel-vba.ru&quot; 'назначаем другой переменной значение адреса ячейки A1 sNewAddress = &quot;A1&quot; 'выделяем ячейку, заданную переменной sNewAddres Range(sNewAddress).Select MsgBox &quot;Адрес выделенной области: &quot; &amp; sNewAddress, vbInformation, &quot;www.excel-vba.ru&quot; 'выделяем изначально выделенную ячейку, используя переменную rRange rRange.Select MsgBox &quot;Адрес выделенной области: &quot; &amp; rRange.Address, vbInformation, &quot;www.excel-vba.ru&quot; 'задаем значение переменной sShName = &quot;excel-vba&quot; 'переименовываем активный лист на имя, заданное переменной ActiveSheet.Name = sShName End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub main()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'объявляем переменные с назначением конкретных типов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'As String - текст</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'As Long   - целое число</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Dim sAddress As String, sNewAddress As String, sShName As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Dim lRow As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Dim rRange as Range 'назначили переменной тип ячейка/диапазон</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'присвоили переменной rRange ссылку на текущую выделенную ячейку</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Set rRange = Selection</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'меняем выделение - выделяем ячейку D9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Range(&quot;D9&quot;).Select</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'назначаем переменной адрес выделенных ячеек</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">sAddress = Selection.Address</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'назначаем переменной lRow значение первой строки выделенной области</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">lRow = Selection.Row</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'показываем сообщение</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox &quot;Адрес выделенной области: &quot; &amp; sAddress, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox &quot;Номер первой строки: &quot; &amp; lRow, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'назначаем другой переменной значение адреса ячейки A1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">sNewAddress = &quot;A1&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'выделяем ячейку, заданную переменной sNewAddres</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Range(sNewAddress).Select</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox &quot;Адрес выделенной области: &quot; &amp; sNewAddress, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'выделяем изначально выделенную ячейку, используя переменную rRange</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">rRange.Select</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">MsgBox &quot;Адрес выделенной области: &quot; &amp; rRange.Address, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'задаем значение переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">sShName = &quot;excel-vba&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">'переименовываем активный лист на имя, заданное переменной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">ActiveSheet.Name = sShName</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Просмотреть пошагово выполнение данного кода поможет статья: <a href="http://www.excel-vba.ru/chto-umeet-excel/otlov-oshibok-i-otladka-koda-vba/"><span style=" text-decoration: underline; color:#0000ff;">Отлов ошибок и отладка кода VBA</span></a><br /><span style=" font-weight:600;">Важно!</span> Если переменной назначается ссылка на ячейку(Set var = Range(&quot;A1&quot;)), то обращение к переменной идентично обращению в самой ячейке А1 когда бы это ни происходило. Такое назначение не запоминает свойства ячейки до или после - в переменной хранится ссылка на конкретную ячейку и доступ есть исключительно к свойствам ячейки на текущий момент. Чтобы запомнить значение, цвет ячейки или даже адрес (а так же и другие свойства) до изменения ячейки и применить их даже после изменения/перемещения самой ячейки - необходимо запоминать в переменные именно свойства ячейки: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf75193239381036"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub main() Dim val, l_InteriorColor As Long, l_FontColor As Long Dim rRange As Range 'назначили переменной тип ячейка/диапазон 'присвоили переменной rRange ссылку на активную ячейку Set rRange = ActiveCell 'запоминаем свойства ячейки val = rRange.Value 'значение l_InteriorColor = rRange.Interior.Color 'цвет заливки l_FontColor = rRange.Font.Color 'цвет шрифта 'копируем другую ячейку и вставляем на место активной ActiveSheet.Range(&quot;D1&quot;).Copy rRange 'проверяем, что rRange теперь имеет совершенно другие свойста - как у D1 MsgBox &quot;Значение rRange: &quot; &amp; rRange.Value &amp; vbNewLine &amp; _ &quot;Цвет заливки rRange: &quot; &amp; rRange.Interior.Color &amp; vbNewLine &amp; _ &quot;Цвет шрифта rRange: &quot; &amp; rRange.Font.Color &amp; vbNewLine, vbInformation, &quot;www.excel-vba.ru&quot; 'назначаем свойства из сохраненных в переменных rRange.Value = val 'значение rRange.Interior.Color = l_InteriorColor 'цвет заливки rRange.Font.Color = l_FontColor 'цвет шрифта 'проверяем, что rRange возвращены параметры до копирования MsgBox &quot;Значение rRange: &quot; &amp; rRange.Value &amp; vbNewLine &amp; _ &quot;Цвет заливки rRange: &quot; &amp; rRange.Interior.Color &amp; vbNewLine &amp; _ &quot;Цвет шрифта rRange: &quot; &amp; rRange.Font.Color &amp; vbNewLine, vbInformation, &quot;www.excel-vba.ru&quot; End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub main()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim val, l_InteriorColor As Long, l_FontColor As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim rRange As Range 'назначили переменной тип ячейка/диапазон</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'присвоили переменной rRange ссылку на активную ячейку</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Set rRange = ActiveCell</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'запоминаем свойства ячейки</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    val = rRange.Value                      'значение</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    l_InteriorColor = rRange.Interior.Color 'цвет заливки</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    l_FontColor = rRange.Font.Color         'цвет шрифта</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'копируем другую ячейку и вставляем на место активной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    ActiveSheet.Range(&quot;D1&quot;).Copy rRange</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'проверяем, что rRange теперь имеет совершенно другие свойста - как у D1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox &quot;Значение rRange: &quot; &amp; rRange.Value &amp; vbNewLine &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">           &quot;Цвет заливки rRange: &quot; &amp; rRange.Interior.Color &amp; vbNewLine &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">           &quot;Цвет шрифта rRange: &quot; &amp; rRange.Font.Color &amp; vbNewLine, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'назначаем свойства из сохраненных в переменных</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    rRange.Value = val                      'значение</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    rRange.Interior.Color = l_InteriorColor 'цвет заливки</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    rRange.Font.Color = l_FontColor         'цвет шрифта</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    'проверяем, что rRange возвращены параметры до копирования</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox &quot;Значение rRange: &quot; &amp; rRange.Value &amp; vbNewLine &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">           &quot;Цвет заливки rRange: &quot; &amp; rRange.Interior.Color &amp; vbNewLine &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">           &quot;Цвет шрифта rRange: &quot; &amp; rRange.Font.Color &amp; vbNewLine, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это так же распространяется на все другие объекты. Т.е. те переменные, значения которым назначаются через оператор Set.</p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="constants"></a><br /> <br />Константы<br />Так же есть и иной вид &quot;переменных&quot; - константы. Это такая же переменная, только(как следует из её названия) - она не может быть изменена во время выполнения кода, т.к. является величиной постоянной и значение её назначается только один раз - перед выполнением кода. </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf7519f459874127"></a><span style=" font-size:12px;">C</span><span style=" font-size:12px;">onst sMyConst As String = &quot;Имя моей программы&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf7519f459874127-1"></a><span style=" font-size:12px;">C</span><span style=" font-size:12px;">onst sMyConst As String = &quot;Имя моей программы&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Константам могут быть назначены данные тех же типов, что и для переменных. И область видимости/жизни переменных задается так же операторами Public и Static. Здесь обращаю внимание на то, что Dim уже не используется, т.к. Dim это идентификатор только для переменных. Пару важных отличий объявления констант от объявления переменных:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">при объявлении константы необходимо обязательно указывать явно, что это константа ключевым словом Const</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">сразу в момент объявления необходимо назначить константе значение: = &quot;Имя моей программы&quot;</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Во всем остальном объявление и применение констант идентично объявлению переменных. Коротко приведу пару примеров.<br />Если константа объявлена внутри процедуры: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf751aa748899084"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub TestConst() Const sMyConst As String = &quot;Имя моей программы&quot; MsgBox sMyConst 'показываем сообщение с именем программы End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px; color:#04056a;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px; color:#04056a;">Sub TestConst()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px; color:#04056a;">    Const sMyConst As String = &quot;Имя моей программы&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px; color:#04056a;">    MsgBox sMyConst 'показываем сообщение с именем программы</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px; color:#04056a;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px; color:#04056a;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">то она не может быть использована в другой процедуре: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf751b4928554347"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub TestConst() Const sMyConst As String = &quot;Имя моей программы&quot; MsgBox sMyConst 'показываем сообщение с именем программы End Sub Sub TestConst2() MsgBox sMyConst 'вызовет ошибку Variable not defined End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub TestConst()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Const sMyConst As String = &quot;Имя моей программы&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox sMyConst 'показываем сообщение с именем программы</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub TestConst2()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox sMyConst 'вызовет ошибку Variable not defined</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Чтобы использовать одну константу во всех процедурах проекта(книги), необходимо объявить её как Public: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a48f2bf751be090589144"></a><span style=" font-size:12px;">P</span><span style=" font-size:12px;">ublic Const sMyConst As String = &quot;Имя моей программы&quot; Sub TestConst() MsgBox sMyConst 'показываем сообщение с именем программы End Sub Sub TestConst2() MsgBox sMyConst 'уже не вызовет ошибку Variable not defined End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Public Const sMyConst As String = &quot;Имя моей программы&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub TestConst()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox sMyConst 'показываем сообщение с именем программы</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Sub TestConst2()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    MsgBox sMyConst 'уже не вызовет ошибку Variable not defined</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Подробнее можно прочитать выше - как я уже писал для констант применяются те же правила, что и для переменных.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Также см.:</span><br /><a href="http://www.excel-vba.ru/chto-umeet-excel/variable-not-defined-ili-chto-takoe-option-explicit-i-zachem-ono-nuzhno/"><span style=" text-decoration: underline; color:#0000ff;">Variable not defined или что такое Option Explicit и зачем оно нужно?</span></a><br /><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-modul-kakie-byvayut-moduli/"><span style=" text-decoration: underline; color:#0000ff;">Что такое модуль? Какие бывают модули?</span></a><br /><a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-makros-i-gde-ego-iskat/"><span style=" text-decoration: underline; color:#0000ff;">Что такое макрос и где его искать?</span></a><br /><a href="http://www.excel-vba.ru/chto-umeet-excel/otlov-oshibok-i-otladka-koda-vba/"><span style=" text-decoration: underline; color:#0000ff;">Отлов ошибок и отладка кода VBA</span></a></p></body></html>

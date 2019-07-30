@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="post hentry uncustomized-post-template" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><h3 class="post-title entry-title" itemprop="name">
+Урок 4. Ещё несколько полезных атрибутов.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-2609894541187437674" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Ранее мы уже использовали такие атрибуты для элементов интерфейса, как <b>id</b>, <b>idMso</b> и <b>label</b>.
+ Всё это были статические атрибуты, то есть атрибуты, значения которым 
+мы присваиваем сразу, а не получаем их в процессе работы офисного 
+приложения, как это было бы в случае использования динамических 
+атрибутов, о которых мы поговорим позже. Давайте рассмотрим другие 
+полезные статические атрибуты, которые мы можем использовать для 
+должного оформления интерфейса.<br>
+<br>
+Давайте переместим нашу вкладку с конца ленты в её начало, поставив её 
+перед самой первой вкладкой «Главная». Для этого вставим в элемент новый
+ атрибут <b>insertBeforeMso</b> (вставить перед…) и присвоим ему идентификатор вкладки «Главная».<br>
+<br>
+Как узнать идентификатор вкладки «Главная»? Обычно для определения 
+идентификаторов различных элементов в офисном приложении открывают 
+настройки ленты, наводят курсор на нужный элемент в списке, и читают 
+всплывающую подсказку. Но вот на именах вкладках и групп подсказок 
+почему-то нет. Как же быть? Элементарно! Открываем встроенную справку 
+программы <a href="http://novikovmaxim.narod.ru/products/ribbon/ribbon.htm" target="_blank">Ribbon XML Editor</a>,
+ и на её главной странице в списке приложений к справке находим пункт 
+«Word — идентификаторы всех вкладок и групп». Открываем и вуаля! Замечу,
+ что более полного списка идентификаторов вкладок и групп я не встречал 
+больше нигде.<br>
+<br>
+Установим курсор в любое свободное место внутри тега tab в области атрибутов, чтобы слева и справа были пробелы. Нажмём <b>Ctrl+Пробел</b> и выберем в списке атрибут <b>insertBeforeMso</b>.
+ Выбранный атрибут вставится в текст. Затем наберём знак «=». Вы 
+увидите, как тут же после знака автоматически добавятся кавычки, и 
+курсор установится внутри них. Снова нажмём <b>Ctrl+Пробел</b> и выберем
+ из предлагаемых идентификаторов вкладок найденный в справке 
+идентификатор TabHome, который соответствует вкладке «Главная». <br>
+<br>
+Можно и не нажимать <b>Ctrl+Пробел</b>, а просто начать набирать первые 
+буквы идентификатора в любом регистре. Окно автодополнения со списком 
+идентификаторов вкладок покажется после набора первых двух букв. 
+Продолжение набора будет уточнять список, пока не останется только один 
+вариант. На любом этапе вы можете сделать окончательный выбор из списка,
+ или не использовать его вовсе. <br>
+<br>
+<div style="margin-left: 35.4pt;">
+Замечу, что количество набранных букв до показа списка автодополнения 
+можно регулировать в настройках программы. На первой вкладке настроек в 
+разделе «Автодополнение» находится три маленькие странички настроек. 
+Первая — это общие настройки для всех списков, а следующие две относятся
+ к длинным и коротким спискам. Короткие списки — это списки тегов, 
+атрибутов или их значений, если эти значения — не идентификаторы. Такие 
+списки удобно видеть целиком, без сокращения по мере набора. Длинные 
+списки — это списки идентификаторов, которые обычно очень большие, и их 
+полезно сокращать, принимая во внимание уже набранную часть 
+идентификатора.</div>
+<br>
+Проверим, что у нас получилось. Запустив документ на выполнение, мы 
+увидим, что наша вкладка переместилась в самое начало, и расположилась 
+перед вкладкой «Главная». Аналогично работает атрибут <b>insertAfterMso</b>, позволяя расположить наш элемент после существующего.<br>
+<br>
+Мы можем автоматически скрывать все стандартные вкладки ленты при 
+загрузке документа, и оставлять только созданные нами. Для этого 
+достаточно в элементе ribbon изменить значение атрибута <b>startFromScratch</b> (начать с чистого листа) с false на true. Не знаю, имеет ли это большой смысл, но просто запомним, что такая возможность есть.<br>
+<br>
+Кроме того, можно скрывать каждую вкладку и по-отдельности, используя атрибут visible:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;tab idMso="TabHome" visible="false"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;tab idMso="TabInsert" visible="false"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;tab idMso="TabPageLayoutWord" visible="false"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;tab idMso="TabReferences" visible="false"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;tab idMso="TabMailings" visible="false"/&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Здесь мы с помощью атрибута <b>idMso</b> ссылаемся на стандартные вкладки и присваиваем атрибуту visible (видимость) значение false.<br>
+<br>
+На этом сегодняшний урок мы закончим. В следующий раз мы попробуем поработать с изображениями.</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a href="https://www.blogger.com/profile/15132597310126998409" rel="author" title="author profile">
+<span itemprop="name">dolbodub</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+на
+
+<a class="timestamp-link" href="http://fluentui.blogspot.ru/2015/02/4.html?m=1" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2015-02-25T15:46:00+03:00">15:46</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<div class="mobile-link-button goog-inline-block" id="mobile-share-button">
+<a href="javascript:void(0);">Поделиться</a>
+</div>
+<div class="goog-inline-block dummy-container"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1526205997244" name="I0_1526205997244" src="1.png" data-gapiattached="true" title="G+" frameborder="0" width="100%"></iframe></div></div>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>4 комментария:</h4>
+<div class="comments-content">
+
+
+<div id="comment-holder">
+
+<div id="bc_0_5C" kind="c"><div id="bc_0_5CT"><div id="bc_0_4T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_4TB"><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c7415659345871031777" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/4.html?showComment=1444504814711&amp;m=1#c7415659345871031777">10 октября, 2015 22:20</a></span></div><p id="bc_0_2MC" class="comment-content">Уточните, где нужно писать код, скрывающий каждую вкладку и по-отдельности? Проверка синтаксиса ругается…</p><span id="bc_0_2MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_2BR" class="comment-replies"><span id="bc_0_2b+seedCG_qD" kind="d"><div id="bc_0_0T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_0TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_0TA" class="thread-arrow"></span><span id="bc_0_0TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_0TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_0TC" class="thread-chrome thread-expanded"><div><li id="bc_0_0B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c3965807147007340101" class="comment-block"><div id="bc_0_0M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/4.html?showComment=1444507113222&amp;m=1#c3965807147007340101">10 октября, 2015 22:58</a></span></div><p id="bc_0_0MC" class="comment-content">Всегда
+ читайте, на что именно ругается. У меня в примере были ошибки, и чтение
+ результата проверки синтаксиса однозначно выявило их. Теги tab не были 
+закрыты, и вместо idMso было написано idmso. Ума не приложу, откуда эти 
+ошибки у меня появились... Этот код пишется, конечно, внутри теге tabs.</p><span id="bc_0_0MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_0BR" class="comment-replies"></div><div id="bc_0_0B_box" class="comment-replybox-single"></div></li><li id="bc_0_1B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c8234875007336574680" class="comment-block"><div id="bc_0_1M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/4.html?showComment=1444558281815&amp;m=1#c8234875007336574680">11 октября, 2015 13:11</a></span></div><p id="bc_0_1MC" class="comment-content">Спасибо.</p><span id="bc_0_1MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_1BR" class="comment-replies"></div><div id="bc_0_1B_box" class="comment-replybox-single"></div></li></div><div id="bc_0_0I" class="continue" kind="ci"><a href="javascript:;" target="_self">Ответить</a></div></ol><div id="bc_0_0T_box" class="comment-replybox-thread"></div></div></span></div><div id="bc_0_2B_box" class="comment-replybox-single"></div></li><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="5.png"></div><div id="c7909426612568331223" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/06164174392650393751">Ярослав Игоревич</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/4.html?showComment=1508136125970&amp;m=1#c7909426612568331223">16 октября, 2017 09:42</a></span></div><p id="bc_0_3MC" class="comment-content">Скрыть
+ вкладки удалось успешно, только заменил идентификаторы ворда на 
+екселевские. А вот расположение вкладки не меняется ни под каким 
+предлогом, ошибок при этом нет.</p></div></li></ol></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

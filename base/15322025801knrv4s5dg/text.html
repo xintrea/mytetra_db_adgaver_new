@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1 id="applicationnewmailex-event-outlook"><span data-ttu-id="bc7ae-103" data-original-title="" title="" class="">Событие Application.NewMailEx (Outlook)</span></h1><span><div class="gitContributors"><span class="author-bio"><a target="_blank" href="https://github.com/o365devx" aria-label="office 365 dev account"><span class="author-img" style="background-image:url('https://avatars.githubusercontent.com/u/29209169?v=3&amp;s=50')"></span></a></span><span class="username"><a target="_blank" href="https://github.com/o365devx">office 365 dev account</a></span><span class="contributorSplitter">|</span><span class="contributorsLabel">Последнее обновление: 06.04.2018</span><div id="contributorList"><span class="contributorSplitter">|</span><div class="contributors"><span class="contributorsLabel">2 Участники</span><ul><li><a target="_blank" href="https://github.com/OfficeGSX" aria-label="Office GSX"><span class="contributor-img" style="background-image:url('https://avatars.githubusercontent.com/u/16706698?v=3&amp;s=25')"></span></a></li><li><a target="_blank" href="https://github.com/olprod" aria-label="olprod"><span class="contributor-img" style="background-image:url('https://avatars.githubusercontent.com/u/16075726?v=3&amp;s=25')"></span></a></li></ul></div></div></div></span><div id="movileInPageNav"></div><p><span data-ttu-id="bc7ae-104" data-original-title="" title="">Происходит, когда поступает новый элемент в папке "Входящие".</span></p><h2 id="syntax"><span data-ttu-id="bc7ae-105" data-original-title="" title="">Синтаксис</span></h2><p><span data-ttu-id="bc7ae-p101" data-original-title="" title=""><em>выражение</em> . <strong>NewMailEx</strong> ( <strong><em>EntryIDCollection</em></strong> )</span></p><p><span data-ttu-id="bc7ae-108" data-original-title="" title=""><em>выражение</em> Переменная, которая содержит объект <strong>приложения</strong> .</span></p><h3 id="parameters"><span data-ttu-id="bc7ae-109" data-original-title="" title="">Параметры</span></h3><div class="responsiveTableWrapper"><table responsive="true"><thead><tr responsive="true"><th style="text-align:left"><span data-ttu-id="bc7ae-110" data-original-title="" title=""><strong>Имя</strong></span></th><th style="text-align:left"><span data-ttu-id="bc7ae-111" data-original-title="" title=""><strong>Обязательный или необязательный</strong></span></th><th style="text-align:left"><span data-ttu-id="bc7ae-112" data-original-title="" title=""><strong>Тип данных</strong></span></th><th style="text-align:left"><span data-ttu-id="bc7ae-113" data-original-title="" title=""><strong>Описание</strong></span></th></tr></thead><tbody><tr><td style="text-align:left" data-th="ИмяName"><span data-ttu-id="bc7ae-114" data-original-title="" title="" class=""><em>EntryIDCollection</em></span></td><td style="text-align:left" data-th="Обязательный или необязательныйRequired/Optional"><span data-ttu-id="bc7ae-115" data-original-title="" title="">Обязательное</span></td><td style="text-align:left" data-th="Тип данныхData Type"><span data-ttu-id="bc7ae-116" data-original-title="" title=""><strong>String</strong></span></td><td style="text-align:left" data-th="ОписаниеDescription"><span data-ttu-id="bc7ae-117" data-original-title="" title="">Строка, представляющая идентификатор записи элемента, полученных в папке <strong>"Входящие"</strong>.</span></td></tr></tbody></table></div><h2 id="remarks"><span data-ttu-id="bc7ae-118" data-original-title="" title="" class="">Заметки</span></h2><p><span data-ttu-id="bc7ae-p102" data-original-title="" title="" class="">Это
+ событие вызывается, когда для каждого элемента, полученных, который 
+обрабатывается в Microsoft Outlook. Элемент может иметь одно из 
+нескольких различных типов элементов, например, <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/mailitem-object-outlook">MailItem</a></strong> , <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/meetingitem-object-outlook">MeetingItem</a></strong> или <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/sharingitem-object-outlook">SharingItem</a></strong> . Строка <em>EntryIDsCollection</em>
+ содержит идентификатор записи, соответствующий этому элементу. Обратите
+ внимание, что это поведение изменилось из более ранних версий событий, 
+когда <em>EntryIDCollection</em> содержится список разделенных запятой 
+идентификаторы всех элементов, полученных в папке "Входящие" после 
+последнего выполнения событие.</span></p><p><span data-ttu-id="bc7ae-123" data-original-title="" title="" class="">Это событие не доступны в Microsoft Visual Basic Scripting Edition (VBScript).</span></p><p><span data-ttu-id="bc7ae-124" data-original-title="" title="" class="">Это
+ событие вызывается для учетных записей электронной почты, которые 
+обеспечивают уведомления для сообщений, полученных, такие как учетные 
+записи POP3 и Microsoft Exchange Server.</span></p><p><span data-ttu-id="bc7ae-p103" data-original-title="" title="" class="">Событие <strong>NewMailEx</strong>
+ вызывается при получении нового сообщения в папке "Входящие", прежде 
+чем правила клиента обрабатывается. Идентификатор записи, возвращаемых в
+ массиве <em>EntryIDCollection</em> можно использовать для вызова метода <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/namespace-getitemfromid-method-outlook">NameSpace.GetItemFromID</a></strong>
+ и обработки элемента. Используйте этот метод с осторожностью для 
+сведения к минимуму влияние на производительность Outlook. Тем не менее,
+ в зависимости от программы установки на стороне клиента компьютера, 
+после прибытия нового сообщения в папке "Входящие" обрабатывает как 
+фильтрации нежелательной почты и правил клиента, переместите нового 
+сообщения из папки «Входящие» в другую папку может возникнуть 
+асинхронно. Не следует предполагать, что после эти события возникают, 
+это всегда будет один элемент увеличение числа элементов в папке 
+"Входящие".</span></p><p><span data-ttu-id="bc7ae-p104" data-original-title="" title="" class="">Для
+ пользователей с учетной записью Exchange Server (не - режима 
+кэширования данных Exchange или режима кэширования данных Exchange) 
+событие будет выполняться только для сообщений, приходящих на сервере 
+после запуска Outlook. Событие не будет срабатывать, для сообщений, 
+которые синхронизируются в режиме кэширования Exchange сразу после 
+запуска Outlook, а также для сообщений, которые уже на сервере при 
+запуске Outlook в не - режима кэширования данных Exchange.</span></p><p><span data-ttu-id="bc7ae-132" data-original-title="" title="" class="">Для
+ пользователей с помощью режима кэширования данных Exchange, события 
+будут срабатывать в все параметры, предоставленные, что запущен Outlook 
+при получении сообщения: <strong>Загружать сообщения целиком</strong>, <strong>Загружать заголовки</strong>и <strong>Загружать заголовки, а затем сообщения</strong>.</span></p>
+</body>
+</html></p></body></html>

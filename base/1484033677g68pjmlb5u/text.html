@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63960#63960"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">TransferText и спецификация</span></a></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Можно ли настроить спецификацию импорта метода TransferText программно?</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Допустим у меня есть 4-5 видов Excel-фаилов, которые я хочу загружать в базу + дать возможность пользователю менять эту спецификацию (Excel может измениться).</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">06.11.2011 23:17</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="63961"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63961#63961"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">из справки по access 97 :</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /><br />спецификации импорта/экспорта[/b]<br /><br />Сведения, необходимые Microsoft Access для импорта или экспорта текстовых файлов с фиксированной длиной записей или текстовых файлов с разделителями. Спецификации импорта/экспорта создаются с помощью мастера по импорту или экспорту текстовых файлов и сохраняются в той базе данных, в которой выполняется операция импорта или экспорта.<br /><br />Изменение файла Schema.ini<br /><br />Для чтения, импорта или экспорта данных в формате текстовых файлов необходимо включить в файл .ini разделы текстовых драйверов ISAM и в дополнение к этому создать файл Schema.ini. Файл Schema.ini должен описывать следующие характеристики текстового источника данных: формат текстового файла, способ его чтения при импорте и стандартный формат экспорта файлов. Ниже приводится пример структуры для файла с фиксированной длиной записей, Filename.txt:<br /><br />[Filename.txt]<br />ColNameHeader=False<br />Format=FixedLength<br />MaxScanRows=25<br />CharacterSet=OEM<br />Col1=columnname Char Width 24<br />Col2=columnname2 Date Width 9<br />Col3=columnname7 Float Width 10<br />Col4=columnname8 Integer Width 10<br />Col5=columnname9 LongChar Width 10<br /><br />Аналогично, формат текстового файла с разделителями задается следующим образом:<br /><br />[Delimit.txt]<br />ColNameHeader=True<br />Format=Delimited(!)<br />MaxScanRows=0<br />CharacterSet=OEM<br />Col1=username char width 50<br />Col2=dateofbirth Date width 9<br /><br />Для экспорта данных в текстовый файл с разделителями также следует указать формат:<br /><br />[Export: Специальный экспорт]<br />ColNameHeader=True<br />Format=TabDelimited<br />MaxScanRows=25<br />CharacterSet=OEM<br />DateTimeFormat=mm.dd.yy.hh.mm.ss<br />CurrencySymbol=Dm<br />CurrencyPosFormat=0<br />CurrencyDigits=2<br />CurrencyNegFormat=0<br />CurrencyThousandSymbol=,<br />CurrencyDecimalSymbol=.<br />DecimalSymbol=,<br />NumberDigits=2<br />NumberLeadingZeros=0<br /><br />Пример &quot;Специальный экспорт&quot; представляет конкретную спецификацию экспорта, которая может быть изменена при подключении. Последний пример соответствует передаче имени источника данных (DSN) во время подключения. Все три раздела должны быть включены в один файл .ini.<br /><br />То есть, из этого следует , что для изменения спецификации импорта , экспорта программно следует менять содержимое файла schema.ini, либо заранее создать необходимые спецификации в базе данных и ссылаться на них в зависимости от необходимости.<br /><br />Но в Вашем случае , поскольку Вы говорите о EXCEL файлах , наверное, лучше использовать метод <br /><br />DoCmd.TransferSpreadsheet [преобразование] [, типЭТ], имяТаблицы, имяФайла [, именаПолей] [, диапазон]<br /><br />типЭТ Одна из следующих встроенных констант или ее числовое значение:<br />0 acSpreadsheetTypeExcel3 (значение по умолчанию) 6 acSpreadsheetTypeExcel4 5 acSpreadsheetTypeExcel5 5 acSpreadsheetTypeExcel7 8 acSpreadsheetTypeExcel97 2 acSpreadsheetTypeLotusWK1 3 acSpreadsheetTypeLotusWK3 7 acSpreadsheetTypeLotusWK4 4 acSpreadsheetTypeLotusWJ2 — только японская версия<br />Примечание. Допускается связывание файлов электронных таблиц Lotus 1-2-3, но такие данные в Microsoft Access будут доступны только для чтения. Возможен импорт и связывание (только для чтения) файлов Lotus .WK4, но экспорт данных Microsoft Access в этих форматах невозможен. Microsoft Access больше не поддерживает импорт, экспорт или связывание данных для электронных таблиц Lotus .WKS и Microsoft Excel версии 2.0 с помощью этого метода.<br />Если оставить данный аргумент пустым, подразумевается значение по умолчанию (acSpreadsheetTypeExcel3).<br /><br />из Access 2003:<br /><br />AcSpreadSheetType can be one of these AcSpreadSheetType constants.<br />acSpreadsheetTypeExcel3<br />acSpreadsheetTypeExcel4<br />acSpreadsheetTypeExcel5<br />acSpreadsheetTypeExcel7<br />acSpreadsheetTypeExcel8 default<br />acSpreadsheetTypeExcel9 default<br />acSpreadsheetTypeLotusWJ2 - Japanese version only<br />acSpreadsheetTypeLotusWK1<br />acSpreadsheetTypeLotusWK3<br />acSpreadsheetTypeLotusWK4 <br /><br />т.е. можно например использовать всё время типЭТ - acSpreadsheetTypeExcel8<br /><br />что никак не будет в зависимости от того , в какой версии EXEL был создан файл.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">07.11.2011 10:03</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="63963"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63963#63963"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Анатолий (Киев)</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="4" rowspan="2"></td>
+<td width="2" rowspan="2" bgcolor="#0000ff"></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">автор писал:</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">настроить спецификацию импорта метода TransferText...<br />у меня есть 4-5 видов Excel-фаилов...</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">А причем здесь TransferText к Excel-фаилам? Почему не TransferSpreadsheet?</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">07.11.2011 10:53</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="63964"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63964#63964"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Сибо zim'у за развёрнутый ответ.</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />2Анатолий: А CSV у меня в Excel'e почему-то открываются.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">08.11.2011 07:34</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="63965"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63965#63965"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">А обычные Excel-фаилы, я процедурой (DAO) читать хочу.</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Ну типа:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">Dim</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> xlApp </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">as</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> Excel.Application</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">Dim</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> xlBool </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">as</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> Excel.Workbook</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">Dim</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> xlSheet </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">as</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> Excel.WorkSheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">Set</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">...</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">with</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> xlSheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">  .Cells(1,1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">.....</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">end</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">with</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">08.11.2011 08:07</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="63967"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63967#63967"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="4" rowspan="2"></td>
+<td width="2" rowspan="2" bgcolor="#0000ff"></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">автор писал:</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">А CSV у меня в Excel'e почему-то открываются.</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Т.е. файлы, все-таки, у вас текстовые, с расширением CSV. </span><img src="image6116.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="4" rowspan="2"></td>
+<td width="2" rowspan="2" bgcolor="#0000ff"></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">автор писал:</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">дать возможность пользователю менять эту спецификацию</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Что именно вы хотите там менять?<br />Спецификации хранятся в скрытых системных таблицах и редактировать их напрямую нельзя, но по утверждениям коллег (сам не проверял), если эти таблицы прилинковать здесь же, то редактировать их можно.<br />Если в фыйле разделитель полей - &quot;;&quot;, то его можно открыть простым запросом типа:<br /></span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#0000ff;">SELECT * FROM [ИмяФайла#CSV] IN 'Путь к папке' [Text;HDR=YES]</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Попробуйте...<br /></span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">08.11.2011 11:02</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="63970"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=63970#63970"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:Re:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca"></td>
+<td bgcolor="#cacaca"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Ну, если уж залезать в дебри , то спецификации импорта экспорта храняться в системной таблице MSysIMEXSpecs. Системные таблицы , их структуру и пр. можно посмотреть включив их видимость в параметрах ACCESS. Действия с данной таблицей можно производить любые (в пределах разумного), так же , как с обычной. Добавление, удаление, изменение параметров спецификаций можно производить с помощью обычных запросов. Так , что, как говорится, творите!</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">08.11.2011 22:00</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#99ccff">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="64786"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64786#64786"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#99ccff"></td>
+<td bgcolor="#99ccff"></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Дабы не плодить новых тем, продолжу тут.</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Вопрос в продолжении темы. Я выгружаю обратно эту CSVшку, а там в первом заголовке идёт META.CSV (смущает точка), поскольку выгрузка идёт из таблицы, то в имени поля точку ставить нельзя.<br />Как быть (чтобы не вручную)? <br />Из беглого просмотра интернетов нашёл вариант &quot;полностью загружать текстовый файл в память и исправлять, после этого заливать заново файл.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">10.04.2012 18:30</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="64789"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64789#64789"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Анатолий (Киев)</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="4" rowspan="2"></td>
+<td width="2" rowspan="2" bgcolor="#0000ff"></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">автор писал:</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Я выгружаю обратно эту CSVшку, а там в первом заголовке идёт META.CSV (смущает точка), поскольку выгрузка идёт из таблицы, то в имени поля точку ставить нельзя.<br />Как быть (чтобы не вручную)?</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">&quot;выгружаю обратно&quot; это откуда-куда? <br />&quot;в первом заголовке&quot; - это значит, что в 1-й строке указаны имена полей и первое из них - &quot;META.CSV&quot;? Если вы собираетесь импортировать этот файл в Акс, то имена полей можно указать в его (Акса) спецификации или в секции файла Schema.ini</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">11.04.2012 19:58</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="64790"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64790#64790"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image18854.png" /><a href="mailto:Safich@proc.ru"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">Safich[ТП]</span></a></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Ситуация такая:</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Есть сайт (на движке Amiro) оттуда выгружается номенклатура в CSV. Сделал импорт этих данных в базу на Access (TransferText+сохраненная спецификация, сделанная через &quot;мастер&quot;). Далее в программе над справочником работают и что-то исправляют, надо отправить обратно.<br />Делаю так же, TransferText+спецификация, но в начале файла идёт заголовок META.CSV<br />При импорте оно у меня падает в поле METACSV (без точки), а вот обратно, боюсь движок сайта не поймёт.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">12.04.2012 13:36 (последнее изменение - 12.04.2012 13:36) </span><img src="image24642.png" /></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="64792"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64792#64792"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Анатолий (Киев)</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="4" rowspan="2"></td>
+<td width="2" rowspan="2" bgcolor="#0000ff"></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">автор писал:</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">вариант &quot;полностью загружать текстовый файл в память и исправлять, после этого заливать заново файл.</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Вполне приемлемый и несложный вариант.<br />А можно и вовсе обойтись без TransferText, а создавать его средствами VBA или FSO. Т.е. в цикле по Recordset-у формировать для каждой записи строку и добавлять в файл. </span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">12.04.2012 15:13</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="64797"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64797#64797"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">R</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">e:TransferText и спецификация</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image18854.png" /><a href="mailto:Safich@proc.ru"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">Safich[ТП]</span></a></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">В итоге решили попробовать загрузить созданный файл на сервер. Движок скушал METACSV без точки. Спасибо за помощь)</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">12.04.2012 18:32</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8067.png" /><a name="64911"></a><a href="http://am.rusimport.ru/MsAccess/f2.aspx?id=64911#64911"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">Н</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">овая?</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image8156.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">all_1</span></p></td>
+<td bgcolor="#cacaca">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image26832.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><img src="image26973.png" /><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; background-color:#eeeeee;">Работая с параметрами командной строки,</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">я тут нечаянно разработал свою спецификацию импорта-экспорта таблиц. </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />Ещё раз Спасибо </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#008000;">Зелёному</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />за своевременную помощь.<br /><br />Не знаю, куда это сообщение лучше пристроить. Пока, только эта информация.<br />Когда-нибудь в новой версии mdb-оглавления опубликую код функций.<br /><br />Пример экспортированной таблицы (фрагмент строки):<br /></span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#c0c0c0;">$table$</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#0000ff;">// Имя_поля1 | Имя_поля 2 | Имя_поля(…) /|201|202/Имя формы|201|203\ </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#ffa500;">с п а м</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#0000ff;"> $table$ /|201|204/|значение_поля1|значение_2| Непустое значение_Х(…)\'Имя таблицы (можно, с пробелами)'</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> <br />Здесь четыре записи, три поля<br /><br />Сама идея – записывать данные с разделителями – общепринята. Для записи в одну строку нужно не применять в качестве разделителей символы разрыва строки. А если в полях таблиц встречаются разрывы строк, то временно заменять их редкими последовательностями символов.<br /><br />Обычно, формат и структура целевых таблиц известны заранее. Тогда не имеет большого смысла передавать вместе с данными их описания. А сами данные (даже графику) всегда можно передать в текстовом формате.<br /><br />Второе неудобство обычных текстовых спецификаций в том, что для каждой таблицы требуется отдельный файл (XML пока не знаю). И, если за один раз нужно передать несколько таблиц, то возникает путаница или лишние телодвижения.<br /><br />Почему не всегда применим стандартный метод передачи разделённой базы? Передавать таблицы отдельно от интерфейса – это хорошо и правильно. Но,<br />1. mdb-файл всё равно получается «тяжеловатым». Даже после архивации<br />2. Этот файл где-то нужно хранить. А текстовую строку можно хранить прямо в сторонней программе, или в документе, который обрабатывается сторонней программой. Фактически, получается, что стороннее приложение может содержать в себе всю необходимую информацию из базы данных.<br />Например, таким способом удобно хранить mdb-оглавление в документе MS Word. Все таблицы хранятся в невидимом поле документа. А если пару раз кликнуть по идентификатору этого поля, то в MSA будет построено соответствующее оглавление.<br /><br />Теперь сразу несколько таблиц можно передать в одном файле. Точнее, в одной длиииинной строке. К этой же строке без ущерба делу можно прицепить, например, поздравления с праздником, и прочий спам (в таблицы БД он не попадёт).<br />Хотя, наверное, более правильным было бы передавать спам в отдельных строчках этого файла, так его легче читать.<br /><br />Любую из таблиц можно грузить по частям, если эти части (то есть, группы записей) перемешаны с обычными строковыми параметрами (например, с поздравлениями). Для чего нужна такая возможность, я не знаю, но она есть. Наверное, пригодится, когда нужно в процессе импорта немедленно обработать </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">группу</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> запесей.<br /><br />Импорт идёт через промежуточную удаляемую таблицу. При создании нвого её экземпляра имена и количество полей специфицируются заново. Последний фрагмент каждой таблицы должен следовать после «слова» </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; color:#0000ff;">$table$</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br />При этом, вся таблица импортируестя (с заменой или добавлением записей) в таблицу с указанным именем.<br /><br />Необычайная особенность этой спецификации: В ней можно передавать не только таблицы, но и название формы (для каждой конкретной записи). Не обязательно, чтобы такая форма присутствовала в базе. Просто её имя можно использовать как ключ для выполнения определённых действий с конкретными данными.<br />По умолчанию, вместо имени формы в наборе записей присутствует только разделитель «|».<br /><br />-<br /><br />После сжатия, 400 записей, 5 кБайт (заполнял полгода) поместились на половине странички (~1700 символов) . По сравнению с исходной базой, коэффициент сжатия – увеличился в 300 раз. <br /></span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">21.04.2012 10:45 (последнее изменение - 21.04.2012 12:42) </span><img src="image24642.png" /></p></td></tr></table></body></html>

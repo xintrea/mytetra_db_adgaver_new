@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p style="font:large;margin-bottom :20px;font-family:Arial;">
+                01. Dictionary - этот объект можно использовать для 
+создания массивов, даже для форм. Таким образом можно создать интерфейс,
+ который будет открывать 2 одинаковые формы, что в Access нереально 
+создать обычным способом.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">'==============================================================</font><br>
+<font color="#007700">'   Использование массива Dictionary для таблицы</font><br>
+<font color="#0000aa">Public Function </font>funArrayDictionary() <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>s <font color="#0000aa">As String</font>, i  <font color="#0000aa">As Integer</font>, dbs <font color="#0000aa">As </font>Database, rst <font color="#0000aa">As </font>Recordset<br>
+<font color="#0000aa">Dim </font>myArray, myBooks <font color="#007700">'Переменные для массива</font><br>
+   <br>
+    <font color="#0000aa">On Error GoTo </font>999 <font color="#007700">'Обработка ошибки</font><br>
+<br>
+<font color="#007700">'1.Открытие таблицы</font><br>
+    <font color="#0000aa">Set </font>dbs = CurrentDb <font color="#007700">'Выбираем базу данных</font><br>
+    <font color="#0000aa">Set </font>rst = dbs.OpenRecordset(<font color="#660000">"SELECT * FROM [Мои книги]"</font>) <font color="#007700">'Создаем запрос</font><br>
+    <font color="#0000aa">If </font>(rst.RecordCount = 0) <font color="#0000aa">Then </font><font color="#007700">'Проверяем таблицу</font><br>
+        rst.Close <font color="#007700">'Закрываем запрос</font><br>
+        MsgBox <font color="#660000">"Нет данных"</font> <font color="#007700">'Сообщаем об этом</font><br>
+        <font color="#0000aa">Exit Function</font><br>
+    <font color="#0000aa">End If</font><br>
+<br>
+<font color="#007700">'2. Заполнение запроса</font><br>
+    rst.MoveLast<br>
+    rst.MoveFirst<br>
+    <br>
+<font color="#007700">'3. Заполнение массива</font><br>
+    <font color="#0000aa">Set </font>myArray = CreateObject(<font color="#660000">"Scripting.Dictionary"</font>) <font color="#007700">'Создаем массив</font><br>
+    myArray.RemoveAll <font color="#007700">'Удаляем все</font><br>
+    <font color="#0000aa">For </font>i = 0 <font color="#0000aa">To </font>rst.RecordCount - 1<br>
+          myArray.Add <font color="#0000aa">CStr</font>(rst!Ключ), <font color="#0000aa">CStr</font>(rst!Книга) <font color="#007700">'Добавляем значение в массив</font><br>
+          rst.MoveNext <font color="#007700">'переходим на следующую запись</font><br>
+    <font color="#0000aa">Next </font>i<br>
+<br>
+<font color="#007700">'4. Проверка массива</font><br>
+    myBooks = myArray.Items        <font color="#007700">'Выбираем все книги</font><br>
+    <font color="#0000aa">For </font>i = 0 <font color="#0000aa">To </font>myArray.Count - 1 <font color="#007700">'Создаем цикл</font><br>
+        s = s &amp; myBooks(i) &amp; vbCrLf  <font color="#007700">'Создаем список книг</font><br>
+    <font color="#0000aa">Next</font><br>
+    funArrayDictionary = s <font color="#007700">'Возвращаем список</font><br>
+<br>
+<font color="#007700">'5. Конец примера</font><br>
+    myArray.RemoveAll <font color="#007700">'Удаляем массив</font><br>
+    rst.Close<br>
+    <font color="#0000aa">Set </font>dbs = <font color="#0000aa">Nothing </font><font color="#007700">'!Внимание. Посылаем ... переменную!</font><br>
+    <font color="#0000aa">Exit Function</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+    Err.Clear<br>
+    rst.Close<br>
+<font color="#0000aa">End Function</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

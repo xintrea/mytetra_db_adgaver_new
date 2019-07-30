@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="post hentry uncustomized-post-template" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><h3 class="post-title entry-title" itemprop="name">
+Урок 5. Работа со встроенными изображениями
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-1995627046415296068" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Давайте создадим новый проект. Откроем в <a href="http://novikovmaxim.narod.ru/products/ribbon/ribbon.htm" target="_blank">Ribbon XML Editor</a> новый документ и вставим вкладку и группу, как мы уже делали на предыдущем уроке. Затем вставим в группу кнопку (button):<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;ribbon startFromScratch="false"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;tab id="Вкладка1" label="Моя вкладка" insertBeforeMso="TabHome"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;group id="Группа1" label="Моя группа"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                    &lt;button idMso="DeleteWord"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;/group&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;/tab&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;/tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;/ribbon&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/customUI&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Пусть кнопка будет удалять текущее слово с позиции курсора до конца. 
+Идентификатор этой кнопки мы можем посмотреть в настройках ленты в 
+приложении Word. Запустим документ, посмотрим на результат. По 
+умолчанию, эта кнопка не содержит изображения, и потому выглядит в 
+интерфейсе не очень симпатично. Давайте добавим кнопке изображение.<br>
+<br>
+Microsoft Office уже содержит в себе несколько тысяч изображений. Надо 
+только узнать идентификатор наиболее подходящего, и вставить его в 
+атрибут <b>imageMso</b>. Довольно нетривиальная задача, не правда ли? К 
+счастью, Ribbon XML Editor имеет в своём распоряжении галерею всех 
+встроенных в офис иконок, которая позволяет осуществить выбор и вставку 
+понравившегося изображения.<br>
+<br>
+Ставим курсор после последнего атрибута кнопки перед закрывающими тег символами, и нажимаем кнопку галереи:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="1.png" imageanchor="1" style=""><img src="1.png" border="0"></a></div>
+<br>
+<br>
+Откроется галерея иконок, содержащая несколько вкладок. На каждой 
+вкладке по 500 изображений. При наведении мыши на каждое изображение 
+появляется всплывающая подсказка с его идентификатором:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="2.png" imageanchor="1" style=""><img src="2.png" border="0"></a></div>
+<br>
+<br>
+Выберем понравившееся изображение, и нажмём на него. Окно закроется, а в позицию курсора вставится атрибут <b>imageMso</b> со значением идентификатора выбранного изображения. Проверим результат, нажав <b>F9</b> для запуска документа. Я использовал идентификатор WatermarkRemove. Кнопка стала выглядеть намного лучше.<br>
+<br>
+Если выбранное изображение выглядит недостаточно хорошо, его легко 
+поменять. Для этого ничего удалять не надо. Просто ставим курсор в любое
+ место старого идентификатора и вновь вызываем галерею. Выбираем другой 
+значок и нажимаем на него. Новый идентификатор встанет на место старого.<br>
+<br>
+Описанным образом можно не только вставлять изображения в кнопки, не 
+имеющие таковых, но и менять имеющиеся изображения на кнопках на другие 
+из состава офиса, хотя это вряд ли будет иметь какой-то смысл. А вот 
+заменить изображение на штатной кнопке собственноручно нарисованное 
+просто так средствами xml не получится. Но это можно сделать для своей 
+кнопки, которая во время своего нажатия будет вызывать функционал 
+штатной кнопки. Но об этом я расскажу уже на следующем уроке.<br>
+<br>
+Теперь давайте изменим размер кнопки. Для этого пропишем атрибут size:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;button idMso="DeleteWord" imageMso="WatermarkRemove" size="large"&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Атрибут <b>size</b> может принимать только два значения, которые нам и 
+предлагает автодополнение: normal и large. По умолчанию кнопка 
+DeleteWord имеет размер normal. После изменения на large и запуска 
+документа на выполнение мы увидим, что увеличилась не только сама 
+кнопка, но и изображение на ней. Теперь вместо иконки 16х16 
+автоматически используется иконка 32x32. При этом интерполяции не 
+происходит — как правило, офис содержит в себе оба размера иконок.<br>
+<br>
+На этом сегодняшний урок мы закончим. Следующий раз поговорим о вставке в интерфейс внешних изображений.</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a href="https://www.blogger.com/profile/15132597310126998409" rel="author" title="author profile">
+<span itemprop="name">dolbodub</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+на
+
+<a class="timestamp-link" href="http://fluentui.blogspot.ru/2015/02/5.html?m=1" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2015-02-27T16:56:00+03:00">16:56</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<div class="mobile-link-button goog-inline-block" id="mobile-share-button">
+<a href="javascript:void(0);">Поделиться</a>
+</div>
+<div class="goog-inline-block dummy-container"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1526205995418" name="I0_1526205995418" src="3.png" data-gapiattached="true" title="G+" frameborder="0" width="100%"></iframe></div></div>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>4 комментария:</h4>
+<div class="comments-content">
+
+
+<div id="comment-holder">
+
+<div id="bc_0_5C" kind="c"><div id="bc_0_5CT"><div id="bc_0_4T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_4TB"><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c4161270888897635184" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13406470872766916953">Unknown</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/5.html?showComment=1456584839968&amp;m=1#c4161270888897635184">27 февраля, 2016 17:53</a></span></div><p id="bc_0_3MC" class="comment-content">Группа на вкладке так и не появилась. <br>Тестировал в excel 2016<br>Но, когда вместо group id="Группа1" ставлю idMSO и параметр из предыдущего урока, то группа появляется. (((</p><span id="bc_0_3MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_3BR" class="comment-replies"><span id="bc_0_3b+seedCATBD" kind="d"><div id="bc_0_0T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_0TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_0TA" class="thread-arrow"></span><span id="bc_0_0TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_0TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_0TC" class="thread-chrome thread-expanded"><div><li id="bc_0_0B" class="comment" kind="b"><div class="avatar-image-container"><img src="5.png"></div><div id="c8145276564275177233" class="comment-block"><div id="bc_0_0M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13406470872766916953">Игорь Ашурков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/5.html?showComment=1456641007722&amp;m=1#c8145276564275177233">28 февраля, 2016 09:30</a></span></div><p id="bc_0_0MC" class="comment-content">Интересная картина. Нужно было внутрь группы вставить любой элемент и группа появилась.</p><span id="bc_0_0MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_0BR" class="comment-replies"></div><div id="bc_0_0B_box" class="comment-replybox-single"></div></li><li id="bc_0_1B" class="comment" kind="b"><div class="avatar-image-container"><img src="6.png"></div><div id="c8625348084251792583" class="comment-block"><div id="bc_0_1M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/5.html?showComment=1456785091280&amp;m=1#c8625348084251792583">01 марта, 2016 01:31</a></span></div><p id="bc_0_1MC" class="comment-content">Хм, может, это поведение именно 2016 офиса? У меня в 2013 группа видна даже пустая.</p><span id="bc_0_1MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_1BR" class="comment-replies"></div><div id="bc_0_1B_box" class="comment-replybox-single"></div></li><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="6.png"></div><div id="c7812459519711945379" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/5.html?showComment=1459594376493&amp;m=1#c7812459519711945379">02 апреля, 2016 13:52</a></span></div><p id="bc_0_2MC" class="comment-content">Подтверждаю, пустые группы в офисе 2016 не отображаются ни в Excel, ни в Word.</p></div></li></div></ol></div></span></div></li></ol></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://excelvba.ru/tools/Attachments"><span style=" text-decoration: underline; color:#0000ff;">Прикрепление и извлечение различных файлов из книги Excel</span></a> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image16696.png" /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Можно ли прикрепить (вложить) произвольные файлы в обычную книгу Excel?<br />А потом извлечь эти файлы в заданную папку, и работать с ними?</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Казалось бы, Excel такого не позволяет. (а если и позволяет, то извлечь вложенные файлы без из запуска - весьма проблематично)<br />Но, при помощи макросов, можно реализовать что угодно (и сохранение\извлечение файлов в том числе)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь прикрепить к книге Excel любой файл, а затем извлечь его в любую папку под заданным именем, можно при помощи нескольких строк кода!</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В прикреплённом к статье файле находятся 2 модуля класса (AttachedFiles и AttachedFile), а также примеры их использования в виде макросов, позволяющих управлять вложениями в книге Excel.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример использования функционала модулей класса для сохранения в книге Excel исполняемого файла, с последующим извлечением:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub ПрикрепитьФайл()    ' прикрепляем файл к книге Excel</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Dim FileManager As New AttachedFiles, res As Boolean</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    res = FileManager.AttachNewFile(&quot;C:\WINDOWS\notepad.exe&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub ИзвлечьФайл()    ' из книги Excel на диск</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Dim FileManager As New AttachedFiles, res As Boolean</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    On Error Resume Next ' на случай, если среди вложений нет файла notepad.exe</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    res = FileManager.GetAttachment(&quot;notepad.exe&quot;).SaveAs(&quot;C:\MyProgram.exe&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub ЗапуститьВложенныйФайл()    ' из книги Excel на диск</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Dim FileManager As New AttachedFiles</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    On Error Resume Next ' на случай, если среди вложений нет файла notepad.exe</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    FileManager.GetAttachment(&quot;notepad.exe&quot;).Run</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вам требуется прикрепить к книге Excel лишь один небольшой файл (например, маленькую картинку или иконку),<br />воспользуйтесь возможностью <a href="http://excelvba.ru/code/FileToVBAFunction"><span style=" text-decoration: underline; color:#0000ff;">сохранения файлов в виде VBA-функций</span></a></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим доступные свойства и методы классов, используемых для работы со вложениями.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Класс AttachedFiles позволяет управлять вложенными файлами.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция GetAllFilenames() возвращает коллекцию имён файлов, прикреплённых к документу Excel<br />(если нет ни одного прикреплённого файла, возвращается пустая коллекция)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция GetAllFiles() возвращает коллекцию объектов типа AttachedFile (прикреплённый файл)<br />(если нет ни одного прикреплённого файла, возвращается пустая коллекция)<br />Свойства и методы объекта AttachedFile см. ниже.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция AttachmentExist (ByVal filename$) позволяет проверить наличие вложения с именем файла filename$<br />(если книга содержит вложенный файл с таким именем, возвращается TRUE, иначе - FALSE)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция AttachNewFile (Optional ByVal filepath$, Optional ByVal filename$, Optional Overwrite As Boolean = True)<br />предназначена для добавления (прикрепления) нового файла, полный путь к которому задан в параметре filepath$.<br />Если параметр filepath$ не задан, то будет выведено диалоговое окно, позволяющее выбрать прикрепляемый файл.<br />Параметр filename$ служит для указания имени файла, под которым он будет храниться в книге Excel. Если этот параметр не задан, файл сохраняется под тем именем, которое он имел в момент загрузки.<br />Парамерт Overwrite, если он равен TRUE (по-умолчанию), позволяет заменять старые вложения новыми без лишних вопросов. При его значении FALSE будет выведено диалоговое окно с вопросом, заменить старый вложенный файл на новый, или нет.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция MaxFileSize() возвращает максимальный допустимый размер прикрепляемого файла<br />(для файлов Excel 97, 2000, XP, 2003 можно прикрепить файлы размером до 31 мегабайта , а для Excel 2007б 2010, 2013 - максимальный размер прикрепляемого файла составляет 500 МБ)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция GetAttachment (ByVal filename$) возвращает вложение с именем filename$ в виде объекта типа AttachedFile<br />Таким способом, мы получаем возможность обратиться по имени к любому из вложенных файлов (чтобы его запустить, сохранить, удалить, и т.д.)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод DeleteAllAttachments удаляет ВСЕ вложенные файлы из книги Excel</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">У класса AttachedFiles есть и некоторые свойства, доступные для чтения и изменения:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство WB (As Workbook) - ссылка на книгу Excel, с которой производятся манипуляции.<br />По-умолчанию, WB ссылается на текущую книгу Excel (ThisWorkbook), но можно работать и с любой другой открытой книгой, - для этого достаточно добавить строку кода типа <br />Set FileManager.WB = ActiveWorkbook или Set FileManager.WB = Workbooks(&quot;test.xls&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство AutoSaveWorkbook (As Boolean, по умолчанию = FALSE) - при установке в TRUE позволяет автоматически сохранять изменения в книге при добавлении или удалении вложенных файлов</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство SilentMode (As Boolean, по умолчанию = FALSE) - при установке в TRUE запрещает вывод информации о процессе извлечения или добавления файла в строку состояния Excel, а также блокирует все уведомления. Таким образом, извлекать и запускать файлы можно в скрытом режиме - пользователь ничего не заметит.<br />По-умолчанию (при SilentMode = FALSE), в строке состояния Excel отображается ход выполнения действий с файлами (своего рода прогресс-бар)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Второй модуль класса - AttachedFile - позволяет работать с конкретным вложенным файлом.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод SaveAs (Optional ByVal filepath$) позволяет извлечь (сохранить) вложенный файл по заданному пути filepath$.<br />Если путь filepath$ не задан, макрос выдаёт диалоговое окно сохранения файла, где можно указать папку, куда будет извлекаться файл, и задать имя создаваемого файла.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод Delete безвозвратно удаляет вложенный в Excel файл</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод Run - позволяет запустить (открыть в программе по-умолчанию) вложенный файл.<br />Для этого, файл автоматически извлекается во временную папку Windows, и оттуда уже выполняется запуск созданного файла.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция IsCorrect возвращает TRUE, если размер области данных файла соответствует значению длины файла (которое сохранено при добавлении файла в книгу Excel)<br />Если часть данных на скрытом листе (где хранятся вложенные файлы) затерта, функция вернёт значение FALSE, что говорит о нарушении целостности файла.<br />Внимание: проверка производится медленно, т.к. при этом производится извлечение данных с листа (аналогично извлечению файла на диск). И, если прикреплённые файлы большие (сотни килобайтов и больше), то проверка каждого файла может длиться от нескольких секунд до минут (для многомегабайтных файлов)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция FileSizeTXT возвращает размер файла в доступном ткестовом виде. Например, 129 Кб, 3.4 Кб, 12.7 Мб</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойства класса AttachedFiles предназначены только для чтения (хотя их изменение возможно, но нежелательно):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство filename (As String) содержит имя вложенного файла с расширением</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство AttachDate (As Date) хранит дату и время добавления файла в книгу Excel</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство FileSize (As Long) возвращает размер файла в байтах. Результат возвращается в виде числа, в отличии от функции FileSizeTXT, выдающей текстовое значение.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Принципы работы программы:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">файлы сохраняются на «очень скрытом» листе с названием «SheetForAttachedFiles»</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">при загрузке, файлы считываются в бинарном виде, и каждый байт преобразуется в 16-ричное представление.<br />Например, файл, состоящий из 5 байтов, будет преобразован в текстовую строку длиной 10 символов примерно такого вида: 3395B3D7FF</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каждому файлу отводится отдельный столбец на листе:<br />(щелкните на картинке для увеличения)<br /><img src="image15403.png" /><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В каждой ячейке хранится 500 байтов данных. (1000 символов)<br />Это значение можно изменить в строке Private Const BYTES_PER_CELL&amp; = 500 модуля класса AttachedFiles</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количеством данных в одной ячейке вызвано ограничение на размер файла.<br />Для Excel 2003 оно составляет (65536 - 6) строк * 500 байтов в ячейке = 32765000 байтов = 31,24 Мб<br />В Excel 2007 и более новых версиях строк намного больше, поэтому там можно прикреплять файлы размером для 500 МБ (правда, очень сомневаюсь, что Excel выдержит такое издевательство над собой)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Максимальное число прикрепляемых файлов ограничено числом столбцов на листе Excel.<br />В большинстве случаев, 255 файлов - это более чем достаточно. В Excel 2007-2010-2013 можно прикрепить более 16 тысяч файлов.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данные файлов не шифруются, но при необходимости это несложно реализовать.</p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr></thead></table>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вложение</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Размер</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Загрузки</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Последняя загрузка</p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/AttachFiles.xlsb"><span style=" text-decoration: underline; color:#0000ff;">AttachFiles.xlsb - файл с модулями класса и примерами работы со вложенными файлами</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">272.49 КБ</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">33</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 год 1 неделя назад</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://ExcelVBA.ru/sites/default/files/AttachFiles.zip"><span style=" text-decoration: underline; color:#0000ff;">AttachFiles.zip - тот же файл, но в формате XLS для Excel 97-2003</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">93.39 КБ</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3 года 33 недели назад</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">42391 просмотр </p></td>
+<td></td></tr></table></body></html>

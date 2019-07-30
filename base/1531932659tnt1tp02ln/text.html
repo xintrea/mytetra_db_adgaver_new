@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Программное создание базы данных с помощью ADOX - Часть 2 (исходники)</p>
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="art_content"></a><span style=" font-family:'DejaVu Sans';">И</span><span style=" font-family:'DejaVu Sans';">сточник: </span><a href="http://www.interface.ru/iservices/goto.asp?Url=enc:rn%7Ej%40%255lhh%7Fiyckd4Yug5%3BxnsYv%5F4%5ByjECN7B%2A"><span style=" font-family:'DejaVu Sans'; text-decoration: underline; color:#0000ff;">VBRussian</span></a></p>
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Руслан Иноземцев</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.interface.ru/home.asp?artId=16312"><span style=" font-family:'DejaVu Sans'; text-decoration: underline; color:#0000ff;">Часть 1</span></a></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:medium; font-weight:600;">Создание полей типа &quot;счетчик&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Для этого нам понадобятся два объекта:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   Dim cat As New ADOX.Catalog ? Каталог иными словами наша база данных</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   Dim col As New ADOX.Column  ? Колонка, то есть поле типа ?счетчикЋ, </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">                               ? которое мы добавим к таблице</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Создадим подключение к БД. Напомню, что работа с базой данных Access через провайдера Microsoft.Jet работает в 1.5 ? 2 раза быстрее, чем через ODBC. </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   cat.ActiveConnection = &quot;Provider=Microsoft.Jet.OLEDB.4.0;&quot; &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      &quot;Data Source=.\NorthWind.mdb;&quot;</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Теперь зададим для нового поля свойства, коорые заставят его быть счетчиком. </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   With col</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      .Name = &quot;ContactId&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      .Type = adInteger</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      Set .ParentCatalog = cat</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      .Properties(&quot;AutoIncrement&quot;) = True</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      .Properties(&quot;Seed&quot;) = CLng(1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">      .Properties(&quot;Increment&quot;) = CLng(1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   End With</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Вот теперь это поле можно добавить в таблицу </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   cat.Tables(&quot;MyTale&quot;).Columns.Append col</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Закрываем соединение с базой данных </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">   Set cat = Nothing</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Ниже приведена таблица с описанием других свойств (Properties) объекта Column: </span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="611" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-weight:600;">Название</span></p></td>
+<td style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-weight:600;">Тип</span></p></td>
+<td style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-weight:600;">Значение по умолчанию</span></p></td>
+<td style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-weight:600;">Доступ</span></p></td>
+<td style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-weight:600;">Описание</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">AutoIncrement</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Задает тип поля ?СчетчикЋ с автоматическим увеличением значения при добавлении записи</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Default</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adEmpty</span><span style=" font-family:'DejaVu Sans'; vertical-align:super;">1</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Empty</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Значение поля по умолчанию</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Description</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBStr</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">&quot;&quot;</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Описанеие поля</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Fixed Length</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет ,будет поле фиксированой длины или переменой</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Increment</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adInteger</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Значение, на которое будет увеличиваться поле типа ?счетчикЋ</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Nullable</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, может ли поле не содержать никакого значения, иными словами должно ли это поле быть обязательным для заполнения</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Seed</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adInteger</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Значение, с которого начнется отсчет в первой записи для поля типа ?счетчикЋ</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:Allow Zero Length</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, могут ли текстовые поля содержать строки нулевой длины. Игнорируется для несимвольных полей</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:AutoGenerate</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, будет ли автоматически генерироваться новое значение GUID для полей типа adGUID</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:Column Validation Rule</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBStr</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">&quot;&quot;</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Выражение, определяющее правильность записываемого в поле значения, должно быть написано в формате SQL WHERE но без ключевого слова WHERE</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:Column Validation Text</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBStr</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">&quot;&quot;</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Текст, который будет показан, в случае несоответствия заносимого в поле значения, определенному для этого поля правилу (Rule).</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:Compressed UNICODE Strings</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, будет ли Microsoft Jet сжимать UNICODE строкипри записи на диск. Игнорируется, если база данных не в формате Microsoft Jet version 4.0</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:Hyperlink</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, что данные в поле являются гиперссылкой. Игнорируется для полей с типом отличным от </span><span style=" font-family:'DejaVu Sans'; font-weight:600;">adLongVarWChar</span><span style=" font-family:'DejaVu Sans';">.</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:IISAM Not Last Column</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Это свойство я не берусь переводить, поскольку с ISAM драйверами не работаю.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">?</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">For Installable-ISAMs, this property informs the I-ISAM that there are more columns that are going to be added to the table after this one. If you are using </span><span style=" font-family:'DejaVu Sans'; font-weight:600;">ITableDefinition::AddColumn</span><span style=" font-family:'DejaVu Sans';"> or </span><span style=" font-family:'DejaVu Sans'; font-weight:600;">ITableDefintion::CreateTable</span><span style=" font-family:'DejaVu Sans';">, it is required that you set this property for every column except the last column.</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Jet OLEDB:One BLOB per Page</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adBoolean</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">False</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRead</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropWrite</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">adPropRequired</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Определяет, должны ли данные хранится в раздельных страницах (True) или могут использовать общие страницы базы данных, для экономии места на диске. Работает только с полями типа </span><span style=" font-family:'DejaVu Sans'; font-weight:600;">adLongVarBinary</span><span style=" font-family:'DejaVu Sans';">.</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:medium; font-weight:600;">2. Программное сжатие базы данных</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Программное сжатие, которое раньше выполнялось командой CompactDatabase библиотеки DAO не представлено не в ADO не в ADOX. Эти операции вместе с программным управлением репликацией вынесены в отдельную библиотеку </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Microsoft Jet and Replication Objects X.X library Где X.X соответствует версии ADO с которой вы работаете, но не ниже 2.5. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Так что поставьте ссылку в Project/References на эту библиотеку и переходим к процессу программирования. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Библиотека довольно скудна по количеству функций. Я попробую привести описание ее объектной модели. </span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="1.png" /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Объекта всего два: </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="2.png" /><span style=" font-family:'DejaVu Sans';">  JetEngine </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="3.png" /><span style=" font-family:'DejaVu Sans';">  Replica </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">JetEngine содержит только два метода CompacDatabase, его мы рассмотрим ниже и RefreshCache, который как ясно из названия обновляет кэшированную область базы данных. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Объект Replica управляет репликацией, здесь я его рассматривать не буду, возможно, сделаю это в отдельной статье. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Итак, для сжатия базы данных нам необходим следующий код.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">Dim jro As jro.JetEngine        ? Объявляем и создаем экземпляр объекта JetEngine</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">Set jro = New jro.JetEngine   ? </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">jro.CompactDatabase &quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=MyDatabase.mdb&quot;, _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=MyCompactedDatabase.mdb;Jet OLEDB:Engine Type=4&quot;</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">Set jro = Nothing</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; background-color:#eff0f1;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Вот такая незатейливая операция. Заботу об удалении старой базы данных и переименовании сжатой базы в текущую, вам придется взять на себя. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Напомню, что можно использовать встроенные в VB команды: </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="2" bgcolor="#d8d8d8">
+<tr>
+<td bgcolor="#eff0f1">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">Kill ?FileName?</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#eff0f1;"><span style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1;">Name ?OldFileName?  As ?NewFileName? </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10px;"><br /></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';"><br /></span></p>
+<table border="0" style=" margin-top:16px; margin-bottom:8px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.interface.ru/home.asp"><span style=" font-family:'DejaVu Sans'; text-decoration: underline; color:#0000ff;">Главная страница</span></a><span style=" font-family:'DejaVu Sans';">	- </span><a href="http://www.interface.ru/iservices/catalog.asp"><span style=" font-family:'DejaVu Sans'; font-weight:600; text-decoration: underline; color:#0000ff;">Программные продукты</span></a><span style=" font-family:'DejaVu Sans';">- </span><a href="http://www.interface.ru/iservices/catalog.asp?catId=160"><span style=" font-family:'DejaVu Sans'; font-weight:600; text-decoration: underline; color:#0000ff;">Статьи</span></a><span style=" font-family:'DejaVu Sans';">-	</span><a href="http://www.interface.ru/home.asp?catId=160&amp;cId=33"><span style=" font-family:'DejaVu Sans'; font-weight:600; text-decoration: underline; color:#0000ff;">Интеграция приложений и данных</span></a><span style=" font-family:'DejaVu Sans';">, </span><a href="http://www.interface.ru/home.asp?catId=160&amp;cId=3"><span style=" font-family:'DejaVu Sans'; font-weight:600; text-decoration: underline; color:#0000ff;">СУБД и хранилища данных</span></a><span style=" font-family:'DejaVu Sans';">, </span><a href="http://www.interface.ru/home.asp?catId=160&amp;vId=16"><span style=" font-family:'DejaVu Sans'; font-weight:600; text-decoration: underline; color:#0000ff;">Microsoft</span></a></p></td></tr></table></body></html>

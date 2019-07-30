@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.cyberforum.ru/visual-basic/thread471586.html"><span style=" text-decoration: underline; color:#0000ff;">Как в модуле Access присоединить таблицу? - VB</span></a> </p>
+<p style=" margin-top:10px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10.11.2008, 15:27. <span style=" font-weight:600;">Просмотров</span> 727. <span style=" font-weight:600;">Ответов</span> 1 </p>
+<p style=" margin-top:5px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Метки</span> <span style=" font-style:italic;">нет</span> (<a href="http://www.cyberforum.ru/tags/"><span style=" text-decoration: underline; color:#0000ff;">Все метки</span></a>) </p>
+<hr />
+<p style=" margin-top:2px; margin-bottom:2px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;"><a name="post_message_2605283"></a>Пытаюсь в модуле Access присоединить таблицу (текстовый файл).<br />Пишу примерно следующее:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="976511812"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim dbsTemp As Database</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim tdfLinked As TableDef</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set dbsTemp = CurrentDb</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set tdfLinked = dbsTemp.CreateTableDef(strTable)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">tdfLinked.Connect = strConnect</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">tdfLinked.SourceTableName = strSourceTable</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">dbsTemp.TableDefs.Append tdfLinked</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь strTable и strSourceTable - параметры, которые я задаю соотв. образом. А проблема следующая: при прилинковке этого файла как таблицы Access типы полей проставляются автоматически и не всегда правильно. Поменять тип поля, например, на текстовое:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="979770325"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">tdfLinked.Fields(1).Type = dbText</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">не удаётся<br /><br />Можно как-нибудь во время присоединения файла прописать типы полей присоединённой таблицы?<br /><br />Чтобы я мог сам задать, что в присоединённой таблице первое поле у меня Integer, второе - Text и т.д. </p>
+<p style=" margin-top:20px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">Последний раз редактировалось volvo; 06.09.2016 в 10:34. </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:20px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;"><br /></p>
+<p style=" margin-top:20px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Можно при линке попользовать сохраненную спецификацию связи, т.е:<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="791960565"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">DoCmd.TransferText acLinkDelim, &quot;Имя сохраненной спецификации связи&quot;, ИмяПрисоединеннойТаблицы, ПутьКФайлу, False</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">. </p></body></html>

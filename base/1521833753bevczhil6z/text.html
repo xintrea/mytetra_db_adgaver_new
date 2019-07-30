@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1 class="entry-title">Получить список таблиц в БД Access</h1>
+
+					<div class="entry-meta">
+						<span class="meta-prep meta-prep-author">Опубликовано</span> <a href="http://pamirych.ru/%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b8%d1%82%d1%8c-%d1%81%d0%bf%d0%b8%d1%81%d0%be%d0%ba-%d1%82%d0%b0%d0%b1%d0%bb%d0%b8%d1%86-%d0%b2-%d0%b1%d0%b4-access/" title="1:16 дп" rel="bookmark"><span class="entry-date">Декабрь 8, 2015</span></a> <span class="meta-sep">автором</span> <span class="author vcard"><a class="url fn n" href="http://pamirych.ru/author/Pamir/" title="Посмотреть все записи автора Памирыч">Памирыч</a></span>					</div>
+
+					<div class="entry-content">
+						<p></p><div class="eTitle1">Get table names (list all tables) in a DB MS Access / VB .NET</div><p></p>
+
+		<div id="crayon-5ab55588c0009007773544" class="crayon-syntax crayon-theme-vs2012 crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px !important;  height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; "><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; "><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Visual Basic .NET</span></div></div>
+			
+			<div class="crayon-plain-wrap"></div>
+			<div class="crayon-main" style="max-height: 500px; position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; "><div class="crayon-num" data-line="crayon-5ab55588c0009007773544-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5ab55588c0009007773544-2">2</div><div class="crayon-num" data-line="crayon-5ab55588c0009007773544-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5ab55588c0009007773544-4">4</div><div class="crayon-num" data-line="crayon-5ab55588c0009007773544-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5ab55588c0009007773544-6">6</div><div class="crayon-num" data-line="crayon-5ab55588c0009007773544-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5ab55588c0009007773544-8">8</div><div class="crayon-num" data-line="crayon-5ab55588c0009007773544-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5ab55588c0009007773544-10">10</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important;  -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ab55588c0009007773544-1"><span class="crayon-h">        </span><span class="crayon-r">Dim</span><span class="crayon-h"> </span><span class="crayon-e">conn </span><span class="crayon-r">As</span><span class="crayon-h"> </span><span class="crayon-r">New</span><span class="crayon-h"> </span><span class="crayon-e">OleDbConnection</span><span class="crayon-sy">(</span><span class="crayon-s">"Provider=Microsoft.Jet.OleDb.4.0;Data Source=C:\1.mdb"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5ab55588c0009007773544-2"> </div><div class="crayon-line" id="crayon-5ab55588c0009007773544-3"><span class="crayon-h">        </span><span class="crayon-v">conn</span><span class="crayon-sy">.</span><span class="crayon-e">Open</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5ab55588c0009007773544-4"> </div><div class="crayon-line" id="crayon-5ab55588c0009007773544-5"><span class="crayon-h">        </span><span class="crayon-v">ComboBox1</span><span class="crayon-sy">.</span><span class="crayon-v">Items</span><span class="crayon-sy">.</span><span class="crayon-e">Clear</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5ab55588c0009007773544-6"><span class="crayon-h">        </span><span class="crayon-e">For </span><span class="crayon-e">Each </span><span class="crayon-e">dataRow </span><span class="crayon-r">As</span><span class="crayon-h"> </span><span class="crayon-e">DataRow </span><span class="crayon-e">In </span><span class="crayon-v">conn</span><span class="crayon-sy">.</span><span class="crayon-e">GetSchema</span><span class="crayon-sy">(</span><span class="crayon-s">"Tables"</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">Rows</span></div><div class="crayon-line" id="crayon-5ab55588c0009007773544-7"><span class="crayon-e">            </span><span class="crayon-e">If </span><span class="crayon-v">dataRow</span><span class="crayon-sy">.</span><span class="crayon-e">Item</span><span class="crayon-sy">(</span><span class="crayon-s">"TABLE_TYPE"</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">ToString</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"TABLE"</span><span class="crayon-h"> </span><span class="crayon-e">Then</span></div><div class="crayon-line crayon-striped-line" id="crayon-5ab55588c0009007773544-8"><span class="crayon-e">                </span><span class="crayon-v">ComboBox1</span><span class="crayon-sy">.</span><span class="crayon-v">Items</span><span class="crayon-sy">.</span><span class="crayon-e">Add</span><span class="crayon-sy">(</span><span class="crayon-v">dataRow</span><span class="crayon-sy">.</span><span class="crayon-e">Item</span><span class="crayon-sy">(</span><span class="crayon-s">"TABLE_NAME"</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">ToString</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5ab55588c0009007773544-9"><span class="crayon-h">            </span><span class="crayon-st">End</span><span class="crayon-h"> </span><span class="crayon-e">If</span></div><div class="crayon-line crayon-striped-line" id="crayon-5ab55588c0009007773544-10"><span class="crayon-e">        </span><span class="crayon-r">Next</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+
+<p> </p>
+											</div>
+
+
+</body>
+</html></p></body></html>

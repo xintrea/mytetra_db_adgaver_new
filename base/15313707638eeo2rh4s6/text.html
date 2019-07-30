@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p style="font:large;margin-bottom :20px;font-family:Arial;">
+                Данный пример показывает как можно использовать 
+элементStatusBar в Microsoft Access. Не забудьте подключить в новых 
+файлах C:\Windows\System32\mscomctl.ocx
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#0000aa">Private WithEvents </font>sl <font color="#0000aa">As </font>Slider <font color="#007700">' Скользящая шкала</font><br>
+<font color="#0000aa">Dim </font>sb <font color="#0000aa">As </font>statusBar <font color="#007700">' Строка комментариев</font><br>
+<font color="#0000aa">Dim </font>pr <font color="#0000aa">As </font>ProgressBar <font color="#007700">' Шкала загрузки</font><br>
+<br>
+<font color="#007700">'</font><br>
+<font color="#007700">' Настройка процесса в форме</font><br>
+<font color="#0000aa">Private Sub </font>Form_Open(Cancel <font color="#0000aa">As Integer</font>)<br>
+   <br>
+   <font color="#007700">' Инициализация</font><br>
+   <font color="#0000aa">Set </font>sl = Me.mySlider.Object<br>
+   sl.Min = 1<br>
+   sl.Max = 50<br>
+   sl.Value = 25<br>
+   <br>
+   <font color="#007700">' Инициализация указателя загрузки</font><br>
+   <font color="#0000aa">Set </font>pr = Me.myProgressBar.Object<br>
+   pr.Min = 1<br>
+   pr.Max = 10000<br>
+   <br>
+   <font color="#007700">' Инициализация панелей</font><br>
+   <font color="#0000aa">Set </font>sb = Me.myStatusBar.Object<br>
+   <font color="#0000aa">With </font>sb.Panels<br>
+      .Clear <font color="#007700">' Удаление всех данных</font><br>
+      .Add 1, <font color="#660000">"k1"</font>, <font color="#660000">"Загрузка"</font><br>
+      .Add 2, <font color="#660000">"k2"</font>, <font color="#660000">" "</font><br>
+      .Item(1).MinWidth = 850 <font color="#007700">' Ширина панели</font><br>
+   <font color="#0000aa">End With</font><br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'   Запуск процесса</font><br>
+<font color="#0000aa">Private Sub </font>butProgress_Click()<br>
+<font color="#0000aa">Dim </font>i <font color="#0000aa">As Long</font><br>
+    Me.Tag = <font color="#660000">"Start"</font><br>
+    <font color="#0000aa">For </font>i = 1 <font color="#0000aa">To </font>10000<br>
+        <font color="#007700">' Меняем сообщение с определенным шагом</font><br>
+        <font color="#0000aa">If </font>(i / sl.Value) = (i \ sl.Value) <font color="#0000aa">Then</font><br>
+            pr.Value = i<br>
+            sb.Panels(2).Text = <font color="#660000">"Всего: "</font> &amp; i<br>
+            DoEvents <font color="#007700">' Надо только для события sl_Change</font><br>
+        <font color="#0000aa">End If</font><br>
+        <font color="#0000aa">If </font>Me.Tag = <font color="#660000">"Stop"</font> <font color="#0000aa">Then Exit For</font><br>
+    <font color="#0000aa">Next </font>i<br>
+    pr.Value = 1<br>
+    sb.Panels(2).Text = <font color="#660000">""</font><br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'   Определение события Slider</font><br>
+<font color="#0000aa">Private Sub </font>sl_Change()<br>
+    Me.Tag = <font color="#660000">"Stop"</font> <font color="#007700">' Определяем флаг для выхода из процесса</font><br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'   Освобождение ресурсов</font><br>
+<font color="#0000aa">Private Sub </font>Form_Close()<br>
+    <font color="#0000aa">Set </font>pr = <font color="#0000aa">Nothing</font><br>
+    <font color="#0000aa">Set </font>sb = <font color="#0000aa">Nothing</font><br>
+<font color="#0000aa">End Sub</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

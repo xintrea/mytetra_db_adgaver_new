@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<header class="entry-header">
+
+			
+				<h1 class="entry-title" itemprop="headline">VBA Excel. Цвет текста в ячейке</h1>
+				
+
+				
+				
+				<div class="entry-meta">
+
+					<span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="http://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/" rel="bookmark"><time class="entry-date published" datetime="2017-10-23T18:30:45+00:00" itemprop="dateModified datePublished">23.10.2017</time></a></span>
+				</div>
+
+			
+		</header>
+
+		
+			<div class="entry-content" itemprop="articleBody">
+
+				<p><em>Изменение цвета текста (шрифта) в ячейке рабочего листа Excel
+ с помощью кода VBA. Свойства .Font.Color, .Font.ColorIndex и 
+.Font.TintAndShade</em><span id="more-1572"></span></p>
+<p>Использование цветовой палитры для присвоения цвета тексту в ячейке листа Excel аналогично присвоению <a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/">цвета фону ячейки</a>, только свойство диапазона .Interior меняем на свойство <strong>.Font</strong>.</p>
+<ol>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#1">Цвет текста и предопределенные константы</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#2">Цвет шрифта и модель RGB</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#3">Свойство .Font.ColorIndex</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#4">Основная палитра</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#5">Отрицательные значения свойства .Font.Color</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#6">Свойство .Font.TintAndShade</a></li>
+</ol>
+<h2><a id="1"></a>Цвет текста и предопределенные константы</h2>
+<p>Цвет шрифту в ячейке можно присвоить с помощью предопределенных констант:</p>
+<div><div id="highlighter_316975" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1:C3"</code><code class="vb plain">).Font.Color = vbGreen</code></div><div class="line number2 index1 alt1"><code class="vb plain">Range(Cells(4, 1), Cells(6, 3)).Font.Color = vbBlue</code></div><div class="line number3 index2 alt2"><code class="vb plain">Cells(7, 1).Font.Color = vbRed</code></div></div></td></tr></tbody></table></div></div>
+<p>Напомню, что вместо индексов строк и столбцов можно использовать переменные. Список предопределенных констант смотрите <a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1.3">здесь</a>.</p>
+<h2><a id="2"></a>Цвет шрифта и модель RGB</h2>
+<p>Для изменения цвета текста в ячейке можно использовать цветовую модель RGB:</p>
+<div><div id="highlighter_788598" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Font.Color = RGB(200, 150, 250)</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(2, 1).Font.Color = RGB(200, 150, 100)</code></div></div></td></tr></tbody></table></div></div>
+<p>Аргументы функции <strong>RGB</strong> могут принимать значения от 0 
+до 255. Если все аргументы равны 0, цвет - черный, если все аргументы 
+равны 255, цвет - белый. Функция <strong>RGB</strong> преобразует числовые значения основных цветов (красного, зеленого и синего) в индекс <strong>основной палитры</strong>.</p>
+<h2><a id="3"></a>Свойство .Font.ColorIndex</h2>
+<p>Свойство .Font.ColorIndex может принимать значения от 1 до 56. Это 
+стандартная ограниченная палитра, которая существовала до Excel 2007 и 
+используется до сих пор. Посмотрите примеры:</p>
+<div><div id="highlighter_862188" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1:D6"</code><code class="vb plain">).Font.ColorIndex = 5</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(1, 6).Font.ColorIndex = 12</code></div></div></td></tr></tbody></table></div></div>
+<p>Таблица соответствия значений ограниченной палитры цвету:</p>
+<figure id="attachment_1573" style="max-width: 600px" class="wp-caption aligncenter"><a href="1.png" target="_blank" rel="noopener"><img class="wp-image-1573 size-full" title="Стандартная палитра Excel" src="1.png" alt="Стандартная палитра Excel из 56 цветов" srcset="1.png 600w, http://vremya-ne-zhdet.ru/wp-content/uploads/2017/10/ogranichennaya-palitra-300x141.png 300w" sizes="(max-width: 600px) 100vw, 600px" width="600" height="281"><span class="screen-reader-text">Открывается в новом окне</span></a><figcaption class="wp-caption-text">Стандартная палитра Excel из 56 цветов</figcaption></figure>
+<h2><a id="4"></a>Основная палитра</h2>
+<p>Основная палитра, начиная c Excel 2007, состоит из 16777216 цветов. 
+Свойство .Font.Color может принимать значения от 0 до 16777215, причем 0
+ соответствует черному цвету, а 16777215 - белому.</p>
+<div><div id="highlighter_891153" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Cells(1, 1).Font.Color = 0</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(2, 1).Font.Color = 6777215</code></div><div class="line number3 index2 alt2"><code class="vb plain">Cells(3, 1).Font.Color = 4569325</code></div></div></td></tr></tbody></table></div></div>
+<h2><a id="5"></a>Отрицательные значения свойства .Font.Color</h2>
+<p>При записи в Excel макрорекордером макроса с присвоением шрифту цвета используются отрицательные значения свойства <strong>.Font.Color</strong>,
+ которые могут быть в пределах от -16777215 до -1. Отрицательные 
+значения соответствуют по цвету положительному значению, равному сумме 
+наибольшего индекса основной палитры и данного отрицательного значения. 
+Например, отрицательное значение <strong>-8257985</strong> соответствует положительному значению <strong>8519230</strong>, являющегося результатом выражения <strong>16777215 + (-8257985)</strong>. Цвета текста двух ячеек из следующего кода будут одинаковы:</p>
+<div><div id="highlighter_810692" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Cells(1, 1).Font.Color = -8257985</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(2, 1).Font.Color = 8519230</code></div></div></td></tr></tbody></table></div></div>
+<h2><a id="6"></a>Свойство .Font.TintAndShade</h2>
+<p>Еще при записи макроса с присвоением шрифту цвета макрорекордером добавляется свойство <strong>.Font.TintAndShade</strong>, которое осветляет или затемняет цвет и принимает следующие значения:</p>
+<ul>
+<li><strong>-1</strong> - затемненный;</li>
+<li><strong>0</strong> - нейтральный;</li>
+<li><strong>1</strong> - осветленный.</li>
+</ul>
+<p>При тестировании этого свойства в Excel 2016, сравнивая затемненные и осветленные цвета, разницы не заметил. Сравните сами:</p>
+<div><div id="highlighter_562583" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(Cells(1, 1), Cells(3, 1)).Font.Color = 37985</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(1, 1).Font.TintAndShade = -1</code></div><div class="line number3 index2 alt2"><code class="vb plain">Cells(2, 1).Font.TintAndShade = 0</code></div><div class="line number4 index3 alt1"><code class="vb plain">Cells(3, 1).Font.TintAndShade = 1</code></div></div></td></tr></tbody></table></div></div>
+<p>При тестировании в первых трех ячейках первого столбца должен быть одинаковый текст для удобства сравнения оттенков.</p>
+
+			</div>
+
+		
+		<footer class="entry-meta">
+
+			<span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/" rel="bookmark"><time class="entry-date published" datetime="2017-10-23T18:30:45+00:00" itemprop="datePublished">23.10.2017</time></a></span><span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="http://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="cat-links" itemprop="articleSection"><span class="screen-reader-text">Рубрики </span><a href="http://vremya-ne-zhdet.ru/category/vba-excel/" rel="category tag">VBA Excel</a></span>
+			
+		</footer>
+</body>
+</html></p></body></html>

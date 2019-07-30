@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="post hentry uncustomized-post-template" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><h3 class="post-title entry-title" itemprop="name">
+Урок 8. Динамические атрибуты.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-7675249282089698181" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Помимо <i>статических </i>атрибутов существуют т.н. <i>динамические </i>атрибуты.
+ Они позволяют задавать в своём значении имя внешней функции, которая 
+сама предоставит нужное значение атрибута. Функции пишутся на языке VBA 
+(Visual Basic for Applications), что переводится, как «Визуальный Бейсик
+ для приложений». Это именно тот язык программирования, на котором в 
+приложениях Microsoft Office записываются макросы, о которых вы уже, 
+несомненно, слышали. Код функций хранится внутри документа и 
+редактируется встроенным в приложение редактором Бейсика.<br>
+<br>
+Функции, имена которых передаются элементу интерфейса, как в нашем 
+случае, называются функциями обратного вызова. Смысл названия 
+заключается в том, что вызов функции осуществляется не из кода 
+программы, а как бы с обратной стороны, из интерфейса. То есть, основной
+ код программы всего лишь передаёт имя функции в интерфейс в качестве 
+параметра, а интерфейс вызывает её только тогда, когда ему самому это 
+нужно.<br>
+<br>
+Если вы не очень поняли смысл этого названия, то не заморачивайтесь с 
+этим. На создание интерфейсов это не повлияет. Считайте, что смысл 
+технических нюансов вызова этих функций скрыт для вас за некоторым 
+уровнем абстракции.<br>
+<br>
+Как правило, <i>динамические </i>атрибуты начинаются со слова <b>get</b> (получить). Фактически, эти атрибуты являются парными для <i>статических</i>,
+ то есть, задают один и тот же параметр. Только в одном случае он 
+задаётся сразу в XML-тексте, т.е. статически, а в другом возвращается из
+ функции в качестве результата её работы, непосредственно в момент 
+запуска документа, то есть, динамически.<br>
+<br>
+Давайте рассмотрим один пример. Откроем Word, создадим документ, и 
+сохраним его, как документ с макросами, т.е. с расширением .docm. Именно
+ этот тип документа позволит нам сохранять в нём код VBA-функций. 
+Закроем Word, откроем Ribbon XML Editor, и откроем в нём только что 
+созданный нами файл. Напишем код аналогичный тому, что мы создавали 
+раньше: создадим новую вкладку, в неё поместим группу, а в группу — 
+кнопку:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;customui xmlns="http://schemas.microsoft.com/office/2006/01/customui"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;ribbon startFromScratch="false"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;tab id="Вкладка1" insertBeforeMso="TabHome" label="Моя вкладка"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;group id="Группа1" label="Моя группа"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                    &lt;button id="Кнопка1" image="Рука" keytip="ХАЙ" label="Поприветствовать" screentip="Вывести окно приветствия" size="large" supertip="Вывести окно приветствия для получения удовольствия"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;/group&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;/tab&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;/tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;/ribbon&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/customui&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Запустим документ на выполнение, и проверим, что код работает правильно. Теперь мы попробуем заменить статический атрибут <b>label </b>у кнопки на его динамический аналог — <b>getLabel</b>. Но вначале изменим кое-какую настройку Ribbon XML Editor.<br>
+<br>
+После запуска документа на выполнение мы будем писать код на VBA через 
+редактор Бейсика, встроенный в Word, и чтобы этот код мог сохранится в 
+документе, нам следует перед его сохранением закрывать документ в Ribbon
+ XML Editor. Иначе, очевидно, что последний его перезатрёт уже при своём
+ сохранении, ведь в  Ribbon XML Editor документ был открыт раньше, чем в
+ Word.<br>
+<br>
+Чтобы делать всё автоматически, откроем страницу настроек Ribbon XML 
+Editor и в разделе «Документы» установим галочку на пункте «Закрывать 
+документ перед запуском его в MS Office». Удостоверимся, что следующая 
+галочка, «Открывать документ при закрытии его в MSOffice», тоже 
+установлена, и вернёмся на страницу кода.<br>
+<br>
+Посмотрим, как это работает. Запустим документ на выполнение (F9). 
+Документ запустится. Переключимся на приложение Ribbon XML Editor, и 
+убедимся, что документ там закрылся. Снова вернёмся к Word. Закроем 
+документ или весь Word целиком. Тотчас Ribbon XML Editor выйдет на 
+передний план и автоматически откроет документ. Таким образом, мы можем 
+попеременно редактировать и XML и VBA, не боясь, что сохранение 
+документа в одном редакторе перезатрёт изменения, сделанные в другом 
+редакторе.<br>
+<br>
+Теперь находим атрибут <b>label </b>и установив на него курсор, и нажав <b>Ctrl+Пробел</b> сменим его на <b>getLabel</b>.
+ В качестве значения впишем имя функции (можем оставить в качестве 
+такового старое значение, пусть теперь это будет именем функции, оно 
+вполне подходит для этого).<br>
+<br>
+Теперь нам надо написать соответствующую функцию на VBA. Чтобы упростить
+ программистам жизнь, Ribbon XML Editor может сгенерировать шаблон для 
+этой функции, чтобы потом только осталось её заполнить. Для этого нажмём
+ <b>Alt+F11</b> или кнопку в правой части верхней панели:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://2.bp.blogspot.com/-TGt0P7WLz1A/VPcG2Lp3r8I/AAAAAAAAALs/WtdCtY4Fbeo/s1600/vba.png" imageanchor="1" style=""><img src="1.png" border="0"></a></div>
+<br>
+<br>
+Откроется окно с шаблоном нашей функции. Его можно заполнить прямо 
+здесь, но лучше воспользоваться специализированным редактором Бейсика. 
+Для этого вначале сохраним шаблон функции в файл: нажмём кнопку с 
+изображением дискетки в  верхней панели окна шаблонов Ribbon XML Editor.
+ Предложенное имя файла RibbonCallbacks.bas оставим без изменений.<br>
+<br>
+Теперь закроем в Ribbon XML Editor окно шаблонов и запустим документ на 
+выполнение (F9). Найдя в интерфейсе ссылку на функцию 
+«Поприветствовать», Word предупредит нас о том, что не нашёл 
+соответствующий макрос. Всё правильно, его ещё нет, соглашаемся. 
+Обратите внимание, что на нашей кнопке пропала надпись. Тут тоже всё 
+правильно, ведь макроса, генерирующего её, в документе ещё нет.<br>
+<br>
+Переходим в редактор Бейсика. Для этого нажимаем ту же комбинацию <b>Alt+F11</b>,
+ но уже в Word. В качестве альтернативы можно включить в настройках Word
+ вкладку разработчика, переключиться на неё и нажать кнопку «Visual 
+Basic» в группе «Код».<br>
+<br>
+В открывшемся редакторе Бейсика нажимаем <b>Ctrl+M</b>, или выбираем в 
+меню «File -&gt; Import Faile…». Находим сохранённый из Ribbon XML 
+Editor файл с шаблонами (RibbonCallbacks.bas) и открываем его. В 
+документ в раздел Modules добавляется новый модуль RibbonCallbacks 
+(смотрите его слева, в структуре проекта). Открываем папку модулей, 
+делаем двойной щелчок на модуле RibbonCallbacks и видим текст нашего 
+шаблона.<br>
+<br>
+Теперь вписываем внутрь функции команду возврата имени кнопки:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'Кнопка1 (компонент: button, атрибут: getLabel), 2007</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub Поприветствовать(control As IRibbonControl, ByRef label)    </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    label = "Динамическая надпись"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Сохраняем, закрываем редактор Бейсика, закрываем документ, а затем снова
+ его запускаем и любуемся динамически созданной надписью. Точно так же 
+можно найти динамическую пару и для других статических атрибутов, и тоже
+ генерировать их значения на лету.<br>
+<br>
+Несмотря на то, что обучение программированию на VBA не входит в задачи наших уроков, вкратце опишу написанную нами функцию.<br>
+<br>
+Сначала идёт комментарий, который на VBA начинается с апострофа. Затем 
+идёт сама функция, начинающаяся со слова Sub, и заканчивающаяся End Sub.
+ Сразу после Sub идёт имя функции, которое мы задали в динамическом 
+атрибуте. В скобках за именем указаны имена атрибутов, через которые 
+функция принимает и возвращает параметры. <br>
+<br>
+Первый параметр — control (ожидается тип IRibbonControl). Сюда 
+передаётся объект нашей кнопки. Второй параметр — label. Перед ним 
+указан способ передачи параметра — ByRef, что означает «по ссылке». То 
+есть, в функцию передаётся не копия параметра, а ссылка непосредственно 
+на сам объект. Объектом служит некая строка, возвращаемая функцией. То 
+есть, именно в эту строку необходимо помещать текст, который должен 
+возвращаться функцией.<br>
+<br>
+Обычно результат зависит от каких-либо условий, но в нашем случае, чтобы
+ не усложнять пример, мы вернули текст без всяких условий.<br>
+<br>
+На этом мы закончим текущий урок. Теперь вы сами можете поупражняться в 
+динамическом возвращении других атрибутов. Замечу, что в дальнейшем не 
+надо сохранять шаблоны функций в файл. Когда добавляется новая функция, 
+то просто надо найти её шаблон и cкопировать её в редактор Бейсика. При 
+этом важно помнить, что <b>редактор Бейсика не поддерживает Unicode</b>,
+ поэтому при копировании следите за тем, чтобы при взятии текста в буфер
+ обмена была включена та раскладка клавиатуры, на которой вы пишите 
+комментарии. Иначе система не сможет распознать кодовую страницу 
+забираемого в буфер текста комментариев, и вставит кракозябры. То же 
+относится и к именам функций, если они написаны не на латинице.<br>
+<br>
+На этом урок закончим. В следующий раз продолжим изучение динамических 
+атрибутов на примере атрибута onAction, задающего макрос, срабатывающий 
+при нажатии на элемент, в котором этот атрибут прописан.</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a href="https://www.blogger.com/profile/15132597310126998409" rel="author" title="author profile">
+<span itemprop="name">dolbodub</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+на
+
+<a class="timestamp-link" href="http://fluentui.blogspot.ru/2015/03/8.html?m=1" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2015-03-04T17:01:00+03:00">17:01</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<div class="mobile-link-button goog-inline-block" id="mobile-share-button">
+<a href="javascript:void(0);">Поделиться</a>
+</div>
+<div class="goog-inline-block dummy-container"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1526205976294" name="I0_1526205976294" src="2.png" data-gapiattached="true" title="G+" frameborder="0" width="100%"></iframe></div></div>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>7 комментариев:</h4>
+<div class="comments-content">
+
+
+<div id="comment-holder">
+
+<div id="bc_0_8C" kind="c"><div id="bc_0_8CT"><div id="bc_0_7T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_7TB"><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c43247189590048744" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1440243242696&amp;m=1#c43247189590048744">22 августа, 2015 14:34</a></span></div><p id="bc_0_2MC" class="comment-content">С установкой текста при загрузке приложения - понятно. А как получить значение, например editBox, в VBA? Как работает OnChange?</p><span id="bc_0_2MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_2BR" class="comment-replies"><span id="bc_0_2b+seedCBp6D" kind="d"><div id="bc_0_0T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_0TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_0TA" class="thread-arrow"></span><span id="bc_0_0TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_0TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_0TC" class="thread-chrome thread-expanded"><div><li id="bc_0_0B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c7614525681719474656" class="comment-block"><div id="bc_0_0M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1440246476945&amp;m=1#c7614525681719474656">22 августа, 2015 15:27</a></span></div><p id="bc_0_0MC" class="comment-content">OnChange так и работает - выполняется при изменении поля. Его и используем для получения значения:<br><br>В XML у editBox  пишите onChange="onChangeText"<br><br>В VBA получаете процедуру обратного вызова:<br><br>Sub onChangeText(control As IRibbonControl, text As String)<br>    myText = text<br>End Sub<br><br>Вначале кода объявляете глобальную переменную:<br><br>Dim myText As String<br><br>Вот и всё!</p><span id="bc_0_0MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_0BR" class="comment-replies"></div><div id="bc_0_0B_box" class="comment-replybox-single"></div></li><li id="bc_0_1B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c2457785624381404020" class="comment-block"><div id="bc_0_1M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1440249721695&amp;m=1#c2457785624381404020">22 августа, 2015 16:22</a></span></div><p id="bc_0_1MC" class="comment-content">Спасибо!</p><span id="bc_0_1MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_1BR" class="comment-replies"></div><div id="bc_0_1B_box" class="comment-replybox-single"></div></li></div><div id="bc_0_0I" class="continue" kind="ci"><a href="javascript:;" target="_self">Ответить</a></div></ol><div id="bc_0_0T_box" class="comment-replybox-thread"></div></div></span></div><div id="bc_0_2B_box" class="comment-replybox-single"></div></li><li id="bc_0_6B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c2230809036419302913" class="comment-block"><div id="bc_0_6M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1443779872873&amp;m=1#c2230809036419302913">02 октября, 2015 12:57</a></span></div><p id="bc_0_6MC" class="comment-content">Создал
+ динамический атрибут getEnabled для кнопки. При загрузке все 
+срабатывает, но при изменениях в документе уже не хочет. Можно как-то 
+сделать, чтобы динамический атрибут реагировал на изменения в документе?<br>К
+ примеру для Excel-я: если в ячейке A1 значение 1, то кнопка активна, 
+если 2, то не активна. Как-то так. Заранее благодарен за ответ.</p><span id="bc_0_6MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_6BR" class="comment-replies"><span id="bc_0_6b+seedCBp9D" kind="d"><div id="bc_0_3T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_3TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_3TA" class="thread-arrow"></span><span id="bc_0_3TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_3TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_3TC" class="thread-chrome thread-expanded"><div><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c2371929484536971886" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1443812235155&amp;m=1#c2371929484536971886">02 октября, 2015 21:57</a></span></div><p id="bc_0_3MC" class="comment-content">Может, запускать макрос из события Worksheet_Change, отслеживая изменения ячейки?<br>(https://support.microsoft.com/ru-ru/kb/213612)</p><span id="bc_0_3MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_3BR" class="comment-replies"></div><div id="bc_0_3B_box" class="comment-replybox-single"></div></li><li id="bc_0_4B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c7742926697117214415" class="comment-block"><div id="bc_0_4M" class="comment-header" kind="m"><cite class="user">Анонимный</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1501193684377&amp;m=1#c7742926697117214415">28 июля, 2017 01:14</a></span></div><p id="bc_0_4MC" class="comment-content">Если ещё актуально...<br>Работает.<br><br>http://www.excel-vba.ru/forum/index.php?topic=4300.0<br><br>http://www.xtremevbtalk.com/excel/312119-ribbonx-update-editbox-text-worksheet-range-button-custom-tab.html</p><span id="bc_0_4MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_4BR" class="comment-replies"></div><div id="bc_0_4B_box" class="comment-replybox-single"></div></li><li id="bc_0_5B" class="comment" kind="b"><div class="avatar-image-container"><img src="4.png"></div><div id="c1277156002302611881" class="comment-block"><div id="bc_0_5M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/03/8.html?showComment=1501197796700&amp;m=1#c1277156002302611881">28 июля, 2017 02:23</a></span></div><p id="bc_0_5MC" class="comment-content">Спасибо. Думаю, для кого-то в любом случае будет актуально.</p></div></li></div></ol></div></span></div></li></ol></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

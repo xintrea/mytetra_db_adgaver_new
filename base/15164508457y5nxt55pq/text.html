@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="https://python-scripts.com/import-csv-python"><span style=" text-decoration: underline; color:#0000ff;">p</span></a><span style=" text-decoration: underline; color:#0000ff;">ython-scripts.com</span> </p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-title"></a>Обрабатываем csv файлы - Модуль csv </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>автор </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="meta-data"></a>9-12 минут </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a><span style=" font-weight:600;">М</span><span style=" font-weight:600;">одуль csv</span> дает программисту возможность выполнять структурный <span style=" font-weight:600;">анализ файлов CSV</span> (<span style=" font-style:italic;">Comma Separated Values</span> – переменные, разделенные запятыми). <span style=" font-weight:600;">Файл CSV</span> – это текстовый файл, в котором каждая строка имеет несколько полей, разделенных запятыми, или другими разделителями. Вы можете рассматривать каждую строчку как ряд, а каждое поле — как столбец. <span style=" font-weight:600;">Формат CSV</span> не имеет стандарта, но эти файлы достаточно похожи, так что <a href="https://python-scripts.com/import-csv-python"><span style=" text-decoration: underline; color:#0000ff;">модуль csv</span></a> может распознавать большую часть этих файлов. Вы также можете создавать файлы CSV, используя данный модуль.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Чтение файлов CSV</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Существует два способа <a href="https://python-scripts.com/import-csv-python"><span style=" text-decoration: underline; color:#0000ff;">чтения файлов CSV</span></a>. Вы можете использовать функцию чтения <span style=" font-weight:600;">модуля csv</span>, или использовать класс <span style=" font-weight:600;">DictReader</span>. Мы рассмотрим оба метода. Но сначала, нам нужно получить файлы CSV, чтобы было над чем работать. В интернете есть много сайтов, предлагающих познавательную информацию в формате CSV. Мы используем сайт <span style=" font-weight:600;">всемирной организации здравоохранения</span>, чтобы скачать кое-какую информацию о туберкулёзе. Вы можете получить её здесь: <a href="http://www.who.int/tb/country/data/download/en/"><span style=" text-decoration: underline; color:#0000ff;">http://www.who.int/tb/country/data/download/en/</span></a><br />Как только вы скачаете файл, мы будем готовы начать. Готовы? Давайте взглянем на следующий код: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468"></a>import csv</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-3"></a>def csv_reader(file_obj):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-4"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-5"></a>    Read a csv file</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-6"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-7"></a>    reader = csv.reader(file_obj)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-8"></a>    for row in reader:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-9"></a>        print(&quot; &quot;.join(row))</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-11"></a>if __name__ == &quot;__main__&quot;:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-12"></a>    csv_path = &quot;TB_data_dictionary_2014-02-26.csv&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-13"></a>    with open(csv_path, &quot;r&quot;) as f_obj:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45780e053218468-14"></a>        csv_reader(f_obj)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вот здесь мы остановимся. В первую очередь, нам нужно импортировать <span style=" font-weight:600;">модуль csv</span>. После этого, нам нужно создать очень простую функцию, под названием <span style=" font-weight:600;">csv_reader</span>, которая получает доступ к объекту файла. Внутри функции, мы передаем файл функции <span style=" font-weight:600;">csv.reader</span>, которая возвращает объект-считыватель. Объект-считыватель позволяет выполнить итерацию также, как это делает обычный объект <span style=" font-weight:600;">file</span>. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это позволяет выполнять итерацию над каждым рядом в объекте-считывателе и отобразить строку данных, но без запятых. Это работает по той причине, что каждый ряд является списком, и мы можем объединить все элементы в списке вместе, создав одну большую строку. А теперь мы создадим наш собственный файл <span style=" font-weight:600;">CSV</span> и загрузим его в класс <span style=" font-weight:600;">DictReader</span>. Вот очень простой пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45781c568972515"></a>first_name,last_name,address,city,state,zip_code</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45781c568972515-2"></a>Tyrese,Hirthe,1404 Turner Ville,Strackeport,NY,19106-8813</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45781c568972515-3"></a>Jules,Dicki,2410 Estella Cape Suite 061,Lake Nickolasville,ME,00621-7435</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45781c568972515-4"></a>Dedric,Medhurst,6912 Dayna Shoal,Stiedemannberg,SC,43259-2273</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Давайте сохраним это в файле, под названием <span style=" font-weight:600;">data.csv</span> . Теперь мы готовы проанализировать файл при помощи класса <span style=" font-weight:600;">DictReader</span>. Давайте попробуем: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718"></a>import csv</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-3"></a>def csv_dict_reader(file_obj):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-4"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-5"></a>    Read a CSV file using csv.DictReader</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-6"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-7"></a>    reader = csv.DictReader(file_obj, delimiter=',')</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-8"></a>    for line in reader:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-9"></a>        print(line[&quot;first_name&quot;]),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-10"></a>        print(line[&quot;last_name&quot;])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-12"></a>if __name__ == &quot;__main__&quot;:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-13"></a>    with open(&quot;data.csv&quot;) as f_obj:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457828852051718-14"></a>        csv_dict_reader(f_obj)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данном примере мы открыли файл и привязали объект файла к нашей функции таким же образом, каким мы делали это раньше. Функция привязывает наш объект к нашему классу DictReader. Мы указываем классу DictReader, что <span style=" font-weight:600;">разделителем является запятая</span>. Не то, что бы это было необходимо в нашем коде, так как он работает и без этого аргумента. Тем не менее, это хорошая идея, так как это позволяет пролить свет на то, что именно происходит внутри кода. Далее, мы применяем цикл над объектом-считывателем, и обнаруживаем, что каждая строка в нем – это <span style=" font-weight:600;">словарь</span>. Это упрощает печать отдельных фрагментов линии. Теперь мы готовы научиться <span style=" font-weight:600;">писать файл csv</span> на диск. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Пишем CSV файл</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Модуль csv</span> также имеет два метода, которые вы можете применять для написания <span style=" font-weight:600;">файла CSV</span>. Вы можете использовать функцию <span style=" font-weight:600;">writer</span>, или класс <span style=" font-weight:600;">DictWriter</span>. Мы рассмотрим оба метода. Начнем с <span style=" font-weight:600;">функции writer</span>. Давайте взглянем на простой пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124"></a>1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">13</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">14</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">15</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">17</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">18</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">19</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">20 </p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-1"></a>import csv</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-3"></a>def csv_writer(data, path):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-4"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-5"></a>    Write data to a CSV file path</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-6"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-7"></a>    with open(path, &quot;w&quot;, newline='') as csv_file:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-8"></a>        writer = csv.writer(csv_file, delimiter=',')</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-9"></a>        for line in data:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-10"></a>            writer.writerow(line)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-12"></a>if __name__ == &quot;__main__&quot;:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-13"></a>    data = [&quot;first_name,last_name,city&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-14"></a>            &quot;Tyrese,Hirthe,Strackeport&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-15"></a>            &quot;Jules,Dicki,Lake Nickolasville&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-16"></a>            &quot;Dedric,Medhurst,Stiedemannberg&quot;.split(&quot;,&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-17"></a>            ]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-19"></a>    path = &quot;output.csv&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457835287740124-20"></a>    csv_writer(data, path)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данном коде мы создали <span style=" font-weight:600;">функцию csv_writer</span> которая принимает два аргумента: <span style=" font-weight:600;">path</span> и <span style=" font-weight:600;">data</span>. «data» — это список списков, которые мы создали внизу скрипта. Мы использовали сокращенную версию аргумента data из предыдущего примера и разделили строки запятыми. Это возвращает список. Таким образом, мы получаем вложенный список, который выглядит следующим образом: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457842008972488"></a>[['first_name', 'last_name', 'city'],</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457842008972488-2"></a>['Tyrese', 'Hirthe', 'Strackeport'],</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457842008972488-3"></a>['Jules', 'Dicki', 'Lake Nickolasville'],</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457842008972488-4"></a>['Dedric', 'Medhurst', 'Stiedemannberg']]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция <span style=" font-weight:600;">csv_writer</span> открывает путь, по которому мы проходим, и создает объект записи <span style=" font-weight:600;">csv</span>. После этого мы используем цикл в нашем вложенном списке, и записываем каждую строку на наш диск. Обратите внимание на то, что мы указали на то, какой именно символ является разделителем, когда создавали объект записи. Если вы хотите, чтобы разделителем была не запятая, а любой другой символ – это именно та самая часть, в которой вы можете это указать. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь мы готовы к тому, чтобы научиться <span style=" font-weight:600;">писать файлы CSV</span> при помощи класса DictWriter. Мы используем аргумент data из предыдущего примера, и превратим его в список словарей, которые мы можем загрузить в наш DictWriter. Давайте взглянем: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738"></a>1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">13</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">14</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">15</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">17</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">18</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">19</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">20</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">21</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">22</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">23</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">24</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">25</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">26</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">27 </p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-1"></a>import csv</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-3"></a>def csv_dict_writer(path, fieldnames, data):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-4"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-5"></a>    Writes a CSV file using DictWriter</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-6"></a>    &quot;&quot;&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-7"></a>    with open(path, &quot;w&quot;, newline='') as out_file:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-8"></a>        writer = csv.DictWriter(out_file, delimiter=',', fieldnames=fieldnames)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-9"></a>        writer.writeheader()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-10"></a>        for row in data:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-11"></a>            writer.writerow(row)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-13"></a>if __name__ == &quot;__main__&quot;:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-14"></a>    data = [&quot;first_name,last_name,city&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-15"></a>            &quot;Tyrese,Hirthe,Strackeport&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-16"></a>            &quot;Jules,Dicki,Lake Nickolasville&quot;.split(&quot;,&quot;),</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-17"></a>            &quot;Dedric,Medhurst,Stiedemannberg&quot;.split(&quot;,&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-18"></a>            ]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-20"></a>    my_list = []</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-21"></a>    fieldnames = data[0]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-22"></a>    for values in data[1:]:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-23"></a>        inner_dict = dict(zip(fieldnames, values))</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-24"></a>        my_list.append(inner_dict)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-26"></a>    path = &quot;dict_output.csv&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457855472066738-27"></a>    csv_dict_writer(path, fieldnames, my_list)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Начнем со второй части. Как вы видите, мы начали со структуры вложенного списка, который у нас был ранее. Теперь мы создаем пустой список и список, который содержит имена полей, который будет первым списком во вложенном списке. Помните, <span style=" font-weight:600;">списки начинаются с нуля</span>, так что первый элемент в нем начинается с нуля. Далее мы используем цикл во вложенном списке, начиная со второго элемента: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457866649250395"></a>for values in data[1:]:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457866649250395-2"></a>    inner_dict = dict(zip(fieldnames, values))</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457866649250395-3"></a>    my_list.append(inner_dict)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Внутри <span style=" font-weight:600;">цикла for</span> мы используем встроенные инструменты Python, чтобы создать словарь. <span style=" font-weight:600;">Метод zip</span> будет использовать два итератора (списка, в нашем случае), и превратит их в список кортежей. Давайте взглянем на пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45786e032708158"></a>zip(fieldnames, values)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef45786e032708158-2"></a>[('first_name', 'Dedric'), ('last_name', 'Medhurst'), ('city', 'Stiedemannberg')]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь, когда вы оборачиваете этот вызов в <span style=" font-weight:600;">dict</span>, этот список кортежей превращается в словарь. И наконец, мы добавляем словарь в список. Когда for завершит работу, вы получите структуру данных, которая будет выглядеть так: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457879064816918"></a>[</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457879064816918-2"></a>  {‘city’: ‘Strackeport’, ‘first_name’: ‘Tyrese’, ‘last_name’: ‘Hirthe’},</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457879064816918-3"></a>  {‘city’: ‘Lake Nickolasville’, ‘first_name’: ‘Jules’, ‘last_name’: ‘Dicki’},</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457879064816918-4"></a>  {‘city’: ‘Stiedemannberg’, ‘first_name’: ‘Dedric’, ‘last_name’: ‘Medhurst’}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61eef457879064816918-5"></a>]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В конце второй сессии, мы вызываем нашу функцию <span style=" font-weight:600;">csv_dict_writer</span> и передаем ей все необходимые аргументы. Внутри функции мы создаем <span style=" font-weight:600;">экземпляр DictWriter</span> и передаем ей объекту файла, значение разделителя и наш список наименований полей. Далее, мы записываем наименования полей на наш диск, зацикливаем данные по одной строке за раз, и записываем данные на диск. Класс DictWriter также поддерживает метод <span style=" font-weight:600;">writerows</span>, который мы можем использовать вместо цикла. Функция <span style=" font-weight:600;">csv.writer</span> также может делать это. Вы, может быть, заинтересованы в том, что бы научиться создавать диалекты при помощи <span style=" font-weight:600;">модуля csv</span>. Это позволит вам указывать модулю csv, как именно читать или писать файл в очень простой форме. Если вам это нужно, так файл вашего клиента непонятно как отформатирован – вы найдете эту часть функционала просто незаменимой.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Подведем итоги</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь вы знаете, как использовать <span style=" font-weight:600;">метод csv</span>, а также научились читать и писать файлы в формате <span style=" font-weight:600;">CSV</span>. Существует великое множество сайтов, которые размещают свою информацию в этом формате, также он часто используется в сфере бизнеса. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

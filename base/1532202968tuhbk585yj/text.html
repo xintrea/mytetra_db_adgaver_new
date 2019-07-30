@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="dfabbadfacdebaeaa" itemprop="text" style="transform: initial!important;direction: initial!important;">                            <p>Я
+ знаю, что на этот вопрос был дан ответ, но я подумал, что добавлю такие
+ приложения, как Outlook (и я считаю, что PowerPoint также) - это 
+приложения с одним экземпляром, нет необходимости определять, открыт ли 
+Outlook, потому что вы может работать только одна копия Outlook.</p>
+
+<p> <a href="http://msdn.microsoft.com/en-us/library/aa164542(v=office.10).aspx" rel="nofollow noreferrer">http://msdn.microsoft.com/en-us/library/aa164542(v=office.10).aspx</a></p>
+
+<p>Если вам нужно создать экземпляр Outlook, просто используйте 
+CreateObject для создания экземпляра; если Outlook уже запущен, ссылка 
+на объект укажет на существующий экземпляр. Если нет, вы создадите 
+класс. Переплет (поздний или ранний) не имеет значения.</p>
+
+<p>Например, предположим, что Outlook не запущен. Мы можем использовать этот код для создания экземпляра:</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub testOutlook()</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim olApp As Object ' Outlook.Application</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">Set</span> olApp = CreateObject(<span class="hljs-string">"Outlook.Application"</span>)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MsgBox (olApp2 <span class="hljs-keyword">Is</span> <span class="hljs-keyword">Nothing</span>)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">End</span> Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p>Это будет печатать "False" , потому что мы создали экземпляр.</p>
+
+<p>Предположим, что Outlook работает. Мы можем использовать этот код, 
+чтобы убедиться, что использование GetObject и CreateObject будет 
+ссылаться на существующий экземпляр:</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub testOutlook()</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim olApp As Object ' Outlook.Application</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim olApp2 As Object ' Outlook.Application</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">Set</span> olApp = GetObject(, <span class="hljs-string">"Outlook.Application"</span>)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MsgBox (olApp <span class="hljs-keyword">Is</span> <span class="hljs-keyword">Nothing</span>)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">Set</span> olApp2 = CreateObject(<span class="hljs-string">"Outlook.Application"</span>)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MsgBox (olApp2 <span class="hljs-keyword">Is</span> <span class="hljs-keyword">Nothing</span>)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MsgBox <span class="hljs-string">"Same object? "</span> &amp; (olApp <span class="hljs-keyword">Is</span> olApp2)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">End</span> Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p>Это напечатает "False" (существующий экземпляр), "False" (наш 
+предполагаемый "новый экземпляр" ), но последнее поле сообщения "True", 
+потому что новый экземпляр на самом деле тот же объект, что и 
+существующий экземпляр.</p>
+
+<p>Итак, что нам делать, если мы не знаем, работает ли Outlook или нет? 
+Как показано выше, CreateObject либо создал новый экземпляр (если он не 
+существовал, как в первом примере), либо подключил существующий 
+экземпляр, если Outlook был уже открыт (как во втором примере).</p>                            </div>
+</body>
+</html></p></body></html>

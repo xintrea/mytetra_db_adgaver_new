@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Автор Allen Browne, июнь 1997 г. Обновлено в сентябре 2009 г..</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оригинал <a href="http://allenbrowne.com/ser-23a.html"><span style=" text-decoration: underline; color:#0000ff;">http://allenbrowne.com/ser-23a.html</span></a></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Перевел с английского <a href="mailto:alx.artamonov@yandex.ru"><span style=" text-decoration: underline; color:#0000ff;">Александр Артамонов</span></a>, ноябрь 2011 г.</p>
+<hr />
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Обработка ошибок в VBA</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В каждую функция или процедуру следует включать обработку ошибок. Без нее пользователь может оказаться глядящим на дефектный код в открытом редактороме VBA в полной версии Аксесс, а в рантайм версии приложение просто падает.. Более подробно обработка ошибок изложена в статье FMS  <a href="http://www.fmsinc.com/tpapers/vbacode/Debug.asp"><span style=" text-decoration: underline; color:#0000ff;">Error Handling and Debugging</span></a>.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Простейший подход состоит в том, чтобы показать сообщение об ошибке и выйти из процедуры. Каждая процедура, таким образом, будет иметь такой формат (без номеров строк):</p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">1 Sub|Function SomeName()<br />2     On Error GoTo Err_SomeName          ' Инициализировать обработку ошибок.<br />3     'здесь должен быть ваш код.<br />4 Exit_SomeName:                          ' Метка для возобновления после ошибки.<br />5     Exit Sub|Function                   ' Выход до обработки ошибок.<br />6 Err_SomeName:                           ' Метка для перехода при ошибке.<br />7     MsgBox Err.Number &amp; Err.Description ' Место для обработчика ошибок.<br />8     Resume Exit_SomeName                ' возобновить код и выйти.<br />9 End Sub|Function</span></pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для задач, где есть возможность нескольких ошибок, строки 7-8 нужно заменить более подробным вариантом:</p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Select Case Err.Number<br />      Case 9999                        ' Номер ожидаемой ошибки.<br />          Resume Next                  ' Чтобы игнорировать вызвавшую ошибку строку<br />      Case 999<br />          Resume Exit_SomeName         ' Это используется для выхода из процедуры.<br />      Case Else                        ' Любая неожиданная ошибка.<br />          Call LogError(Err.Number, Err.Description, &quot;SomeName()&quot;)<br />          Resume Exit_SomeName<br />      End Select</span></pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ветка <span style=" font-family:'Courier New';">Case Else</span> в этом примере вызывает пользовательскую функцию записи деталей ошибки в таблицу. Это позволит подробнее разобраться уже после того, как ошибка будет очищена. Таблицу можно назвать &quot;tLogError&quot; и состоять она будет из следующих полей:</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px;" width="600" cellspacing="1" cellpadding="2">
+<tr>
+<td width="20%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Имя поля</span></p></td>
+<td width="20%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Тип данных</span></p></td>
+<td width="60%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Описание</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ErrorLogID</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Счетчик</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первичный ключ.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ErrNumber</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Число</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Длинное целое. Номер ошибки, сгенерированный Аксессом.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ErrDescription</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Текст</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Размер=255. Сообщение об ошибке, сгенерированное Аксессом.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ErrDate</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Дата/время</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Системная дата и время ошибки. По умолчанию: =Now()</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CallingProc</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Текст</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Имя процедуры, вызвавшей LogError()</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">UserName</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Текст</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Имя пользователя.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ShowUser</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Логический</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Будет или нет показан диалоговое сообщение (MsgBox) c описанием ошибки</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Parameters</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Текст</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">255. Опционально. Любые параметры, которые сочтете нужным записать.</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Below is a procedure for writing to this table. It optionally allows recording the value of any variables/parameters at the time the error occurred. You can also opt to suppress the display of information about the error.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ниже процедура для записи в эту таблицу. Она опционально позволяет записывать значения переменных/параметров во время возникновения ошибки. Можно также подавить вывод информации об ошибке на экран.</p>
+<hr />
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Function LogError(ByVal lngErrNumber As Long, ByVal strErrDescription As String, _<br />    strCallingProc As String, Optional vParameters, Optional bShowUser As Boolean = True) As Boolean<br />On Error GoTo Err_LogError<br />    ' Назначение: Обобщенный обработчик ошибок.<br />    ' Записывает ошибки в таблицу &quot;tLogError&quot;.<br />    ' Аргументы: lngErrNumber - значение Err.Number<br />    ' strErrDescription - значение Err.Description<br />    ' strCallingProc - имя процедуры/функции, сгенерировавшей ошибку.<br />    ' vParameters - необязательный параметр-строка: список параметров для записи в таблицу.<br />    ' bShowUser - необязательный параметр boolean: если False, подавляет вывод сообщения на экран.<br />    ' Автор: Allen Browne, allen@allenbrowne.com Комментарии перевел Александр Артамонов<br /><br />    Dim strMsg As String      ' Строковое значение для отображения в MsgBox<br />    Dim rst As DAO.Recordset  ' таблица tLogError<br /><br />    Select Case lngErrNumber<br />    Case 0<br />        Debug.Print strCallingProc &amp; &quot; called error 0.&quot;<br />    Case 2501                ' Cancelled<br />        'Do nothing.<br />    Case 3314, 2101, 2115    ' Can't save.<br />        If bShowUser Then<br />            strMsg = &quot;Record cannot be saved at this time.&quot; &amp; vbCrLf &amp; _<br />                &quot;Complete the entry, or press &lt;Esc&gt; to undo.&quot;<br />            MsgBox strMsg, vbExclamation, strCallingProc<br />        End If<br />    Case Else<br />        If bShowUser Then<br />            strMsg = &quot;Error &quot; &amp; lngErrNumber &amp; &quot;: &quot; &amp; strErrDescription<br />            MsgBox strMsg, vbExclamation, strCallingProc<br />        End If<br />        Set rst = CurrentDb.OpenRecordset(&quot;tLogError&quot;, , dbAppendOnly)<br />        rst.AddNew<br />            rst![ErrNumber] = lngErrNumber<br />            rst![ErrDescription] = Left$(strErrDescription, 255)<br />            rst![ErrDate] = Now()<br />            rst![CallingProc] = strCallingProc<br />            rst![UserName] = CurrentUser()<br />            rst![ShowUser] = bShowUser<br />            If Not IsMissing(vParameters) Then<br />                rst![Parameters] = Left(vParameters, 255)<br />            End If<br />        rst.Update<br />        rst.Close<br />        LogError = True<br />    End Select<br /><br />Exit_LogError:<br />    Set rst = Nothing<br />    Exit Function<br /><br />Err_LogError:<br />    strMsg = &quot;В программе возникла непредвиденная ситуация.&quot; &amp; vbCrLf &amp; _<br />        &quot;Пожалуйста запишите следующую информацию:&quot; &amp; vbCrLf &amp; vbCrLf &amp; _<br />        &quot;Вызывающая процедура: &quot; &amp; strCallingProc &amp; vbCrLf &amp; _<br />        &quot;Номер ошибки &quot; &amp; lngErrNumber &amp; vbCrLf &amp; strErrDescription &amp; vbCrLf &amp; vbCrLf &amp; _<br />        &quot;Запись в таблицу невозможна из-за Ошибки &quot; &amp; Err.Number &amp; vbCrLf &amp; Err.Description<br />    MsgBox strMsg, vbCritical, &quot;LogError()&quot;<br />    Resume Exit_LogError<br />End Function<br /></span></pre>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Замечания по функции:</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для Аксесса 1 или 2, используйте <a href="http://alx-artamonov.narod.ru/index/ser-23b.html"><span style=" text-decoration: underline; color:#0000ff;">Access Basic error handler</span></a>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Возвращаемое значение</span> служит только с целью показать, успешно ли функция записала в лог ошибку.</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Возможные расширения: </span>Поскольку таблица tErrorLog у вас уже открыта, вы могли бы посчитать последние ошибки и подавить вывод на экран одного и того же сообщения несколько раз, или отменить повторные ошибки блокировки.</li></ol></body></html>

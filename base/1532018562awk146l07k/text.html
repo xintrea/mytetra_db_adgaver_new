@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>Внешние приложения - Запуск</h1>
+<p class="CodeAutor">По материалам: <a href="https://msdn.microsoft.com/ru-ru/library/xe736fyk(v=vs.90).aspx" rel="nofollow" target="_blank">https://msdn.microsoft.com/ru-ru/library/xe736fyk(v=vs.90).aspx</a><br>
+Добротное описание: <a href="http://excelvba.ru/code/environ" rel="nofollow" target="_blank">http://excelvba.ru/code/environ</a></p>
+ 
+
+
+<p class="CodeDescription">Для программ из "Windows\system32" путь не обязателен. Этот путь доступен всегда. Он из системной переменной Path</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">       Shell "calc.exe"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+
+<p class="CodeDescription"><span class="CodeSubHeader">Функция Shell</span><br>
+Запускает исполняемую программу и возвращает целочисленное значение, 
+содержащее идентификатор процесса программы, если она все еще 
+выполняется.<br>
+</p>
+
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public Function Shell( _</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   ByVal PathName As String, _ </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Optional ByVal Style As AppWinStyle = AppWinStyle.MinimizedFocus, _ </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Optional ByVal Wait As Boolean = False, _ </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Optional ByVal Timeout As Integer = -1 _</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">) As Integer</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+Параметры:<br>
+<strong>PathName</strong><br>
+    Обязательный параметр. String. Имя программы для выполнения, вместе 
+со всеми обязательными аргументами и параметрами командной строки. 
+PathName может также содержать диск и путь к каталогу или папке.<br>
+    Если вы не знаете путь к программе, можно использовать Метод 
+My.Computer.FileSystem.GetFiles для его поиска. Например, можно вызвать 
+My.Computer.FileSystem.GetFiles("C:\", True, "testFile.txt"), которая 
+возвращает полный путь каждого файла с именем testFile.txt в любом месте
+ на диске C:\.<br>
+<strong>Style</strong><br>
+    Необязательный атрибут. AppWinStyle. Значение, выбранное из 
+перечисления Перечисление AppWinStyle и задающее стиль окна, в котором 
+запускается программа. Если опущен Style, Shell использует 
+AppWinStyle.MinimizedFocus, которая запускает программу в свернутом 
+состоянии и в фокусе. <br>
+<strong>Wait</strong><br>
+    Необязательный атрибут. Boolean. Значение, показывающее, должна ли 
+функция Shell ожидать завершения программы. Если этот аргумент Wait 
+опущен, используется ShellFalse.<br>
+<strong>Timeout</strong><br>
+    Необязательный атрибут. Integer. Число миллисекунд ожидания 
+завершения, если значение Wait равно True. Если параметр Timeout опущен,
+ Shell использует -1, то есть тайм-аут не используется и Shell ожидает 
+завершения выполнения программы. Таким образом, если вы опустите Timeout
+ или установите его в -1, существует возможность, что Shell никогда не 
+передаст управления вашей программе.</p>
+
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Shell "C:\Program files\WinRar\WinRar.exe", vbNormalFocus <span class="CodeRemark">' Запускаем WinRar.exe, окно программы получит фокус и сохранит стандартные размеры </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></span></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+Запуск программы с параметрами:</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim s$</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   s = Environ("APPDATA") &amp; "\GHISLER\AkelPad\AkelPad.exe ""d:\temp\Code.txt"""</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <span class="CodeRemark">'Debug.Print s</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Shell s, vbNormalFocus</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+
+<p class="CodeDescription"><br>
+<br>
+<br>
+<span class="CodeSubHeader">API-функция ShellExecute</span><br>
+Для запуска как exe-файла, так и файла, ассоциированного с приложением, 
+например, chm-файла, лучше использовать API-функцию ShellExecute.<br>
+<br>
+Пример использования:</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, _</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub OpenApp()</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    URL = "D:\Temp\VB Help.chm"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    ShellExecute 0&amp;, vbNullString, URL, vbNullString, vbNullString, vbNormalFocus</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription">Ну или так:</p>
+
+<p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub test()</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    ПутьКФайлу = "C:\Documents and Settings\Игорь\Рабочий стол\4511_185_158.jpg"</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    If Dir(ПутьКФайлу) = "" Then MsgBox "Файл  " &amp; ИмяФайла &amp; "  не найден", vbExclamation, "Файл не найден": Exit Sub</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    ПутьКФайлу = Chr(34) &amp; ПутьКФайлу &amp; Chr(34)    <span class="CodeRemark">' добавляем кавычки до и после пути к файлу (если имя содержит пробелы)</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    CreateObject("WScript.Shell").Run ПутьКФайлу    <span class="CodeRemark">' аналогично двойному щелчку мыши на файле</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</body>
+</html></p></body></html>

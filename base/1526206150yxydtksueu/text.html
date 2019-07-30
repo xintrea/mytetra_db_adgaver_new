@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h3 class="post-title entry-title" itemprop="name">
+Урок 9. Выполнение действия по нажатию кнопки.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-2898797043381227723" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+На прошлом уроке мы познакомились с написанием функций для динамического
+ возвращения значений атрибутов. Теперь мы напишем функцию, которая 
+будет выполняться при нажатии на кнопку. Если мы рассмотрим все 
+предлагаемые для button атрибуты, то увидим атрибут <b>onAction</b>. Именно в этом атрибуте и указывается функция, которая будет выполняться при нажатии на эту кнопку.<br>
+<br>
+Добавим кнопке атрибут: <br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">onAction="ОтобразитьПриветствие"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Сгенерируем шаблоны функций (<b>Alt+F11</b>), проконтролируем текущую 
+раскладку, чтобы была русская, и скопируем в буфер шаблон для функции 
+«ОтобразитьПриветствие». Затем закроем окно, запустим документ на 
+выполнение, нажмём в Word <b>Alt+F11</b>, и вставим скопированное рядом нашей предыдущей с функцией. Внутри функции пишем команду вывода сообщения:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox "Приветствую тебя, мой повелитель!"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Сохраняем, всё закрываем, затем снова запускаем документ. Нажимаем на кнопку и получаем удовольствие.<br>
+<br>
+Вместо вывода сообщения можно вызвать любую имеющуюся в Word команду. 
+Выше я упоминал, что штатной кнопке нельзя присвоить внешнее 
+изображение. Но можно создать свою кнопку, присвоить ей внешнее 
+изображение, а в <b>onAction </b>прописать команду, выполняющуюся при нажатии штатной кнопки.<br>
+<br>
+Давайте повесим на нашу кнопку команду открытия редактора Бейсика. 
+Запускаем документ, переходим в редактор Бейсика, и правим наши функции.
+ Сначала в функции «Поприветствовать» меняем название кнопки на, 
+например, «Открыть редактор Бейсика» (можем изменить и имя самой 
+функции, но тогда надо не забыть поменять его также и в атрибуте <b>onAction</b>). Затем в функции «ОтобразитьПриветствие» комментируем апострофам строку вывода приветствия, и пишем вместо неё строку:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ShowVisualBasicEditor = True</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Сохраняем, закрываем редактор Бейсика, нажимаем на кнопку и… снова оказываемся в редакторе! Всё, как и задумывалось!<br>
+<br>
+Теперь, вопрос: откуда я узнал, что редактор Бейсика открывается именно 
+так? Всё очень просто. Для того, чтобы узнать, как программно проделать 
+те или иные действия, можно штатными средствами Word просто создать 
+макрос, и записав в него нужную последовательность действий, открыть его
+ код и скопировать в нашу функцию. При этом не всегда стоит копировать 
+код бездумно. Как правило, полученные макросы можно уточнить, убрать из 
+них лишнее и т.п.<br>
+<br>
+Замечу, что обучение записи макросов и программированию на VBA не входит
+ в задачи наших уроков, но всё это очень легко осваивается 
+самостоятельно. Особенно запись макросов. Для неё даже предусмотрена 
+группа «Макросы» на вкладке «Вид» или группа «Код» с кнопкой «Запись 
+макроса» на вкладке «Разработчик».<br>
+<br>
+На сегодня закончим. В следующем уроке мы перейдём к важной теме - созданию надстроек. </div></div>
+</body>
+</html></p></body></html>

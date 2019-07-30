@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h2>Преобразования базовых типов данных</h2><div class="date">Последнее обновление: 30.10.2015</div>
+
+<div class="socialBlock">
+<div class="share socialtop">
+<ul>
+<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk" onclick='window.open("http://vk.com/share.php?url=https://metanit.com/visualbasic/tutorial/2.2.php","Поделиться в ВКОНТАКТЕ","width=420,height=230,resizable=yes,scrollbars=yes,status=yes")'></a></li>
+<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki" onclick='window.open("https://connect.ok.ru/offer?url=https://metanit.com/visualbasic/tutorial/2.2.php","Поделиться в Одноклассниках","width=420,height=230,resizable=yes,scrollbars=yes,status=yes")'></a></li>
+<li><a title="Поделиться в Твиттере" rel="nofollow" class="fa fa-lg fa-twitter" onclick='window.open("http://twitter.com/share?url=https://metanit.com/visualbasic/tutorial/2.2.php","Поделиться в Твиттере","width=420,height=230,resizable=yes,scrollbars=yes,status=yes")'></a></li>
+<li><a title="Поделиться в Гугл+" rel="nofollow" class="fa fa-lg fa-google-plus" onclick='window.open("https://plus.google.com/share?url=https://metanit.com/visualbasic/tutorial/2.2.php","Поделиться в Google+","width=420,height=230,resizable=yes,scrollbars=yes,status=yes")'></a></li>
+<li><a title="Поделиться в Фейсбуке" rel="nofollow" class="fa fa-lg fa-facebook" onclick='window.open("http://www.facebook.com/sharer.php?u=https://metanit.com/visualbasic/tutorial/2.2.php","Поделиться в Facebook","width=420,height=230,resizable=yes,scrollbars=yes,status=yes")'></a></li>
+</ul>
+</div>
+<div class="like socialtop">
+<div class="gplus">
+<div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 38px; height: 24px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 38px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" id="I0_1520681184033" name="I0_1520681184033" src="1.png" data-gapiattached="true" title="G+" width="100%" frameborder="0"></iframe></div>
+</div>
+</div>
+</div>
+
+<div style="margin-top:23px;margin-left:5px;">
+
+
+
+
+<ins class="adsbygoogle footer-adaptive" style="display: inline-block; width: 468px; height: 60px;" data-ad-client="ca-pub-3716042175333627" data-ad-slot="9659512088" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:468px;height:60px;" width="468" height="60" frameborder="0"></iframe></ins></ins></ins>
+
+</div>
+
+
+<p>Итак, как вы выше увидели, каждый тип данных характеризуется 
+определенным количеством байт, которое этот тип занимает в памяти. При 
+этом для нас вполне логичным 
+было бы написать что-то вроде:</p>
+<div><div id="highlighter_289315" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">x </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= 6 </code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">y </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= x + 45</code></div></div></td></tr></tbody></table></div></div>
+<p>В то же время эта запись не совсем эквивалентна следующей, хотя результат один и тот же:</p>
+<div><div id="highlighter_161655" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">x </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= 6 </code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">y </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= x + 45</code></div></div></td></tr></tbody></table></div></div>
+<p>Все дело в том, что в первом случае компилятор применяет 
+преобразование типов: он преобразует данные типа Byte в данные типа 
+Integer. 
+Данный тип преобразований называется расширяющим (widening), так как тип
+ Byte расширяет свой размер до размера типа Integer.</p>
+<p>Кроме расширяющих преобразований есть еще и сужающие:</p>
+<div><div id="highlighter_170906" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">num1 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 1</code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">num2 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 2</code></div><div class="line number3 index2 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">res </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= num1 + num2</code></div></div></td></tr></tbody></table></div></div>
+<p>В этом случае переменные num1 и num2 типа Integer сужались до типа 
+Byte. Однако с сужающими преобразованиями, особенно с теми, которые 
+выполняются 
+неявно, как в нашем случае, надо обращаться осторожно. Так, следующий 
+код выбросит исключение OverflowException:</p>
+<div><div id="highlighter_921661" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">num1 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 100</code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">num2 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 200</code></div><div class="line number3 index2 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">res </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= num1 + num2</code></div></div></td></tr></tbody></table></div></div>
+<p>Что в принципе не удивительно, так как итоговое число - 300 больше 
+максимального числа, которое может представлять тип Byte, то есть больше
+ 255.</p>
+<p>Другой момент, который надо затронуть, - это <span class="bb">явные (explicit conversion)</span> и <span class="bb">неявные (implicit conversion) преобразования</span>.
+ Все выше перечисленные преобразования выполнялись у нас неявно. То есть
+ 
+компилятор сам выполнял преобразование из типа Integer в тип Byte без 
+дополнительных команд. Мы можем явно запретить неявные сужающие 
+преобразования, 
+установив в самом верху кода программы оператор Option Strict On. Кроме 
+того, мы можем установить этот оператор применительно ко всему проекту 
+через свойства проекта (в меню выберите пункт Проект(Project) и в 
+появившемся меню выберите пункт Свойства (Properties)):</p>
+<img src="2.png">
+<p>После установки для данного оператора значения On строчка <code>Dim res As Byte = num1 + num2</code> будет рассматриваться как ошибочная. 
+В этом случае мы должны будем явно преобразовывать типы с помощью соответствующих методов:</p>
+<div><div id="highlighter_309365" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">num1 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= </code><code class="vb keyword">CInt</code><code class="vb plain">(Console.ReadLine())</code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">num2 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 2</code></div><div class="line number3 index2 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">res </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code> <code class="vb plain">= </code><code class="vb keyword">CByte</code><code class="vb plain">(num1) + </code><code class="vb keyword">CByte</code><code class="vb plain">(num2)</code></div></div></td></tr></tbody></table></div></div>
+<p>В данном случае метод <code>CInt</code> преобразует вводимую строку в число типа Integer, а метод <code>CByte</code> преобразует число из типа Integer 
+в тип Byte. В языке VB.NET применяются следующие методы для преобразований типов:</p>
+<ul>
+<li><p>Метод <span class="bb">CBool</span> преобразует в тип Boolean любой числовой тип (включая Byte, SByte и типы перечисления), а также String, Object</p></li>
+<li><p>Метод <span class="bb">CByte</span> преобразует в Byte любой числовой тип (включая SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CChar</span> преобразует в Char объекты String, Object</p></li>
+<li><p>Метод <span class="bb">CDate</span> преобразует в Date объекты String, Object</p></li>
+<li><p>Метод <span class="bb">CDbl</span> преобразует в Double любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CDec</span> преобразует в Decimal любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CInt</span> преобразует в Integer любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CLng</span> преобразует в Long любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CObj</span> преобразует в Object любой тип данных</p></li>
+<li><p>Метод <span class="bb">CSByte</span> преобразует в SByte любой числовой тип (включая Byte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CShort</span> преобразует в Short любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CSng</span> преобразует в Single любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CStr</span> преобразует в String любой 
+числовой тип (включая Byte, SByte и типы перечисления), а также Boolean,
+ Char, массив Char, Date, Object</p></li>
+<li><p>Метод <span class="bb">CUInt</span> преобразует в UInteger любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CULng</span> преобразует в ULong любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+<li><p>Метод <span class="bb">CUShort</span> преобразует в UShort любой числовой тип (включая Byte, SByte и типы перечисления), а также Boolean, String, Object</p></li>
+</ul>
+<p>Кроме того, для преобразования типов мы можем использовать функцию <span class="bb">CType</span>.
+ Она принимает два параметра: первый параметр представляет переменную, 
+которую надо преобразовать, а второй параметр - тип данных, в который 
+надо эту переменную преобразовать. В следующем коде мы приводим 
+переменную num3 к типу Byte:</p>
+<div><div id="highlighter_441781" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Dim</code> <code class="vb plain">num2 </code><code class="vb keyword">As</code> <code class="vb keyword">Integer</code> <code class="vb plain">= 2</code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">num3 = </code><code class="vb keyword">CType</code><code class="vb plain">(num2, </code><code class="vb keyword">Byte</code><code class="vb plain">)</code></div></div></td></tr></tbody></table></div></div>
+</body>
+</html></p></body></html>

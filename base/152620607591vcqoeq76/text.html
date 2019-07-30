@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h3 class="post-title entry-title" itemprop="name">
+Урок 14. Автоматическое открытие заданной вкладки ленты при запуске документа.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-3198559735939806444" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+По умолчанию при открытии документа в ленте всегда открывается первая 
+вкладка (псевдовкладку «файл», открывающую закулисье, мы не считаем). 
+Если мы расположили нашу вкладку не первой, но хотим автоматически её 
+открывать при запуске документа, можно использовать следующий трюк.<br>
+<ol style="text-align: left;">
+<li>В xml-коде присвоим нашей вкладке символы клавиатурного доступа (keytip). Для этого <tab>используем атрибут keytip для тега tab нашей вкладки</tab><tab>. Можно задать последовательность от одного до трёх символов, например, так: <b>keytip="ЁПТ"</b>.
+ Теперь, если в документе нажать и отпустить Alt, у ярлыка нашей вкладки
+ появится заданная нами последовательность «ЁПТ», набрав которую вы 
+откроете эту вкладку.</tab></li>
+<li><tab>В тег </tab>customUI <tab><customui>нашего интерфейса добавим атрибут <b>onLoad="ВыборВкладки"</b>.
+ Этот атрибут задаёт процедуру, которая будет вызываться сразу после 
+окончания загрузки интерфейса. В ней мы и будем переключать вкладку.</customui></tab></li>
+<li><tab><customui>Генерируем шаблон процедуры обратного вызова 
+"ВыборВкладки" (кнопка VBA), и вставляем его в код макросов нашего 
+документа. Внутри этой процедуры программно сэмулируем набор символов 
+клавиатурного доступа командой <b>SendKeys "%ЁПТ{F6}"</b>.</customui></tab></li>
+</ol>
+<tab><customui>
+
+Процедура должна выглядеть так:</customui></tab><br>
+<blockquote class="tr_bq">
+<tab><customui>
+<span style="color: #38761d;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">' (компонент: customUI, атрибут: onLoad), 2007</span></span></customui></tab><br>
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><tab><customui>
+<span style="color: blue;">Sub</span> ВыборВкладки(ribbon As IRibbonUI)</customui></tab></span><br>
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><tab><customui>   
+    SendKeys "%ЁПТ{F6}"</customui></tab></span><br>
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><tab><customui>
+<span style="color: blue;">End Sub</span></customui></tab></span><br>
+<tab><customui></customui></tab></blockquote>
+<tab><customui>
+
+Знак «%» означает клавишу Alt. Буквы ЁПТ </customui></tab><tab><customui><span style="font-family: &quot;times new roman&quot; , serif; font-size: 12.0pt; ">—</span>
+ означают сами знаете что. Конструкция {F6} означает клавишу F6. Нажатие
+ на эту клавишу снимает подсказки с элементов внутри открывшейся 
+вкладки.</customui></tab><br>
+<tab><customui><br>
+Несколько слов по выбору первого символа последовательности 
+клавиатурного доступа. Не весь алфавит доступен для этого. Во-первых, 
+нельзя дублировать уже имеющиеся на ленте символы, даже если 
+использовать их в другом регистре. В последнем случае будет срабатывать 
+только первый по счёту символ. Во-вторых, некоторые символы используются
+ для каких-то других целей, и задать их физически невозможно.</customui></tab><br>
+<tab><customui><br>
+Список доступных первых символов для Word 2016:</customui></tab><br>
+<blockquote class="tr_bq">
+<tab><customui>
+<b>Б, Г, Ё, Ж, З, Й, Н, С, У, Х, Ц, Ш, Щ, Ъ, Ы, Ь.</b></customui></tab></blockquote>
+<tab><customui>
+Также доступны те же символы в нижнем регистре плюс следующие: д, и, к, 
+л, о, р, ф, ч, э, ю, я. Однако некоторые из дополнительно перечисленных 
+символов дублируют уже использующиеся клавиши верхнего регистра, и их 
+использовать не стоит.</customui></tab><br>
+<tab><customui><br>
+Список доступных первых  символов для Excel 2016: </customui></tab><br>
+<blockquote class="tr_bq">
+<tab><customui>
+<b>Б, Г, Ё, Ж, З, И, Й, К, Н, С, Т, У, Х, Ц, Ш, Щ, Ъ, Ь.</b></customui></tab></blockquote>
+<tab><customui>
+Также доступны те же символы в нижнем регистре плюс следующие: л, о, р, ф, ч, ы, э, ю, я</customui></tab><tab><customui>. Однако некоторые из дополнительно перечисленных символов дублируют уже
+ использующиеся клавиши верхнего регистра, и их использовать не стоит.
+
+</customui></tab></div></div>
+</body>
+</html></p></body></html>

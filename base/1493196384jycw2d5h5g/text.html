@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект Range<br />Объект Range (Диапазон), наиболее часто используемый в процедурах VBA объект Excel. <br />Цель: Изучить различные методы работы с диапозонами.<br />Задачи:<br />1. Рассмотреть роль объекта Range в VBA<br />2. Освоить использование оператора With<br />3. Освоить использование оператора For Each<br />4. Выполнить анализ процедур, использующих оператор Range<br /><br />Описание объекта Range<br />Поскольку вы создаете приложение для Excel, то естественно ваше внимание к ячейкам рабочего листа. В VBA ячейки трактуются как объект Range<br />В качестве объекта Range могут выступать:<br /> отдельная ячейка;<br /> выделенный диапазон ячеек;<br /> несколько выделенных диапазонов ячеек (т.е. совокупность несмежных диапазонов);<br /> строка и столбец;<br /> трехмерный диапазон (т.е. состоящий из диапазонов, расположенных на разных рабочих листах).<br /><br />Свойства объекта Range<br />Изучение любого объекта — это, прежде всего изучение его свойств и методов. Среди всех свойств объекта Range выделим следующие.<br /> Address (Адрес) — возвращает текущее положение диапазона.<br /> Count (Счет) — возвращает количество ячеек в диапазоне.<br /> Formula (Формула) - возвращает формулу, по которой вычисляется значение, отображаемое в ячейке.<br /> Offset (Смещение) — возвращает величину смещения одного диапазона относительно другого.<br /> Resize (Изменение размеров) — позволяет изменять текущее выделение диа¬пазона.<br /> Value (Значение) — возвращает значения ячеек, составляющих диапазон.<br /><br />Чтобы поэкспериментировать со свойствами объекта Range, создадим процедуру<br />Сначала закройте все открытые рабочие книги, а затем откройте новую рабочую книгу. Будем считать, что текущий рабочий лист у вас Лист1.<br />1. Введите число 100 в ячейку В1, число 200 — в ячейку В2 и 300 — в ячейку ВЗ.<br />2. В ячейку В4 введите формулу =СУММ (В1: ВЗ).<br />3. Нажмите комбинацию клавиш &lt;Alt+Fll&gt;, чтобы открыть редактор Visual Basic, и вставьте модуль в текущую рабочую книгу.<br />4. Создайте новую процедуру и назовите ее СвойстваДиапазона.<br />5. Введите код процедуры<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="132806661"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ThisWorkbook.Worksheets(&quot;Лист1&quot;).Range(&quot;A1&quot;).Activate </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ActiveCell.Offset(2,2).Activate </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Текущая ячейка - &quot; &amp; ActiveCell.Address</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Значение ячейки В4 = &quot; &amp; Range(&quot;В4&quot;).Value</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Формула в ячейке В4: &quot; &amp; Range(&quot;В4&quot;).Formula</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6. Перейдите на Лист1 рабочей книги и выполните процедуру СвойстваДиа¬пазона. Появится первое окно с сообщением, что текущей ячейкой является ячейка СЗ.<br />7. Щелкните на кнопке ОК. Следующее окно сообщения покажет значение, отображаемое в ячейке В4.<br />8. Щелкните на кнопке ОК. Последнее окно покажет формулу, содержащуюся в ячейке В4. (Обратите внимание, что хотя формула в ячейке В4 введена русскими буквами, процедура корректно ее обработала и преобразовала в формулу англоязычной версии Excel)<br />9. Щелкните на кнопке ОК для закрытия окна сообщения.<br />Рассмотрим эту процедуру подробнее. <br />Процедура начинается с активизации ячейки A1 (т.е. установки на ней табличного курсора): </p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="901382607"></a><span style=" font-family:'Courier New,courier';">1</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ThisWorkbook.Worksheets(&quot;Лист1&quot;).Range(&quot;Al&quot;).Activate</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После активизации ячейки Al свойство Offset перемещает табличный курсор на ячейку СЗ, процедура показывает адрес новой активной ячейки в окне сообщения: <br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="389882399"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ActiveCell.Offset(2,2).Activate</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Текущая ячейка - &quot; &amp; ActiveCell.Address</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство Offset позволяет перемещаться от одного диапазона к другому и имеет следующий синтаксис:<br />имя_диапазона..Offset(смещ_строк, смещ_ столбцов)<br />Аргументы смещ_строк и смещ_столбцов задают направление перемещения табличного курсора. В нашей процедуре оба аргумента принимают значение 2, что позволяет перейти из ячейки А1 в ячейку С3.<br />Последние два оператора процедуры с помощью окон сообщения отображают зна¬чение и формулу ячейки В4:<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="859361298"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">МsgВох &quot;Значение ячейки В4 = &quot; &amp; Range(&quot;В4&quot;).Value</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Формула в ячейке В4: &quot; &amp; Range(&quot;В4&quot;).Formula</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Эти операторы показывают различие между свойствами Value и Formula. Свойст во Value возвращает то, что отображается в ячейке, а свойство Formula — то, что на¬ходится в ячейке.<br />Методы объекта Range<br />Объект Range имеет много методов, среди которых следующие.<br /> Activate (Активизировать) — активизирует (выделяет) диапазон.<br /> Clear (Очистить) — очищает содержимое диапазона.<br /> Copy (Копировать) — копирует содержимое диапазона в буфер обмена.<br /> Cut (Вырезать) — перемещает содержимое диапазона в буфер обмена.<br /> PasteSpecial (Специальная вставка) — вставляет содержимое буфера обмена в диапазон, используя при этом различные аргументы.<br /> Select (Выделить) — выделяет диапазон.<br />Использование оператора With<br />Изучим несколько конст¬рукций языка VBA, значительно облегчающих работу с объектами. Одна из задач, которую часто придется решать с помощью VBA, - задание различных параметров форматирова¬ния объекта. В листинге 10.1 показан пример форматирования диапазона ячеек.<br />Листинг 10.1. Пример форматирования диапазона<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="759081020"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al:A6&quot;).NumberFormat = &quot;#,##0.00&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Name = &quot;Courier New&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al: A6&quot;).Font.FontStyle = &quot;Regular&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Size = 11</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Strikethrough = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Superscript = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Subscript = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.OutlineFont = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Shadow = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Underline = xlUnderlineStyleNone</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;Al :A6&quot;).Font.Colorlndex = xlAutomatic</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Чтобы ввести код этого листинга, вам надо снова и снова набирать Range (&quot;А1:А6&quot;). Конечно, можно использовать переменную-объект для ссылки на объект Range (&quot;А1:А6&quot;), но в этом случае вам столько же раз придется вводить имя переменной. Из подобных ситуаций VBA предлагает другой выход — оператор With, который применяется тогда, когда необходимо задать много свойств или выполнить большое количество методов одного объекта. Листинг 10.2 показывает тот же код лис-тинга 10.2, но с использованием оператора with.<br />Листинг 10.2. Пример использования оператора With<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="319515239"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">14</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">15</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">With Range (&quot;А1:А6)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.NumberFormat = &quot;#,##0.00&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">With.Font</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Name = &quot;Courier New&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.FontStyle = &quot;Regular&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Size = 11</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Strikethrough = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Superscript = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Subscript = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.OutlineFont = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Shadow = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Underline = xlUnderlineStyleNone</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">.Font.Colorlndex = xlAutomatic</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End With</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End With</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор With имеет следующий синтаксис:<br />With объект<br />[опера торы]<br />End With<br />Объект — это тот объект, чьи свойства и методы указаны в секции операторы. Каждая строка в этой секции начинается с точки, как показано в листинге 10.2. Операторы With можно вкладывать друг в друга. В нашем листинге оператор With объекта Font вложен в оператор With объекта Range. В листинге 10.3 приведен другой пример использования оператора With.<br />Листинг 10.3. Оператор With, содержащий оператор и метод<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="725020702"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub WithWorksheet()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">With ThisWorkbook</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">. SaveAs &quot;IIpимepWith&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Статус сохранения: &quot; &amp; .Saved</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End With</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор For Each<br />Если оператор With используется для выполнения нескольких операторов для од¬ного объекта, то оператор For Each применяется для выполнения одного и того же набора операторов для нескольких объектов. Этот оператор дает возможность повто¬рить набор операторов для всех элементов коллекции.<br />Оператор For Each можно применять к массивам Оператор For Each имеет следующий синтаксис:<br />For Each элемент In группа<br />[Опера торы]<br />[Exit For]<br />[Опера торы]<br />Next<br />Отметим, что синтаксис предусматривает выражение Exit For. Так же, как и в других подобных выражениях Exit, для организации досрочного выхода из оператора For Each обычно применяется оператор If.<br />В листинге 10.4 оператор For Each применяется для изменения значений всех ячеек диапазона.<br />Листинг 10.4. Пример использования оператора For Each____<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="631202678"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> Sub ПримерFог_Еасh()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">       Dim x As Range</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">       For Each x In ThisWorkbook..Worksheets(&quot;Лист1&quot;).Range(&quot;A1:A6&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">       x.Value = x.Value + 10</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">       Next</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> End Sub</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Использование объекта Range<br />В первом примере выполняется форматирование определенных строк диапазона. По¬добная операция часто применяется перед выводом на печать различных списков. Предпо¬ложим, что первая строка вашего рабочего листа содержит заголовки столбцов. Необходимо сделать полужирным шрифт в каждой второй строке. Процедура, выполняющая эту задачу, представлена в листинге 10.5.<br />Листинг 10.5. Применение объекта Row и оператора цикла <br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="823444369"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub Полужирный()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim iCounter As Integer</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">For  iCounter = 3 To ThisWorkbook.Worksheets(&quot;Лист1&quot;).Range(&quot;A1:C25&quot;).Rows.Count Step 2 </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ThisWorkbook.Worksheets(&quot;Лист1&quot;). </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Range(&quot;A1:C25&quot;).Font.Bold = True</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Next </span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Основным в этой процедуре является оператор цикла For... Next. Отметим, что переменная-счетчик этого цикла iCounter имеет начальное значение 3, а затем уве¬личивается с шагом 2, обеспечивая тем самым выделение полужирным начертанием каждой второй строки.<br />Очевиден недостаток приведенной выше процедуры: здесь заранее указывается размер диапазона. На практике размер диапазона может часто изменяться, например в результате импорта данных из какой-либо базы данных или в результате внесения новых либо удаления старых данных. Другими словами, в процедуре не должен быть указан конкретный размер диапазона. Код листинга 10.6 выполняет выбор диапазона без указания его размера и местоположения.<br /><br />Листинг 10.6. Выделение диапазона<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="980955516"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub ВыделениеДиапазона()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ThisWorkbook.Worksheets(&quot;Лист1&quot;).Range(&quot;A1&quot;).Activate</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ActiveCell.CurrentRegion.Select</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Выделен диапазон &quot; &amp; Selection.Address</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ключевой элемент в этой процедуре - свойство CurrentRegion (Текущая об¬ласть). Это свойство возвращает диапазон ячеек, содержащий активную ячейку и ог¬раниченный пустыми строками и пустыми столбцами. При выделении диапазона с помощью свойства CurrentRegion нет необходимости заранее знать размер и место¬положение выделяемого диапазона.<br />Пример следующей процедуры показывает выполнение операции &quot;копировать и вставить&quot;. Код листинга 10.7 копирует любой заранее выделенный объект в буфер обмена, а затем вставляет его в новое положение на рабочем листе.<br />Листинг 10.7. Копирование и вставка диапазонов<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic</p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="752935716"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub Копировать_Вставить()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    Selection.Copy</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    Range(&quot;F3&quot;).Select</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   ActiveSheet.Paste</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   Application.CutCopyMode = False</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор Selection. Copy помещает выделенный диапазон в буфер обмена. Сле¬дующий оператор перемещает табличный курсор в ту ячейку, начиная с которой будет вставлен скопированный диапазон. Вставка диапазона из буфера обмена осуществля¬ется оператором ActiveSheet. Paste. Последний оператор устанавливает значение свойства CutCopyMode (Режим вырезать-вставить) объекта Application как False (Ложь). Если не выполнить этот оператор, то вокруг исходного диапазона (того, что копировался) сохранится пунктирная рамка выделения, а в строке состояния будет по-прежнему отображаться инструкция по копированию диапазона.</p></body></html>

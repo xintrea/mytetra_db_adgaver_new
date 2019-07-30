@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">другой человек сам их выгрузит из той же внешней системы </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы правда не назвали, что это за система. Но всё равно не понимаю, если человек имеет к ней доступ, то кто мешает ему получать (в том числе и обновляемые) данные, используя SQL, в книгу Excel? <br />Например, для MS SQL Server <br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    Const connStr As String = &quot;ODBC;Driver={SQL Server Native Client 11.0};Server=(localdb)\mssqllocaldb;Database=SampleDb;Trusted_Connection=yes;&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    Dim pLO As ListObject, pSheet As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    Set pSheet = ThisWorkbook.Worksheets.Add</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    Set pLO = pSheet.ListObjects.Add(xlSrcExternal, connStr, True, xlYes, pSheet.Range(&quot;A1&quot;))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    With pLO.QueryTable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">        .CommandType = xlCmdSql</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">        .CommandText = &quot;Select * From Production.Products&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">        .Refresh</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_120042"></a><span style=" color:#04056a;">    End With</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Естественно, CommandText может быть более сложным SQL запросом, чем в приведённом примере. Можно это же сделать и без программирования, задействовав MS Query.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Игорь, зря вы так по поводу SQL. Решил, коль целый день делать нечего с имитировать (упрощённо) задачу ТС. Создал два тестовых файла. <br />1. Users таблица клиентов ([UserName] ФИО - 16 символьное поле; [UserBirthday] Дата ФИО - дата). <br />2. UserData таблица покупок ([UserName] ФИО - 16 символьное поле; [DateBuy] Дата Покупки - дата; [Ammount] Сумма - плавающее). <br />Код был следующий <br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Скрытый текст</span></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">Public Sub CreateUserTable()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim fso As New Scripting.FileSystemObject</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim userStream As Scripting.TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim dataStream As Scripting.TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim pFuncs As WorksheetFunction, sDate As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim sUser As String, i As Long, k As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim bStr(0 To 31) As Byte</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Set userStream = fso.CreateTextFile(&quot;c:\temp\user.csv&quot;, True)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Set dataStream = fso.CreateTextFile(&quot;c:\temp\data.csv&quot;, True)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Set pFuncs = Application.WorksheetFunction</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    userStream.WriteLine &quot;UserName,UserBirthday&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    dataStream.WriteLine &quot;UserName,DateBuy,Amount&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    For i = 1 To 2000000</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        For k = 0 To 31 Step 2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            bStr(k) = CByte(pFuncs.RandBetween(33, 96))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        sUser = bStr</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        sUser = Replace$(sUser, &quot;,&quot;, &quot;_&quot;): sUser = Replace$(sUser, &quot;&quot;&quot;&quot;, &quot;_&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        sDate = Format$(DateSerial(CInt(pFuncs.RandBetween(1930, 2010)), CInt(pFuncs.RandBetween(1, 12)), CInt(pFuncs.RandBetween(1, 28))), &quot;dd.mm.yyyy&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        userStream.WriteLine sUser &amp; &quot;,&quot; &amp; sDate</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        For k = 1 To CLng(pFuncs.RandBetween(3, 9))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            sDate = Format$(DateSerial(CInt(pFuncs.RandBetween(1960, 2015)), CInt(pFuncs.RandBetween(1, 12)), CInt(pFuncs.RandBetween(1, 28))), &quot;dd.mm.yyyy&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             dataStream.WriteLine sUser &amp; &quot;,&quot; &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             sDate &amp; &quot;,&quot; &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             Format$(1000# * Rnd, &quot;0.00&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        If (i Mod 10000) = 0 Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            DoEvents</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            Debug.Print i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    dataStream.Close: userStream.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    MsgBox &quot;end&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">Public Sub AddNotIn()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim fso As New Scripting.FileSystemObject</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim userStream As Scripting.TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim dataStream As Scripting.TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim pFuncs As WorksheetFunction, sDate As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Dim sUser As String, i As Long, k As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">     </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Set pFuncs = Application.WorksheetFunction</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Set dataStream = fso.OpenTextFile(&quot;c:\temp\data.csv&quot;, ForAppending)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    For i = 1 To 500000</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        sUser = &quot;&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        For k = 1 To 16</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            sUser = sUser &amp; Chr(CLng(pFuncs.RandBetween(183, 255)))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        For k = 1 To CLng(pFuncs.RandBetween(4, 9))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            sDate = Format$(DateSerial(CInt(pFuncs.RandBetween(1960, 2015)), CInt(pFuncs.RandBetween(1, 12)), CInt(pFuncs.RandBetween(1, 28))), &quot;dd.mm.yyyy&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             dataStream.WriteLine sUser &amp; &quot;,&quot; &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             sDate &amp; &quot;,&quot; &amp; _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">             Format$(1000# * Rnd, &quot;0.00&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        If (i Mod 10000) = 0 Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            DoEvents</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">            Debug.Print i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">        End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">    dataStream.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_993256"></a><span style=" color:#04056a;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p></td></tr></table></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />В Users 2 000 000 записей, в UserData 15 409 218 (часть записей для 500 000 ФИО отсутствует в Users). Собственно, задача отобрать в UserData ФИО, которых нет в Users (естественно, без повторений, так как в UserData могут быть сведения об нескольких покупках одного ФИО). В коде выше добавлены процедурой AddNotIn в UserData. <br /><br />Попробовал сделать на словарях, вполне возможно, что допустил какую-то некорректность, код ниже, прошу дать оценку <br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Скрытый текст</span></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">Public Sub TestDictionary2()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim fso As New Scripting.FileSystemObject</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim pStream As Scripting.TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim userDict As New Scripting.Dictionary</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim notInDict As New Scripting.Dictionary</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim strOut() As String, readStr As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim sKey As Variant, i As Long, pSheet As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Dim t As Single</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    t = Timer</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Set pStream = fso.OpenTextFile(&quot;c:\Temp\user.csv&quot;, ForReading)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    strOut = Split(pStream.ReadAll, vbCrLf)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    pStream.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    For i = 1 To UBound(strOut)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        userDict(Left$(strOut(i), 16)) = vbNullString</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        If (i Mod 10000) = 0 Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">            DoEvents</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">            Debug.Print i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">     </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Erase strOut</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Set pStream = fso.OpenTextFile(&quot;c:\Temp\data.csv&quot;, ForReading)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    strOut = Split(pStream.ReadAll, vbCrLf)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    pStream.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    For i = 1 To UBound(strOut)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        readStr = Left$(strOut(i), 16)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        If Not userDict.Exists(readStr) Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">            notInDict(readStr) = vbNullString</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        If (i Mod 10000) = 0 Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">            DoEvents</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">            Debug.Print i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Erase strOut</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    ReDim strOut(1 To notInDict.Count, 1 To 1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    i = 0</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    For Each sKey In notInDict.Keys</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        i = i + 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">        strOut(i, 1) = sKey</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    Set pSheet = ThisWorkbook.Worksheets.Add</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    pSheet.Range(&quot;A2&quot;).Resize(notInDict.Count, 1).Value = strOut</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    pSheet.Range(&quot;A1&quot;).Value = &quot;UserName&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">    pSheet.Range(&quot;C1&quot;).Value = Timer - t</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_541415"></a><span style=" color:#04056a;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p></td></tr></table></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Подождал некоторое время (минут 15) прервал. <br /><br />Далее, загнал в Access, проиндексировал обе таблицы по полю UserName, далее следующим кодом получил результат за 65 секунд <br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Скрытый текст</span></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">Public Sub CreateWithNonClustered()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    Const connStr As String = &quot;OLEDB;Provider=Microsoft.ACE.OLEDB.12.0;Mode=1;Data Source=c:\Projects\Databases\Demo.accdb&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    Dim pLO As ListObject, pSheet As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    Dim t As Single</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    t = Timer</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    Set pSheet = ThisWorkbook.Worksheets.Add</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    Set pLO = pSheet.ListObjects.Add(xlSrcExternal, connStr, True, xlYes, pSheet.Range(&quot;A1&quot;))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    With pLO.QueryTable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">        .CommandType = xlCmdSql</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">        .CommandText = &quot;SELECT DISTINCT UserData.UserName FROM UserData LEFT JOIN Users ON UserData.UserName = Users.UserName WHERE Users.UserName Is Null&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">        .Refresh False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">    pSheet.Range(&quot;C1&quot;).Value = Timer - t</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_748953"></a><span style=" color:#04056a;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p></td></tr></table></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Ну, и тоже самое для этих же данных, помещённых в MS SQL LocalDb (естественно с индексами по UserName) - результат получен за 13 секунд <br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Скрытый текст</span></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">Public Sub CreateWithNonClustered()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Const connStr As String = &quot;ODBC;Driver={SQL Server Native Client 11.0};Server=(localdb)\mssqllocaldb;Database=SampleDb;Trusted_Connection=yes;&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim pLO As ListObject, pSheet As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Dim t As Single</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    t = Timer</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Set pSheet = ThisWorkbook.Worksheets.Add</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    Set pLO = pSheet.ListObjects.Add(xlSrcExternal, connStr, True, xlYes, pSheet.Range(&quot;A1&quot;))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    With pLO.QueryTable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">        .CommandType = xlCmdSql</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">        .CommandText = &quot;Select Distinct tud.UserName From dbo.UserDataK tud Left Join dbo.UsersK tu On (tu.UserName=tud.UserName) Where tu.UserName Is Null&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">        .Refresh False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">    pSheet.Range(&quot;C1&quot;).Value = Timer - t</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#04056a;">End Sub</span></p></td>
+<td></td></tr></table></td></tr></table></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Думаю, для столь объёмных данных выводы очевидны. Не забывайте использовать в базах данных индексы и строить запросы так, чтобы эти индексы задействовались.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="message_text_579544"></a>Реализовал свою идею через Словари. Скорость приемлемая, за исключением последнего шага. В котором я пытаюсь сохранить Словарь в файл. На меленьких файлах скорость приемлемая, но когда размер справочника 4 млн строк, а размер занимаемой памяти Excel около 1 Гб, сохранение идет очень долго - в минуту не более 1000 строк  :</p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Public Sub ClosePensSprav(FileName As String)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim txtFile As TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim TmpString As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim Ndx As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim lLowVal As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim lHighVal As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">Dim lStep As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    If Not (FSO.FileExists(FileName)) Then FSO.CreateTextFile (FileName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    Set txtFile = FSO.OpenTextFile(FileName, ForWriting)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">     </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    lHighVal = PensSprav.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    lStep = CLng(lHighVal / 100)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">     </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    For Ndx = 0 To PensSprav.Count - 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">        lLowVal = Ndx</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">        If lLowVal Mod lStep = 0 Then Application.StatusBar = &quot;Сохранение справочника:&quot; &amp; FSO.GetFileName(FileName) &amp; &quot;: &quot; &amp; sObrStr(lLowVal, lHighVal) &amp; sSuff(CInt(lLowVal / lHighVal * 100))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">        TmpString = PensSprav.Keys(Ndx) &amp; &quot;|&quot; &amp; PensSprav.Items(Ndx)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">        txtFile.WriteLine (TmpString)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">        DoEvents</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    Next Ndx</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">     </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    txtFile.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    Application.StatusBar = False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    Set txtFile = Nothing</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">    Set PensSprav = Nothing</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_709576"></a><span style=" color:#04056a;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#04056a;"><br /></p></td></tr></table></td>
+<td></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p></td>
+<td></td></tr></table></body></html>

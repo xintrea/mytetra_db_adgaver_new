@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="http://www.vbnet.ru/articles/showarticle.aspx?id=40"><span style=" text-decoration: underline; color:#0000ff;">v</span></a><span style=" text-decoration: underline; color:#0000ff;">bnet.ru</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-title"></a>VBNet - Статьи - Работа с базами данных с помощью DAO (Data Access Objects) </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>9-13 минут </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a><span style=" font-size:medium; font-weight:600; vertical-align:top;">В</span><span style=" font-size:medium; font-weight:600; vertical-align:top;">ведение</span><span style=" vertical-align:top;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Всё больше программ использует для хранения данных базы данных. Один из инструментов для работы с базами данных - библиотека DAO (Data Access Objects). О ней и пойдёт речь в этой статье.<br />    Для начала нужно подключить эту библиотеку. Для этого в меню Project|References отметьте пункт &quot;Microsoft DAO 3.6 Objects Library&quot;. В составе Visual Basic 6.0 поставляется библиотека версии 3.6. Если у Вас более ранняя версия - отметьте её, особых различий нет. <br />    Примечание: В этой статье будет рассмотрена работа с базами MS Access (*.mdb). Бывают и другие типы баз данных, например FoxPro.<br />  </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600; vertical-align:top;">Выборка данных</span><span style=" vertical-align:top;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Как осуществить выборку данных? Сначала объявляем переменные.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Dim db As DAO.Database 'Объявляем базу данных<br />Dim rs As DAO.Recordset 'Объявляем рекордсет<br />Dim sSQL As String 'Переменная, где будет размещён SQL запрос</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Открываем базу данных. Для этого вызываем метод OpenDatabase, и в качестве параметра передаём полный путь и имя файла базы данных. Обратите внимание, что db - это объект и поэтому пишем ключевое слово Set.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Set db = DAO.OpenDatabase (&quot;C:\db.mdb&quot;)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Формируем строку SQL запроса. Допустим, нам нужно получить все поля таблицы Orders.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">sSQL = &quot;SELECT * FROM Orders;&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Теперь открываем рекордсет. Для этого вызываем метод OpenRecordset объекта db с первым параметром - SQL запросом. У этого объекта есть ещё 3 необязательных параметра. </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />    Параметр type определяет тип открытия рекордсета. Может принимать значения одной из этих констант:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; vertical-align:top;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="1" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Константа</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Значение</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Описание</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOpenTable</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Редактируемый объект. Может быстро находить и возвращать записи при использовании индексируемых таблиц.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOpenDynaset</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Обновляемый. Эффективный, поскольку представляет набор ссылок на данные в основном запросе (а не на реальные данные). Может возвращать записи из нескольких таблиц благодаря использованию объединения, даже когда эти таблицы связываются из нескольких баз данных. Такие записи во многих случаях обновляемы.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOpenSnapshot</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Могут обрабатываться быстрее, чем объекты Dynaset и Table, в особенности для небольших наборов записей. Может возвращать записи из нескольких таблиц благодаря использованию объединения. Такие записей во многих случаях обновляемы.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOpenForwardOnly</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Работает быстрее, чем объект Snapshot. Может возвращать записи из нескольких таблиц благодаря использованию объединению.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOpenDynamic</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Обновляемый. Может возвращать записи из нескольких таблиц благодаря использованию объединения. </p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />    Значение по умолчанию для параметра type - dbOpenTable. <br />    Параметр options определяет некоторые характеристики открываемого рекордсета. Может принимать значение, состоящее из комбинации 11 констант. <br />    Параметр LockEdit (в DAO 3.5 этот параметр называется lockedits) определяет тип блокировки рекордсета. Может принимать значение одной из 5 констант: </span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="1" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Константа</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Значение</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Описание</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbReadOnly</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Только для чтения.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbPessimistic</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Запись блокируется только редактируемая запись.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOptimistic</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Запись блокируется только при сохранении данных на диск (пока не закончил работу метод Update).</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOptimisticValue</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Для многопользовательского режима. Перед update (запись на диск) производится проверка, была ли изменена запись. Если да, то сгенерируется ошибка, и update не будет произведен. В отличном случае update будет произведен и на время update запись заблокируется. </p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">dbOptimisticBatch</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">   Пакетная блокировка.</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />Set rs = db.OpenRecordset (sSQL)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Рекордсет открыт. Информация, выбранная из базы данных, находится в объекте rs. Теперь нам нужно достать оттуда данные. Для передвижения по записям в объекте типа RecordSet используется 5 методов:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; vertical-align:top;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="1" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Move</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используется для перемещения к произвольной записи. В качестве параметра передаётся номер записи.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveFirst</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используется для перемещения к первой записи.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveLast</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используется для перемещения к последней записи.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveNext</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используется для перемещения к следующей записи.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MovePrevious</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используется для перемещения к предыдущей записи.</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />    Также пригодятся свойства BOF и EOF. <br />    BOF возвращает True, если текущая запись находится перед первой записью в объекте типа Recordset.<br />    EOF возвращает True, если текущая запись находится после последней записи в объекте типа Recordset.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Текущая запись находится в классе Fields.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">With rs<br />   .MoveFirst 'Перемещаемся к первой записи<br />   Do While Not .EOF 'Выполнять пока есть записи<br />      Debug.Print .Fields (0) 'Достаем значение текущей записи для поля номер 0<br />      Debug.Print .Fields (1) 'Достаем значение текущей записи для поля номер 1<br />      Debug.Print .Fields (2) 'Достаем значение текущей записи для поля номер 2<br />      '…<br />      .MoveNext 'Перемещаемся к следующей записи<br />   Loop<br />End With</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Вместо Debug.Print естественно можно поставить и оператор присваивания (=)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />a = .Fields (0)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Закрываем рекордсет и базу данных</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Close<br />db.Close</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    В конце процедуры для того, чтобы освободить память пишем </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Set rs = Nothing<br />Set db = Nothing</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br /> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600; vertical-align:top;">Добавление и изменение записей</span><span style=" vertical-align:top;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Для добавления и изменения записей используется похожая технология.<br />    При добавлении записи открываем рекордсет. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Dim db As DAO.Database 'Объявляем базу данных<br />Dim rs As DAO.Recordset 'Объявляем рекордсет<br />Dim sSQL As String 'Переменная, где будет размещён SQL запрос</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Set db = DAO.OpenDatabase (&quot;C:\db.mdb&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />sSQL = &quot;SELECT * FROM Orders;&quot;<br />Set rs = db.OpenRecordset (sSQL)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Для добавления записи используется метод AddNew объекта типа Recordset.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.AddNew</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Теперь запись добавлена, и мы заполняем все поля для данной записи.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Fields (0) = &quot;Значение 1&quot;<br />rs.Fields (1) = &quot;Значение 2&quot;<br />'...</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Обновляем рекордсет.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Update</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Закрываем рекордсет и базу данных и освобождаем память.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Close<br />db.Close<br />Set rs = Nothing<br />Set db = Nothing</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Код для изменения записи очень похож на предыдущий код. Для изменения записи используется метод Edit. Также нужно изменить SQL запрос и сделать его примерно таким:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />SELECT * FROM Orders WHERE ID = 23;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Предполагается наличие поля ID, тип которого числовой и его значение уникально для каждой записи. В данном случае мы будем изменять запись значение поля ID которой равно 23.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Dim db As DAO.Database 'Объявляем базу данных<br />Dim rs As DAO.Recordset 'Объявляем рекордсет<br />Dim sSQL As String 'Переменная, где будет размещён SQL запрос</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Set db = DAO.OpenDatabase (&quot;C:\db.mdb&quot;) 'Открываем базу</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />sSQL = &quot;SELECT * FROM Orders;&quot; 'Формируем запрос<br />Set rs = db.OpenRecordset (sSQL) 'Открываем рекордсет</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Edit 'Редактируем запись</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />'Ставим новые значения<br />rs.Fields (0) = &quot;Значение 1&quot; <br />rs.Fields (1) = &quot;Значение 2&quot;<br />'…<br />rs.Update 'Обновляем рекордсет<br />'Закрываем рекордсет и базу данных<br />rs.Close<br />db.Close<br />'Освобождаем память<br />Set rs = Nothing<br />Set db = Nothing</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; vertical-align:top;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br /> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600; vertical-align:top;">Удаление записи</span><span style=" vertical-align:top;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Удаление записи можно произвести двумя путями. Первый путь - исполнение SQL запроса с командой DELETE. Идентифицировать запись будем по полю ID. Предполагается, что значения поля ID уникальны для каждой записи. Удаляем запись, ID которой равно 5.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Dim db As DAO.Database 'Объявляем базу данных<br />Dim sSQL As String 'Переменная, где будет размещён SQL запрос</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Set db = DAO.OpenDatabase (&quot;C:\db.mdb&quot;) 'Открываем базу</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />sSQL = &quot;DELETE FROM Orders WHERE ID=5;&quot; 'Формируем запрос</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Рекордсет открывать не нужно, так как нам не надо получать данные из базы. Для исполнения запроса мы используем метод Execute объекта типа Database. Он имеет 2 параметра. Первый параметр Query - строка исполняемого запроса. Второй необязательный параметр options - константа или комбинация констант, отражающая характеристики исполняемого запроса.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">db.Execute sSQL<br />'Закрываем рекордсет и базу данных<br />rs.Close<br />db.Close<br />'Освобождаем память<br />Set rs = Nothing<br />Set db = Nothing</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Второй способ удаления записи заключается в использовании метода Delete объекта типа Recordset. Этот метод удаляет текущую запись. Он не имеет параметров.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.Delete</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br /> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600; vertical-align:top;">Количество записей и номер текущей записи</span><span style=" vertical-align:top;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Для определения количества записей в рекордсете используется свойство RecordCount объекта типа Recordset. Но есть небольшая неувязочка... Если рекордсет типа Dynaset, Snapshot или ForwardOnly, то свойство RecordCount покажет число записей, только при достижении последней записи. В этом случае нужно сразу переместиться к концу рекордсета.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">rs.MoveLast<br />rs.MoveFirst</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Номер текущей записи определяется с помощью свойства AbsolutePosition. Отсчёт начинается с нуля. Т.е. если текущая запись - первая, то AbsolutePosistion покажет 0. Если текущая запись находится до первой или после последней, то свойство AbsolutePosition покажет -1.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;"><br />Свойство PercentPosition возвращает процентное отношение номера текущей записи от количества записей.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">Debug.Print &quot;Количество записей &quot; &amp; CStr (rs.RecordCount)<br />Debug.Print &quot;Текущая запись &quot; &amp; CStr (rs.AbsolutePosition + 1)<br />Debug.Print Cstr (Round (rs.PercentPosition, 2)) &amp; &quot; %&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:top;">    Пример работы с DAO можно взять </span><a href="http://www.vbnet.ru/articles/zip/daoex.zip"><span style=" text-decoration: underline; color:#0000ff; vertical-align:top;">здесь</span></a><span style=" vertical-align:top;">. </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; vertical-align:top;"><br /></p></body></html>

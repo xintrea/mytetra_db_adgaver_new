@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/914.html"><font color="Red">012. Диалог открытия файлов Microsoft Office</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                У Microsoft Office есть специальный диалог открытия 
+файлов, который имеет много интересных свойств. Он лучше диалога 
+Windows. В этом примере показано как можно его использовать.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#0000aa">Private Sub </font>butSelectFile_Click()<br>
+    <font color="#007700">' Включите библитеку libDialogFiles</font><br>
+    Me.strFilePath = fOfficeGetFile(<font color="#660000">"Выберите файл"</font>, <font color="#660000">"C:"</font>, <font color="#660000">"*.txt"</font>)<br>
+<font color="#0000aa">End Sub</font><br>
+<hr><font color="#007700">'#Const constOffice2000 = 0 ' Для Microsoft Office 97</font><br>
+<font color="#0000aa">#Const </font>constOffice2000 = 1 <font color="#007700">' Для Microsoft Office 2000</font><br>
+<br>
+<font color="#0000aa">Private Declare Function </font>funOfficeGetFile _<br>
+ <font color="#0000aa">Lib </font><font color="#660000">"msaccess.exe"</font> Alias <font color="#660000">"#56"</font> _<br>
+ (gfni <font color="#0000aa">As </font>accOfficeGetFileNameInfo, fOpen <font color="#0000aa">As Integer</font>) <font color="#0000aa">As Long</font><br>
+<br>
+<font color="#007700">' OfficeGetFileName flags</font><br>
+<font color="#0000aa">Public Const </font>flagNoChangeDir = &amp;H2    <font color="#007700">' Не меняет каталог пользователя</font><br>
+<font color="#0000aa">Public Const </font>flagDirectoryOnly = &amp;H20 <font color="#007700">' Открывает только папку</font><br>
+<br>
+<font color="#0000aa">Public </font>Type accOfficeGetFileNameInfo<br>
+    hwndOwner <font color="#0000aa">As Long</font><br>
+    strAppName <font color="#0000aa">As String </font>* 255<br>
+    strDlgTitle <font color="#0000aa">As String </font>* 255<br>
+    strOpenTitle <font color="#0000aa">As String </font>* 255<br>
+    strFile <font color="#0000aa">As String </font>* 4096<br>
+    strInitialDir <font color="#0000aa">As String </font>* 255<br>
+    strFilter <font color="#0000aa">As String </font>* 255<br>
+    lngFilterIndex <font color="#0000aa">As Long</font><br>
+    lngView <font color="#0000aa">As Long</font><br>
+    lngFlags <font color="#0000aa">As Long</font><br>
+<font color="#0000aa">End </font>Type<br>
+<br>
+<font color="#007700">'Функция открытия файла</font><br>
+<font color="#0000aa">Declare Function </font>GetOpenFileName <font color="#0000aa">Lib </font><font color="#660000">"comdlg32.dll"</font> Alias <font color="#660000">"GetOpenFileNameA"</font> ( _<br>
+        FILENAME <font color="#0000aa">As </font>OPENFILENAME) <font color="#0000aa">As Boolean</font><br>
+<br>
+<font color="#007700">'Функция сохранения файла</font><br>
+<font color="#0000aa">Declare Function </font>apiGetSaveFileName <font color="#0000aa">Lib </font><font color="#660000">"comdlg32.dll"</font> Alias <font color="#660000">"GetSaveFileNameA"</font> ( _<br>
+        FILENAME <font color="#0000aa">As </font>OPENFILENAME) <font color="#0000aa">As Boolean</font><br>
+<br>
+<font color="#007700">'Структура файла, описание дано ниже</font><br>
+Type OPENFILENAME<br>
+    lStructSize <font color="#0000aa">As Long</font><br>
+    hwndOwner <font color="#0000aa">As Long</font><br>
+    hInstance <font color="#0000aa">As Long</font><br>
+    lpstrFilter <font color="#0000aa">As String</font><br>
+    lpstrCustomFilter <font color="#0000aa">As Long</font><br>
+    nMaxCustFilter <font color="#0000aa">As Long</font><br>
+    nFilterIndex <font color="#0000aa">As Long</font><br>
+    lpstrFile <font color="#0000aa">As String</font><br>
+    nMaxFile <font color="#0000aa">As Long</font><br>
+    lpstrFileTitle <font color="#0000aa">As String</font><br>
+    nMaxFileTitle <font color="#0000aa">As Long</font><br>
+    lpstrInitialDir <font color="#0000aa">As String</font><br>
+    lpstrTitle <font color="#0000aa">As String</font><br>
+    flags <font color="#0000aa">As Long</font><br>
+    nFileOffset <font color="#0000aa">As Integer</font><br>
+    nFileExtension <font color="#0000aa">As Integer</font><br>
+    lpstrDefExt <font color="#0000aa">As String</font><br>
+    lCustData <font color="#0000aa">As Long</font><br>
+    lpfnHook <font color="#0000aa">As Long</font><br>
+    lpTemplateName <font color="#0000aa">As Long</font><br>
+<font color="#0000aa">End </font>Type<br>
+<br>
+<font color="#007700">'Флажки для параметра OPENFILENAME.Flags</font><br>
+<font color="#007700">'  (например, OFN_FILEMUSTEXIST Or OFN_READONLY)</font><br>
+<font color="#0000aa">Const </font>OFN_READONLY = &amp;H1<br>
+<font color="#0000aa">Const </font>OFN_OVERWRITEPROMPT = &amp;H2<br>
+<font color="#0000aa">Const </font>OFN_HIDEREADONLY = &amp;H4<br>
+<font color="#0000aa">Const </font>OFN_NOCHANGEDIR = &amp;H8<br>
+<font color="#0000aa">Const </font>OFN_SHOWHELP = &amp;H10<br>
+<font color="#0000aa">Const </font>OFN_ENABLEHOOK = &amp;H20<br>
+<font color="#0000aa">Const </font>OFN_ENABLETEMPLATE = &amp;H40<br>
+<font color="#0000aa">Const </font>OFN_ENABLETEMPLATEHANDLE = &amp;H80<br>
+<font color="#0000aa">Const </font>OFN_NOVALIDATE = &amp;H100<br>
+<font color="#0000aa">Const </font>OFN_ALLOWMULTISELECT = &amp;H200<br>
+<font color="#0000aa">Const </font>OFN_EXTENSIONDIFFERENT = &amp;H400<br>
+<font color="#0000aa">Const </font>OFN_PATHMUSTEXIST = &amp;H800<br>
+<font color="#0000aa">Const </font>OFN_FILEMUSTEXIST = &amp;H1000<br>
+<font color="#0000aa">Const </font>OFN_CREATEPROMPT = &amp;H2000<br>
+<font color="#0000aa">Const </font>OFN_SHAREAWARE = &amp;H4000<br>
+<font color="#0000aa">Const </font>OFN_NOREADONLYRETURN = &amp;H8000<br>
+<font color="#0000aa">Const </font>OFN_NOTESTFILECREATE = &amp;H10000<br>
+<br>
+<font color="#0000aa">Const </font>OFN_SHAREFALLTHROUGH = 2<br>
+<font color="#0000aa">Const </font>OFN_SHARENOWARN = 1<br>
+<font color="#0000aa">Const </font>OFN_SHAREWARN = 0<br>
+<br>
+<font color="#007700">' Получение папки для программы</font><br>
+<font color="#0000aa">Public Function </font>fOfficeGetFileName( _<br>
+ gfni <font color="#0000aa">As </font>accOfficeGetFileNameInfo, _<br>
+ <font color="#0000aa">ByVal </font>fOpen <font color="#0000aa">As Integer</font>) <font color="#0000aa">As Long</font><br>
+    <font color="#0000aa">Dim </font>lngReturn <font color="#0000aa">As Long</font><br>
+    <font color="#0000aa">With </font>gfni<br>
+        .strAppName = RTrim$(.strAppName) &amp; vbNullChar<br>
+        .strDlgTitle = RTrim$(.strDlgTitle) &amp; vbNullChar<br>
+        .strOpenTitle = RTrim$(.strOpenTitle) &amp; vbNullChar<br>
+        .strFile = RTrim$(.strFile) &amp; vbNullChar<br>
+        .strInitialDir = RTrim$(.strInitialDir) &amp; vbNullChar<br>
+        .lngFilterIndex = 1<br>
+        .strFilter = RTrim$(.strFilter) &amp; vbNullChar <font color="#007700">'"Все файлы (*.*)" &amp; vbNullChar</font><br>
+        lngReturn = funOfficeGetFile(gfni, fOpen)<br>
+        <br>
+        .strAppName = fTrimNull(.strAppName)<br>
+        .strDlgTitle = fTrimNull(.strDlgTitle)<br>
+        .strOpenTitle = fTrimNull(.strOpenTitle)<br>
+        .strFile = fTrimNull(.strFile)<br>
+        .strInitialDir = fTrimNull(.strInitialDir)<br>
+        .strFilter = fTrimNull(.strFilter)<br>
+    <font color="#0000aa">End With</font><br>
+    fOfficeGetFileName = lngReturn<br>
+<font color="#0000aa">End Function</font><br>
+<hr><br>
+<font color="#007700">'Обрезка данных</font><br>
+<font color="#0000aa">Private Function </font>fTrimNull(strVal <font color="#0000aa">As String</font>) <font color="#0000aa">As String</font><br>
+    <font color="#0000aa">Dim </font>lngPos <font color="#0000aa">As Long</font><br>
+    lngPos = InStr(1, strVal, vbNullChar)<br>
+    <font color="#0000aa">Select Case </font>lngPos<br>
+        <font color="#0000aa">Case Is </font>&gt; 1:  fTrimNull = Left$(strVal, lngPos - 1)<br>
+        <font color="#0000aa">Case </font>0:       fTrimNull = strVal<br>
+        <font color="#0000aa">Case </font>1:       fTrimNull = vbNullString<br>
+    <font color="#0000aa">End Select</font><br>
+<font color="#0000aa">End Function</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">'   Назначение</font><br>
+<font color="#007700">'        Открытие окна диалога файлов</font><br>
+<font color="#007700">'   Параметры:</font><br>
+<font color="#007700">'        strFilter - строка фильтра</font><br>
+<font color="#007700">'        strIniFile - файл инициализации</font><br>
+<font color="#007700">'        strTitleDlg - заголовок окна</font><br>
+<font color="#007700">'        strDefExt - расширение по умолчанию</font><br>
+<font color="#007700">'        strCurDir - текущая папка</font><br>
+<font color="#007700">'</font><br>
+<font color="#0000aa">Public Function </font>fGetSaveFileName( _<br>
+    hwnd <font color="#0000aa">As Long</font>, _<br>
+    strFilter <font color="#0000aa">As String</font>, _<br>
+    strIniFile <font color="#0000aa">As String</font>, _<br>
+    strTitleDlg <font color="#0000aa">As String</font>, _<br>
+    strDefExt <font color="#0000aa">As String</font>, _<br>
+    strCurDir <font color="#0000aa">As String</font>) <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>OFNAME <font color="#0000aa">As </font>OPENFILENAME <font color="#007700">'Назначаем переменную для файла</font><br>
+<font color="#0000aa">Dim </font>flag <font color="#0000aa">As Boolean</font><br>
+<br>
+     <font color="#007700">'Заполним структуру перед вызовом GetOpenFileName</font><br>
+     <font color="#0000aa">With </font>OFNAME<br>
+         .lStructSize = Len(OFNAME) <font color="#007700">'Размер структуры в байтах</font><br>
+         .hwndOwner = hwnd <font color="#007700">'Указатель окна</font><br>
+         .lpstrFilter = strFilter <font color="#007700">'Фильтр отбора</font><br>
+         .nFilterIndex = 1 <font color="#007700">'Индекс первой пары строк фильтра</font><br>
+         .lpstrFile = strIniFile &amp; String$(512 - Len(strIniFile), 0) <font color="#007700">'Полное имя файла</font><br>
+         .nMaxFile = 511 <font color="#007700">'Размер буфера файла</font><br>
+         .lpstrFileTitle = String$(512, 0) <font color="#007700">'Только имя файла окна</font><br>
+         .nMaxFileTitle = 511 <font color="#007700">'Размер буфера заголовка</font><br>
+         .lpstrTitle = strTitleDlg <font color="#007700">'Заголовок окна диалога</font><br>
+         .flags = OFN_FILEMUSTEXIST <font color="#007700">'Типы читаемых файлов</font><br>
+         .lpstrDefExt = strDefExt <font color="#007700">'Расширение файла по умолчанию</font><br>
+         .lpstrInitialDir = strCurDir <font color="#007700">'Каталог файлов по умолчанию</font><br>
+         .hInstance = 0 <font color="#007700">'Идентификатор блока данных для OFN_ENABLETEMPLATE</font><br>
+         .lpstrCustomFilter = 0 <font color="#007700">'Дополнительные фильтры, см. ниже</font><br>
+         .nMaxCustFilter = 0 <font color="#007700">'не менее 40, 0 - игнорируется</font><br>
+         .nFileOffset = 0 <font color="#007700">'Определяет смещение имени</font><br>
+         .nFileExtension = 0 <font color="#007700">'Определяет расширение</font><br>
+         .lCustData = 0 <font color="#007700">'Для собственных окон</font><br>
+         .lpfnHook = 0 <font color="#007700">'Указатель на функцию фильтра</font><br>
+         .lpTemplateName = 0 <font color="#007700">'Собственный диалог</font><br>
+         <font color="#007700">'*** Старт</font><br>
+         flag = apiGetSaveFileName(OFNAME) <font color="#007700">'Общий случай</font><br>
+         <font color="#0000aa">If </font>flag <font color="#0000aa">Then </font> <font color="#007700">'Открываем диалог и находим имя файла</font><br>
+              fGetSaveFileName = Left(.lpstrFile, InStr(.lpstrFile, Chr(0)) - 1)<br>
+         <font color="#0000aa">Else</font><br>
+              fGetSaveFileName = <font color="#660000">""</font><br>
+         <font color="#0000aa">End If</font><br>
+    <font color="#0000aa">End With</font><br>
+<font color="#0000aa">End Function</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">'    Выполнение действий</font><br>
+<font color="#0000aa">Public Function </font>fOfficeGetFile(strTitle <font color="#0000aa">As String</font>, strInitDir <font color="#0000aa">As String</font>, strFilter <font color="#0000aa">As String</font>, <font color="#0000aa">Optional </font>officeFlags <font color="#0000aa">As Long</font>) <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>lngFlags <font color="#0000aa">As Long</font><br>
+<font color="#0000aa">Dim </font>gfni <font color="#0000aa">As </font>accOfficeGetFileNameInfo<br>
+    <br>
+    <font color="#0000aa">On Error GoTo </font>999<br>
+    <font color="#0000aa">With </font>gfni<br>
+        <font color="#0000aa">If </font>officeFlags &lt;&gt; 0 <font color="#0000aa">Then </font>.lngFlags = officeFlags<br>
+        .strFilter = strFilter<br>
+        .strFile = <font color="#660000">""</font><br>
+        .strDlgTitle = <font color="#660000">"Выберите файл"</font><br>
+        .strOpenTitle = <font color="#660000">""</font><br>
+        .strInitialDir = strInitDir<br>
+        .hwndOwner = Application.hWndAccessApp<br>
+    <font color="#0000aa">End With</font><br>
+    <font color="#0000aa">If </font>fOfficeGetFileName(gfni, -1) = 0 <font color="#0000aa">Then</font><br>
+        fOfficeGetFile = Trim(gfni.strFile)<br>
+    <font color="#0000aa">Else</font><br>
+        fOfficeGetFile = <font color="#660000">""</font><br>
+    <font color="#0000aa">End If</font><br>
+    <font color="#0000aa">Exit Function</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+    Err.Clear<br>
+<font color="#0000aa">End Function</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

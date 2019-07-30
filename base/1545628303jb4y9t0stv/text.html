@@ -1,0 +1,236 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml">
+<div>
+<h1 id="синтаксические-обозначения-в-transact-sql-transact-sql" class="">Синтаксические обозначения в Transact-SQL (Transact-SQL)</h1>
+</div>
+<div id="mainSection">
+<div id="mainBody">
+<div class="introduction">
+<p>В следующей таблице перечислены и описаны соглашения, которые 
+используются в диаграммах синтаксиса в справочнике по Transact-SQL.</p>
+<div class="caption">
+</div>
+<div class="tableSection">
+<div class="table-scroll-wrapper"><table>
+<colgroup>
+<col style="">
+<col style="">
+</colgroup>
+<thead>
+<tr class="header">
+<th><p>Соглашение</p></th>
+<th><p>Используется для</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>ВЕРХНИЙ РЕГИСТР</p></td>
+<td><p>Ключевые слова Transact-SQL.</p></td>
+</tr>
+<tr class="even">
+<td><p><em>курсив</em></p></td>
+<td><p>Пользовательские параметры синтаксиса Transact-SQL.</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>полужирный</strong></p></td>
+<td><p>Имена баз данных, таблиц, столбцов, индексов, хранимых процедур, 
+программ, типов данных и текст должны вводиться в точном соответствии с 
+примером.</p></td>
+</tr>
+<tr class="even">
+<td><p>подчеркнутый</p></td>
+<td><p>Указывает значение по умолчанию, которое применяется, когда в 
+инструкции пропущено предложение, содержащее подчеркнутое значение.</p></td>
+</tr>
+<tr class="odd">
+<td><p>| (вертикальная черта)</p></td>
+<td><p>Разделяет элементы синтаксиса внутри квадратных или фигурных скобок. Может быть использован только один из этих элементов.</p></td>
+</tr>
+<tr class="even">
+<td><p>[ ] (квадратные скобки)</p></td>
+<td><p>Необязательные элементы синтаксиса. Скобки вводить не следует.</p></td>
+</tr>
+<tr class="odd">
+<td><p>{ } (фигурные скобки)</p></td>
+<td><p>Обязательные элементы синтаксиса. Фигурные скобки вводить не следует.</p></td>
+</tr>
+<tr class="even">
+<td><p>[<strong>,</strong>...n]</p></td>
+<td><p>Указывает на то, что предшествующий элемент можно повторить n раз. Отдельные вхождения элемента разделяются запятыми.</p></td>
+</tr>
+<tr class="odd">
+<td><p>[...n]</p></td>
+<td><p>Указывает на то, что предшествующий элемент можно повторить n раз. Отдельные вхождения элемента разделяются пробелами.</p></td>
+</tr>
+<tr class="even">
+<td><p>;</p></td>
+<td><p>Признак конца инструкции Transact-SQL. Хотя точка с запятой не 
+требуется для большинства инструкций в данной версии SQL Server, она 
+понадобится в следующей версии.</p></td>
+</tr>
+<tr class="odd">
+<td><p>&lt;метка&gt; ::=</p></td>
+<td><p>Имя синтаксического блока. Данное соглашение используется для 
+группирования и маркировки длинных частей синтаксиса или синтаксического
+ блока, который может использоваться в нескольких местах в рамках одной 
+инструкции. Каждое место, в котором может быть использован 
+синтаксический блок, обозначается меткой, заключенной в двойные угловые 
+скобки: &lt;метка&gt;.</p>
+<p>Набор представляет собой коллекцию выражений, например &lt;набор 
+группирования&gt;; а список — коллекцию наборов, например &lt;составной 
+список элементов&gt;.</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div>
+<h2 id="многочастные-имена">Многочастные имена</h2>
+<p><span id="sectionToggle0"></span></p>
+<p>Если не указано иное, все ссылки Transact-SQL на имена объектов базы 
+данных могут быть четырехсоставными именами, записываемыми в следующей 
+форме.</p>
+<p>server_name**.<strong>[database_name]</strong>.<strong>[schema_name]</strong>.**object_name</p>
+<p>| database_name**.<strong>[schema_name]</strong>.**object_name</p>
+<p>| schema_name**.**object_name</p>
+<p>| object_name</p>
+<ul>
+<li><p>server_name<br>
+Указывает имя связанного или удаленного сервера.</p>
+</li>
+<li><p>database_name<br>
+Указывает имя базы данных SQL Server, если объект хранится на локальном 
+экземпляре SQL Server. Когда объект находится на связанном сервере, 
+аргумент database_name указывает каталог OLE DB.</p>
+</li>
+<li><p>schema_name<br>
+Если объект находится в базе данных SQL Server, указывает имя схемы, 
+которая содержит объект. Когда объект находится на связанном сервере, 
+аргумент schema_name указывает имя схемы OLE DB. Дополнительные сведения
+ о схемах см. в разделе <a href="https://docs.microsoft.com/ru-ru/previous-versions/sql/sql-server-2008-r2/ms190387%28v%3dsql.105%29" data-linktype="relative-path">Отделение пользователей от схем</a>.</p>
+</li>
+<li><p>object_name<br>
+Ссылается на имя объекта.</p>
+</li>
+</ul>
+<p>При ссылке на конкретный объект нет необходимости всякий раз 
+указывать сервер, базу данных и схему — компонент SQL Server Database 
+Engine попытается определить этот объект. Однако, если объект не удается
+ найти, возвращается ошибка.</p>
+<div class="alert">
+<div class="table-scroll-wrapper"><table>
+<colgroup>
+<col style="">
+</colgroup>
+<thead>
+<tr class="header">
+<th><img src="1.png" title="Примечание" alt="Примечание" class="note" data-linktype="relative-path"><strong>Примечание</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Чтобы избежать ошибок разрешения имен, при указании объекта области схемы рекомендуется указать имя схемы.</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Чтобы пропустить промежуточные узлы, для обозначения их позиций 
+используйте точки. В следующей таблице показаны допустимые форматы имен 
+объектов.</p>
+<div class="caption">
+</div>
+<div class="tableSection">
+<div class="table-scroll-wrapper"><table>
+<colgroup>
+<col style="">
+<col style="">
+</colgroup>
+<thead>
+<tr class="header">
+<th><p>Формат ссылки на объект</p></th>
+<th><p>Описание</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>server<strong>.</strong>database<strong>.</strong>schema<strong>.</strong>object</p></td>
+<td><p>Четырехчастное имя.</p></td>
+</tr>
+<tr class="even">
+<td><p>server<strong>.</strong>database<strong>..</strong>object</p></td>
+<td><p>Имя схемы пропущено.</p></td>
+</tr>
+<tr class="odd">
+<td><p>server<strong>..</strong>schema<strong>.</strong>object</p></td>
+<td><p>Имя базы данных пропущено.</p></td>
+</tr>
+<tr class="even">
+<td><p>server<strong>...</strong>object</p></td>
+<td><p>Имя базы данных и имя схемы пропущены.</p></td>
+</tr>
+<tr class="odd">
+<td><p>database<strong>.</strong>schema<strong>.</strong>object</p></td>
+<td><p>Имя сервера пропущено.</p></td>
+</tr>
+<tr class="even">
+<td><p>database<strong>..</strong>object</p></td>
+<td><p>Имя сервера и имя схемы пропущены.</p></td>
+</tr>
+<tr class="odd">
+<td><p>schema<strong>.</strong>object</p></td>
+<td><p>Имя сервера и имя базы данных пропущены.</p></td>
+</tr>
+<tr class="even">
+<td><p>object</p></td>
+<td><p>Имена сервера, базы данных и схемы пропущены.</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div>
+<h2 id="соглашения-примеров-кода">Соглашения примеров кода</h2>
+<p><span id="sectionToggle1"></span></p>
+<p>Если не указано иное, примеры, приведенные в справочнике по 
+Transact-SQL, были проверены с использованием среды Среда SQL Server 
+Management Studio и настроек по умолчанию для следующих параметров:</p>
+<ul>
+<li><p>ANSI_NULLS;</p>
+</li>
+<li><p>ANSI_NULL_DFLT_ON;</p>
+</li>
+<li><p>ANSI_PADDING;</p>
+</li>
+<li><p>ANSI_WARNINGS;</p>
+</li>
+<li><p>CONCAT_NULL_YIELDS_NULL;</p>
+</li>
+<li><p>QUOTED_IDENTIFIER.</p>
+</li>
+</ul>
+<p>Большинство примеров кода в руководстве по Transact-SQL было 
+проверено на серверах, работающих с порядком сортировки с учетом 
+регистра. Тестовые серверы, как правило, использовали кодовую страницу 
+ANSI/ISO 1252.</p>
+<p>Многие примеры кода добавляют к строковым константам в Юникоде префикс в виде буквы <strong>N</strong>. Без префикса <strong>N</strong>
+ строка преобразуется в кодовую страницу базы данных по умолчанию. 
+Кодовая страница по умолчанию может не распознавать определенные 
+символы. Дополнительные сведения см. в разделе <a href="https://docs.microsoft.com/ru-ru/previous-versions/sql/sql-server-2008-r2/ms191313%28v%3dsql.105%29" data-linktype="relative-path">Программирование на стороне сервера с использованием Юникода</a>.</p>
+</div>
+<div>
+<h2 id="см-также">См. также</h2>
+<p><span id="seeAlsoToggle"></span></p>
+<h4 id="основные-понятия">Основные понятия</h4>
+<div class="seeAlsoStyle">
+<p><a href="https://docs.microsoft.com/ru-ru/previous-versions/sql/sql-server-2008-r2/bb510741%28v%3dsql.105%29" data-linktype="relative-path">Справочник по Transact-SQL (компонент Database Engine)</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html></p></body></html>

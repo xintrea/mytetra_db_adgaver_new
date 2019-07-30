@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/871.html"><font color="Red">061. Общая информация о Windows</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                03. Этот пример показывает как с использованием API 
+интерфейса определить информацию по Windows, номер версии, платформы и 
+т.п.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">' Структура с информацией о версии Windows</font><br>
+<font color="#0000aa">Private </font>Type OSVERSIONINFO<br>
+        dwOSVersionInfoSize <font color="#0000aa">As Long</font><br>
+        dwMajorVersion <font color="#0000aa">As Long</font><br>
+        dwMinorVersion <font color="#0000aa">As Long</font><br>
+        dwBuildNumber <font color="#0000aa">As Long</font><br>
+        dwPlatformId <font color="#0000aa">As Long</font><br>
+        szCSDVersion <font color="#0000aa">As String </font>* 128<br>
+<font color="#0000aa">End </font>Type<br>
+<br>
+<font color="#007700">' Api константы платформы Windows</font><br>
+<font color="#0000aa">Const </font>VER_PLATFORM_WIN32s = 0<br>
+<font color="#0000aa">Const </font>VER_PLATFORM_WIN32_WINDOWS = 1<br>
+<font color="#0000aa">Const </font>VER_PLATFORM_WIN32_NT = 2<br>
+<br>
+<font color="#007700">' Получаем информацию о версии</font><br>
+<font color="#0000aa">Private Declare Function </font>apiGetVersionEx <font color="#0000aa">Lib </font><font color="#660000">"kernel32"</font> Alias <font color="#660000">"GetVersionExA"</font> _<br>
+    (lpVersionInformation <font color="#0000aa">As </font>OSVERSIONINFO) <font color="#0000aa">As Long</font><br>
+<br>
+<font color="#007700">'  Загрузка данных</font><br>
+<font color="#0000aa">Private Sub </font>Form_Load()<br>
+<font color="#0000aa">Dim </font>myVer <font color="#0000aa">As </font>OSVERSIONINFO<br>
+<font color="#0000aa">Dim </font>s <font color="#0000aa">As String</font><br>
+<br>
+        <font color="#007700">' Инициализируем строку</font><br>
+        s = <font color="#660000">""</font><br>
+        <font color="#007700">' Определяем размер структуры</font><br>
+        myVer.dwOSVersionInfoSize = 148<br>
+        <br>
+        <font color="#007700">' Получаем информацию о версии</font><br>
+        <font color="#0000aa">Call </font>apiGetVersionEx(myVer)<br>
+        <font color="#0000aa">If </font>myVer.dwPlatformId = VER_PLATFORM_WIN32_WINDOWS <font color="#0000aa">Then</font><br>
+            s = s &amp; <font color="#660000">"Платформа: Windows 95;"</font><br>
+        <font color="#0000aa">ElseIf </font>myVer.dwPlatformId = VER_PLATFORM_WIN32_NT <font color="#0000aa">Then</font><br>
+            s = s &amp; <font color="#660000">"Платформа: Windows NT;"</font><br>
+        <font color="#0000aa">End If</font><br>
+        s = s &amp; <font color="#660000">"Версия: "</font> &amp; myVer.dwMajorVersion &amp; <font color="#660000">"."</font> &amp; myVer.dwMinorVersion &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Построение: "</font> &amp; (myVer.dwBuildNumber <font color="#0000aa">And </font>&amp;HFFFF&amp;) &amp; <font color="#660000">";"</font><br>
+        <br>
+        <font color="#007700">' Устанавливаем список</font><br>
+        Me.myList.RowSource = s<br>
+<font color="#0000aa">End Sub</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

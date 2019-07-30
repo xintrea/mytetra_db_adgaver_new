@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/898.html"><font color="Red">060. Обработка ошибок разными методами</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                03. В ADO и DAO ошибки обрабатываются по разному, 
+используйте этот пример для анализа действий вашей программы при 
+аварийных выходах.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#0000aa">Option Compare </font>Database<br>
+<font color="#0000aa">Option Explicit</font><br>
+<font color="#007700">'***************************************************************</font><br>
+<font color="#007700">' 03. Обработка ошибок разными методами</font><br>
+<font color="#007700">'***************************************************************</font><br>
+<br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">' ADO. Обработка ошибок</font><br>
+<font color="#0000aa">Private Sub </font>butADO_Click()<br>
+<font color="#0000aa">Dim </font>cnn <font color="#0000aa">As New </font>ADODB.Connection<br>
+<font color="#0000aa">Dim </font>oneErr <font color="#0000aa">As </font>ADODB.Error, s <font color="#0000aa">As String</font><br>
+    <font color="#0000aa">On Error Resume Next</font><br>
+    cnn.Open <font color="#660000">"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=?"</font><br>
+    <font color="#007700">' Информация о всех ошибках</font><br>
+    s = <font color="#660000">"Список ошибок;------ ADO -------;"</font><br>
+    <font color="#0000aa">For Each </font>oneErr <font color="#0000aa">In </font>cnn.Errors<br>
+        s = s &amp; <font color="#660000">"Описание;"</font> &amp; oneErr.Description &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Номер;"</font> &amp; oneErr.Number &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Имя приложения;"</font> &amp; oneErr.Source &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"SQLState;"</font> &amp; oneErr.SQLState &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"NativeError;"</font> &amp; oneErr.NativeError &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Код справки;"</font> &amp; oneErr.HelpContext &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Файл справки;"</font> &amp; oneErr.HelpFile &amp; <font color="#660000">";"</font><br>
+    <font color="#0000aa">Next</font><br>
+    <font color="#007700">' Полная информация о последней ошибке</font><br>
+    s = s &amp; <font color="#660000">"Последняя ошибка;------ ADO -------;"</font><br>
+    Me.listErrors.RowSource = s &amp; funLastError <font color="#007700">'Отображаем ошибку</font><br>
+    <font color="#0000aa">Resume Next</font><br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">' DAO. Обработка ошибок</font><br>
+<font color="#0000aa">Private Sub </font>butDAO_Click()<br>
+<font color="#0000aa">Dim </font>dbs <font color="#0000aa">As </font>DAO.Database<br>
+<font color="#0000aa">Dim </font>oneErr <font color="#0000aa">As </font>DAO.Error<br>
+<font color="#0000aa">Dim </font>strmdb <font color="#0000aa">As String</font>, s <font color="#0000aa">As String</font><br>
+    <br>
+    <font color="#0000aa">On Error Resume Next</font><br>
+    <font color="#0000aa">Set </font>dbs = DBEngine.OpenDatabase(<font color="#660000">"?"</font>, , 2 / 0) <font color="#007700">' Генерируем ошибку</font><br>
+    <font color="#007700">'Err.Raise 11 ' Самостоятельный генератор ошибок</font><br>
+    <br>
+    <font color="#007700">' Информация о всех ошибках</font><br>
+    s = <font color="#660000">"Список ошибок;------ DAO "</font> &amp; DAO.Version &amp; <font color="#660000">" -------;"</font><br>
+    <font color="#0000aa">For Each </font>oneErr <font color="#0000aa">In </font>DBEngine.Errors<br>
+        s = s &amp; <font color="#660000">"Описание;"</font> &amp; oneErr.Description &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Номер;"</font> &amp; oneErr.Number &amp; <font color="#660000">";"</font><br>
+        s = s &amp; <font color="#660000">"Имя приложения;"</font> &amp; oneErr.Source &amp; <font color="#660000">";"</font><br>
+    <font color="#0000aa">Next</font><br>
+    <font color="#007700">' Полная информация о последней ошибке</font><br>
+    s = s &amp; <font color="#660000">"Последняя ошибка;------ DAO -------;"</font><br>
+    Me.listErrors.RowSource = s &amp; funLastError <font color="#007700">'Отображаем ошибку</font><br>
+    Err.Clear<br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">'  Возвращает информацию о последней ошибке</font><br>
+<font color="#007700">'  ADO и DAO</font><br>
+<font color="#0000aa">Private Function </font>funLastError() <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>s <font color="#0000aa">As String</font><br>
+    s = <font color="#660000">"Описание;"</font> &amp; Err.Description &amp; <font color="#660000">";"</font><br>
+    s = s &amp; <font color="#660000">"Номер;"</font> &amp; Err.Number &amp; <font color="#660000">";"</font><br>
+    s = s &amp; <font color="#660000">"Код справки;"</font> &amp; Err.HelpContext &amp; <font color="#660000">";"</font><br>
+    s = s &amp; <font color="#660000">"Файл справки;"</font> &amp; Err.HelpFile &amp; <font color="#660000">";"</font><br>
+    s = s &amp; <font color="#660000">"Имя приложения;"</font> &amp; Err.Source &amp; <font color="#660000">";"</font><br>
+    s = s &amp; <font color="#660000">"DLL код;"</font> &amp; Err.LastDllError &amp; <font color="#660000">";"</font><br>
+    funLastError = s<br>
+<font color="#0000aa">End Function</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

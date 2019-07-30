@@ -1,0 +1,169 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div data-grid="col-12 pad-12x"><div data-grid="container" class="main-content-container"><header data-grid="col-12" role="presentation"><h1 class="c-heading-3 article-heading ng-binding ng-scope" role="heading" aria-level="1" ng-if="article.details.heading" ng-bind-html="article.details.heading">Как импортировать данные из Excel в SQL Server</h1>
+            
+            
+            <applies-to products="article.details.products" saps="article.details.supportAreaPathNodes" ng-if="article.details.products.length || article.details.supportAreaPathNodes.length" class="ng-scope ng-isolate-scope"><div id="applies-to" class="applies-to c-caption-1 ng-scope" ng-if="vm.appliesTo.length"> 
+    <span class="c-meta-text ng-binding" ng-bind-html="(vm.contentProperties.appliesToProductsFormat | compassFormat: {'products': ''})">Применимо к: </span>
+    <span ng-repeat="productName in vm.appliesTo track by $index" class="c-meta-text display-inline comma-appended ng-binding ng-scope" itemprop="about" ng-show="$index &lt; 3 || vm.showMore" aria-hidden="false">Microsoft SQL Server 2005 Developer Edition</span><span ng-repeat="productName in vm.appliesTo track by $index" class="c-meta-text display-inline comma-appended ng-binding ng-scope" itemprop="about" ng-show="$index &lt; 3 || vm.showMore" aria-hidden="false">Microsoft SQL Server 2005 Enterprise Edition</span><span ng-repeat="productName in vm.appliesTo track by $index" class="c-meta-text display-inline comma-appended ng-binding ng-scope" itemprop="about" ng-show="$index &lt; 3 || vm.showMore" aria-hidden="false">Microsoft SQL Server 2005 Standard Edition</span>
+    <a role="button" id="toggle-more" ng-click="vm.toggleMore()" ng-bind-html="vm.toggleText" ng-if="vm.appliesTo.length &gt; 3" class="c-hyperlink ng-binding ng-scope" href="https://support.microsoft.com/" aria-label="">Больше</a> 
+</div></applies-to>
+            
+            <hr class="c-divider f-pad-bottom-6x f-pad-top-3x">
+        </header>
+    </div>
+</div>
+
+<div data-grid="col-12 pad-12x">
+    <div data-grid="container" class="main-content-container">
+
+        
+
+        
+
+        
+
+        
+        
+
+        
+        
+
+        <div ng-if="article.details.supportAreaPathNodes.length" sap-picker="article.details.supportAreaPathNodes" article-sections="article.details.body" class="ng-scope ng-isolate-scope"></div>
+
+        <div class="content-article">
+            <div content-section-list="article.details.body" itemprop="articleBody" class="ng-isolate-scope"><div ng-repeat="section in contentSectionList track by $index" ng-if="!isString &amp;&amp; hasContent()" class="ng-scope">
+    <div content-section="section" class="ng-isolate-scope"><section class="section ng-scope" data-grid="col-12" ng-if="typeof(contentSection) !== 'string'" ng-show="shouldShow" applies-to-saps="[]" ng-attr-id="{{contentSection.meta.id}}" ng-class="{'internal-content': isInternalSection(), 'flighted-content': shouldHighlightFlight }" data-before="" aria-hidden="false">
+    
+    
+    <div class="section-body ng-scope" ng-if="contentSection.content &amp;&amp; contentSection.content.length &gt; 0">
+        <div ng-attr-data-grid="{{getStyleClass()}}" ng-repeat="content in contentSection.content track by $index" class="ng-scope" data-grid="col-12">
+            <div compile="content" data-grid="col-12" class="ng-isolate-scope"><div class="ng-scope"></div></div>
+            
+        </div>
+    </div>
+</section></div>
+</div><div ng-repeat="section in contentSectionList track by $index" ng-if="!isString &amp;&amp; hasContent()" class="ng-scope">
+    <div content-section="section" class="ng-isolate-scope"><section class="section ng-scope" data-grid="col-12" ng-if="typeof(contentSection) !== 'string'" ng-show="shouldShow" applies-to-saps="[]" ng-attr-id="{{contentSection.meta.id}}" ng-class="{'internal-content': isInternalSection(), 'flighted-content': shouldHighlightFlight }" data-before="" aria-hidden="false">
+    
+    
+    <div class="section-body ng-scope" ng-if="contentSection.content &amp;&amp; contentSection.content.length &gt; 0">
+        <div ng-attr-data-grid="{{getStyleClass()}}" ng-repeat="content in contentSection.content track by $index" class="ng-scope" data-grid="col-12">
+            <div compile="content" data-grid="col-12" class="ng-isolate-scope"><div class="kb-notice-section section ng-scope"><a class="bookmark" id="toc"></a>
+<h3 class="sbody-h3">В ЭТОЙ ЗАДАЧЕ</h3>
+
+<ul class="sbody-free_list">
+	<li><a bookmark-id="1" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#1" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">АННОТАЦИЯ</a>
+
+	<ul class="sbody-free_list">
+		<li><a bookmark-id="2" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#2" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Описание приема</a></li>
+		<li><a bookmark-id="3" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#3" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Требования</a></li>
+		<li><a bookmark-id="4" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Примеры</a>
+		<ul class="sbody-free_list">
+			<li><a bookmark-id="4a" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4a" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Import или Append</a></li>
+			<li><a bookmark-id="4b" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4b" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование DTS или SSIS</a></li>
+			<li><a bookmark-id="4c" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4c" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование связанного сервера</a></li>
+			<li><a bookmark-id="4d" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4d" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование распределенных запросов</a></li>
+			<li><a bookmark-id="4e" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4e" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование ADO и SQLOLEDB</a></li>
+			<li><a bookmark-id="4f" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4f" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование ADO и Поставщика данных Jet</a></li>
+		</ul>
+		</li>
+		<li><a bookmark-id="5" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#5" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Устранение неполадок</a></li>
+	</ul>
+	</li>
+	<li><a bookmark-id="6" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#6" managed-link="" target="" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">ССЫЛКИ</a></li>
+</ul>
+<a class="bookmark" id="1"></a></div>
+</div>
+            
+        </div>
+    </div>
+</section></div>
+</div><div ng-repeat="section in contentSectionList track by $index" ng-if="!isString &amp;&amp; hasContent()" class="ng-scope">
+    <div content-section="section" class="ng-isolate-scope"><section class="section ng-scope" data-grid="col-12" ng-if="typeof(contentSection) !== 'string'" ng-show="shouldShow" applies-to-saps="[]" ng-attr-id="{{contentSection.meta.id}}" ng-class="{'internal-content': isInternalSection(), 'flighted-content': shouldHighlightFlight }" data-before="" aria-hidden="false">
+    
+    <div id="section-2" ng-if="contentSection.title" data-js-in-page-navigation-anchor="section-2" class="ng-scope">
+        <h2 class="c-heading-4 f-lean bold ng-binding" ng-bind-html="contentSection.title"> Аннотация</h2>
+        <hr class="c-divider f-pad-bottom-6x f-pad-top-3x">
+        
+    </div>
+    <div class="section-body ng-scope" ng-if="contentSection.content &amp;&amp; contentSection.content.length &gt; 0">
+        <div ng-attr-data-grid="{{getStyleClass()}}" ng-repeat="content in contentSection.content track by $index" class="ng-scope" data-grid="col-12">
+            <div compile="content" data-grid="col-12" class="ng-isolate-scope"><div class="kb-summary-section section ng-scope">В
+ этом пошаговом руководстве описываются различные способы импорта данных
+ из листов Microsoft Excel в базы данных Microsoft SQL Server.<br><br><h3 class="sbody-h3"><a class="bookmark" id="2"></a>Описание приема</h3>В примерах, приведенных в данной статье, импорт данных Excel выполняется с помощью следующих функций:<br><br><ul class="sbody-free_list"><li>Службы DTS SQL Server</li><li>Службы Integration Services Microsoft SQL Server 2005 (SSIS)</li><li>Связанные серверы SQL Server</li><li>Распределенные запросы SQL Server</li><li>Поставщик объектов данных ActiveX (ADO) и Microsoft OLE DB для SQL Server</li><li>Поставщик ADO и Microsoft OLE DB для Jet 4.0</li></ul><h3 class="sbody-h3"><a class="bookmark" id="3"></a>Требования</h3>В
+ приведенном ниже списке перечислены рекомендованное оборудование, 
+программное обеспечение, сетевая инфраструктура, а также необходимые 
+пакеты обновления:<br><br><ul class="sbody-free_list"><li>Экземпляр Microsoft SQL Server 7.0, Microsoft SQL Server 2000 или Microsoft SQL Server 2005</li><li>Microsoft Visual Basic 6.0 для примеров объектов ADO, использующих Visual Basic</li></ul>В ряде разделов данной статьи предполагается, что пользователь обладает достаточными знаниями в следующих областях:<br><br><ul class="sbody-free_list"><li>Службы преобразования данных</li><li>Связанные серверы и распределенные запросы</li><li>Разработка объектов ADO на Visual Basic</li></ul><h3 class="sbody-h3"><a class="bookmark" id="4"></a>Примеры</h3><h4 class="sbody-h4"><a class="bookmark" id="4a"></a>Import или Append</h4>В
+ примерах команд SQL, используемых в статье, показаны запросы Create 
+Table для импорта данных Excel в новую таблицу SQL Server с 
+использованием конструкций SELECT...INTO...FROM. При сохранении ссылок 
+на объекты-источники и получатели выражения, приведенные в примерах, 
+могут быть преобразованы в запросы Append с использованием конструкций 
+INSERT INTO...SELECT...FROM.<br><br><h4 class="sbody-h4"><a class="bookmark" id="4b"></a>Использование DTS или SSIS</h4>Для
+ импорта данных Excel в таблицы SQL Server могут быть использованы 
+мастер импорта служб преобразования данных (DTS) SQL Server или мастер 
+импорта и экспорта SQL Server. При работе с мастером и выборе исходных 
+таблиц Excel помните, что имена объектов Excel со знаком доллара ($) 
+являются именами листов (например, Лист1$), а имена объектов без знака 
+доллара являются названиями именованных диапазонов Excel.<br><br><h4 class="sbody-h4"><a class="bookmark" id="4c"></a>Использование связанного сервера</h4>Для упрощения запросов книга Excel может быть настроена как связанный сервер в SQL Server.<br><br><span>Для получения дополнительных сведений щелкните указанный ниже номер статьи базы знаний Майкрософт:<br><br><div class="indent"><a id="kb-link-1" href="https://support.microsoft.com/ru-ru/help/306397">306397 </a> ИНСТРУКЦИЯ: Использование Excel со связанными серверами SQL Server и распределенными запросами<br></div></span>Следующий
+ код импортирует данные из рабочего листа «Customers» связанного сервера
+ Excel «EXCELLINK» в новую таблицу SQL Server с именем XLImport1:<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SELECT * INTO XLImport1 FROM EXCELLINK...[Customers$]<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>При использовании OPENQUERY источнику может быть передан сквозной запрос:<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SELECT * INTO XLImport2 FROM OPENQUERY(EXCELLINK,<br>    'SELECT * FROM [Customers$]')<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div><h4 class="sbody-h4"><a class="bookmark" id="4d"></a>Использование распределенных запросов</h4>Если
+ устанавливать существующее подключение к книге Excel как связанному 
+серверу нежелательно, данные могут быть импортированы с использованием 
+функций OPENDATASOURCE или OPENROWSET. В следующих примерах кода также 
+производится импорт данных из рабочего листа Excel «Customers» в новые 
+таблицы SQL Server:<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SELECT * INTO XLImport3 FROM OPENDATASOURCE('Microsoft.Jet.OLEDB.4.0',<br>'Data Source=C:\test\xltest.xls;Extended Properties=Excel 8.0')...[Customers$]<br><br>SELECT * INTO XLImport4 FROM OPENROWSET('Microsoft.Jet.OLEDB.4.0',<br>'Excel 8.0;Database=C:\test\xltest.xls', [Customers$])<br><br>SELECT * INTO XLImport5 FROM OPENROWSET('Microsoft.Jet.OLEDB.4.0',<br>'Excel 8.0;Database=C:\test\xltest.xls', 'SELECT * FROM [Customers$]')<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div><h4 class="sbody-h4"><a class="bookmark" id="4e"></a>Использование ADO и SQLOLEDB</h4>Синтаксис «распределенных запросов», приведенный в разделе <a managed-link="" href="https://support.microsoft.com/ru-ru/help/321686/how-to-import-data-from-excel-to-sql-server#4d" target="" bookmark-id="4d" tabindex="0" class="managed-link content-anchor-link" data-bi-name="content-anchor-link" aria-live="assertive">Использование распределенных запросов</a>,
+ может быть использован также в приложении ADO для импорта данных Excel в
+ SQL Server, если для подключения к SQL Server используется Microsoft 
+OLE DB для SQL Server (SQLOLEDB).<br><br>Для работы следующего примера 
+программы на Visual Basic 6.0 требуется добавление ссылки на проект в 
+объекты данных ActiveX (ADO). В этом примере показано использование 
+функций OPENDATASOURCE и OPENROWSET для подключения SQLOLEDB.<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Dim cn As ADODB.Connection<br>    Dim strSQL As String<br>    Dim lngRecsAff As Long<br>    Set cn = New ADODB.Connection<br>    cn.Open "Provider=SQLOLEDB;Data Source=&lt;server&gt;;" &amp; _<br>        "Initial Catalog=&lt;database&gt;;User ID=&lt;user&gt;;Password=&lt;password&gt;"<br><br>    'Import by using OPENDATASOURCE.<br>    strSQL = "SELECT * INTO XLImport6 FROM " &amp; _<br>        "OPENDATASOURCE('Microsoft.Jet.OLEDB.4.0', " &amp; _<br>        "'Data Source=C:\test\xltest.xls;" &amp; _<br>        "Extended Properties=Excel 8.0')...[Customers$]"<br>    Debug.Print strSQL<br>    cn.Execute strSQL, lngRecsAff, adExecuteNoRecords<br>    Debug.Print "Records affected: " &amp; lngRecsAff<br><br>    'Import by using OPENROWSET and object name.<br>    strSQL = "SELECT * INTO XLImport7 FROM " &amp; _<br>        "OPENROWSET('Microsoft.Jet.OLEDB.4.0', " &amp; _<br>        "'Excel 8.0;Database=C:\test\xltest.xls', " &amp; _<br>        "[Customers$])"<br>    Debug.Print strSQL<br>    cn.Execute strSQL, lngRecsAff, adExecuteNoRecords<br>    Debug.Print "Records affected: " &amp; lngRecsAff<br><br>    'Import by using OPENROWSET and SELECT query.<br>    strSQL = "SELECT * INTO XLImport8 FROM " &amp; _<br>        "OPENROWSET('Microsoft.Jet.OLEDB.4.0', " &amp; _<br>        "'Excel 8.0;Database=C:\test\xltest.xls', " &amp; _<br>        "'SELECT * FROM [Customers$]')"<br>    Debug.Print strSQL<br>    cn.Execute strSQL, lngRecsAff, adExecuteNoRecords<br>    Debug.Print "Records affected: " &amp; lngRecsAff<br><br>    cn.Close<br>    Set cn = Nothing<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div><h4 class="sbody-h4"><a class="bookmark" id="4f"></a>Использование ADO и поставщика данных Jet</h4>В
+ примере из предыдущего раздела при импорте из Excel в SQL для связи с 
+получателем использовались ADO и поставщик SQLOLEDB. Для подключения к 
+источнику Excel можно воспользоваться поставщиком данных OLE DB для Jet 
+4.0.<br><br>Используя в выражениях SQL особые конструкции, имеющие три 
+различных формата, база данных Jet может ссылаться на внешние базы 
+данных:<br><br><ul class="sbody-free_list"><li>[<strong class="sbody-strong">Полный путь к базе данных Microsoft Access</strong>].[<strong class="sbody-strong">Название таблицы</strong>]</li><li>[<strong class="sbody-strong">Название ISAM</strong>;<strong class="sbody-strong">Строка подключения ISAM</strong>].[<strong class="sbody-strong">Название таблицы</strong>]</li><li>[ODBC;<strong class="sbody-strong">Строка подключения ODBС</strong>].[<strong class="sbody-strong">Название таблицы</strong>]</li></ul>В
+ этом разделе для создания подключения ODBC к базе данных SQL Server 
+используется третий формат. Может использоваться имя источника данных 
+(DSN) ODBC или строка подключения без определения DSN:<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DSN:<br>    [odbc;DSN=&lt;DSN name&gt;;UID=&lt;user&gt;;PWD=&lt;password&gt;]<br><br>DSN-less:<br>   [odbc;Driver={SQL Server};Server=&lt;server&gt;;Database=&lt;database&gt;;<br>       UID=&lt;user&gt;;PWD=&lt;password&gt;]<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>Для
+ работы следующего примера программы на Visual Basic 6.0 требуется 
+добавление ссылки на проект в ADO. В примере показан импорт данных Excel
+ в SQL Server через подключение ADO с использованием поставщика данных 
+Jet 4.0.<br><br><div class="sbody-code"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Dim cn As ADODB.Connection<br>    Dim strSQL As String<br>    Dim lngRecsAff As Long<br>    Set cn = New ADODB.Connection<br>    cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;" &amp; _<br>        "Data Source=C:\test\xltestt.xls;" &amp; _<br>        "Extended Properties=Excel 8.0"<br>    <br>    'Import by using Jet Provider.<br>    strSQL = "SELECT * INTO [odbc;Driver={SQL Server};" &amp; _<br>        "Server=&lt;server&gt;;Database=&lt;database&gt;;" &amp; _<br>        "UID=&lt;user&gt;;PWD=&lt;password&gt;].XLImport9 " &amp; _<br>        "FROM [Customers$]"<br>    Debug.Print strSQL<br>    cn.Execute strSQL, lngRecsAff, adExecuteNoRecords<br>    Debug.Print "Records affected: " &amp; lngRecsAff<br>        <br>    cn.Close<br>    Set cn = Nothing<br></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>Для
+ импорта данных Excel в другие базы данных Microsoft Access, базы данных
+ индексно-последовательного метода доступа (ISAM) или базы ODBC также 
+могут использоваться конструкции, поддерживаемые поставщиком данных Jet.<br><br><h3 class="sbody-h3"><a class="bookmark" id="5"></a>Устранение неполадок</h3><ul class="sbody-free_list"><li>Помните,
+ что объекты Excel, имена которых содержат знак доллара ($), являются 
+листами (например, Лист1$), другие объекты являются именованными 
+диапазонами Excel.</li><li>В некоторых случаях, особенно когда вы 
+назначаете исходные данные Excel с помощью названия таблицы, а не 
+запроса SELECT, столбцы в целевой таблице SQL Server перегруппируются в 
+алфавитном порядке.<span>Дополнительную информацию о данной проблеме с Jet Provider см. в следующей статье Базы знаний Майкрософт:<br><br><div class="indent"><a id="kb-link-2" href="https://support.microsoft.com/ru-ru/help/299484">299484 </a> ПРОБЛЕМА: При использовании ADOX для получения столбцов таблицы Access столбцы упорядочиваются по алфавиту<br></div></span></li><li>Когда
+ Jet Provider определяет, что столбец Excel содержит смешанные текстовые
+ и числовые данные, он выбирает тип данных «большинства», а не совпавшие
+ с ним значения возвращает в виде NULL-значений.<span>Дополнительную информацию по поиску обходного решения данной проблемы см. в следующей статье Базы знаний Майкрософт:<br><br><div class="indent"><a id="kb-link-3" href="https://support.microsoft.com/ru-ru/help/194124">194124 </a> ПРОБЛЕМА: При использовании DAO OpenRecordset данным в Excel присваивается значение NULL<br></div></span></li></ul><a class="bookmark" id="6"></a></div></div>
+            
+        </div>
+    </div>
+</section></div>
+</div><div ng-repeat="section in contentSectionList track by $index" ng-if="!isString &amp;&amp; hasContent()" class="ng-scope">
+    <div content-section="section" class="ng-isolate-scope"><section class="section ng-scope" data-grid="col-12" ng-if="typeof(contentSection) !== 'string'" ng-show="shouldShow" applies-to-saps="[]" ng-attr-id="{{contentSection.meta.id}}" ng-class="{'internal-content': isInternalSection(), 'flighted-content': shouldHighlightFlight }" data-before="" aria-hidden="false">
+    
+    <div id="section-3" ng-if="contentSection.title" data-js-in-page-navigation-anchor="section-3" class="ng-scope">
+        <h2 class="c-heading-4 f-lean bold ng-binding" ng-bind-html="contentSection.title"> Ссылки</h2>
+        <hr class="c-divider f-pad-bottom-6x f-pad-top-3x">
+        
+    </div>
+    <div class="section-body ng-scope" ng-if="contentSection.content &amp;&amp; contentSection.content.length &gt; 0">
+        <div ng-attr-data-grid="{{getStyleClass()}}" ng-repeat="content in contentSection.content track by $index" class="ng-scope" data-grid="col-12">
+            <div compile="content" data-grid="col-12" class="ng-isolate-scope"><div class="kb-references-section section ng-scope"><span>Для
+ получения дополнительных сведений об использовании Excel в качестве 
+источника данных щелкните следующий номер статьи базы знаний Майкрософт:<br><br><div class="indent"><a id="kb-link-4" href="https://support.microsoft.com/ru-ru/help/257819">257819 </a> ИНСТРУКЦИЯ: Использование ADO с данными Excel из Visual Basic или VBA<br></div></span><span>Для получения дополнительных сведений о передаче данных в Excel щелкните следующие номера статей базы знаний Майкрософт:<br><br><div class="indent"><a id="kb-link-5" href="https://support.microsoft.com/ru-ru/help/295646">295646 </a> ИНСТРУКЦИЯ: Передача данных из источника данных ADO в Excel с помощью ADO<br></div></span><span><div class="indent"><a id="kb-link-6" href="https://support.microsoft.com/ru-ru/help/247412">247412 </a> ИНФОРМАЦИЯ: Способы передачи данных из Visual Basic в Excel<br></div></span><span><div class="indent"><a id="kb-link-7" href="https://support.microsoft.com/ru-ru/help/246335">246335 </a> ИНСТРУКЦИЯ: Автоматическая передача данных из набора записей ADO в Excel<br></div></span><span><div class="indent"><a id="kb-link-8" href="https://support.microsoft.com/ru-ru/help/319951">319951 </a> ИНСТРУКЦИЯ: Передача данных в Excel с помощью служб DTS SQL Server<br></div></span><span><div class="indent"><a id="kb-link-9" href="https://support.microsoft.com/ru-ru/help/306125">306125 </a> ИНСТРУКЦИЯ: Импорт данных из SQL Server в Microsoft Excel</div></span></div></div></div></div></section></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

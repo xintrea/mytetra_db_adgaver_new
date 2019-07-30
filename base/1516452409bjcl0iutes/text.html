@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">p</span></a><span style=" text-decoration: underline; color:#0000ff;">ython-scripts.com</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>автор </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="meta-data"></a>16-22 минуты </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a>В Python существуют несколько видов данных. Основные типы данных, с которыми вы столкнетесь – это <span style=" font-weight:600;">string</span>, <span style=" font-weight:600;">ingteger</span>, <span style=" font-weight:600;">float</span>, <span style=" font-weight:600;">list</span>, <span style=" font-weight:600;">dict</span> и <span style=" font-weight:600;">tuple</span>. В данной статье мы рассмотрим тип данных <span style=" font-weight:600;">string</span> (строка). Вы удивитесь тому, сколько всего можно делать со строками в Python. Также существует модуль string, который можно импортировать для получения доступа к еще большим возможностям, но мы рассмотрим его в другой статье. Вместо этого, мы пройдемся по следующим разделам:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как создавать строки</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Конкатенация строк</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Методы строк</li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Замена строк</li></ul>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Как создать строку</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Строки всегда создаются одним из трех способов. Вы можете использовать одинарные, двойные и тройные скобки. Давайте посмотрим </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b841292082301"></a>my_string = &quot;Добро пожаловать в Python!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b841292082301-2"></a>another_string = 'Я новый текст тут...'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b841292082301-4"></a>a_long_string = '''А это у нас</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b841292082301-5"></a>новая строка</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b841292082301-6"></a>в троичных скобках'''</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Строка с <span style=" font-weight:600;">тремя скобками</span> может быть создана с использованием трех одинарных скобок или трех двойных скобок. Так или иначе, с их помощью программист может писать строки в нескольких линиях. Если вы впишете это, вы увидите, что выдача сохраняет разрыв строк. Если вам нужно использовать одинарные скобки в вашей строке, то впишите двойные скобки. Давайте посмотрим на пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b858009503568"></a>my_string = &quot;I'm a Python programmer!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b858009503568-2"></a>otherString = 'Слово &quot;Python&quot; обычно подразумевает змею'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b858009503568-3"></a>tripleString = &quot;&quot;&quot;В такой &quot;строке&quot; мы можем 'использовать' все.&quot;&quot;&quot;</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный код демонстрирует то, как вы можете вписать одинарные или двойные скобки в строку. Существует еще один способ создания строки, при помощи <span style=" font-weight:600;">метода str</span>. Как это работает: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b863325321801"></a>my_number = 123</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b863325321801-2"></a>my_string = str(my_number)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вы впишете данный код в ваш интерпретатор, вы увидите, что вы изменили значение интегратора на строку и присвоили ее переменной my_string. Это называется <span style=" font-weight:600;">кастинг</span>, или конвертирование. Вы можете конвертировать некоторые типы данных в другие, например числа в строки. Но вы также заметите, что вы не всегда можете делать обратное, например, конвертировать строку вроде ‘<span style=" font-style:italic;">ABC</span>’ в целое число. Если вы сделаете это, то получите ошибку вроде той, что указана в этом примере: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b871086488333"></a>int('ABC')</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b871086488333-3"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b871086488333-4"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b871086488333-5"></a>ValueError: invalid literal for int() with base 10: 'ABC'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы рассмотрели <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">обработку исключений</span></a> в другой статье, но как вы могли догадаться из сообщения, это значит, что вы не можете конвертировать сроки в цифры. Тем не менее, если вы вписали: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">То все должно работать. Обратите внимание на то, что строка – это один из неизменных <span style=" font-weight:600;">типов Python</span>. Это значит, что вы не можете менять содержимое строки после ее создания. Давайте попробуем сделать это и посмотрим, что получится: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b886779856524"></a>my_string = &quot;abc&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b886779856524-2"></a>my_string[0] = &quot;d&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b886779856524-4"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b886779856524-5"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b886779856524-6"></a>TypeError: 'str' object does not support item assignment</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь мы пытаемся <span style=" font-weight:600;">изменить первую букву</span> с «<span style=" font-style:italic;">а»</span> на «<span style=" font-style:italic;">d</span>«, в итоге это привело к <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ошибке TypeError</span></a>, которая не дает нам сделать это. Теперь вы можете подумать, что присвоение новой строке то же значение и есть изменение строки. Давайте взглянем, правда ли это: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489"></a>my_string = &quot;abc&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-2"></a>a = id(my_string)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-3"></a>print(a) # 19397208</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-5"></a>my_string = &quot;def&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-6"></a>b = id(my_string)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-7"></a>print(b) # 25558288</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-9"></a>my_string = my_string + &quot;ghi&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-10"></a>c = id(my_string)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b892301596489-11"></a>print(c) # 31345312</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Проверив id объекта, мы можем определить, что когда мы присваиваем новое значение переменной, то это меняет тождество. Обратите внимание, что в версии Python, начиная с 2.0, строки могут содержать только <span style=" font-weight:600;">символы ASCII</span>. Если вам нужен <span style=" font-weight:600;">Unicode</span>, тогда вы должны вписывать <span style=" font-weight:600;">u</span> перед вашей строкой. Пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b89d328001317"></a># -*- coding: utf-8 -*-</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b89d328001317-2"></a>my_unicode_string = u&quot;Это юникод!&quot;</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В Python, начиная с версии 3, все <span style=" font-weight:600;">строки являются юникодом</span>. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Конкатенация строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Конкатенация – это важный момент, это означает соединение или добавление двух объектов вместе. В нашем случае, нам нужно узнать, как добавить две строки вместе. Как вы можете догадаться, в Python эта операция очень простая: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8a9779165909"></a># -*- coding: utf-8 -*-</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8a9779165909-3"></a>string_one = &quot;Собака съела &quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8a9779165909-4"></a>string_two = &quot;мою книгу!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8a9779165909-5"></a>string_three = string_one + string_two</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8a9779165909-7"></a>print(string_three) # Собака съела мою книгу!</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор <span style=" font-weight:600;">+</span> конкатенирует две строки в одну</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Методы строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Строка является <span style=" font-weight:600;">объектом</span> в Python. Фактически, все, что есть в Python – является объектом. Если вы хотите узнать больше об Объектно-ориентированном программирование, мы рассмотрим это в другой статье «<a href="https://python-scripts.com/python-class"><span style=" text-decoration: underline; color:#0000ff;">Классы в Python</span></a>«. В данный момент достаточно знать, что строки содержат собственные встроенные методы. Например, допустим, у вас есть следующая строка: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8b3386995515"></a>my_string = &quot;This is a string!&quot;</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь вам нужно сделать так, чтобы вся эта строка была в верхнем регистре. Чтобы сделать это, все, что вам нужно, это вызвать метод <span style=" font-weight:600;">upper</span>(), вот так: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вы открыли ваш интерпретатор, вы также можете сделать то же самое: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8c7642946374"></a>&quot;This is a string!&quot;.upper()</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Существует великое множество других методов строк. Например, если вам нужно, что бы все было в <span style=" font-weight:600;">нижнем регистре</span>, вам нужно использовать метод <span style=" font-weight:600;">lower</span>(). Если вы хотите удалить все начальные и конечные пробелы, вам понадобится метод <span style=" font-weight:600;">strip</span>(). Для получения списка всех методов строк, впишите следующую команду в ваш интерпретатор: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы увидите что-то на подобие этого: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188"></a>[‘__add__’, ‘__class__’, ‘__contains__’, ‘__delattr__’, ‘__doc__’, ‘__eq__’, ‘__format__’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-2"></a>‘__ge__’, ‘__getattribute__’, ‘__getitem__’, ‘__getnewargs__’, ‘__getslice__’, ‘__gt__’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-3"></a>‘__hash__’, ‘__init__’, ‘__le__’, ‘__len__’, ‘__lt__’, ‘__mod__’, ‘__mul__’, ‘__ne__’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-4"></a>‘__new__’, ‘__reduce__’, ‘__reduce_ex__’, ‘__repr__’, ‘__rmod__’, ‘__rmul__’, ‘__-</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-5"></a>setattr__’, ‘__sizeof__’, ‘__str__’, ‘__subclasshook__’, ‘_formatter_field_name_split’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-6"></a>‘_formatter_parser’, ‘capitalize’, ‘center’, ‘count’, ‘decode’, ‘encode’, ‘endswith’, ‘expandtabs’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-7"></a>‘find’, ‘format’, ‘index’, ‘isalnum’, ‘isalpha’, ‘isdigit’, ‘islower’, ‘isspace’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-8"></a>‘istitle’, ‘isupper’, ‘join’, ‘ljust’, ‘lower’, ‘lstrip’, ‘partition’, ‘replace’, ‘rfind’, ‘rindex’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-9"></a>‘rjust’, ‘rpartition’, ‘rsplit’, ‘rstrip’, ‘split’, ‘splitlines’, ‘startswith’, ‘strip’, ‘swapcase’,</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8dc720379188-10"></a>‘title’, ‘translate’, ‘upper’, ‘zfill’]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы можете спокойно игнорировать методы, которые начинаются и заканчиваются двойным подчеркиванием, например <span style=" font-weight:600;">__add__</span>. Они не используются в ежедневном программировании в Python. Лучше обратите внимание на другие. Если вы хотите узнать, что делает тот или иной метод, просто обратитесь к справке. Например, если вы хотите узнать, зачем вам <span style=" font-weight:600;">capitalize</span>, впишите следующее, чтобы узнать: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8e9627694709"></a>help(my_string.capitalize)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы получите следующую информацию: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8f5101257550"></a>Help on built-in function capitalize:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8f5101257550-3"></a>capitalize(...)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8f5101257550-4"></a>    S.capitalize() -&gt; string</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b8f5101257550-6"></a>Выдача копии строки S только с заглавной буквой.</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы только что узнали кое-что о разделе, под названием <span style=" font-weight:600;">интроспекция</span>. Python может исследовать все свои объекты, что делает его очень легким в использовании. В основном, <span style=" font-weight:600;">интроспекция</span> позволяет вам спрашивать Python о нём. Вам моет быть интересно, как сказать о том, какой тип переменной был использован (другими словами <span style=" font-weight:600;">int</span> или <span style=" font-weight:600;">string</span>). Вы можете спросить об этом у Python! </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b900265789276"></a>type(my_string) # &lt;type 'str'&gt;</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как вы видите, тип переменной <span style=" font-weight:600;">my_string</span> является <span style=" font-weight:600;">str</span>!</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Нарезка строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Одной из тем, которую вы часто будете делать на практике, является <span style=" font-weight:600;">нарезка строк</span>. Помню, меня удивило то, как часто мне нужно было узнать, как это делается в повседневной работе. Давайте посмотрим, как нарезка сработает в следующей строке: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b90b086751515"></a>my_string = &quot;I like Python!&quot;</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каждый символ в строке может стать доступным при помощи слайсинга (<span style=" font-weight:600;">нарезки</span>). Например, если вам нужно взять только первый символ, вы можете сделать это следующим образом: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b916533594410"></a>print( my_string[0:1] ) # I</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таким образом, мы берем первый символ в строке до второго символа, но, не включая его. Да, в Python <span style=" font-weight:600;">отсчет ведется с нуля</span>. Это проще понять, если мы определим позицию каждого символа в таблице: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b922821226676"></a>0 1 2 3 4 5 6 7 8 9 10 11 12 13 - I l i k e P y t h o n !</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таким образом, у нас есть строка длиной в 14 символов, начиная с нуля и до тринадцати. Давайте приведем несколько примеров, чтобы понять это лучше. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006"></a>my_string[:1] # 'I'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-2"></a>my_string[0:12] # 'I like Pytho'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-3"></a>my_string[0:13] # 'I like Python'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-4"></a>my_string[0:14] # 'I like Python!'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-5"></a>my_string[0:-5] # 'I like Py'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-6"></a>my_string[:] # 'I like Python!'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b92e468813006-7"></a>my_string[2:] # 'like Python!'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как видно в данных примерах, мы можем назначить срез, лишь <span style=" font-weight:600;">указав его начало</span> (другими словами, <span style=" font-style:italic;">my_string[2:]</span>), конец среза (<span style=" font-style:italic;">my_string[:1]</span>), или оба (<span style=" font-style:italic;">my_string[0:13]</span>). Мы можем даже использовать <span style=" font-weight:600;">отрицательные значения</span>, которые начинаются с конца строки. Так что в примере, где мы указали <span style=" font-style:italic;">my_string[0:-5]</span>, начало ведется с нуля и заканчивается 5 символами, перед концом строки. Вы можете задаться вопросом «<span style=" font-style:italic;">Зачем мне это и где это можно применить?</span>». Лично я использовал это для разбора записей с фиксированной шириной в файлах, или ситуативно для <span style=" font-weight:600;">парсинга сложных названий файлов</span>, с очень специфическими наименованиями. Также я использовал это для <span style=" font-weight:600;">парсинга значений</span> в бинарных файлах. Любая работа, которая включает в себя обработку текстовых файлов, может быть намного проще, если вы понимаете, как работает нарезка и как эффективно использовать данный инструмент. Вы также можете получить доступ к отдельным символам в строке с помощью <span style=" font-weight:600;">индексации</span>. Например: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный код выдаст первый символ в строке. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Форматирование строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Форматирование строк (также известно как <span style=" font-weight:600;">замещение</span>) – это замещение значений в базовой строке. Большую часть времени вы будете вставлять строки внутри строк, однако, вам также понадобиться вставлять целые числа и числа с запятыми в строки весьма часто. Существует два способа достичь этой цели. Начнем с старого способа, после чего перейдем к новому: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767"></a># -*- coding: utf-8 -*-</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-3"></a>my_string = &quot;Я люблю %s&quot; % &quot;Python&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-4"></a>print(my_string) # Я люблю Python</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-6"></a>var = &quot;яблоки&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-7"></a>newString = &quot;Я ем %s&quot; % var</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-8"></a>print(newString) # Я ем яблоки</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-10"></a>another_string = &quot;Я люблю %s и %s&quot; % (&quot;Python&quot;, var)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b946452597767-11"></a>print(another_string) # Я люблю Python и яблоки</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как вы могли догадаться, <span style=" font-weight:600;">%</span> — это очень важная часть вышеописанного кода. Этот символ указывает Python, что вы скоро вставите текст на его место. Если вы будете следовать за строкой со знаком процента и другой строкой или переменной, тогда Python попытается вставить ее в строку. Вы можете вставить несколько строк, добавив несколько знаков процента в свою строку. Это видно в последнем примере. Обратите внимание на то, что когда вы добавляете больше одной строки, вам нужно <span style=" font-weight:600;">закрыть эти строки в круглые скобки</span>. Теперь взглянем на то, что случится, если мы вставим недостаточное количество строк: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b951599259353"></a>another_string = &quot;Я люблю %s и %s&quot; % &quot;Python&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b951599259353-3"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b951599259353-4"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b951599259353-5"></a>TypeError: not enough arguments for format string</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">О-па. Мы не передали <span style=" font-weight:600;">необходимое количество аргументов</span> для <a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">форматирования строки</span></a>. Если вы внимательно взгляните на пример, вы увидите, что у нас есть два экземпляра <span style=" font-weight:600;">%</span>, но для того, чтобы вставить строки, вам нужно передать столько же %, сколько у нас строк. Теперь вы готовы к тому, чтобы узнать больше о вставке целых чисел, и чисел с запятыми. Давайте взглянем. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827"></a>my_string = &quot;%i + %i = %i&quot; % (1,2,3)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-2"></a>print(my_string) # '1 + 2 = 3'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-4"></a>float_string = &quot;%f&quot; % (1.23)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-5"></a>print(float_string) # '1.230000'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-7"></a>float_string2 = &quot;%.2f&quot; % (1.23)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-8"></a>print(float_string2) # '1.23'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-10"></a>float_string3 = &quot;%.2f&quot; % (1.237)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b95d472442827-11"></a>print(float_string3) # '1.24'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первый пример достаточно простой. Мы <a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">создали строку</span></a>, которая принимает три аргумента, и мы передаем их. В случае, если вы еще не поняли, Python не делает никаких дополнений в первом примере. Во втором примере, мы передаем число с запятой. Обратите внимание на то, что результат включает множество дополнительных нулей (1.230000). Нам это не нужно, так что мы указываем Python ограничить выдачу до двух десятичных значений в третьем примере (“<span style=" font-weight:600;">%.2f</span>”). Последний пример показывает, что Python <span style=" font-weight:600;">округлит числа</span> для вас, если вы передадите ему дробь, что лучше, чем два десятичных значения. Давайте взглянем на то, что произойдет, если мы передадим неправильные данные: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b968023745504"></a>int_float_err = &quot;%i + %f&quot; % (&quot;1&quot;, &quot;2.00&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b968023745504-2"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b968023745504-3"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b968023745504-4"></a>TypeError: %d format: a number is required, not str</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данном примере мы передали две строки вместо целого числа и дроби. Это привело к <span style=" font-weight:600;">ошибке TypeError</span>, что говорит нам о том, что Python ждал от нас чисел. Это указывает на отсутствие передачи целого числа, так что мы исправим это, по крайней мере, попытаемся: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b973285580149"></a>int_float_err = &quot;%i + %f&quot; % (1, &quot;2.00&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b973285580149-3"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b973285580149-4"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b973285580149-5"></a>TypeError: float argument required, not str</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы получили ту же ошибку, но под другим предлогом, в котором написано, что мы должны передать дробь. Как мы видим, Python предоставляет нам полезную информацию о том, что же пошло не так и как это исправить. Если вы исправите вложения надлежащим образом, тогда вы сможете запустить этот пример. Давайте перейдем к новому методу <span style=" font-weight:600;">форматирования строк</span>.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Шаблоны и новая методика форматирования строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод был добавлен в Python 2.4 в виде шаблонов строк, но в качестве обычного метода string, работающего через <span style=" font-weight:600;">метод format</span> в версии 2.6. Так что это не самый свежий метод, просто обновленный. В любом случае, приступим к работе с шаблонами! </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b980166606406"></a>print(&quot;%(lang)s is fun!&quot; % {&quot;lang&quot;:&quot;Python&quot;}) # Python is fun!</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Должно быть это выглядит странно, но на самом деле мы сменили наши <span style=" font-weight:600;">%</span> на <span style=" font-weight:600;">%(lang)</span>, с тем отличием, что данный объект идет в комплекте с переменной. Вторая часть пример вызывает словарь Python, который мы рассмотрим в следующей статье. В основном, это пара <span style=" font-weight:600;">key:value</span>, так что когда Python ищет ключ <span style=" font-weight:600;">lang</span> в строке и в указанном словаре ключей, он заменяет этот ключ его значением. Давайте взглянем на следующие примеры: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048"></a>a = &quot;%(value)s %(value)s %(value)s !&quot; % {&quot;value&quot;:&quot;SPAM&quot;}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-2"></a>print(a) # SPAM SPAM SPAM !</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-4"></a>b = &quot;%(x)i + %(y)i = %(z)i&quot; % {&quot;x&quot;:1, &quot;y&quot;:2}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-5"></a>print(b)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-7"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-8"></a>   File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-9"></a>KeyError: 'z'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-11"></a>c = &quot;%(x)i + %(y)i = %(z)i&quot; % {&quot;x&quot;:1, &quot;y&quot;:2, &quot;z&quot;:3}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b98b275609048-12"></a>print(c) # 1 + 2 = 3</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В первом примере вы могли заметить, что мы передали только одно значение, но оно было вставлено три раза. Это одно из <span style=" font-weight:600;">преимуществ</span> использования шаблонов. Второй пример был загвоздкой, в которой мы <span style=" font-weight:600;">забыли передать</span> ключ z. В третьем примере эта проблема была исправлена с соответствующим результатом. Теперь давайте взглянем на то, что мы можем сделать, по аналогии с методом <span style=" font-weight:600;">форматирования строк</span>: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665"></a>a = &quot;Python is as simple as {0}, {1}, {2}&quot;.format(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-2"></a>print(a) # 'Python is as simple as a, b, c'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-4"></a>b = &quot;Python is as simple as {1}, {0}, {2}&quot;.format(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-5"></a>print(b) # 'Python is as simple as b, a, c'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-7"></a>xy = {&quot;x&quot;:0, &quot;y&quot;:10}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-8"></a>c = &quot;Graph a point at where x={x} and y={y}&quot;.format(**xy)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ed596b998831136665-9"></a>print(c) # Graph a point at where x=0 and y=10</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В двух первых примерах вы можете увидеть, что мы можем передать объекты позиционно. Если мы перестроим порядок, мы получим немного другую выдачу. В последнем примере мы использовали словарь также, как мы использовали шаблоны ранее. Однако, нам нужно <span style=" font-weight:600;">извлечь словарь</span> при помощи двойной звездочки, чтобы он работал правильно. Существует множество других случаев, в которых используются строки, такие как определение ширины, выравнивание текста, конвертация в разные базы и многое другое. Убедитесь в том, что вы ознакомились с рекомендациями ниже, для дополнительной информации.</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://docs.python.org/3/library/functions.html#func-str"><span style=" text-decoration: underline; color:#0000ff;">Официальная документация Python о типе str</span></a></li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://docs.python.org/3/library/string.html#string-formatting"><span style=" text-decoration: underline; color:#0000ff;">Форматирование строк</span></a></li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://docs.python.org/3/library/string.html#formatexamples"><span style=" text-decoration: underline; color:#0000ff;">Больше о форматировании строк</span></a></li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Документация Python 2.Х о <a href="http://docs.python.org/2/library/functions.html#unicode"><span style=" text-decoration: underline; color:#0000ff;">юникоде</span></a></li></ul>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Подведем итоги</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы проработали большой объем в данной статье. Давайте разберемся:<br />Сначала мы узнали, <span style=" font-weight:600;">как создавать строки</span>, после чего мы перешли к вопросу об их <span style=" font-weight:600;">конкатенации</span>. После этого, мы взглянули на несколько методов, которые предлагает нам объект string. Далее, мы рассмотрели нарезку строк и закончили замещением строк. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

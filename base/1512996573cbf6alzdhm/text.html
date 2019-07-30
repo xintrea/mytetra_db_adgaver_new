@@ -1,0 +1,535 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вложения:</p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.cyberforum.ru/attachments/169578d1342376214"><span style=" text-decoration: underline; color:#0000ff;">FileSystemObject.zip</span></a></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.cyberforum.ru/attachments/169578d1342376214"><span style=" text-decoration: underline; color:#0000ff;">http://www.cyberforum.ru/attachments/203475d1353504628</span></a></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.cyberforum.ru/visual-basic/thread699957.html"><span style=" font-size:xx-large; font-weight:600; text-decoration: underline; color:#3774a4;">FileSystemObject – тяжелая артиллерия VB6 (статья) - VB</span></a> </p>
+<p style=" margin-top:10px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">17.11.2012, 03:24. <span style=" font-weight:600;">Просмотров</span> 10036. <span style=" font-weight:600;">Ответов</span> 6 </p>
+<p style=" margin-top:5px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Метки</span> <a href="http://www.cyberforum.ru/tags/filesystemobject.html"><span style=" text-decoration: underline; color:#0000ff;">filesystemobject</span></a>, <a href="http://www.cyberforum.ru/tags/visual%20basic.html"><span style=" text-decoration: underline; color:#0000ff;">visual basic</span></a> (<a href="http://www.cyberforum.ru/tags/"><span style=" text-decoration: underline; color:#0000ff;">Все метки</span></a>) </p>
+<hr />
+<p style=" margin-top:2px; margin-bottom:2px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;"><a name="post_message_3710910"></a><span style=" font-size:medium; font-weight:600; color:#0000ff;">F</span><span style=" font-size:medium; font-weight:600; color:#0000ff;">SO – тяжелая артиллерия VB6</span><br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Введение в объектную модель FSO</span><br /><br />Новая особенность для VB6 - модель объекта ( FSO ) Объектная Файловая Система, которая обеспечивает основанный на объектах инструмент для работы с папками и файлами. <br />Это позволяет Вам использовать знакомый синтаксис object.method с богатым набором свойств, методов, и событий, чтобы обработать папки и файлы, в дополнение к использованию традиционных методов и команд Visual Basic. Объектная модель FSO дает вашим прикладным программам способность создавать, изменять, перемещать, и удалить папки, или выяснять, если специфические папки существуют, и если так, то где. Это также дает возможность Вам получить информацию относительно папок, типа их имен, дат, когда они были созданы или в последний раз изменялись, и т.д.<br /><br />Объектная модель FSO позволяет намного проще проводить обработку файлов. При обработке файлов, ваша основная цель состоит в том, чтобы сохранить данные в области - и ресурсо-эффективном, легко доступном формате. Вы сможете создавать файлы, вставлять и изменять(заменять) и выводить (считывать) данные. <br />Объектная модель FSO, которая содержится в библиотеке типов <span style=" font-weight:600;">Scripting type library (Scrrun.Dll)</span>, поддерживает создание текстового файла и манипулирование им <br />через <span style=" font-weight:600; color:#006400;">объект TextStream</span>. Однако это <span style=" font-weight:600; color:#006400;">не поддерживает создание или манипулирование двоичными файлами.</span> Чтобы управлять двоичными файлами, используется команда <span style=" font-weight:600;">Open</span> с бинарным флагом.<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Объекты Файловой системы</span><br /><br />Объектная модель FSO имеет следующие объекты:<br /><br /><span style=" font-weight:600;">Drive(Дисковод)</span> - Позволяет Вам получить информацию относительно дисководов присоединенных к системе, их типа, количества доступного участка памяти, их обозначения, и т.д. Обратите внимание, что &quot;дисковод&quot; не обязательно жесткий диск. Это может быть дисковод CD-ROM, вертуальный диск, и т.д. Также не обязательно, чтобы дисководы были физически присоединенными к системе; они могут быть также логически подсоединены через локальную сеть.<br /><span style=" font-weight:600;">Folder(Папка)</span> - Позволяет Вам создавать, удалять, или перемещать папки, плюс запрос системы относительно их имен, путей, и так далее.<br /><span style=" font-weight:600;">Files(Файлы)</span> - Позволяет Вам создавать, удалять, или перемещать файлы, плюс запрос системы относительно их имен, путей, и так далее.<br /><span style=" font-weight:600;">FileSystemObject</span> - Основной объект группы, с полными методами, которые позволят Вам создать, удалять, получать информацию обовсем, и вообще, управляет дисководами, папками, и файлами. Многие из методов, связанных с этим объектом дублированы в других объектах.<br /><span style=" font-weight:600;">TextStream</span> - Дает возможность Вам читать и писать текстовые файлы.<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Программирование в Объектной Модели FSO</span><br /><br />Программирование в Объектной Модели FSO включает три основных задачи:<br /><br />1. Использование метода CreateObject или объявления переменной как объект FileSystemObject, для создания объекта FileSystemObject;<br />2. Использование соответствующего метода в недавно созданном объекте;<br />3. Вызов свойств объекта.<br /><br />Объектная Модель FSO содержится в библиотеке типов, называемой Scripting, которая размещена в файле Scrrun.Dll . Если Вы пока не имеете ссылку, то поставьте ее в меню References| Microsoft Scripting Runtime. Вы можете затем использовать Object Browser, чтобы просмотреть объекты, свойства, методы и события, а также константы.<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Создание объекта FileSystemObject</span><br /><br />Первый шаг должен создать объект FileSystemObject, чтобы работать с ним. Вы можете сделать это двумя способами: Объявить переменную, как объект:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="814265247"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используя метод CreateObject создать объект FileSystemObject:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="542938441"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fso = CreateObject (&quot;Scripting.FileSystemObject&quot;)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обратите внимание, что первый метод работает только в Visual Basic, в то время, как второй метод работает и в Visual Basic и в VBScript.<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Использование соответствующих методов</span><br /><br />Следующий шаг должен использовать соответствующий метод объекта FileSystemObject. <br />Например, если Вы хотите создавать новый объект, Вы можете использовать или CreateFolder или CreateTextFile. (Модель объекта FSO не поддерживает создание или стирание дисководов.). <br />Если Вы хотите удалить объекты, Вы можете использовать методы DeleteFile или DeleteFolder объекта FileSystemObject, или метод Delete объектов File или Folder. <br />При использовании соответствующих методов, Вы можете также копировать и перемещать файлы и папки. <br /><br />Обратите внимание, что некоторые функциональные возможности в модели объекта FileSystemObject избыточны. Например, Вы можете копировать файл, использующий или <span style=" font-weight:600;">метод CopyFile объекта FileSystemObject</span>, или Вы можете использовать <span style=" font-weight:600;">метод Copy объекта File</span>. Методы работают также. И существуют, чтобы дать Вам максимум гибкости программирования.<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Вызов, существующих Drives (Дисководов) , Files (Файлов) и Folders (Папок)</span><br /><br />Чтобы получить доступ к существующему дисководу, файлу или папке, используется соответствующий метод &quot;Get&quot; объекта FileSystemObject:<br /><br />GetDrive;<br />GetFolder;<br />GetFile;<br /><br />Например:<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="801509338"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, fil As File</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil = fso.GetFile(&quot;c:\test.txt&quot;)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Обратите внимание, однако</span>, что Вы не должны использовать методы &quot;Get&quot; для недавно созданных объектов, так как функции &quot;<span style=" font-weight:600;">Get</span>&quot; уже возвращает программе обработки недавно созданный объект. <br />Например, если Вы создаете новую папку, используя метод <span style=" font-weight:600;">CreateFolder</span>, Вы затем не должны использовать метод <span style=" font-weight:600;">GetFolder</span>, чтобы обратиться к свойствам, типа <span style=" font-weight:600;">Name, Path, Size</span> и т.д. <br />Только объявите переменную функции CreateFolder, чтобы получить программу обработки недавно созданной папке, затем обратитесь к свойствам, методам, и событиям:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="169620696"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Private Sub Create_Folder()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, fldr As Folder</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fldr = fso.CreateFolder(&quot;C:\MyTest&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Created folder: &quot; &amp; fldr.Name</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#0000ff;">Обращение к Properties (Свойствам) Объекта</span><br /><br />Как только Вы имеете код обработки объекта, Вы можете обращаться к его свойствам. <br />Например, если Вы хотите получить имя специфической папки. Сначала Вы создаете образец объекта, затем Вы получаете код для его обработки соответствующим методом (в этом случае метод <span style=" font-weight:600;">GetFolder</span>, так как папка уже существует):<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="266839369"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fldr = fso.GetFolder(&quot;c:\&quot;)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь, когда Вы имеете код обработки объекта Folder, Вы можете проверить свойство Name:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="263107923"></a><span style=" font-family:'Courier New,courier';">1</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Debug.Print &quot;Folder name is: &quot;; fldr.Name</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если Вы хотите выяснять когда в последний раз, файл изменялся, используется следующий синтаксис:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="118881408"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, fil As File</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Получаем объект File, чтобы сделать запросSet fil = fso.GetFile ( &quot;C:\detlog.txt&quot; )</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Печатаем информациюDebug.Print &quot;File last modified: &quot;; fil.DateLastModified</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#0000ff;">Работа с Drives (Дисководами) и Folders (Папками)</span><br /><br />Объектная модель FSO может программно работать с дисководами и папками, точно так, как Вы с Windows Explorer в интерактивном режиме. Вы можете копировать и перемещать папки, получать информацию относительно дисководов и папок, и т.д. <br />Получение информации относительно Drives (Дисководов) Объект Drive позволяет Вам получать информацию относительно различных дисководов, присоединенных к системе или физически или через сеть. <br /><br />Свойства позволяют Вам получить информацию относительно:<br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Полный размера дисковода в байтах (свойство TotalSize);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Количество доступного свободного места на дисководе в байтах (свойства AvailableSpace или FreeSpace);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Буквенного обозначения дисковода (свойство DriveLetter);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Какого типа дисковод, сменный, фиксированный, сетевой, CD-ROM или RAM (свойство DriveType);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Серийный номер дисковода (свойство SerialNumber);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Тип файловой системы использования дисковода FAT, FAT32, NTFS, и т.д (свойство FileSystem);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Является ли дисковод доступен для использования (свойство IsReady);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Имя общих и/или Имя объемa (свойства ShareName и VolumeName);</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Путь или корневую папку дисковода (свойства Path и RootFolder);</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br /><span style=" font-weight:600; color:#0000ff;">Пример использования объекта Drive (Дисковода)</span><br /><br />Пример ниже показывается, как использовать объект Drive, чтобы получить полную информацию относительно дисковода. <br />Не забудьте, что в следующем коде Вы не будете видеть ссылку к фактическому объекту Drive, достаточно, что Вы используете метод GetDrive чтобы получить ссылку для существующего объекта Drive (в этом случае - drv):<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">Private Sub Command3_Click()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">Dim fso As New FileSystemObject, drv As Drive, s As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">Set drv = fso.GetDrive(fso.GetDriveName(&quot;c:&quot;))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = &quot;Drive &quot; &amp; UCase(&quot;c:&quot;) &amp; &quot; - &quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = s &amp; drv.VolumeName &amp; vbCrLf</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = s &amp; &quot;Total Space: &quot; &amp; FormatNumber(drv.TotalSize / 1024, 0)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = s &amp; &quot; Kb&quot; &amp; vbCrLf</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = s &amp; &quot;Free Space: &quot; &amp; FormatNumber(drv.FreeSpace / 1024,0)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">s = s &amp; &quot; Kb&quot; &amp; vbCrLf</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">MsgBox s</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Работа с Folders (Папками)</span><br /><br />Этот список показывает общие задачи папки и методы для выполнения их:<br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Создать папку - FileSystemObject.CreateFolder</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Удалить папку - Folder.Delete или FileSystemObject.DeleteFolder</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Переместить папку - Folder.Move или FileSystemObject.MoveFolder</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Копировать папку - Folder.Copy или FileSystemObject.CopyFolder</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Возвратить имя папки - Folder.Name</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Выяснить, существует ли папка на дисководе - FileSystemObject.FolderExists</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Получить образец существующего объекта - Folder FileSystemObject.GetFolder</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Выяснить имя папки, родителя папки - FileSystemObject.GetParentFolderName</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Выяснить путь системных папок - FileSystemObject.GetSpecialFolder</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br />Этот пример показывает использование объектов <span style=" font-weight:600; font-style:italic;">Folder</span> и FileSystemObject, чтобы управлять папками и получать информацию о них:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="682990319"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">15</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">16</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Private Sub Command10_Click()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Получаем образец FileSystemObject Dim fso As New FileSystemObject, fldr As Folder, s As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Объект Get Drive Set fldr = fso.GetFolder(&quot;c:&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Печатаем родительское имя папки Debug.Print &quot;Parent folder name is: &quot; &amp; fldr</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Печатаем имя дисковода Debug.Print &quot;Contained on drive &quot; &amp; fldr.Drive</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Печатаем имя корневой папки If fldr.IsRootFolder = True Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Debug.Print &quot;This folder is a root folder.&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Else</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Debug.Print &quot;This folder isn't a root folder.&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Создаем новую папку объектом FileSystemObject fso.CreateFolder (&quot;c:\Bogus&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Debug.Print &quot;Created folder C:\Bogus&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Печатаем основное имя папки Debug.Print &quot;Basename = &quot; &amp; fso.GetBaseName(&quot;c:\bogus&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Удаляем недавно созданную папку fso.DeleteFolder (&quot;c:\Bogus&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Debug.Print &quot;Deleted folder C:\Bogus&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Работа с Files (Файлами)</span><br /><br />Вы можете работать с файлами в Visual Basic, используя новые объектно-ориентированные объекты FSO типа Copy, Delete, Move и OpenAsTextStream, так же, как и более старые существующие функции типа Open, Close, FileCopy, GetAttr, и т.д. Обратите внимание, что Вы можете перемещать, копировать или удалять файлы независимо от типа файла. Имеются две главных категории манипулирования файлами:<br />Создание, добавление или удаления данных, или чтение файлов;<br />Перемещение, копирование и удаление файлов;<br /><br /><br /><span style=" font-weight:600; color:#0000ff;">Создание файлов и добавления данных с помощью File System Objects</span><br /><br />Имеются <span style=" font-weight:600;">три способа</span> создать последовательный текстовый файл (иногда упоминаемый как &quot;текстовый поток&quot;). Один путь состоит в том, чтобы использовать метод CreateTextFile. Создаем пустой текстовый файл:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="442936923"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, fil As File</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil = fso.CreateTextFile(&quot;c:\testfile.txt&quot;, True)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обратите внимание, что модель объекта FSO еще не поддерживает создание произвольных (random) или двоичных (binary) файлов.<br /><br />Другой путь состоит в том, чтобы использовать метод OpenTextFile объекта FileSystemObject с установкой флага ForWriting:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="648453141"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, ts As New TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set ts = fso.OpenTextFile(&quot;c:\test.txt&quot;, ForWriting)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Или Вы можете использовать метод OpenAsTextStream с установкой флага ForWriting:<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="489865196"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, fil As File, ts As TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">fso.CreateTextFile (&quot;test1.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil = fso.GetFile(&quot;test1.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set ts = fil.OpenAsTextStream(ForWriting)</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Добавление данных к файлу</span><br /><br />Как только текстовый файл создан, Вы можете добавлять данные. Для этого необходимо:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Открыть текстовый файл для записи данных.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Записать данные.</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Закрыть файл.</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Чтобы открыть файл, Вы можете использовать любой из двух методов: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">метод OpenAsTextStream объекта File или</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">метод OpenTextFile объекта FileSystemObject.</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600;">Чтобы записать данные</span> в открытый текстовый файл, используйте методы <span style=" font-weight:600;">Write</span> или <span style=" font-weight:600;">WriteLine</span> объекта <span style=" font-weight:600;">TextStream</span>. <br />Единственое различие между Write и WriteLine - то, что WriteLine добавляет символы newline к концу строки. Если Вы хотите добавлять newline к текстовому файлу, используйте метод WriteBlankLines.<br /><br />Чтобы закрыть открытый файл, используйте метод Close объекта TextStream.<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="192465241"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub Create_File()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso, txtfile</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set txtfile = fso.CreateTextFile(&quot;c:\testfile.txt&quot;, True)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Запись линии</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.Write (&quot;This is a test. &quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Запись линии с символом newline</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.WriteLine(&quot;Testing 1, 2, 3.&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Запись трех символов newline в файл</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.WriteBlankLines(3)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Чтение файлов File System Objects</span><br /><br />Чтобы читать данные из текстового файла, используйте методы<span style=" font-weight:600;"> Read, ReadLine</span> или <span style=" font-weight:600;">ReadAll</span> объекта <span style=" font-weight:600;">TextStream</span>:<br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Чтение определенного числа символов из файла - Read</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Чтение всей линии (но не, включая, символ newline) - ReadLine</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Чтение всего содержания текстового файла - ReadAll</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Если Вы используете метод Read или ReadLine, и Вы хотите перейти к специфической части данных.<br />Вы можете использовать метод <span style=" font-weight:600;">Skip</span> или <span style=" font-weight:600;">SkipLine</span>. Полученный в результате использования этих методов текст может быть сохранен в символьной переменной и анализироваться Left, Right и Mid. <br />Обратите внимание, что константа vbNewLine содержит символ или символы (в зависимости от операционной системы) чтобы продвинуть курсор к началу следующей линии (возврат каретки). Знайте, что концы некоторых символьных переменных могут иметь такие непечатаемые символы.<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="60690692"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">15</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">16</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">17</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub Read_Files()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, txtfile</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fil1 As File, ts As TextStream</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set txtfile = fso.CreateTextFile(&quot;c:\testfile.txt&quot;, True)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Writing file&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Запись линии</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil1 = fso.GetFile(&quot;c:\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set ts = fil1.OpenAsTextStream(ForWriting)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ts.Write &quot;Hello World&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ts.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Чтение содержания файла</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set ts = fil1.OpenAsTextStream(ForReading)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">s = ts.ReadLine</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox s</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">ts.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Перемещение, копирование и удаление файлов</span><br /><br />Модель объекта FSO имеет <span style=" font-weight:600;">два метода</span> для перемещения, копирования и удаления файлов:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Переместите файл - File.Move or FileSystemObject.MoveFile</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Копируйте файл - File.Copy or FileSystemObject.CopyFile</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">Удалите файл - File.Delete or FileSystemObject.DeleteFile</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Этот пример: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">создает текстовый файл в корневой директории дисковода C,</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">пишет некоторую информацию в нем,</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">перемещает его в каталог, называемый \tmp,</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">делает копию его в каталог, называемый \temp, затем</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;">удаляет копии из обоих каталогов.</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Чтобы выполнять этот пример, удостоверитесь, что Вы имеете каталоги, именованные \tmp и \temp в корневой директории дисковода C.<br /><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:35px; margin-right:12px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:35px; margin-right:12px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="708571972"></a><span style=" font-family:'Courier New,courier';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">15</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">16</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">17</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">18</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">19</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">20</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">21</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">22</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">23</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub Manip_Files()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim fso As New FileSystemObject, txtfile, fil1, fil2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set txtfile = fso.CreateTextFile(&quot;c:\testfile.txt&quot;, True)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Writing file&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.Write (&quot;This is a test.&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">txtfile.Close</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Moving file to c:\tmp&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Код обработки файла в корне C:\ </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil1 = fso.GetFile(&quot;c:\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Перемещаем файл в директорию \tmp </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">fil1.Move (&quot;c:\tmp\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot; Копируем файл в c:\temp&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Копируем файл в \temp </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">fil1.Copy (&quot;c:\temp\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Удаляем файлы&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Код получения текущих дерикторий файлов </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil1 = fso.GetFile(&quot;c:\tmp\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fil2 = fso.GetFile(&quot;c:\temp\testfile.txt&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">' Удаляем дайлы fil1.Delete</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">fil2.Delete</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">MsgBox &quot;Все!&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End Sub</span></p></td></tr></table></td>
+<td></td></tr></table>
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:5px; margin-right:2px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#800080;">Статья взята с: </span><a href="http://www.rusedu.info"><span style=" font-weight:600; text-decoration: underline; color:#0000ff;">http://www.rusedu.info</span></a> </p>
+<p style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="thumbs_box_3710910"></a>10 </p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600; text-decoration: underline;">В статье не сказано, что для позднего связывания</span><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="505886181"></a><span style=" font-family:'Courier New,courier';">1</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Set fso = CreateObject (&quot;Scripting.FileSystemObject&quot;)</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">необходимо заранее объявить константы:<br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="819353505"></a><span style=" font-family:'Courier New,courier';">1</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Const ForAppending as Long = 8, ForReading as Long = 1, ForWriting as Long = 2</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">либо сразу использовать числовые эквиваленты (но константы выглядят более наглядно).<br /><br /><span style=" text-decoration: underline;">Обозначения констант:</span><br /><br /><span style=" font-weight:600;">ForAppending</span> - дозапись в конец файла;<br /><span style=" font-weight:600;">ForReading</span> - только чтение;<br /><span style=" font-weight:600;">ForWriting</span> - только запись. Если файл уже существует, его содержимое будет стерто. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#0000ff;">Трюк с записью бинарной информации через FSO</span><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:5px; margin-bottom:5px; margin-left:30px; margin-right:10px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:10px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Visual Basic<a href="http://www.cyberforum.ru/#"><span style=" text-decoration: underline; color:#606060;">Выделить код</span></a></p></td></tr></thead>
+<tr>
+<td>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" padding-left:5; padding-right:10; padding-top:0; padding-bottom:0;">
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="728892203"></a><span style=" font-family:'Courier New,courier';">1</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">3</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">4</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">5</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">6</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">7</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">8</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">9</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">10</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">11</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">12</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">13</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">14</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">15</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">16</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">17</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">18</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">19</span></pre></td>
+<td>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Dim strPath, n, strHexData</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Файл-получатель</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">strPath = &quot;l:\Bash\LammV\IPTEST\Binary Write\bin.dat&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">'Байты в 16-ричной СС</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">strHexData = &quot;0102030405&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">With CreateObject(&quot;Scripting.FileSystemObject&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  with .OpenTextFile(strPath, 2, True) '2 - ForWriting, True - Overwrite</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    For n = 1 To len(strHexData) Step 2</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';"> </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      .Write Chr(Clng(&quot;&amp;h&quot; &amp; Mid(strHexData, n, 2)))</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    Next</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   </span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    .Close</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  End with</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End With</span></pre></td></tr></table></td>
+<td></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

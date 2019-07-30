@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="https://python-scripts.com/lists-tuples-dictionaries"><span style=" text-decoration: underline; color:#0000ff;">p</span></a><span style=" text-decoration: underline; color:#0000ff;">ython-scripts.com</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-title"></a>Списки, кортежи и словари в Python </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>автор </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="meta-data"></a>7-11 минут </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a>Python содержит важные типы данных, которыми вы с высокой вероятностью будете использовать каждый день. Они называются <span style=" font-weight:600;">списки</span>, <span style=" font-weight:600;">кортежи</span> и <span style=" font-weight:600;">словари</span>. Цель данной статьи познакомить вас с ними поближе. Они не очень сложные, так что надеюсь, вы научитесь, как использовать их по назначению. После освоения этих трех типов данных, в сочетании со строками из предыдущей статьи, вы ощутимо продвинетесь в изучении Python. Вам понадобится каждый из этих четырех кирпичиков для создания 99% приложений.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Списки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://python-scripts.com/lists-tuples-dictionaries"><span style=" text-decoration: underline; color:#0000ff;">Списки Python</span></a> схожи с <span style=" font-weight:600;">массивами</span> в других языках. В Python, пустой список может быть создан следующим образом: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae435245385188"></a>my_list = []</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae435245385188-2"></a>my_list = list()</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как вы видите, вы можете <span style=" font-weight:600;">создать список</span> при помощи квадратных скобок, или при помощи встроенного инструмента Python – <span style=" font-weight:600;">list</span>. Список состоит из таких элементов, как <a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">строки</span></a>, цифры, объекты и смеси типов. Давайте взглянем на несколько примеров: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae444293068111"></a>my_list = [1, 2, 3]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae444293068111-2"></a>my_list2 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae444293068111-3"></a>my_list3 = [&quot;a&quot;, 1, &quot;Python&quot;, 5]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первый список содержит 3 числа, второй 3 строки, третий содержит смесь. Вы также можете создавать списки списков, вот так: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae44b502568042"></a>my_nested_list = [my_list, my_list2]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae44b502568042-2"></a>print(my_nested_list) # [[1, 2, 3], ['a', 'b', 'c']]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В какой-то момент вам может понадобиться <span style=" font-weight:600;">скомбинировать два списка</span> вместе. Первый способ сделать это – при помощи метода <span style=" font-weight:600;">extend</span>: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae452166689526"></a>combo_list = [1]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae452166689526-2"></a>one_list = [4, 5]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae452166689526-3"></a>a = combo_list.extend(one_list)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae452166689526-5"></a>print(a) # [1, 4, 5]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Немного проще будет просто <span style=" font-weight:600;">добавить два списка вместе</span>. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae459320629564"></a>my_list = [1, 2, 3]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae459320629564-2"></a>my_list2 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae459320629564-4"></a>combo_list = my_list + my_list2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae459320629564-5"></a>print(combo_list) # [1, 2, 3, 'a', 'b', 'c']</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Да, это именно настолько просто. Вы также можете <span style=" font-weight:600;">сортировать список</span>. Давайте уделим немного времени и взглянем на то, как это делается: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae45f777616972"></a>alpha_list = [34, 23, 67, 100, 88, 2]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae45f777616972-2"></a>alpha_list.sort()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae45f777616972-4"></a>print(alpha_list) # [2, 23, 34, 67, 88, 100]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Получилось. Видите? Давайте взглянем на еще один пример, чтобы закрепить результат: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae46b783203661"></a>alpha_list = [34, 23, 67, 100, 88, 2]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae46b783203661-2"></a>sorted_list = alpha_list.sort()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae46b783203661-4"></a>print(sorted_list) # None</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В этом примере мы попытались назначить сортированный список переменной. Однако, когда вы вызываете метод <span style=" font-weight:600;">sort</span>() в списке, он сортирует список на месте. Так что если вы попробуете назначить результат другой переменной, тогда возникнет объект <span style=" font-weight:600;">None</span>, который аналогичен объекту <span style=" font-weight:600;">Null</span> в других языках. Таким образом, когда вам нужно отсортировать что-нибудь, просто помните, что вы сортируете на месте, и вы не можете назначить объект другой переменной.<br />Вы можете разрезать список также, как вы делаете это со <a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">строкой</span></a>: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae472029997989"></a>a = alpha_list[0:3]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae472029997989-2"></a>print(a) # [2, 23, 34]</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный код выдает список из трех первых элементов.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Кортежи</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кортеж похож на список, но вы создаете его с <span style=" font-weight:600;">круглыми скобками</span>, вместо квадратных. Вы также можете использовать встроенный инструмент для <a href="https://python-scripts.com/lists-tuples-dictionaries"><span style=" text-decoration: underline; color:#0000ff;">создания кортежей</span></a>. Разница в том, что <span style=" font-weight:600;">кортеж неизменный</span>, в то время как <span style=" font-weight:600;">список</span> может меняться. Давайте взглянем на несколько примеров: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae47d810835641"></a>my_tuple = (1, 2, 3, 4, 5)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae47d810835641-2"></a>a = my_tuple[0:3]</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae47d810835641-3"></a>print(a) # (1, 2, 3)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae47d810835641-5"></a>another_tuple = tuple()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae47d810835641-6"></a>abc = tuple([1, 2, 3])</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный код демонстрирует способ <span style=" font-weight:600;">создания кортежа</span> с пятью элементами. Также он говорит нам о том, что мы можете делать нарезку кортежей. Однако, вы не можете <span style=" font-weight:600;">сортировать кортеж</span>! Последние два примера показывают, как создавать кортеж при помощи ключевого слова <span style=" font-weight:600;">tuple</span> (которое и переводится как «кортеж»). Первый код просто создает пустой кортеж, в то время как во втором примере кортеж содержит три элемента. Обратите внимание на то, что в нем есть список. Это пример конвертации. Мы можем менять или конвертировать объект из одного типа данных в другой. В нашем случае, мы конвертируем <span style=" font-weight:600;">список в кортеж</span>. Если вы хотите превратить кортеж <span style=" font-weight:600;">abc</span> обратно в список, вы можете сделать это следующим образом: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для повторения, данный код конвертирует кортеж в список при помощи функции <span style=" font-weight:600;">list</span>. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Словари</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://python-scripts.com/lists-tuples-dictionaries"><span style=" text-decoration: underline; color:#0000ff;">Словарь Python</span></a>, по большей части, представляет собой <span style=" font-weight:600;">хэш-таблицу</span>. В некоторых языках, словари могут упоминаться как ассоциативная память, или <span style=" font-weight:600;">ассоциативные массивы</span>. Они индексируются при помощи ключей, которые могут быть любого неизменяемого типа. Например, <a href="https://python-scripts.com/string"><span style=" text-decoration: underline; color:#0000ff;">строка</span></a> или число могут быть ключом. Вам обязательно стоит запомнить тот факт, что словарь – это неупорядоченный набор пар <span style=" font-style:italic;">ключ:значение</span>, и ключи обязательно должны быть уникальными. Вы можете получить список ключей путем вызова метода <span style=" font-weight:600;">keys</span>() в том или ином словаря. Чтобы проверить, присутствует ли ключ в словаре, вы можете использовать ключ <span style=" font-weight:600;">in</span> в Python. В некоторых старых версиях Python (с 2.3 и более ранних, если быть точным), вы увидите ключевое слово <span style=" font-weight:600;">has_key</span>, которое используется для проверки наличия ключа в словаре. Данный ключ является устаревшим в Python 2.X, и был удален, начиная с версии 3.Х. Давайте попробуем создать наш первый словарь: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae496061862016"></a>my_dict = {}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae496061862016-2"></a>another_dict = dict()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae496061862016-4"></a>my_other_dict = {&quot;one&quot;:1, &quot;two&quot;:2, &quot;three&quot;:3}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae496061862016-5"></a>print(my_other_dict) # {'three': 3, 'two': 2, 'one': 1}</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первые два примера показывают, как <span style=" font-weight:600;">создавать пустой словарь</span>. Все словари находятся в <span style=" font-weight:600;">фигурных скобках</span>. Последняя строчка показывает, что мы имеем в виду, когда говорим «неупорядоченный словарь». Теперь настало время узнать, как принимаются значения в словаре. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4a6826641359"></a>my_other_dict = {&quot;one&quot;:1, &quot;two&quot;:2, &quot;three&quot;:3}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4a6826641359-3"></a>print(my_other_dict[&quot;one&quot;]) # 1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4a6826641359-5"></a>my_dict = {&quot;name&quot;:&quot;Mike&quot;, &quot;address&quot;:&quot;123 Happy Way&quot;}</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4a6826641359-6"></a>print(my_dict[&quot;name&quot;]) # 'Mike'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В первом примере, мы использовали словарь из предыдущего примере, и вытащили значение, связанное с ключом под названием <span style=" font-weight:600;">one</span>. Второй пример демонстрирует, как задавать значение ключу <span style=" font-weight:600;">name</span>. Теперь попробуем узнать, находится ли ключ в словаре или нет: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4ad333882001"></a>print(&quot;name&quot; in my_dict) # True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4ad333882001-3"></a>print(&quot;state&quot; in my_dict) # False</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что-ж, если ключ в словаре, Python выдает нам <span style=" font-weight:600;">Boolean True</span>. В противном случае, мы получаем <span style=" font-weight:600;">Boolean False</span>. Если вам нужно получить список ключей  в словаре, вам нужно сделать следующее: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4b4043173784"></a>print(my_dict.keys()) # dict_keys(['name', 'address'])</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В Python 2, метод keys дает нам список. Но в Python 3 он дает объект <span style=" font-weight:600;">view</span>. Это дает разработчику возможность <span style=" font-weight:600;">обновлять словарь</span>, так что view также обновится. Обратите внимание на то, что когда мы используем ключевое слово <span style=" font-weight:600;">in</span> для текста содержимого словаря, лучше будет сделать это в словаре, а не в списке, выдаваемом методом keys. Смотрим ниже: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4bb207776013"></a>if &quot;name&quot; in my_dict # Такая конструкция правильная</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61f0d0ae4bb207776013-3"></a>if &quot;name&quot; in my_dict.keys() # Работает но медленее</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пока это, возможно, не говорит вам о многом, во время реальной работы ситуация будет другая и каждая секунда будет важна. При создании тысячи файлов для обработки, эти маленькие хитрости могут уберечь вас от бесполезной траты времени.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Подведем итоги</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данной статье мы узнали, как <span style=" font-weight:600;">создавать списки</span>, <span style=" font-weight:600;">кортежи</span> и <span style=" font-weight:600;">словари</span> в Python. Убедитесь в том, что все, что изложено в данной статье понятно для вас, перед тем как двигаться дальше. Эти основы необходимо знать при разработке любого приложения. Вы будете создавать сложные структуры данных, пользуясь этими тремя кирпичиками каждый день, если планируете быть программистом Python, разумеется. Каждый из этих типов данных может быть размещен в другой. Например, вы можете создавать словарь кортежей, или кортеж, созданный из нескольких словарей, и так далее. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

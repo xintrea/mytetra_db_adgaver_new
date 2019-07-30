@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="https://python-scripts.com/scope"><span style=" text-decoration: underline; color:#0000ff;">p</span></a><span style=" text-decoration: underline; color:#0000ff;">ython-scripts.com</span> </p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-title"></a>Область видимости в Python </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>автор </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="meta-data"></a>8-11 минут </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a>Вы, наверное, не раз слышали термин <a href="https://python-scripts.com/scope"><span style=" text-decoration: underline; color:#0000ff;">область видимости</span></a>, когда изучали <span style=" font-weight:600;">программирование</span>. Это весьма важная тема, незнание которой может привести к достаточно запутанным ошибкам. Область видимости указывает интерпретатору, когда наименование (или переменная) видимо. Другими словами, <span style=" font-weight:600;">область видимости</span> определяет, когда и где вы можете использовать свои переменные, <a href="https://python-scripts.com/functions-python"><span style=" text-decoration: underline; color:#0000ff;">функции</span></a>, и т.д. Если вы попытаетесь использовать что-либо, что не является в вашей области видимости, вы получите <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ошибку NameError</span></a>.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Python содержит три разных типа <span style=" font-weight:600;">области видимости</span>:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Локальная область видимости</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Глобальная область видимости</li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Нелокальная область видимости (была добавлена в <a href="http://python-3.ru"><span style=" text-decoration: underline; color:#0000ff;">Python 3</span></a>) </li></ul>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Локальная область видимости</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Локальная <span style=" font-weight:600;">область видимости</span> наиболее часто используется в Python. Когда мы создаем переменную в блоке кода, она будет разрешена при помощи ближайшей области видимости, или областей. Группирование всех этих областей известно как среда блоков кода. Другими словами, все назначения выполняются в <span style=" font-weight:600;">локальной области</span> по умолчанию. Если вам нужно что-то другое, тогда вам нужно настроить свою переменную на глобальную или нелокальную область, которые мы рассмотрим немного позже. Сейчас мы создадим простой пример, используя интерпретатор Python, в котором демонстрируется назначение <span style=" font-weight:600;">локальной области видимости</span>. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef494f9811418654"></a>x = 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef494f9811418654-3"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef494f9811418654-4"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef494f9811418654-5"></a>    print(z)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef494f9811418654-7"></a>my_func(1, 2)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120"></a>10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-2"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-3"></a>    File &quot;&lt;pyshell#19&gt;&quot;, line 1, in &lt;module&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-4"></a>        my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-5"></a>    File &quot;&lt;pyshell#18&gt;&quot;, line 3, in my_func</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-6"></a>        print(z)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49508575185120-7"></a>NameError: name 'z' is not defined</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь мы создаем <span style=" font-weight:600;">переменную х</span> и очень <a href="https://python-scripts.com/functions-python"><span style=" text-decoration: underline; color:#0000ff;">простую функцию</span></a>, которая принимает <span style=" font-weight:600;">два аргумента</span>. Далее она выводит х и z. Обратите внимание на то, что мы не определили z, так что когда мы вызываем функцию, мы получаем <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ошибку NameError</span></a>. Это происходит в связи с тем, что z не определена, или находится <span style=" font-style:italic;">вне области видимости</span>. Если вы определите z перед вызовом функции, тогда она будет найдена и <span style=" font-weight:600;">ошибка NameError</span> не возникнет. <span style=" font-weight:600;">Ошибка NameError</span> также возникает при попытке получения доступа к переменной, которая находится только внутри функции: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-2"></a>    i = 2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-3"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-6"></a>if __name__ == '__main__':</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-7"></a>    x = 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-8"></a>    my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49516268362533-9"></a>    print(i)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Переменная i определена только <span style=" font-weight:600;">внутри функции</span>, так что при запуске кода мы получаем <span style=" font-weight:600;">ошибку NameError</span>. Давайте немного модифицируем первый пример. Разместим данный код в python-файл и попытаемся его запустить: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-2"></a>    x = 5</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-3"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-6"></a>if __name__ == '__main__':</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-7"></a>    x = 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-8"></a>    my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4951e918602259-9"></a>    print(x)</p></td></tr></table>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что, по-вашему, должно произойти?</li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Выдаст ли код цифру 10 дважды?</li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Нет, не выдаст.</span> Причина в том, что мы имеем две переменные х. Переменная х внутри <span style=" font-style:italic;">my_func</span> имеет <span style=" font-weight:600;">локальную область видимости</span> функции и переопределяет переменную х <span style=" font-weight:600;">вне функции</span>. Так что когда мы вызываем функцию <span style=" font-style:italic;">my_func</span>, в выдаче мы видим 5, а не 10. Затем, когда функция возвращается, переменная х внутри функции <span style=" font-style:italic;">my_func</span> является кучей мусора и область для выдачи х срабатывает еще один раз. По этой причине последний оператор выдачи выдает именно 10. Если вы хотите кое-что поинтереснее, вы можете попытаться вывести х перед тем как назначить его в нашей функции: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-2"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-3"></a>    x = 5</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-4"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-7"></a>if __name__ == '__main__':</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-8"></a>    x = 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-9"></a>    my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49526693676693-10"></a>    print(x)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кода вы запустите этот код, вы получите ошибку: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4952e867865817"></a>UnboundLocalError: local variable 'x' referenced before assignment</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это происходит потому, что Python замечает, что вы назначаете х в функцию <span style=" font-weight:600;">my_func</span> позже, что и приводит к ошибке, так как х еще не определен. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Глобальная область видимости</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Python содержит <span style=" font-weight:600;">оператор global</span>. Это ключевое слово Python. Оператор <span style=" font-weight:600;">global</span> объявляет переменную доступной для блока кода, следующим за оператором. Хотя вы и можете создать наименование, перед тем, как объявить его глобальным, я настоятельно не рекомендую этого делать. Давайте попробуем использовать глобальную область для исправления нашей ошибке из предыдущего примера: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-2"></a>    global x</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-3"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-4"></a>    x = 5</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-5"></a>    print(x)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-8"></a>if __name__ == '__main__':</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-9"></a>    x = 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-10"></a>    my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49535528354874-11"></a>    print(x)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Выдача данного кода должна быть следующей: </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объявляя х как глобальный, мы говорим Python использовать первое объявление х для нашего первого оператора вывода в функции. Далее мы даем х новое значение – а именно 5, и выводим его еще раз, перед тем как выйти из функции. Обратите внимание на то, что х становится <a href="https://python-scripts.com/scope"><span style=" text-decoration: underline; color:#0000ff;">глобальной переменной</span></a>, когда мы доходим до последнего оператора вывода в конце кода, и там х все еще равен 5. Давайте смешаем <span style=" font-weight:600;">глобальную и локальную область видимости</span> и поглядим, что из этого получится: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936"></a>def my_func(a, b):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-2"></a>    global c</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-3"></a>    b, a = a, b</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-4"></a>    d = 'Mike'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-5"></a>    print(a, b, c, d)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-8"></a>a, b, c, d = 1, 2, 'c is global', 4</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-9"></a>my_func(1, 2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4954c710707936-10"></a>print(a, b, c, d)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь мы назначаем с в качестве <span style=" font-weight:600;">глобальной переменной</span>. Таким образом, «с» будет выводиться и внутри и снаружи нашей функции. Мы также меняем местами значения переменных а и b в функции, чтобы показать, что мы можем переназначить их внутри функции, не меняя их вне функции. Это показывает, что переменные а и b <span style=" font-weight:600;">не являются глобальными</span>. Если вы запустите этот код, вы увидите следующую выдачу: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49559274895922"></a>2 1 c is global Mike</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49559274895922-2"></a>1 2 c is global 4</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Я хочу обратить ваше внимание на то, что не нужно менять глобальные переменные внутри функции. Комьюнити Python объявило такую практику очень нежелательной, так как из-за этого исправление кода <span style=" font-weight:600;">становится намного сложнее</span>. Теперь, с пониманием основных принципов локальных и глобальных областей, мы можем перейти к <a href="https://python-scripts.com/scope"><span style=" text-decoration: underline; color:#0000ff;">нелокальной области non_local</span></a>. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Область nonlocal</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В Python 3 было добавлено новое ключевое слово под названием <span style=" font-weight:600;">nonlocal</span>. С его помощью мы можем добавлять переопределение области во внутреннюю область. Вы можете ознакомиться со всей необходимой на данный счет информацией в <span style=" font-weight:600;">PEP 3104</span>. Это наглядно демонстрируется в нескольких примерах. Один из самых простых – это <a href="https://python-scripts.com/functions-python"><span style=" text-decoration: underline; color:#0000ff;">создание функции</span></a>, которая может увеличиваться: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141"></a>def counter():</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141-2"></a>    num = 0</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141-3"></a>    def incrementer():</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141-4"></a>        num += 1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141-5"></a>        return num</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49566606467141-6"></a>    return incrementer</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вы попробуете запустить этот код, вы получите <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ошибку UnboundLocalError</span></a>, так как переменная num ссылается прежде, чем она будет назначена в самой внутренней функции. Давайте добавим <span style=" font-weight:600;">nonlocal</span> в наш код: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292"></a>def counter():</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-2"></a>    num = 0</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-3"></a>    def incrementer():</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-4"></a>        nonlocal num</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-5"></a>        num += 1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-6"></a>        return num</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef49573215869292-7"></a>    return incrementer</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат работы: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4957b580518244"></a>c = counter()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4957b580518244-2"></a>print(c) # &lt;function counter.&lt;locals&gt;.incrementer at 0x7f45caf44048&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4957b580518244-4"></a>c() # 1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4957b580518244-5"></a>c() # 2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61fdef4957b580518244-6"></a>c() # 3</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь наша возрастающая функция работает именно так, как мы от нее и ожидаем. Для заметки, тип такой функции называется <span style=" font-weight:600;">closure</span> (дословно – закрытие). Такая функция является блоком кода, который «закрывает» переменные <span style=" font-weight:600;">nonlocal</span>. Суть в том, что вы можете ссылать переменные, которые определены вне вашей функции. Обычно, <span style=" font-weight:600;">nonlocal</span> позволяет вам назначать переменные во <span style=" font-weight:600;">внешней области</span>, но не в глобальной. Так что вы не можете использовать nonlocal в функции подсчета, так как в таком случае она попытается передать функцию глобальной области. Попробуйте, и получите <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ошибку SyntaxError</span></a> незамедлительно. Вместо этого, вам нужно использовать nonlocal во вложенной функции.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Подведем итоги</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данной статье мы смогли понять то, как переменная ссылается, используя ключевые слова Python <span style=" font-weight:600;">global</span> и <span style=" font-weight:600;">nonlocal</span>. Мы узнали, где мы можем их использовать и зачем. Мы также узнали кое-что о локальной области видимости. Хорошего дня и продолжайте экспериментировать! </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

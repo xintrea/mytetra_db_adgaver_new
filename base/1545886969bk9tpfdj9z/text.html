@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h4>Запуск и управление приложениями семейства MS Office</h4>
+Иногда требуется управлять другими приложениями из VBA Excel. Начнем с 
+приложений семейства Microsoft Office. Например, на основе произведенных
+ расчетов в Excel надо сформировать текстовый документ в Word-е. Для 
+начала в нашем проекте надо подключить библиотеку с объектами MS Word:
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Tools=&gt;References подключаем последнюю версию библиотеки Microsoft Word Object Library</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+Пример кода для запуска Word-а из VBA
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style="color: #0000ff;">Dim</span> w <span style="color: #0000ff;">As</span> Word.Application</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style="color: #0000ff;">Set</span> w = <span style="color: #0000ff;">New</span> Word.Application</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">w.Visible = <span style="color: #0000ff;">True</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">w.Activate</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+Вот и все, мы запустили приложение Word.
+
+Аналогичным способом можно запустить любое другое приложение из 
+семейства Microsoft Office: Access, Outlook, PowerPoint. Можно получить к
+ любому приложению, которое мы видим списке библиотек.
+
+Для работы с внешним приложением необходимо ознакомиться с <span style="color: #0000ff;"><a style="color: #0000ff;" href="http://www.timpust.ru/vba/objectmodel/">объектной моделью</a></span>,
+ изучить свойства и методы объектов.
+
+Кроме запуска внешнего приложения, мы имеем полный доступ к объектам 
+данного приложения. Можно писать макросы, которые будут управлять 
+объектами Word  в данном случае.
+
+ 
+<h4>Запуск внешнего приложения с помощью скрипта WScript.Shell.</h4>
+Все очень просто
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style="color: #000080;">Sub</span> RunShell()</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style="color: #000080;">Set</span> WSShell = CreateObject("Wscript.Shell")</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">WSShell.Run """C:\Program Files (x86)\Google\Google Earth\client\googleearth.exe""", 1</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style="color: #000080;">End Sub</span></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+ 
+
+Главное пишем побольше кавычек (аж три штуки с краю), если путь содержит пробелы и прочие "противные" символы.
+
+К сожалению, в данном случае, мы только запускаем внешнее приложение без доступа к его объектам.
+
+ 
+<h4>Запуск и управление внешним приложением</h4>
+В меню VBA=&gt;Tools=&gt;Refernces видно все COM-объекты приложений, 
+которые установлены на вашем компьютере. Подключаем соответствующую 
+библиотеку, например, "GrymCore". И мы получаем доступ к ДубльГису. С 
+документацией API Дубль Гиса можно ознакомиться на их сайте.
+
+</body>
+</html></p></body></html>

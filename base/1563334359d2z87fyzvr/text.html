@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Метод Workbook. Open (Excel)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">'\\----------------------------------------------------------------------------------------------------------</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;">Excel поддерживает возможность открытия URL-адреса в качестве другой книги Excel с помощью <a href="https://msdn.microsoft.com/EN-US/library/office/ff194819.aspx"><span style=" text-decoration: underline; color:#0000ff;">Workbooks.Open method</span></a>:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://msdn.microsoft.com/en-us/library/office/aa203721(v=office.11).aspx"><span style=" text-decoration: underline; color:#0000ff;">Из MSDN:</span></a></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Sub OpenUSDRatesPage()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   Dim objBK As Workbook</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   Dim objRng As Range</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   'Open the page as a workbook.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   Set objBK = Workbooks.Open(&quot;http://www.x-rates.com/tables/USD.HTML&quot;)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   'Find the Canadian Dollar cell.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   Set objRng = objBK.Worksheets(1).Cells.Find(&quot;Canadian Dollar&quot;)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   'Retrieve the exchange rate.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">   MsgBox &quot;The CAD/USD exchange rate is &quot; &amp; objRng.Offset(-6, -1).Value</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">'\\--------------------------------------------------------------------------------------------------------------</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><a name="workbooksopen-method-excel"></a><span style=" font-size:8.25pt; font-weight:600;">М</span><span style=" font-size:8.25pt; font-weight:600;">етод Workbook. Open (Excel)</span><span style=" font-size:8.25pt;"> </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">18.05.2019 </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Открывает книгу.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="syntax"></a><span style=" font-size:8.25pt; font-weight:600;">С</span><span style=" font-size:8.25pt; font-weight:600;">интаксис</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Expression</span><span style=" font-size:8.25pt;">. </span><span style=" font-size:8.25pt; font-weight:600;">Open (открыть</span><span style=" font-size:8.25pt;"> ) (</span><span style=" font-size:8.25pt; font-style:italic;">Filename</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">UpdateLinks</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">ReadOnly</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">Format</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">Password</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">вритереспассворд</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">игноререадонлирекоммендед</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">Origin</span><span style=" font-size:8.25pt;">,- </span><span style=" font-size:8.25pt; font-style:italic;">Limit</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">редактируемый</span><span style=" font-size:8.25pt;">, _Notify _, </span><span style=" font-size:8.25pt; font-style:italic;">Converter</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">аддтомру</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">Local</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-style:italic;">корруптлоад</span><span style=" font-size:8.25pt;">)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Expression (выражение</span><span style=" font-size:8.25pt;"> ) Переменная, представляющая объект </span><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.workbooks"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">книги</span></a><span style=" font-size:8.25pt;"> .</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="parameters"></a><span style=" font-size:8.25pt; font-weight:600;">П</span><span style=" font-size:8.25pt; font-weight:600;">араметры</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Имя</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Обязательный или необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Тип данных</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Описание</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">FileName</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Строка</span><span style=" font-size:8.25pt;">. Имя файла книги, которую необходимо открыть.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">UpdateLinks</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Задает способ обновления внешних ссылок (ссылок) в файле (например, ссылки на диапазон в книге бюджет. xls в следующей формуле </span><span style=" font-family:'Courier New'; font-size:8.25pt;">=SUM([Budget.xls]Annual!C10:C25)</span><span style=" font-size:8.25pt;">). Если этот аргумент не указан, пользователю предлагается указать, как будут обновляться ссылки. Для получения дополнительных сведений о значениях, используемых этим параметром, обратитесь к разделу &quot;Примечания&quot;.<br /><br />Если Microsoft Excel открывает файл в формате WKS, WK1 или WK3, а аргумент UpdateLinks имеет значение 0, диаграммы не создаются; в противном случае Microsoft Excel создает диаграммы на основе диаграмм, вложенных в файл.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">ReadOnly</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательно устанавливать.</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Значение true, чтобы открыть книгу в режиме только для чтения.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Format</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если Microsoft Excel открывает текстовый файл, этот аргумент задает символ разделителя. Если этот аргумент не указан, используется текущий разделитель. Для получения дополнительных сведений о значениях, используемых этим параметром, обратитесь к разделу &quot;Примечания&quot;.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Password</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Строка, содержащая пароль, необходимый для открытия защищенной книги. Если этот аргумент опущен и для книги требуется пароль, пользователю предлагается ввести пароль.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Вритереспассворд</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Строка, содержащая пароль, необходимый для записи в книгу, зарезервированную для записи. Если этот аргумент опущен и для книги требуется пароль, пользователю будет выдан запрос на ввод пароля.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Игноререадонлирекоммендед</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">True</span><span style=" font-size:8.25pt;"> , чтобы Microsoft Excel не отображал рекомендуемое только для чтения сообщение (рекомендуется ли книга была сохранена с помощью параметра &quot; </span><span style=" font-size:8.25pt; font-weight:600;">только для чтения</span><span style=" font-size:8.25pt;"> &quot;).</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Основания</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если файл является текстовым, этот аргумент указывает на то, где он был создан, чтобы страницы кода и возврат каретки/перевод строки (CR/LF) могли быть сопоставлены правильно. Может быть одной из следующих констант </span><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.xlplatform"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">кслплатформ</span></a><span style=" font-size:8.25pt;"> : </span><span style=" font-size:8.25pt; font-weight:600;">кслмаЦинтош</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-weight:600;">кслвиндовс</span><span style=" font-size:8.25pt;">или </span><span style=" font-size:8.25pt; font-weight:600;">кслмсдос</span><span style=" font-size:8.25pt;">. Если этот аргумент не указан, используется текущая операционная система.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Разделитель</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если файл является текстовым файлом, а аргумент </span><span style=" font-size:8.25pt; font-style:italic;">Format</span><span style=" font-size:8.25pt;"> имеет значение 6, этот аргумент представляет собой строку, задающую символ, который будет использоваться в качестве разделителя. Например, используйте </span><span style=" font-size:8.25pt; font-weight:600;">Chr (9)</span><span style=" font-size:8.25pt;"> для табуляции, используйте &quot;,&quot; для запятых, введите &quot;;&quot; для точки с запятой или используйте специальный символ. Используется только первый символ строки.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Изменяемость</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если файл является надстройкой Microsoft Excel 4,0, этот аргумент имеет </span><span style=" font-size:8.25pt; font-weight:600;">значение true</span><span style=" font-size:8.25pt;"> , чтобы открыть надстройку, чтобы она стала видимым окном. Если этот аргумент имеет </span><span style=" font-size:8.25pt; font-weight:600;">значение false</span><span style=" font-size:8.25pt;"> или опущен, надстройка открывается как скрытая и не может быть скрыта. Этот параметр не применяется к надстройкам, созданным в Microsoft Excel 5,0 или более поздней версии.<br /><br />Если файл является шаблоном Excel, </span><span style=" font-size:8.25pt; font-weight:600;">имеет значение true</span><span style=" font-size:8.25pt;"> , чтобы открыть указанный шаблон для редактирования. </span><span style=" font-size:8.25pt; font-weight:600;">Значение false</span><span style=" font-size:8.25pt;"> , чтобы открыть новую книгу на основе указанного шаблона. Значение по умолчанию — </span><span style=" font-size:8.25pt; font-weight:600;">False</span><span style=" font-size:8.25pt;">.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Уведомления</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если файл не может быть открыт в режиме чтения и записи, этот аргумент имеет </span><span style=" font-size:8.25pt; font-weight:600;">значение true</span><span style=" font-size:8.25pt;"> , чтобы добавить файл в список уведомлений о файле. Microsoft Excel откроет файл как доступный только для чтения, опросить список уведомлений о файле, а затем уведомить пользователя, когда файл станет доступен. Если этот аргумент имеет </span><span style=" font-size:8.25pt; font-weight:600;">значение false</span><span style=" font-size:8.25pt;"> или опущено, уведомления не запрашиваются, а все попытки открыть недоступный файл завершатся ошибкой.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Счет</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Индекс первого конвертера файлов, который будет пытаться открыть файл. Заданный конвертер файлов сначала пытается выполнить операцию. Если этот конвертер не распознает файл, попытаются выполнить все другие конвертеры. Индекс преобразователя состоит из номеров строк преобразователей, возвращаемых свойством </span><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.application.fileconverters"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">FileConverters</span></a><span style=" font-size:8.25pt;"> .</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Аддтомру</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Значение true</span><span style=" font-size:8.25pt;"> , чтобы добавить эту книгу в список недавно использовавшихся файлов. Значение по умолчанию — </span><span style=" font-size:8.25pt; font-weight:600;">False</span><span style=" font-size:8.25pt;">.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Local</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Необязательный</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Variant</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">True</span><span style=" font-size:8.25pt;"> — сохраняет файлы на языке Microsoft Excel (включая параметры панели управления). </span><span style=" font-size:8.25pt; font-weight:600;">False (ложь</span><span style=" font-size:8.25pt;"> ) (по умолчанию) — сохранение файлов на языке Visual Basic для приложений (VBA) (как правило, это английская версия, если проект VBA, в котором запущены книги, не является устаревшим международным проектом XL5/95 VBA).</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-style:italic;">Корруптлоад</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">При необходимости</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.xlcorruptload"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">XlCorruptLoad</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Может быть одной из следующих констант: </span><span style=" font-size:8.25pt; font-weight:600;">кслнормаллоад</span><span style=" font-size:8.25pt;">, </span><span style=" font-size:8.25pt; font-weight:600;">кслрепаирфиле</span><span style=" font-size:8.25pt;"> и </span><span style=" font-size:8.25pt; font-weight:600;">кслекстрактдата</span><span style=" font-size:8.25pt;">. Поведение по умолчанию, если значение параметра не указано, не равно </span><span style=" font-size:8.25pt; font-weight:600;">кслнормаллоад</span><span style=" font-size:8.25pt;">и не выполняет восстановление при запуске с помощью объектной модели.</span></p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="return-value"></a><span style=" font-size:8.25pt; font-weight:600;">В</span><span style=" font-size:8.25pt; font-weight:600;">озвращаемое значение</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Объект </span><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.workbook"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">книги</span></a><span style=" font-size:8.25pt;"> , представляющий открытую книгу.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="remarks"></a><span style=" font-size:8.25pt; font-weight:600;">П</span><span style=" font-size:8.25pt; font-weight:600;">римечания</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">По умолчанию при открытии файлов программным способом включаются макросы. Используйте свойство </span><a href="https://docs.microsoft.com/ru-ru/office/vba/api/excel.application.automationsecurity"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">аутоматионсекурити</span></a><span style=" font-size:8.25pt;"> , чтобы задать режим безопасности макросов, используемый при программном открытии файлов.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">В параметре </span><span style=" font-size:8.25pt; font-style:italic;">UpdateLinks</span><span style=" font-size:8.25pt;"> можно указать одно из следующих значений, чтобы определить, обновляются ли внешние ссылки (ссылки) при открытии книги.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Значение</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Описание</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">нуль</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Внешние ссылки (ссылки) не будут обновляться при открытии книги.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Внешние ссылки (ссылки) будут обновляться при открытии книги.</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Чтобы определить символ разделителя для файла, можно указать одно из следующих значений в параметре </span><span style=" font-size:8.25pt; font-style:italic;">Format</span><span style=" font-size:8.25pt;"> .</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Значение</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Разделитель</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">1,1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Вкладки</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Запятыми</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Бель</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">SP4</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Запятой</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">17:00</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Отсутствует</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">6 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Настраиваемый символ (см. аргумент- </span><span style=" font-size:8.25pt; font-style:italic;">Разделитель</span><span style=" font-size:8.25pt;"> )</span></p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="example"></a><span style=" font-size:8.25pt; font-weight:600;">П</span><span style=" font-size:8.25pt; font-weight:600;">ример</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Следующий пример кода открывает книгу Analysis. xls и выполняет свой макрос Ауто_опен.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-try-0"></a><span style=" font-size:8.25pt;">V</span><span style=" font-size:8.25pt;">B </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">Workbooks.Open &quot;ANALYSIS.XLS&quot; </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">ActiveWorkbook.RunAutoMacros xlAutoOpen</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; font-size:8.25pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">В приведенном ниже примере кода показано, как импортировать лист из другой книги на новый лист в текущей книге. Лист1 в текущей книге должен содержать имя пути к книге, которую необходимо импортировать, в ячейке D3, имя файла в ячейке D4, а имя листа в ячейке D5. Импортированный лист вставляется после Лист1 в текущей книге.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-try-1"></a><span style=" font-size:8.25pt;">V</span><span style=" font-size:8.25pt;">B </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">Sub ImportWorksheet() </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    ' This macro will import a file into this workbook </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Sheets(&quot;Sheet1&quot;).Select </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    PathName = Range(&quot;D3&quot;).Value </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Filename = Range(&quot;D4&quot;).Value </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    TabName = Range(&quot;D5&quot;).Value </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    ControlFile = ActiveWorkbook.Name </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Workbooks.Open Filename:=PathName &amp; Filename </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    ActiveSheet.Name = TabName </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Sheets(TabName).Copy After:=Workbooks(ControlFile).Sheets(1) </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Windows(Filename).Activate </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    ActiveWorkbook.Close SaveChanges:=False </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">    Windows(ControlFile).Activate </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; font-size:8.25pt;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; font-size:8.25pt;"><br /></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="support-and-feedback"></a><span style=" font-size:8.25pt; font-weight:600;">П</span><span style=" font-size:8.25pt; font-weight:600;">оддержка и обратная связь</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Есть вопросы или отзывы, касающиеся Office VBA или этой статьи? Руководство по другим способам получения поддержки и отправки отзывов см. в статье </span><a href="https://docs.microsoft.com/ru-ru/office/vba/articles/feedback-support"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Поддержка Office VBA и обратная связь</span></a><span style=" font-size:8.25pt;">.</span></p></body></html>

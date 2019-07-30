@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Работа с объектом Range</p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="2">
+<tr>
+<td colspan="2">
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">О чём пойдёт речь?</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Знакомство с объектной моделью Excel следует начинать с такого замечательного объекта, как Range. Поскольку любая ячейка - это Range, то без знания, как с этим объектом эффективно взаимодействовать, вам будет затруднительно программировать для Excel. Это очень ладно-скроенный объект. При некоторой сноровке вы найдёте его весьма удобным в эксплуатации.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Что такое объекты?</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы собираемся изучать объект Range, поэтому пару слов надо сказать, что такое, собственно, &quot;объект&quot;. Всё, что вы наблюдаете в Excel, всё с чем вы работаете - это набор объектов. Например, лист рабочей книги Excel - не что иное, как объект типа WorkSheet. Однотипные объекты объединяют в коллекции себе подобных. Например, листы объединены в коллекцию Sheets. Чтобы не путать друг с другом объекты одного и того же типа, они имеют отличающиеся имена, а также номер индекса в коллекции. Объекты имеют свойства, методы и события. <br />Свойства - это информация об объекте. Часто эти свойства можно менять, что автоматически влечет изменения внешнего вида объекта или его поведения. Например свойство Visible объекта Worksheet отвечает за видимость листа на экране. Если ему присвоить значение xlSheetHidden (это константа, которая по факту равно нулю), то лист будет скрыт. <br />Методы - это то, что объект может делать. Например, метод Delete объекта Worksheet удаляет себя из книги. Метод Select делает лист активным. <br />События - это механизм, при помощи которого вы можете исполнять свой код VBA сразу по факту возникновения того или иного события с вашим объектом. Например, есть возможность выполнять ваш код, как только пользователь сделал текущим определенный лист рабочей книги, либо как только пользователь что-то изменил на этом листе. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Объекты Range</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Range это диапазон ячеек. Минимум - одна ячейка, максимум - весь лист, теоретически насчитывающий более 17 миллиардов ячеек (строки 2^20 * столбцы 2^14 = 2^34).<br />В Excel объявлены глобально и всегда готовы к использованию несколько коллекций, имеющий членами объекты типа Range, либо свойства это же типа. Коллекции глобального объекта Application: Cells, Columns, Rows, а также свойства Range, Selection, ActiveCell, ThisCell.<br />ActiveCell - активная ячейка текущего листа, ThisCell - если вы написали пользовательскую функцию рабочего листа, то через это свойство вы можете определить какая конкретно ячейка в данный момент пересчитывает вашу функцию. Об остальных перечисленных объектов речь пойдёт ниже. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Работа с отдельными ячейками</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="900" cellspacing="2" cellpadding="0">
+<tr>
+<td width="30%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Синтаксическая форма </p></td>
+<td width="70%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Комментарии по использованию </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;D5&quot;) или [D5] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Ячейка D5 текущего листа. Полная и краткая формы. Тут применим только синтаксис типа A1, но не R1C1. То есть такая конструкция Range(&quot;R1C2&quot;) - вызовет ошибку, даже если в книге Excel включен режим формул R1C1. <br />Разумеется после этой формы вы можете обратиться к свойствам соответствующей ячейки. Например, Range(&quot;D5&quot;).Interior.Color = RGB(0, 255, 0). </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Cells(5, 4) или Cells(5, &quot;D&quot;) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Ячейка D5 текущего листа через свойство Cells. 5 - строка (row), 4 - столбец (column). Допустимость второй формы мало кому известна. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Cells(65540) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Ячейку D5 можно адресовать и через указание только одного параметра свойсва Cells. При этом нумерация идёт слева направо, потом сверху вниз. То есть сначала нумеруется вся строка (2^14=16384 колонок) и только потом идёт переход на следующую строку. То есть Cells(16385) вернёт вам ячейку A2, а D5 будет Cells(65540). Пока данный способ выглядит не очень удобным. </p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Работа с диапазоном ячеек</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="900" cellspacing="2" cellpadding="0">
+<tr>
+<td width="30%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Синтаксическая форма </p></td>
+<td width="70%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Комментарии по использованию </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;A1:B4&quot;) или [A1:B4] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Диапазон ячеек A1:B4 текущего листа. Обратите внимание, что указываются координаты верхнего левого и правого нижнего углов диапазона. Причём первый указываемый угол вполне может быть правым нижним, это не имеет значения. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(Cells(1, 1), Cells(4, 2)) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Диапазон ячеек A1:B4 текущего листа. Удобно, когда вы знаете именно цифровые координаты углов диапазона. </p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Работа со строками</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="900" cellspacing="2" cellpadding="0">
+<tr>
+<td width="30%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Синтаксическая форма </p></td>
+<td width="70%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Комментарии по использованию </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;3:5&quot;) или [3:5] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Строки 3, 4 и 5 текущего листа целиком. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;A3:XFD3&quot;) или [A3:XFD3] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Строка 3, но с указанием колонок. Просто, чтобы вы понимали, что это тождественные формы. XFD - последняя колонка листа. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Rows(&quot;3:3&quot;) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Строка 3 через свойство Rows. Параметр в виде диапазона строк. Двоеточие - это символ диапазона. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Rows(3) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Тут параметр - индекс строки в массиве строк. Так можно сослаться только не конкретную строку. Обратите внимание, что в предыдущем примере параметр текстовая строка &quot;3:3&quot; и она взята в кавычки, а тут - чистое число. </p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Работа со столбцами</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="900" cellspacing="2" cellpadding="0">
+<tr>
+<td width="30%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Синтаксическая форма </p></td>
+<td width="70%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Комментарии по использованию </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;B:B&quot;) или [B:B] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Колонка B текущего листа. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;B1:B1048576&quot;) или [B1:B1048576] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>То же самое, но с указанием номеров строк, чтобы вы понимали, что это тождественные формы. 2^20=1048576 - максимальный номер строки на листе. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Columns(&quot;B:B&quot;) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>То же самое через свойство Columns. Параметр - текстовая строка. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Columns(2) </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>То же самое. Параметр - числовой индекс столбца. &quot;A&quot; -&gt; 1, &quot;B&quot; -&gt; 2, и т.д. </p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Весь лист</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="900" cellspacing="2" cellpadding="0">
+<tr>
+<td width="40%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Синтаксическая форма </p></td>
+<td width="60%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="bothmiddle"></a>Комментарии по использованию </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;A1:XFD1048576&quot;) или [A1:XFD1048576] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Диапазон размером во всё адресное пространство листа Excel. Воспринимайте эту таблицу лишь как теорию - так работать с листами вам не придётся - слишком большое количество ячеек. Даже современные компьютеры не смогут помочь Excel быстро работать с такими массивами информации. Тут проблема больше даже в самом приложении. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;1:1048576&quot;) или [1:1048576] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>То же самое, но через строки. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Range(&quot;A:XFD&quot;) или [A:XFD] </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Аналогично - через адреса столбцов. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Cells </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Свойство Cells включает в себя ВСЕ ячейки. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Rows </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Все строки листа. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Columns </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mid_left"></a>Все столбцы листа. </p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Следует иметь в виду, что свойства Range, Cells, Columns и Rows имеют как объекты типа Worksheet, так и объекты Range. Соответственно в первом случае эти коллекции будут относиться ко всему листу и отсчитываться будут от A1, а вот в случае конкретного объекта Range эти коллекции будут относиться только к ячейкам этого диапазона и отсчитываться будут от левого верхнего угла диапазона. Например Cells(2,2) указывает на ячейку B2, а Range(&quot;C3:D5&quot;).Cells(2,2) укажет на D4.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Также много путаницы в умы вносит тот факт, что объект Range имеет одноименное свойство range. К примеру, Range(&quot;A100:D500&quot;).Range(&quot;A2&quot;) - тут выражение до точки ( Range(&quot;A100:D500&quot;) ) является объектом Range, выражение после точки ( Range(&quot;A2&quot;) ) - свойство range упомянутого объекта, но возвращает это свойство тоже объект типа Range. Вот такие пироги. Из этого следует, что такая цепочка может иметь и более двух членов. Практического смысла в этом будет не много, но синтаксически это будут совершенно корректно, например, так: Range(&quot;CV100:GR200&quot;).Range(&quot;J10:T20&quot;).Range(&quot;A1:B2&quot;) укажет на диапазон DE109:DF110.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ещё один сюрприз таится в том, что объекты Range имеют свойство по-умолчанию Item( RowIndex [, ColumnIndex] ). По правилам VBA при ссылке на default свойства имя свойства (Item) можно опускать. Кстати говоря, то что вы привыкли видеть в скобках после Cells, есть не что иное, как это дефолтовое свойство Item, а не родные параметры Cells, который их не имеет вовсе. Ну ладно к Cells все привыкли и это никакого отторжения не вызывает, но если вы увидите нечто подобное - Range(&quot;C3:D5&quot;)(2,2), то, скорее всего, будете несколько озадачены, а тем временем - это буквально тоже самое, что и у Cells - всё то же дефолтовое свойство Item. Последняя конструкция ссылается на D4. А вот для Columns и Rows свойство Item может быть только одночленным, например Columns(1) - и к этой форме мы тоже вполне привыкли. Однако конструкции вида Columns(2)(3)(4) могут сильно удивить (столбец 7 будет выделен).</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Примеры кода</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://perfect-excel.ru/Downloads/RangesP1.xlsm"><span style=" font-size:medium; font-weight:600; text-decoration: underline; color:#0000ff;">Скачать</span></a></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Типовые задачи</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор ячеек в диапазоне (вариант 1)</span></li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">В данном примере организован цикл For...Next и доступ к ячейкам осуществляется по их индексу. Вместо parRange(i) мы могли бы написать parRange.Item(i) (выше это объяснялось). Обратите внимание, что мы в этом примере успешно применяем, как вариант с parRange(i,c), так и parRange(i). То есть, если мы применяем одночленную форму свойства Item, то диапазон перебирается по строкам (A1, B1, C1, A2, ...), а если двухчленную, то столбец у нас зафиксирован и каждая итерация цикла - на новой строке. Это очень интересный эффект, его можно применять для вытягивания таблиц по вертикали. Но - продолжим!</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">Количество ячеек в диапазоне получено при помощи свойства .Count. Как .Item, так и .Count - это всё атрибуты коллекций, которые широко применяются в объектой модели MS Office и, в частности, Excel.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_71083"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Cells_1(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">i = 1 To</span> <span style=" font-family:'Courier New,courier';">parRange.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    parRange(i, 5) = parRange(i).Address &amp; &quot; = &quot;</span> <span style=" font-family:'Courier New,courier';">&amp; parRange(i)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span></p></td></tr></table>
+<li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор ячеек в диапазоне (вариант 2)</span></li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">В этом примере мы использовали цикл For each...Next, что выглядит несколько лаконичней. Однако, в некоторых случаях вам может потребоваться переменная i из предыдущего примера, например, для вывода результатов в определенные строки листа, поэтому выбирайте удробную вам форму оператора For. Тут в цикле мы &quot;вытягивали&quot; все ячейки диапазона в текстовую строку, чтобы потом отобразить её через функцию MsgBox. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_982921"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Cells_2(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">Each</span> <span style=" font-family:'Courier New,courier';">c In</span> <span style=" font-family:'Courier New,courier';">parRange</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    strLine = strLine &amp; c.Address &amp; &quot;=&quot;</span> <span style=" font-family:'Courier New,courier';">&amp; c &amp; &quot;; &quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  MsgBox strLine</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span></p></td></tr></table>
+<li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор ячеек в диапазоне (вариант 3)</span></li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">Если необходимо перебирать ячейки в порядке A1, A2, A3, B1, ..., а не A1, B1, C1, A2, ..., то вы можете это организовать при помощи 2-х циклов For. Обратите внимание, как мы узнали количество столбцов (parRange.Columns.Count) и строк (parRange.Rows.Count) в диапазоне, а также на использование свойства Cells. Тут Cells относится к листу и никак не связано с диапазоном parRange. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_388892"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Cells_3(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  colNum = parRange.Columns.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">i = 1 To</span> <span style=" font-family:'Courier New,courier';">parRange.Rows.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    For</span> <span style=" font-family:'Courier New,courier';">j = 1 To</span> <span style=" font-family:'Courier New,courier';">colNum</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Cells(i + (j - 1) * colNum, colNum + 2) = parRange(i, j)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    Next</span> <span style=" font-family:'Courier New,courier';">j</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span> <span style=" font-family:'Courier New,courier';">i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span>  </p></td></tr></table>
+<li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор строк диапазона</span></li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">В цикле For each...Next перебираем коллекцию Rows объекта parRange. Для каждой строки формируем цвет на основе первых трёх ячеек каждой строки. Поскульку у нас в ячейках формула, присваивающая ячейке случайное число от 1 до 255, то цвета получаются всегда разные. Оператор With позволяет нам сократить код и, к примеру, вместо Line.Cells(2) написать просто .Cells(2). </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_420775"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Rows_1(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">Each</span> <span style=" font-family:'Courier New,courier';">Line In</span> <span style=" font-family:'Courier New,courier';">parRange.Rows</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    With</span> <span style=" font-family:'Courier New,courier';">Line</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      .Interior.Color = RGB(.Cells(1), .Cells(2), .Cells(3))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    End</span> <span style=" font-family:'Courier New,courier';">With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span>  </p></td></tr></table>
+<li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор столбцов</span></li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">Перебираем коллекцию Columns. Тоже используем оператор With. В последней ячейке каждого столбца у нас хранится размер шрифта для всей колонки, который мы и применяем к свойству Line.Font.Size. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_799621"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Columns_1(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">Each</span> <span style=" font-family:'Courier New,courier';">Line In</span> <span style=" font-family:'Courier New,courier';">parRange.Columns</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    With</span> <span style=" font-family:'Courier New,courier';">Line</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      .Font.Size = .Cells(.Cells.Count)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    End</span> <span style=" font-family:'Courier New,courier';">With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span></p></td></tr></table>
+<li style=" font-size:large; font-weight:600;" style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large;">Перебор областей диапазона</span></li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">Как вы знаете, в Excel можно выделить несвязанные диапазоны и проделать с ними какие-то операции. Поддерживает это и объект Range. Получить диапазон, состоящий из нескольких областей (area) очень легко - достаточно перечислить через запятую адреса соответствующих диапазонов: Range(&quot;A1:B3, B5:D8, Z1:AA12&quot;).<br />Вот такой составной диапазон и разбирается процедурой, показанной ниже. Организован цикл по коллекции Areas, настроен оператор with на текущий элемент коллекции, и ниже и правее относительно ячейки J1 мы собираем некоторые сведения о свойствах областей составного диапазона (которые каждый по себе, конечно же, тоже являются объектами типа Range). Для задания смещения от ячейки J1 нами впервые использовано очень полезное свойство Offset. Каждый диапазон получает случайный цвет, плюс мы заносим в таблицу порядковый номер диапазона (i), его адрес (.Address), количество ячеек (.Count) и цвет (.Interior.Color) после того, как он вычислен. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="highlighter_733474"></a><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/rabota_s_obektom_range/7-1-0-56#"><span style=" text-decoration: underline; color:#0000ff;">?</span></a></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">Sub</span> <span style=" font-family:'Courier New,courier';">Handle_Areas_1(parRange As</span> <span style=" font-family:'Courier New,courier';">Range)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  For</span> <span style=" font-family:'Courier New,courier';">i = 1 To</span> <span style=" font-family:'Courier New,courier';">parRange.Areas.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    With</span> <span style=" font-family:'Courier New,courier';">parRange.Areas(i)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Cells(1, 10).Offset(i, 0) = i</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Cells(1, 10).Offset(i, 1) = .Address</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Cells(1, 10).Offset(i, 2) = .Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      .Interior.Color = RGB(Int(Rnd * 255), Int(Rnd * 255), Int(Rnd * 255))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">      Cells(1, 10).Offset(i, 3) = .Interior.Color</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    End</span> <span style=" font-family:'Courier New,courier';">With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">  Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">End</span> <span style=" font-family:'Courier New,courier';">Sub</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Продолжение следует...</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br /></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large; font-weight:600;">Читайте также:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:medium; font-weight:600;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/poisk_granic_tekushhej_oblasti/7-1-0-55"><span style=" font-size:medium; text-decoration: underline; color:#0000ff;">Поиск границ текущей области</span></a></li>
+<li style=" font-size:medium; font-weight:600;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/massivy_v_vba/7-1-0-74"><span style=" font-size:medium; text-decoration: underline; color:#0000ff;">Массивы в VBA</span></a></li>
+<li style=" font-size:medium; font-weight:600;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/struktury_dannykh_i_ikh_ehffektivnost/7-1-0-72"><span style=" font-size:medium; text-decoration: underline; color:#0000ff;">Структуры данных и их эффективность</span></a></li>
+<li style=" font-size:medium; font-weight:600;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://perfect-excel.ru/publ/excel/makrosy_i_programmy_vba/avtomaticheskoe_skrytie_pokaz_stolbcov_i_strok/7-1-0-52"><span style=" font-size:medium; text-decoration: underline; color:#0000ff;">Автоматическое скрытие/показ столбцов и строк</span></a></li></ul></td></tr></table></body></html>

@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p><b>Алгоритм сравнения строк</b> <br>Функция нечёткого сравнения 
+использует в качестве аргументов две строки и параметр сравнения - 
+максимальную длину сравниваемых подстрок. Результатом работы функции 
+является число, лежащее в пределах от 0 до 1. 0 соответствует полному 
+несовпадению двух строк, а 1 - полной (в определённом ниже смысле) их 
+идентичности. <br>Сравнение строк происходит по следующей схеме. Пусть, 
+например, в качестве аргументов заданы две строки "test" и "text" и 
+некоторая максимальная длина подстрок, скажем, 4. Функция сравнения 
+составляет все возможные комбинации подстрок с длинной вплоть до 
+указанной и подсчитывает их совпадения в двух сравниваемых строках. 
+Количество совпадений, разделённое на число вариантов, объявляется 
+коэффициентом схожести строк и выдаётся в качестве результата работы 
+функции. 
+</p><p>Продолжим пример. 
+</p><p>
+</p><table class="borderall" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td width="118" valign="top">
+<p align="center">Сравниваемая подстрока</p></td>
+<td width="118" valign="top">
+<p align="center">Подстроки второй строки</p></td>
+<td width="118" valign="top">
+<p align="center">Есть совпадение?</p></td>
+<td width="118" valign="top">
+<p align="center">Количество совпадений</p></td>
+<td width="118" valign="top">
+<p align="center">Количество вариантов</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку test со строкой text по подстрокам длины 1.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>t</p></td>
+<td width="118" valign="top">
+<p>t, e, x, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td>
+<td rowspan="4" width="118">
+<p>3</p></td>
+<td rowspan="4" width="118">
+<p>4</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>e</p></td>
+<td width="118" valign="top">
+<p>t, e, x, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>s</p></td>
+<td width="118" valign="top">
+<p>t, e, x, t</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>t</p></td>
+<td width="118" valign="top">
+<p>t, e, x, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку text со строкой test по подстрокам длины 1.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>t</p></td>
+<td width="118" valign="top">
+<p>t, e, s, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td>
+<td rowspan="4" width="118">
+<p>3</p></td>
+<td rowspan="4" width="118">
+<p>4</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>e</p></td>
+<td width="118" valign="top">
+<p>t, e, s, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>x</p></td>
+<td width="118" valign="top">
+<p>t, e, s, t</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>t</p></td>
+<td width="118" valign="top">
+<p>t, e, s, t</p></td>
+<td width="118" valign="top">
+<p>да</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку test со строкой text по подстрокам длины 2.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>te</p></td>
+<td width="118" valign="top">
+<p>te, ex, xt</p></td>
+<td width="118" valign="top">
+<p>да</p></td>
+<td rowspan="3" width="118">
+<p>1</p></td>
+<td rowspan="3" width="118">
+<p>3</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>es</p></td>
+<td width="118" valign="top">
+<p>te, ex, xt</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>st</p></td>
+<td width="118" valign="top">
+<p>te, ex, xt</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку text со строкой test по подстрокам длины 2.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>te</p></td>
+<td width="118" valign="top">
+<p>te, es, st</p></td>
+<td width="118" valign="top">
+<p>да</p></td>
+<td rowspan="3" width="118">
+<p>1</p></td>
+<td rowspan="3" width="118">
+<p>3</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>ex</p></td>
+<td width="118" valign="top">
+<p>te, es, st</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>xt</p></td>
+<td width="118" valign="top">
+<p>te, es, st</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку test со строкой text по подстрокам длины 3.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>tes</p></td>
+<td width="118" valign="top">
+<p>tex, ext</p></td>
+<td width="118" valign="top">
+<p>нет</p></td>
+<td rowspan="2" width="118">
+<p>0</p></td>
+<td rowspan="2" width="118">
+<p>2</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>est</p></td>
+<td width="118" valign="top">
+<p>tex, ext</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку text со строкой test по подстрокам длины 3.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>tex</p></td>
+<td width="118" valign="top">
+<p>tes, est</p></td>
+<td width="118" valign="top">
+<p>нет</p></td>
+<td rowspan="2" width="118">
+<p>0</p></td>
+<td rowspan="2" width="118">
+<p>2</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>ext</p></td>
+<td width="118" valign="top">
+<p>tes, est</p></td>
+<td width="118" valign="top">
+<p>нет</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку test со строкой text по подстрокам длины 4.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>test</p></td>
+<td width="118" valign="top">
+<p>text</p></td>
+<td width="118" valign="top">
+<p>нет</p></td>
+<td width="118" valign="top">
+<p>0</p></td>
+<td width="118" valign="top">
+<p>1</p></td></tr>
+<tr>
+<td colspan="5" width="590" valign="top">
+<p>Сравниваем строку text со строкой test по подстрокам длины 4.</p></td></tr>
+<tr>
+<td width="118" valign="top">
+<p>text</p></td>
+<td width="118" valign="top">
+<p>test</p></td>
+<td width="118" valign="top">
+<p>нет</p></td>
+<td width="118" valign="top">
+<p>0</p></td>
+<td width="118" valign="top">
+<p>1</p></td></tr>
+<tr>
+<td colspan="3" width="354" valign="top">
+<p align="right"><b>Итого </b></p></td>
+<td width="118" valign="top">
+<p>8</p></td>
+<td width="118" valign="top">
+<p>20</p></td></tr></tbody></table>
+<p>Приведённая таблица иллюстрирует алгоритм подсчёта коэффициента схожести двух строк. Для строк "test" и "text" и длины </p>
+</body>
+</html></p></body></html>

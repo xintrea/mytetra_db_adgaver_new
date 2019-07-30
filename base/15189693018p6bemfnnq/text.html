@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="page-header">
+<h1 itemprop="headline">
+				Двоичное (бинарное) и текстовое сравнение строк в VBA			</h1>
+</div>
+<dl class="article-info muted">
+<dt class="article-info-term">
+									Подробности							</dt>
+<dd class="category-name">
+																		Категория: <a href="http://macros-vba.ru/knigi/vba" itemprop="genre">Основы VBA</a>	</dd>
+<dd class="published">
+<span class="icon-calendar" aria-hidden="true"></span>
+<time datetime="2013-01-17T09:36:31+00:00" itemprop="datePublished">
+					Опубликовано: 17 января 2013				</time>
+</dd>
+</dl>
+<div itemprop="articleBody">
+<p style="text-align: justify;"><span style="text-align: justify;">В 
+языке Visual Basic for Applications (VBA) одна строка равно другой 
+только в том случае, если обе строки имеют одинаковую длину и содержат 
+одинаковые символы в одинаковом порядке. При сравнении строк, VBA 
+распознает начальные и конечные символы пробела. VBA сравнивает строки 
+слева направо и делает это посимвольно.</span></p>
+<p style="text-align: justify;">Как известно, при сохранении текста 
+компьютер использует схему, в которой каждый символ имеет свой 
+уникальный номер, называемый кодом символа. Обычно буквы верхнего 
+регистра (например, А-Я) имеют меньшие номера, чем буквы нижнего 
+регистра (например, а-я). При сравнении строк, VBA позволяет 
+использовать два метода сравнения символов разных регистров – бинарный 
+(или двоичный) и текстовый. Бинарный метод является методом, 
+используемым VBA по умолчанию. При его выполнении сравниваются бинарные 
+эквиваленты чисел для каждого символа и поскольку коды для букв верхнего
+ регистра меньше кодов для букв нижнего регистра, то строка «ААА» меньше
+ строки «ааа».</p>
+<p style="text-align: justify;">При текстовом сравнении VBA не 
+использует двоичный эквивалент для каждого символа и рассматривает буквы
+ верхнего регистра как эквиваленты буквам нижнего регистра, при таком 
+сравнении строка «ААА» равна строке «ааа». </p>
+<h2 style="text-align: center;" align="center"><b><i>Выбор метода сравнения строк</i></b></h2>
+<p style="text-align: justify;">Выбор метода сравнения строк 
+производится при помощи директивы Option Compare, которая используется 
+только на модульном уровне и влияет только на сравнения, выполняемые 
+процедурами в этом отдельном модуле. Директиву Option Compare обычно 
+помещают перед объявлениями переменных или процедур. Если команда Option
+ Compare отсутствует, то VBA использует для сравнения строк двоичный 
+метод.</p>
+<p style="text-align: justify;">Чтобы задать двоичное сравнение строк, используется ключевое слово Binary: </p>
+<p></p><div style="overflow: hidden; display: block; height: auto; width: auto;"><div id="highlighter_259995" class="syntaxhighlighter "><div class="lines"><div class="line alt1"><code class="number">1.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">Option</code> <code class="plain">Compare Binary</code></span></span></div></div></div></div><span style="text-align: justify;"></span><p></p>
+<p style="text-align: justify;">Чтобы задать текстовое сравнение строк, используется ключевое слово Text:</p>
+<p style="text-align: justify;"> </p><div style="overflow: hidden; display: block; height: auto; width: auto;"><div id="highlighter_757540" class="syntaxhighlighter "><div class="lines"><div class="line alt1"><code class="number">1.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">Option</code> <code class="plain">Compare Text</code></span></span></div></div></div></div><p></p>
+<p style="text-align: justify;">	</p><div class="moduletable">
+<h3>Другие материалы по теме:</h3>
+<ul class="relateditems">
+<li>
+<a href="http://macros-vba.ru/knigi/vba/126-sravnenie-v-vba-operatsii-sravneniya">
+				Операции сравнения в VBA</a>
+</li>
+<li>
+<a href="http://macros-vba.ru/knigi/vba/133-operator-vba-like-sravnenie-stroki-s-shablonom-nechetkij-poisk">
+				Like - оператор VBA для сравнения строки с шаблоном. Нечеткий поиск</a>
+</li>
+<li>
+<a href="http://macros-vba.ru/nadstrojki/excel/183-diapazon-excel">
+				Диапазон Excel. Выделение, сравнение, изменение диапазонов значений</a>
+</li>
+<li>
+<a href="http://macros-vba.ru/nadstrojki/excel/171-kak-sravnit-dva-stolbtsa-ili-diapazona-v-excel">
+				Как сравнить два столбца/диапазона в Excel 2007/2010/2013/2016?</a>
+</li>
+<li>
+<a href="http://macros-vba.ru/video/excel/185-video-po-bystromu-sravneniyu-dvuh-diapazonov">
+				Видео по быстрому сравнению двух диапазонов в Excel</a>
+</li>
+</ul>
+</div></div>
+</body>
+</html></p></body></html>

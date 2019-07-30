@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Нечеткое сравнение строк </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="art_content"></a><span style=" font-weight:600;">А</span><span style=" font-weight:600;">ргументы:</span> <span style=" font-weight:600;">lngMaxLen</span> - максимальная длина сравниваемых подстрок (читайте описание алгоритма сравнения строк), <span style=" font-weight:600;">strStringMatching</span>- первая строка, <span style=" font-weight:600;">strStringStandart </span>- вторая строка, <span style=" font-weight:600;">lngCase</span> - тип сравнения (с учётом регистра или без учёта) <br /><span style=" font-weight:600;">Назначение: </span>Нечеткое сравнение двух строк <br /><span style=" font-weight:600;">Возвращает:</span> Возвращает коэффициент совпадения строк от 0 до 100 ( 0 - строки не совпадают, 100 - полное совпадение). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public Type RetCount <br />lngSubRows As Long <br />lngCountLike As Long <br />End Type </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public Function IndistinctMatching(lngMaxLen As Long, strStringMatching As String, strStringStandart As String, lngCase As Long) As Long <br />Dim gret As RetCount <br />Dim tret As RetCount <br />Dim lngCurLen As Long  </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If lngMaxLen = 0 Or Len(strStringMatching) = 0 Or Len(strStringStandart) = 0 Then <br />    IndistinctMatching = 0 <br />    Exit Function <br />End If <br />gret.lngCountLike = 0 <br />gret.lngSubRows = 0 <br />For lngCurLen = 1 To lngMaxLen <br />    tret = MatchingStrings(strStringMatching, strStringStandart, lngCurLen, lngCase) <br />    gret.lngCountLike = gret.lngCountLike + tret.lngCountLike <br />    gret.lngSubRows = gret.lngSubRows + tret.lngSubRows <br />    tret = MatchingStrings(strStringStandart, strStringMatching, lngCurLen, lngCase) <br />    gret.lngCountLike = gret.lngCountLike + tret.lngCountLike <br />    gret.lngSubRows = gret.lngSubRows + tret.lngSubRows <br />Next lngCurLen <br />If gret.lngSubRows = 0 Then <br />    IndistinctMatching = 0 <br />    Exit Function <br />End If <br />IndistinctMatching = (gret.lngCountLike / gret.lngSubRows) * 100 <br />End Function </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public Function MatchingStrings(strA As String, strB As String, lngLen As Long, lngCase As Long) As RetCount <br />Dim tret As RetCount <br />Dim y As Long, z As Long <br />Dim strta As String <br />Dim strtb As String </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">For z = 1 To Len(strA) - lngLen + 1 <br />    strta = Mid(strA, z, lngLen) <br />    y = 1 <br />    For y = 1 To Len(strB) - lngLen + 1 <br />        strtb = Mid(strB, y, lngLen) <br />        If StrComp(strta, strtb, lngCase) = 0 Then <br />            tret.lngCountLike = tret.lngCountLike + 1 <br />            Exit For <br />        End If <br />    Next y <br />    tret.lngSubRows = tret.lngSubRows + 1 <br />Next z <br />MatchingStrings.lngCountLike = tret.lngCountLike <br />MatchingStrings.lngSubRows = tret.lngSubRows <br />End Function </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Алгоритм сравнения строк</span> <br />Функция нечёткого сравнения использует в качестве аргументов две строки и параметр сравнения - максимальную длину сравниваемых подстрок. Результатом работы функции является число, лежащее в пределах от 0 до 1. 0 соответствует полному несовпадению двух строк, а 1 - полной (в определённом ниже смысле) их идентичности. <br />Сравнение строк происходит по следующей схеме. Пусть, например, в качестве аргументов заданы две строки &quot;test&quot; и &quot;text&quot; и некоторая максимальная длина подстрок, скажем, 4. Функция сравнения составляет все возможные комбинации подстрок с длинной вплоть до указанной и подсчитывает их совпадения в двух сравниваемых строках. Количество совпадений, разделённое на число вариантов, объявляется коэффициентом схожести строк и выдаётся в качестве результата работы функции. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Продолжим пример. </p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="118" style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваемая подстрока</p></td>
+<td width="118" style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Подстроки второй строки</p></td>
+<td width="118" style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Есть совпадение?</p></td>
+<td width="118" style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество совпадений</p></td>
+<td width="118" style=" vertical-align:top;">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество вариантов</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку test со строкой text по подстрокам длины 1.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, x, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td>
+<td rowspan="4">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td rowspan="4">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">e</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, x, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">s</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, x, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, x, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку text со строкой test по подстрокам длины 1.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, s, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td>
+<td rowspan="4">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td rowspan="4">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">e</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, s, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">x</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, s, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t, e, s, t</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку test со строкой text по подстрокам длины 2.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, ex, xt</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td>
+<td rowspan="3">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td rowspan="3">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">es</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, ex, xt</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">st</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, ex, xt</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку text со строкой test по подстрокам длины 2.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, es, st</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">да</p></td>
+<td rowspan="3">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td rowspan="3">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ex</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, es, st</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xt</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">te, es, st</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку test со строкой text по подстрокам длины 3.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tes</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tex, ext</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td>
+<td rowspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<td rowspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">est</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tex, ext</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку text со строкой test по подстрокам длины 3.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tex</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tes, est</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td>
+<td rowspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<td rowspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ext</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tes, est</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку test со строкой text по подстрокам длины 4.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">test</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">text</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td></tr>
+<tr>
+<td colspan="5" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравниваем строку text со строкой test по подстрокам длины 4.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">text</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">test</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">нет</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td></tr>
+<tr>
+<td colspan="3" style=" vertical-align:top;">
+<p align="right" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Итого </span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">20</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Приведённая таблица иллюстрирует алгоритм подсчёта коэффициента схожести двух строк. Для строк &quot;test&quot; и &quot;text&quot; и длины максимальной подстроки, равной 4, мы получили значения коэффициента, равное 8/20, то есть 0,4. Если ограничиться подстроками меньшей длины, то мы будем получать другие коэффициенты: например, для подстрок единичной длины результатом будет 6/8 или 0,75. Заметим, что если в качестве длины максимальной подстроки задавать значения, большие 4, результат не будет изменяться: в самом деле, ведь в указанных строках нет подстрок большей длины. <br />Увеличение длины максимальной подстроки незначительно увеличивает время работы функции (вообще, следует заметить, что сравнение выполняется достаточно быстро). С другой стороны, поиск становится более чётким. Пожалуй, оптимального значения длины максимальной подстроки нет, но я рекомендую задавать его равным 2-3. <br /><span style=" font-weight:600;"><br />Пример:</span> <br />1. Сравнение с учетом регистра <br />If IndistinctMatching(4, &quot;test&quot;, &quot;TEXT&quot;, vbBinaryCompare) &gt; 40 Then ... <br />2. Сравнение без учета регистра <br />If IndistinctMatching(4, &quot;test&quot;, &quot;TEXT&quot;, vbTextCompare) &gt; 40 Then ... </p></body></html>

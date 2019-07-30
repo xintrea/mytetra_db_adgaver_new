@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="container"></a><a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">p</span></a><span style=" text-decoration: underline; color:#0000ff;">ython-scripts.com</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-title"></a>Работа с датой и временем в Python </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="reader-credits"></a>автор </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="meta-data"></a>10-14 минут </p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="moz-reader-content"></a>Python содержит несколько инструментов, которые разработчик может использовать для <span style=" font-weight:600;">работы с датой и временем</span>. В данном разделе статье мы рассмотрим модули <span style=" font-weight:600;">datetime</span> и <span style=" font-weight:600;">time</span>. Мы изучим принципы их работы и способы их применения. Начнем с модуля <span style=" font-weight:600;">datetime</span>.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Модуль datetime</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы изучим следующие классы модуля:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">datetime.date</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">datetime.timedelta</li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">datetime.datetime</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Благодаря этим классам мы в будущем сможем работать с большей частью случаев, в которых нам понадобятся объекты <span style=" font-weight:600;">date</span> и <span style=" font-weight:600;">datetime</span>. Также существует класс <span style=" font-weight:600;">tzinfo</span>, который применяется для работы с часовыми поясами. Для дополнительной информации об этом классе вы можете обратиться к <a href="https://docs.python.org/2/library/datetime.html"><span style=" text-decoration: underline; color:#0000ff;">документации Python</span></a>.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">datetime.date</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Python может представлять даты различными способами. Для начала, рассмотрим формат <span style=" font-weight:600;">datetime.date</span>, так как это один из самых простых объектов <span style=" font-weight:600;">date</span>. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632155104002096"></a>print( datetime.date(2012, 13, 14) )</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632155104002096-3"></a>Traceback (most recent call last):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632155104002096-4"></a>    File &quot;&lt;string&gt;&quot;, line 1, in &lt;fragment&gt;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632155104002096-5"></a>builtins.ValueError: month must be in 1..12</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563216b755269467"></a>print(datetime.date(2012, 12, 14)) # datetime.date(2012, 12, 14)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данном коде показано, как создать простой объект даты. <a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">Класс date</span></a> принимает три аргумента: год, месяц и день. Если вы укажите неправильное значение, вы увидите ошибку <a href="https://python-scripts.com/try-except-finally"><span style=" text-decoration: underline; color:#0000ff;">ValueError</span></a>, как в случае выше. В противном случае вы увидите, что объект <span style=" font-weight:600;">datetime.date</span> вернулся. Давайте взглянем на еще один пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632178236908741"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632178236908741-2"></a>d = datetime.date(2012, 12, 14)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632178236908741-4"></a>print(d.year) # 2012</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632178236908741-5"></a>print(d.day)  # 14</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632178236908741-6"></a>print(d.month) # 12</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь мы присваиваем объекту <span style=" font-weight:600;">date</span> переменную <span style=" font-weight:600;">d</span>. Теперь мы можем получить доступ к различным компонентам даты по названиям, таким как <span style=" font-weight:600;">d.year</span> или <span style=" font-weight:600;">d.month</span>. Давайте посмотрим, какой сейчас день: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632183707402632"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632183707402632-3"></a>print(datetime.date.today()) # datetime.date(2017, 4, 5)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это может быть полезно, когда вам нужно записать, какой сейчас день. Или, если вам нужно выполнить основанный на сегодняшней дате расчет. Мелочь, а приятно.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">datetime.datetime</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект <a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">datetime</span></a>.datetime содержит всю информацию объектов <span style=" font-weight:600;">datetime.date</span> плюс <span style=" font-weight:600;">datetime.time</span>. Давайте приведем несколько примеров, для лучшего понимания разницы между этим объектом, и объектом <span style=" font-weight:600;">datetime.date</span>. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-3"></a>a = datetime.datetime(2017, 3, 5)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-4"></a>print(a) # datetime.datetime(2017, 3, 5, 0, 0)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-6"></a>b = datetime.datetime(2017, 3, 5, 12, 30, 10)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-7"></a>print(b) # datetime.datetime(2017, 3, 5, 12, 30, 10)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-9"></a>d = datetime.datetime(2017, 3, 5, 12, 30, 10)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-10"></a>print(d.year) # 2017</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-11"></a>print(d.second) # 10</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563218f040843977-12"></a>print(d.hour) # 12</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы видим, что <span style=" font-weight:600;">datetime.datetime</span> принимает несколько дополнительных аргументов: <span style=" font-style:italic;">год, месяц, день, час, минута и секунда</span>. Это также позволяет вам указывать информацию о <span style=" font-weight:600;">микросекундах</span> и <span style=" font-weight:600;">часовом поясе</span>. При работе с базами данных, данные типы объектов будут использоваться достаточно часто. Большую часть вашей работы, вам нужно будет конвертировать форматы <span style=" font-weight:600;">date</span> или <a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">datetime Python</span></a> в форматы <span style=" font-weight:600;">SQL datetime</span> или timestamp. Обратите внимание на то, что <span style=" font-weight:600;">today</span> совместно с datetime.datetime использует два разных метода: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563219b758233249"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563219b758233249-3"></a>a = datetime.datetime.today()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563219b758233249-4"></a>print(a) # datetime.datetime(2017, 4, 5, 0, 16, 54, 989663)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563219b758233249-6"></a>b = datetime.datetime.now()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563219b758233249-7"></a>print(b) # datetime.datetime(2017, 4, 5, 0, 17, 8, 24239)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Модуль datetime</span> содержит другой метод, под названием <span style=" font-weight:600;">strftime</span>. Этот метод позволяет разработчику создавать строку, отображающую время в более понятной для человека форме. Существует целая таблица параметров форматирования, с которой рекомендуется ознакомиться в документации Python, в <a href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior"><span style=" text-decoration: underline; color:#0000ff;">секции 8.1.7</span></a>. Давайте взглянем на несколько примеров, показывающих всю полезность данного метода: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122-3"></a>a = datetime.datetime.today().strftime(&quot;%Y%m%d&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122-4"></a>print(a) # '20170405'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122-6"></a>today = datetime.datetime.today()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122-7"></a>print( today.strftime(&quot;%m/%d/%Y&quot;) ) # '04/05/2017'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321a7527585122-9"></a>print( today.strftime(&quot;%Y-%m-%d-%H.%M.%S&quot;) ) # 2017-04-05-00.18.00</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первый пример – это скорее хитрость. В нем показано, как конвертировать сегодняшний <span style=" font-weight:600;">объект datetime в строку</span>, следующую за форматом <span style=" font-weight:600;">YYYYMMDD</span> (ГГГГММДД). Второй пример более наглядный. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В нем мы присваиваем объект <span style=" font-weight:600;">datetime</span> переменной под названием today и применяем два разных параметра форматирования строки. Первый параметр добавляет косые черточки между элементами datetime, а также перегруппировывает datetime, теперь он делится на месяц, день и год. В последнем примере мы создаем временную отметку, которая следует типичному формату: YYYY-MM-DD.HH.MM.SS. Если вам нужно указать год как двухзначный (“YY”), вы можете заменить %Y на %y.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">datetime.timedelta</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект <span style=" font-weight:600;">datetime.timedelta</span> отображает длительность времени. Другими словами, это <span style=" font-weight:600;">разница между двумя датами</span> или временными отметками. Давайте взглянем на наглядный пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639"></a>import datetime</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-3"></a># Значение: datetime.datetime(2017, 4, 5, 0, 18, 51, 980187)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-4"></a>now = datetime.datetime.now()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-6"></a>then = datetime.datetime(2017, 2, 26)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-8"></a># Кол-во времени между датами.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-9"></a>delta = now - then</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-11"></a>print(delta.days) # 38</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321b6894930639-12"></a>print(delta.seconds) # 1131</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Мы создали два <span style=" font-weight:600;">объекта datetime</span>. Один указывает на сегодняшний день, второй – на прошедшую неделю. После этого, мы берем разницу между ними. Это возвращает <span style=" font-weight:600;">объект timedelta</span>, который мы можем далее использовать, чтобы выяснить, сколько прошло дней или секунд, между этими двумя датами. Если вам нужно узнать количество часов или минут между двумя датами, вам понадобится немножко математики, чтобы выяснить это. Давайте взглянем на проверенный способ: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321c2581200543"></a>seconds = delta.total_seconds()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321c2581200543-2"></a>hours = seconds // 3600</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321c2581200543-4"></a>print(hours) # 186.0</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321c2581200543-6"></a>minutes = (seconds % 3600) // 60</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321c2581200543-7"></a>print(minutes) # 13.0</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отсюда мы узнаем, что в неделе 186 часов и 13 минут. Обратите внимание на то, что мы используем двойную косую черту в качестве нашего <span style=" font-weight:600;">оператора деления</span>, также известного как <span style=" font-weight:600;">floor division</span>. Теперь мы готовы к тому, чтобы узнать больше о модуле <a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">time Python</span></a>.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Модуль time</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://python-scripts.com/datetime-time-python"><span style=" text-decoration: underline; color:#0000ff;">Модуль time</span></a> открывает разработчику Python доступ к нескольким связанным со временем функциям. Модуль основан на «эпохе», точке, с которой начинается время. Для систем Unix, эпоха началась в 1970 году. Чтобы узнать, какая эпоха в вашей системе, попробуйте запустить следующий код: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321ce999433865"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321ce999433865-2"></a>print(time.gmtime(0))</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321d9434480692"></a>time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, tm_hour=0, tm_min=0, tm_sec=\</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321d9434480692-2"></a>0, tm_wday=3, tm_yday=1, tm_isdst=0)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Я запустил его на <span style=" font-weight:600;">Windows 7</span>, которая также уверена в том, что начало времен датируется 1970м годом. В любом случае, в данном разделе мы ознакомимся со следующими функциями:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style="" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">time.ctime</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">time.sleep</li>
+<li style="" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">time.strftime</li>
+<li style="" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">time.time</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Приступим! </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">time.ctime</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция <span style=" font-weight:600;">time.ctime</span> конвертирует <span style=" font-weight:600;">время в секунды</span>, начиная с эпохи, в строку, показывающую местное время. Если вы ничего не передадите данной функции, то настоящее время вернется обратно. Давайте взглянем на несколько примеров: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321e6890576248"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321e6890576248-2"></a>print(time.ctime()) # 'Wed Apr 5 00:02:49 2017'</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321e6890576248-4"></a>print(time.ctime(1384112639)) # 'Sun Nov 10 13:43:59 2013'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В данном коде мы показали результаты вызова функции <span style=" font-weight:600;">time.ctime</span>, как со случайным набором секунд, начиная с эпохи, так и с пустным значением. Это можно применить, к примеру, в том случае, кода кому-нибудь нужно <span style=" font-weight:600;">сохранить дату в секундах</span>, начиная с эпохи, после чего конвертировать это в более удабриваемый формат. Немного проще, сохранить большое целое число (или длинное) в базу данных, чем страдать над ним, форматируя объект datetime в какой-либо объект даты, который принимает база данных. Конечно, это также имеет свой недостаток: вам, возможно, нужно будет преобразовать целое число или значение с плавающей запятой обратно в строку.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">time.sleep</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция <span style=" font-weight:600;">time.sleep</span> дает разработчику возможность <span style=" font-weight:600;">приостановить выполнение его скрипта</span> на определенное количество секунд. Это можно сравнить с добавлением функции «<span style=" font-weight:600;">Пауза</span>» в вашу программу. Я нашел этот класс особенно полезным, когда мне нужно было подождать несколько секунд, пока закроется файл, или база данных закончит выполнять свою задачу. Давайте взглянем на пример. Откройте новое окно в IDLE и сохраните следующий код: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321f3956478850"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321f3956478850-3"></a>for x in range(5):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321f3956478850-4"></a>    time.sleep(2)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee56321f3956478850-5"></a>    print(&quot;Slept for 2 seconds&quot;)</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь запустите этот код в IDLE. Сделав это, вы увидите фразу «<span style=" font-weight:600;">Slept for 2 seconds</span>» пять раз, с интервалом в 2 секунды между каждым сообщением. Это очень легко в использовании!</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">time.strftime</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Модуль <span style=" font-weight:600;">time</span> имеет функцию <span style=" font-weight:600;">strftime</span>, которая работает по схожему с версией datetime принципу. Разница заключается, главным образом, в том, что именно она принимает для ввода: кортеж, или объект <span style=" font-weight:600;">struct_time</span>, вроде тех, которые возвращаются после вызова <span style=" font-weight:600;">time.gmtime</span>() или <span style=" font-weight:600;">time.localtime</span>(). Вот небольшой пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632201326139719"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632201326139719-3"></a>a = time.strftime(&quot;%Y-%m-%d-%H.%M.%S&quot;, time.localtime())</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632201326139719-4"></a>print(a) # '2017-04-05-00.11.20'</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот код очень похож на код временной отметки, который мы создавали в разделе <span style=" font-weight:600;">datetime</span>. На мой взгляд, метод datetime более интуитивен при создании объекта datetime.datetime а затем при вызове его метода <span style=" font-weight:600;">strftime</span> в том формате, который вам более удобен. С модулем <span style=" font-weight:600;">time</span>, вам нужно передать формат и кортеж времени. На самом деле выбор за вами, каким именно способом вам будет удобнее решить вашу задачу.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">time.time</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция <span style=" font-weight:600;">time.time</span> отображает время в секундах, начиная с эпохи, как число с плавающей запятой. Давайте взглянем: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563220d545440274"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563220d545440274-3"></a>x = time.time()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee563220d545440274-4"></a>print(x) # 1491340367.478385</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Весьма просто. Вы можете использовать данную функцию, когда вам нужно сохранить настоящее время в базу данных, но вам не нужно конвертировать его в метод <span style=" font-weight:600;">datetime</span> вашей базы данных. Вы можете вспомнить о том, что метод ctime принимает время в секундах, так что мы можем использовать <span style=" font-weight:600;">time.time</span> для получения количества секунд для передачи их ctime, вот так: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632219977712058"></a>import time</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632219977712058-3"></a>a = time.ctime(time.time())</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a61ee5632219977712058-4"></a>print(a) # Wed Apr 5 00:13:47 2017</p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вы <a href="https://docs.python.org/2/library/time.html"><span style=" text-decoration: underline; color:#0000ff;">обратитесь к документации</span></a>, чтобы узнать больше о модуле time, или если вы хотите немного поэкспериментировать, вы найдете несколько способов использования данной функции.</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Подведем итоги</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">С этого момента вы готовы работать с датой и временем в стандартных модулях Python. Работая в Python, вы получаете широкий спектр возможностей при работе с датами. Вы найдете данные модули полезными, особенно при разработке приложения, которое отслеживает встречи, или должно срабатывать в определенные дни. Также они весьма полезны при работе с базами данных. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

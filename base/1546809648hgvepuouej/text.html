@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="page-header"><h1>Excel-SQL Server Import-Export using VBA</h1></div>
+<div>
+<p class="h2" id="Introduction">Introduction</p>
+<p>There are <strong>two ways to import SQL Server data into Microsoft Excel using VBA</strong>:</p>
+<ol>
+<li>To create a <strong>QueryTable connected to a database</strong> table using Excel or VBA.</li>
+<li>To <strong>insert database data to a range</strong> using ADO Recordset or Excel add-ins.</li>
+</ol>
+<p>The QueryTable object has a native Excel feature to refresh data.</p>
+<p>To refresh data inserted using ADO, just insert the data again.</p>
+<p>There are <strong>two ways to export Excel data to SQL Server using VBA</strong>:</p>
+<ol>
+<li>To <strong>use ADO</strong>.</li>
+<li>To <strong>use Excel add-ins</strong> that allow saving data and support VBA integration.</li>
+</ol>
+<p>You may download the example and continue reading when you try the code.</p>
+<p><a href="https://www.excel-sql-server.com/downloads/import-export-excel-sql-server-vba_19.zip" data-vars-event-action="download" data-vars-event-label="_download-examples_export_vba" class="btn btn--small">Download Example</a></p>
+<p>The attached VBA code example works in Microsoft Excel 2003-2016.</p>
+<p>The example works with data in Microsoft Azure SQL Database. So, you can test the solution right after download.</p>
+<p class="h2" id="Before to continue">Before to continue</p>
+<p>This article was written in June 2011. It contains the tested code that you may use. I have a lot of thanks.</p>
+<p>I would like to recommend you to take a look at my e-book "<strong>Excel Applications. 10 Steps for VBA Developers</strong>."</p>
+<p>You may also download the workbook examples and the SaveToDB add-in used as a <strong>free VBA library</strong>.</p>
+<p>With the SaveToDB add-in, you may create more functional VBA applications with fewer efforts.</p>
+<p>For example, you may save data changes from Excel to a database using a single call like GetAddIn().Save.</p>
+<p><a href="https://www.savetodb.com/downloads/10-steps-for-vba-developers.pdf" data-vars-event-action="download" data-vars-event-label="_download-ebook_10_vba_steps" class="btn btn--small">E-book</a>
+ <a href="https://www.savetodb.com/downloads/10-steps-for-vba-developers.zip" data-vars-event-action="download" data-vars-event-label="_download-zip_10_vba_steps" class="btn btn--small">E-book Examples</a>
+ <a href="https://www.savetodb.com/downloads/en_savetodb_818.zip" data-vars-event-action="download" data-vars-event-label="_download-savetodb" class="btn btn--small">SaveToDB Add-In</a></p>
+<p class="h2">Table of Contents</p>
+<ul class="contents">
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#Introduction" data-vars-event-label="#Introduction">Introduction</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SQLServerDataImporttoExcelusingQueryTable" data-vars-event-label="#SQLServerDataImporttoExcelusingQueryTable">SQL Server Data Import to Excel using QueryTable</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionImportSQLtoQueryTable" data-vars-event-label="#FunctionImportSQLtoQueryTable">Function ImportSQLtoQueryTable</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SQLServerDataImporttoExcelusingQueryTableTestCode" data-vars-event-label="#SQLServerDataImporttoExcelusingQueryTableTestCode">Test Code</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SQLServerDataImporttoExcelusingADO" data-vars-event-label="#SQLServerDataImporttoExcelusingADO">SQL Server Data Import to Excel using ADO</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionImportSQLtoRange" data-vars-event-label="#FunctionImportSQLtoRange">Function ImportSQLtoRange</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SQLServerDataImporttoExcelusingADOTestCode" data-vars-event-label="#SQLServerDataImporttoExcelusingADOTestCode">Test Code</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SQLServerDataImporttoExcelusingSaveToDBAddIn" data-vars-event-label="#SQLServerDataImporttoExcelusingSaveToDBAddIn">SQL Server Data Import to Excel using SaveToDB Add-In</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ProcedureTestImportUsingSaveToDB" data-vars-event-label="#ProcedureTestImportUsingSaveToDB">Procedure TestImportUsingSaveToDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ExcelDataExporttoSQLServerusingADO" data-vars-event-label="#ExcelDataExporttoSQLServerusingADO">Excel Data Export to SQL Server using ADO</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionExportRangeToSQL" data-vars-event-label="#FunctionExportRangeToSQL">Function ExportRangeToSQL</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ExcelDataExporttoSQLServerTestCode" data-vars-event-label="#ExcelDataExporttoSQLServerTestCode">Test Code</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ExcelDataExporttoSQLServerusingSaveToDBAddIn" data-vars-event-label="#ExcelDataExporttoSQLServerusingSaveToDBAddIn">Excel Data Export to SQL Server using SaveToDB Add-In</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ProcedureTestExportUsingSaveToDB" data-vars-event-label="#ProcedureTestExportUsingSaveToDB">Procedure TestExportUsingSaveToDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#ConnectionStringFunctions" data-vars-event-label="#ConnectionStringFunctions">Connection String Functions</a>
+<ul>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionOleDbConnectionString" data-vars-event-label="#FunctionOleDbConnectionString">Function OleDbConnectionString</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionGetTestConnectionString" data-vars-event-label="#FunctionGetTestConnectionString">Function GetTestConnectionString</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#FunctionGetTestQuery" data-vars-event-label="#FunctionGetTestQuery">Function GetTestQuery</a></li>
+</ul>
+</li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#Conclusion" data-vars-event-label="#Conclusion">Conclusion</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#SeeAlso" data-vars-event-label="#SeeAlso">See Also</a></li>
+<li><a href="https://www.excel-sql-server.com/excel-sql-server-import-export-using-vba.htm#Download" data-vars-event-label="#Download">Download</a></li>
+</ul></div>
+</body>
+</html></p></body></html>

@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Язык визуального программирования приложений Visual Basic for Applications</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Основные объекты VBA</span></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Объекты Range и Selection</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://bourabai.ru/einf/vba/2-04.htm#15"><span style=" text-decoration: underline; color:#0000ff;">Адресация ячеек </span></a></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://bourabai.ru/einf/vba/2-04.htm#16"><span style=" text-decoration: underline; color:#0000ff;">Задание групп строк и столбцов с помощью объекта Range</span></a> </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://bourabai.ru/einf/vba/2-04.htm#17"><span style=" text-decoration: underline; color:#0000ff;">Связь объекта Range и свойства Cells</span></a> </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://bourabai.ru/einf/vba/2-04.htm#18"><span style=" text-decoration: underline; color:#0000ff;">Свойства и методы объекта Range</span></a> </li></ul></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">В иерархии Excel объект Range (диапазон) идет сразу после объекта worksheet. Объект Range является одним из ключевых объектов VBA. Объект Selection (выбор) возникает в VBA двояко — либо как результат работы метода Select, либо при вызове свойства selection. Тип получаемого объекта зависит от типа выделенного объекта. Чаще всего объект Selection принадлежит классу Range и при работе с ним можно использовать свойства и методы объекта Range. Интересной особенностью объектов Range и selection является то, что они не являются элементами никакого семейства объектов.<br /></span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Адресация ячеек</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">При работе с объектом Range необходимо помнить, как в Excel ссылаются на ячейку рабочего листа. Имеются два способа ссылки на ячейки рабочего листа: относительная адресация (т. е. когда начало координат, задающее нумерацию строк и столбцов, связывается с объектом, вызвавшим Range) и абсолютная адресация.<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Относительная адресация:<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="126" style=" vertical-align:top;"></td>
+<td width="494" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Формат А1</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Имя ячейки состоит из имени столбца (их 256 — А, В, ..., Z, АВ, ..., HZ, IA, ..., IV) и номера (1, ...., 16384).</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial, Times, serif'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Например, A1, C2<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Формат R1C1<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Адресация задается индексом строки и индексом столбца. Например, R1C1, R2C3<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Абсолютная адресация:<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="138" style=" vertical-align:top;"></td>
+<td width="479" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Формат А1<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Признаком абсолютной адресации является знак &quot;$&quot;, предшествующий имени строки (абсолютной адресации на строку) или столбца (абсолютной адресации на столбец). Например, $А10, А$10 и $А$10 задают абсолютную адресацию на столбец А, строку 10 и ячейку А10 соответственно<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Формат R1C1<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Указывается смещение по отношению к активной ячейке. Смещение приводится в квадратных скобках, причем знак указывает на направление смещения. Например, если активной ячейкой является касз, то R[i]C[-1] дает ссылку на ячейку кзс2<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Адресация ячейки рабочего листа является лишь частью полного адреса ячейки, который в общем случае включает имя рабочего листа и адрес книги. При задании полного адреса за именем листа следует знак &quot;!&quot;, а адрес книги заключается в скобки. Например,<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">А1<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Лист2!А1<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">[МояКнига.хls]Лист2!А1</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">В первой строке данного примера дана относительная ссылка на ячейку AI активного рабочего листа, во второй — на ячейку AI рабочего листа листа активной книги, а в третьей на ячейку AI рабочего листа лист2 книги моякнига-xls текущего рабочего каталога.<br /></span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Задание групп строк и столбцов с помощью объекта Range</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Если в диапазоне указываются только имена столбцов или строк, то объект Range задает диапазон, состоящий из указанных столбцов или строк. Например, Range (&quot;А: с&quot;) задает диапазон, состоящий из столбцов А, в и с, а Range {&quot;2: 2&quot;) - из второй строки. Другим способом работы со строками и столбцами являются методы ROWS (строки) и Columns (столбцы), возвращающие коллекции строк и столбцов. Например, столбцом А является columns (1), а второй строкой - ROWS (2).<br /></span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Связь объекта Range и свойства Cells</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Так как ячейка является частным случаем диапазона, состоящим только из единственной ячейки, объект Range также позволяет работать с ней. Объект cells (ячейки) — это альтернативный способ работы с ячейкой. Например, ячейка А2 как объект описывается Range (&quot;A2&quot;) или cells (1,2). В свою очередь объект ceils, вкладываясь в Range, также позволяет записывать диапазон в альтернативном виде, который иногда удобен для работы, а именно,<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range (&quot;А2:C3&quot;) И Range(Cells(1,2), Cells(3,3)) </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Определяют один и тот же диапазон.<br /></span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="18"></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">С</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">войства и методы объекта Range</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Объект Range позволяет сочетать гибкость VBA и мощь рабочего листа Excel. Более 400 встроенных функций рабочего листа существенно упрощают и делают более наглядным программирование на VBA.<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Далее приводятся наиболее часто используемые свойства и методы объекта<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range.</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Перечислим основные свойства объекта Range.<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="151" style=" vertical-align:top;"></td>
+<td width="467" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Value<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает значение из ячейки или в ячейки диапазона. В данном примере переменной х присваивается значение из ячейки C1 :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">х = Range (&quot;C1&quot;) .Value В следующем примере в диапазон AI : В2 введена 1 :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Range (&quot;A1:B2&quot;) .Value = 1<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Name<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает имя диапазона. В данном примере диапазону А1:В2 присваивается имя итоги:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Range ( &quot;Al :B2&quot;) .Name = &quot;Итоги&quot;<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Count<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает число объектов в наборе. В данном примере переменной х присваивается значение, равное числу строк диапазона AI : В2 :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">х = Range ( &quot;Al :B2&quot;) .Rows . Count<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">CurrentRegion<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает число строк текущего диапазона. Текущим является диапазон, ограниченный пустыми строками и столбцами и содержащий данный элемент. В следующем примере переменной у присваивается значение, равное числу строк в текущем диапазоне, содержащем ячейку AI :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">у = Range ( &quot;Al&quot; ). CurrentRegion. Rows . Count<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">WrapText<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Позволяет переносить текст при вводе в диапазон. Допустимые значения True и False. В следующем примере в ячейку В2 вводится текст длинный текст и в этой ; ячейке устанавливается режим ввода текста с переносом: With Range (&quot;B2&quot;) .Value = &quot;Длинный текст&quot; .WrapText = True End With<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="149" style=" vertical-align:top;"></td>
+<td width="466" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">EntireColumn, EntireRow<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает столбец и строку соответственно. В данном примере очищается содержимое строки и выделяется столбец с активной ячейкой:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">ActiveCell . EntireRow. Clear ActiveCell .EntireColumn. Select<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">ColumnWidth, RowHeight<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает ширину столбцов и высоту строк диапазона соответственно<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Comment<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает объект comment (примечание), который связан с левым верхним углом диапазона при отображении на экране. Объект comment является элементом семейства comments. Метод AddComment, примененный к диапазону, создает новое примечание. Среди методов объекта comment отметим только метод Text, который задает текст, выводимый в примечании. Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Text (Text, Start, Overwrite)</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Text — строка, выводимая в качестве примечания П start — с какого символа вводится текст в уже существующее примечание. Если аргумент опущен, то из примечания удаляется весь ранее введенный текст П overwrite — допустимые значения: True (вводимый текст записывается поверх уже существующего) и False (вводимый текст вставляется в уже существующий) Среди свойств объекта Comment отметим только свойство visible, устанавливающее отображение примечания при активизации диапазона, имеющего определенное примечание. В качестве примера рассмотрим следующие инструкции, которые создают и отображают примечание ячейки вз, поясняющее запланированное событие (рис. 3.1):<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">With Range (&quot;ВЗ&quot;) </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.AddComment </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.Text Text:= &quot;Чрезвычайно важно!&quot; &amp; Chr(10) &amp; &quot;Про это никак нельзя забыть ! &quot; </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.Visible = True End With</span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">  </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image17789.png" /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600; font-style:italic;">Рис. 2.1. </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">Пример отображения примечания на рабочем листе</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="138" style=" vertical-align:top;"></td>
+<td width="402" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Font<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает объект Font (шрифт). Объект Font имеет следующие свойства: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Name — строка, указывающая имя шрифта, например &quot;Arial Cyr&quot; </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">FontStyle — СТИЛЬ, возможен Regular (обычный), Bold (ПОЛУЖИРНЫЙ), Italic(курсив), Bold italic (полужирный курсив) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">size - размер </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">strikethrough — допустимы два значения: True (буквы имеют линию по центру, как будто они перечеркнуты) и False (не имеют линии по центру) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Superscript — допустимы два значения: True (текст используется как верхний индекс) и False (не используется как верхний индекс) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Subscript — допустимы два значения: True (текст используется как нижний индекс) и False (не используется как нижний индекс)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Underline-допустимыми являются значения: </li></ul>
+<ul type="circle" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlNone (нет подчеркивания) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlSingie (одинарное, по значению)<br /></li></ul></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="138" style=" vertical-align:top;"></td>
+<td width="402" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial, Times, serif'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;">
+<ul type="circle" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlDoubie (двойное, по значению) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlsingleAccounting (одинарное, по ячейке) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Accounting (двойное, но ячейке)<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Например, в следующем примере устанавливается для диапазона AI : в2 полужирный шрифт, красного цвета и с высотой символов 1 4 :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">With Range (&quot;A1:B2&quot;).Font </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.Size = 14 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.FontStyle = Bold </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">.Colorlndex = 3</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">End With<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Formula<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает формулу в формате Al. Например, следующая инструкция вводит в ячейку с2 формулу =$А$4+$А$ю:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range (&quot;C2&quot;) . Formula = &quot;=$А$4+$А$10&quot;</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">FormulaArray 1<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает формулу диапазона в формате А1. В отличие от обыкновенной формулы рабочего листа, формула диапазона вводится на рабочем листе не посредством нажатия на клавишу &lt;Enter&gt;, а с помощью комбинации клавиш &lt;Ctrl&gt;+&lt;Shift&gt;+&lt;Enter&gt;. Следующая инструкция вводит в диапазон Е!:ЕЗ формулу {=Sum(Al:A3*Bl:B3) }: </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range ( &quot;El :E3&quot;) .FormulaArray = &quot;=Sum(Al:A3*Bl:B3) &quot;</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">FormulaHidden<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Допустимые значения: True (формула спрятана, если рабочий лист или книга защищены) и False (в противном случае). Например, следующая инструкция скрывает формулы в столбце А: Columns (&quot;A&quot;) . FormulaHidden = True<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">FormulaLocal<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает неанглоязычные (местные) формулы в формате А1. Например, следующая инструкция вводит в ячейку В2 формулу =СУММ(С1:С4): </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range(&quot;B2&quot;). FormulaLocal = &quot;=СУММ (С1:С4) &quot;</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">JormulaRlCl<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает формулу в формате R1C1. Например,<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range (&quot;Bl&quot;) . FormulaRlCl = &quot;=SQRT (R3C2 ) &quot;</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">FormulaRlCl Local<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает неанглоязычные формулы в формате R1C1<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Text<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает содержание диапазона в текстовом формате<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="138" style=" vertical-align:top;"></td>
+<td width="402" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">HorizontalAlignment<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Горизонтальное выравнивание. Допустимые значения: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlceneral (обычное выравнивание, зависящее от типа вводимых значений) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlcenter (выравнивание по центру) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlRight (выравнивание по правому краю) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlLeft (выравнивание по левому краю) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xUustify (выравнивание по ширине) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlCenterAcrossSelection (выравнивание по центру в выделенном диапазоне)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlFill (выравнивание по ширине</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Vertical Alignment<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Вертикальное выравнивание. Допустимые значения:<br /></span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlBottom (выравнивание по нижнему краю), </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlcenter (выравнивание по центру), </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xUustify (выравнивание по высоте), </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlTop (выравнивание по верхнему краю)<br /></li></ul></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Orientation<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Ориентация. Допускается либо угол поворота текста в градусах от —90° до 90°, либо одно из допустимых значений: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlDownward (выравнивание по левому краю сверху вниз, соответствует углу —90°) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlHorizontal(выравнивание по горизонтали, соответствует нулевому углу ) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlupward (выравнивание по правому краю снизу вверх, соответствует углу 90°) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlvertical (выравнивание по вертикали, нет соответствия в градусах)<br /></li></ul></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">ShrinkToFit<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Допустимые значения: True (автоматическое изменение шрифта так, чтобы текст помещался в ячейку) и False (в противном случае)<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Ниже приведены наиболее часто используемые методы объекта Range.<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="161" style=" vertical-align:top;"></td>
+<td width="458" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Address<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает адрес ячейки. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Address (rowAbsolute, coluimAbsolute, referenceStyle, external, relativeTo)<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Аргументы:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RowAbsoiute — допустимы два значения True и False, если используется значение True или аргумент опущен, то возвращается абсолютная ссылка на строку </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ColumnAbsoiute — допустимы два значения True и False, если используется значение True или аргумент опущен, то возвращается абсолютная ссылка на столбец<br /></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ref erenceStyle — допустимы два значения xlAl и </li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">xiR1c1, если используется значение X1A1 или аргумент опущен, то возвращается ссылка в виде формата А1</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; vertical-align:super;"> </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">П external — допустимы два значения True и False, если используется значение False или аргумент опущен, то возвращается относительная ссылка</span></p>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">relativeTo — В случае, если rowAbsoiute и СolumnAbsoiute равны False, a referenceStyle X1R1C1, то данный аргумент определяет начальную ячейку диапазона, относительно которой производится адресация Следующий пример показывает различные результаты адресации. </li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">MsgBox Cells (1, 1). Address ()<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">'<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">' В диалоговом окне отображается адрес $А$1 MsgBox Cells (1, 1) .Address (rowAbsoiute:=False)<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">'<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">' В диалоговом окне отображается адрес $А1 '<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">MsgBox Cells (1, 1) .Address (ref erenceStyle :=x1R1C1) '<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">' В диалоговом окне отображается адрес R1C1 '</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="135" style=" vertical-align:top;"></td>
+<td width="404" style=" vertical-align:top;"></td>
+<td width="1" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Clear, ClearComments , Clear Contents, ClearFormats<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">И</span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Метод clear очищает диапазон. В следующем примере очищается диапазон Al :G37 . Range (&quot;A1:G37&quot;) .Clear<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Методы ClearComments, ClearContents, ClearFormats и ClearNotes очищают В диапазоне</span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">AutoFit<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Автоматически настраивает ширину столбца и высоту строки<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">ClearNotes<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">комментарии, содержание, форматы и примечания соответственно.<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Copy<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Копирует диапазон в другой диапазон или в буфер обмена.<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Copy (destination)</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Аргумент destination определяет диапазон, куда копируется данный диапазон. Если аргумент destination опушен, то копирование происходит в буфер обмена. В данном примере диапазон AI : D4 рабочего листа Лист! копируется в диапазон Е5:Н8 листа лист2:<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Worksheets (&quot;Лист1&quot; ) . Range ( &quot;А1 : D4 &quot; ) .Сору destination :=Worksheets (&quot;Лист2&quot;) .Range (&quot;E5&quot;)</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Cut<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Копирует диапазон с удалением в указанный диапазон или в буфер обмена, </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Cut (destination)</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Аргумент destination определяет диапазон, в который копируется данный диапазон. Если аргумент destination опущен, то диапазол копируется в буфер обмена. В данном примере диапазон AI : D4 рабочего листа лист! копируется с удалением в буфер обмена:<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Worksheets ( &quot;Лист1 &quot; ) . Range ( &quot;А1 : D4 &quot; ) . Cut</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Delete<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Удаляет диапазон. В данном примере удаляется третья строка активной рабочей страницы:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Rows (3) .Delete</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Columns, Rows<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращают соответственно семейства столбцов и строк, из которых состоит диапазон. В следующем примере переменным i и j присваиваются значения, равные количеству столбцов и строк в выделенном диапазоне соответственно:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">i = Selection. Columns . Count j = Selection. Rows . Count</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Insert<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Вставка ячейки или диапазона ячеек. В следующем примере вставляется новая строка перед четвертой строкой рабочего листа Лист1:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Worksheets ( &quot;Лист1&quot; ) . Rows (4 ) .Insert</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Offset<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Возвращает диапазон, смещенный относительно данного на величины, специфицированные в аргументах.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Of fset (rowOffset, columnOf f set )</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Аргументы: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">rowOffset — целое число, указывающее сдвиг по строкам </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">columnOf f set — целое число, указывающее сдвиг по столбцам Например, в следующем примере активизируется ячейка, расположенная на три строки ниже и на два столбца левее относительно предыдущей активной ячейки:<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">ActiveCell.Offset (rowOf fset :=3, columnOf fset : =-2) .Activate</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="135" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Select<br /></span></p></td>
+<td width="405" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Выделение диапазона<br /></span></p></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">PasteSpecial<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Специальная вставка из буфера обмена. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">BasteSpecial (paste, operation, skipBlanks, transpose) </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Аргументы: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Paste — определяет ту часть содержимого буфера обмена, которая должна быть вставлена в диапазон. Допустимые значения: </li>
+<ul type="circle" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlAll (все)<br /></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xl Formulas (формулы)<br /></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlvaiues (значения) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlFormats (форматы) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlNotes (примечания) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlAllExceptBorders (без рамки) </li></ul>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Operation — определяет операции.Допустимые значения:<br /></li>
+<ul type="circle" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlNone (нет) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlAdd (СЛОЖИТЬ)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlSubtract (ВЫЧИСТЬ)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlMultiply (УМНОЖИТЬ)<br /></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">xlDivide (разделить) </li></ul>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SkipBlanks — допустимые значения: True (пустые ячейки при вставке не учитываются) и False (пустые ячейки учитываются) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Transpose — допустимые значения True (диапазон выводится транспонированным) и False (не транспонированным)</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">В приведенном ниже примере данные из диапазона C1:C5 рабочего листа лист1 вставляются в диапазон D1 : D5 того же листа, причем они не заменяют уже существующие данные в диапазоне D1:D5, а прибавляются к ним данные из диапазона C1 : С5 :<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Worksheets ( &quot;Лист1 &quot; ) . Range ( &quot;С1 : С5 &quot; ) . Сору Worksheets (&quot;Лист1&quot;) .Range (&quot;D1: D5&quot;) . PasteSpecial operation : =xlAdd</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Метод PasteSpecial программирует выполнение на рабочем листе команды Правка, Специальная вставка (Edit, Paste Special). Аргументы метода PasteSpecial соответствуют установкам диалогового окна Специальная вставка (Paste Special), отображаемого с помощью этой команды (рис. 3.2)<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image7070.png" /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600; font-style:italic;">Рис. 2.2.</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;"> Диалоговое окно </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600; font-style:italic;">Специальная вставка</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="0" style=" vertical-align:top;"></td>
+<td width="150" style=" vertical-align:top;"></td>
+<td width="466" style=" vertical-align:top;"></td>
+<td width="0" style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">AddComment<br /></span></p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Добавляет примечание к диапазону.<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Синтаксис:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">AddComment (Text) </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Text — строковое выражение добавляемое в качестве примечания В следующем примере создается примечание внимание ! ячейки AI активного рабочего листа:<br /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New, Courier, mono'; font-size:8.25pt;">Range ( &quot;А! &quot; ) . AddComment &quot;Внимание!&quot;<br /></span></p></td>
+<td style=" vertical-align:top;"></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://bourabai.ru/einf/vba/index.htm"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">к оглавлению</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">   </span><a href="http://bourabai.ru/alg/oop.htm"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">ООП</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><a href="http://bourabai.ru/alg/3gl.htm"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">3GL</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span><a href="http://bourabai.ru/einf/4gl.htm"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">к 4GL - визуальному программированию</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p></body></html>

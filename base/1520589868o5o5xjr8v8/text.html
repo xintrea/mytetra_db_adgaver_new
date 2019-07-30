@@ -1,0 +1,2021 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="Section1">
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal">7. ВРЕМЯ
+И ТАЙМЕРЫ<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><b style="mso-bidi-font-weight:
+normal">7.1. Понятия о
+времени в Visual Basic<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Работа
+Visual Basic со
+временем
+заметно
+отличается от
+того, как это
+происходит в
+повседневной
+жизни. Для
+выполнения
+операций с
+ним в Visual Basic использу­ются
+данные типа
+«Date», для
+которых
+основной
+единицей
+измерения
+является
+день. Один час
+равен 1/24 дня, а
+секунда — 1/86400
+дня. Неделя
+будет
+представлена
+цифрой 7,
+поскольку
+состоит из
+семи дней.
+Данные типа
+«Date»
+отображают
+время в
+соответствии
+с тем
+форматом,
+который установлен
+на
+компьютере, —
+12- или 24-часовым
+(см. «Панель
+управления» <span style="mso-ansi-language:EN-US" lang="EN-US">Windows</span>).</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">В
+юлианском
+календаре
+первый день
+нашей эры —
+это 1 января 0001
+года. Для
+данных типа
+«Date» выбрано
+другое
+начало
+отсчета:
+первый день —
+это 31 декабря 1899
+года, второй
+день — 1
+января 1900 года.
+Таким
+образом, 12
+июня 1968 года —
+это день 25001-й
+или просто 25001
+(другими
+словами, это
+25001-й день, если
+считать от 31
+декабря 1899
+года). Дата 25001.5
+переводится как
+полдень 12
+июня 1968 года.
+Даты до 31
+декабря 1899 года
+имеют
+отрицательные
+значения,
+например, 4
+июля 1776 года —
+это -45103 день, т.е.
+45103 день до 30
+декабря 1899
+года.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Переменной
+типа «Date»
+можно
+присвоить
+литерал (т.е.
+буквальное
+значение)
+даты,
+разместив
+его между
+знаками «#»,
+например:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US">Dim MyDate as Date<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US">MyDate = #January 25, 1999#<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US"><o:p> </o:p></span></p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:427.75pt;border-collapse:collapse;mso-yfti-tbllook:480;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt" width="570" cellspacing="0" cellpadding="0" border="0">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+  <td style="width:74.55pt;border:none;border-top:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="99" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Примечание</p>
+  </td>
+  <td style="width:353.2pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:none;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="471" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Хотя
+  в Visual Basic
+  обещается
+  поддержка
+  националь­ных
+  форматов
+  даты из
+  панели
+  управления,
+  русскоязычное
+  представление
+  работать от­казывается.</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Кроме
+того, тип «Date»
+можно
+преобразовать
+в любой
+числовой
+формат.
+Например, 4
+августа 1997 года,
+22 часа 56 минут
+выглядит как
+35390.58333 в формате «Double».
+Все, что
+находится
+слева от
+десятичной точки
+– это день, а
+после точки –
+часы, минуты,
+секунды и
+миллисекунды.
+Обратите
+внимание, что
+дробную
+часть
+значения
+менее 1 можно
+ис­пользовать
+для указания
+только
+времени;
+например, 0.12345
+означает 2:57:46
+пополудни.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal">7.2.
+Элемент
+управления
+таймером<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">В Visual
+Basic имеется
+элемент
+управления
+таймером –
+«Timer», который
+позволяет от­слеживать
+время. Его
+можно
+представлять
+себе как
+маленькие
+часы, которые,
+будучи
+включенными,
+вызывают
+некоторое
+программируемое
+событие
+через заданный
+интервал
+времени.
+Вызываемое
+таймером
+событие
+называется
+«Timer»,
+процедура
+обра­ботки
+этого
+события в
+программе
+имеет следующий
+синтаксис:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US">Private Sub</span> TimeName_<span style="mso-ansi-language:EN-US" lang="EN-US">T</span>imer ()</p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span>TimeName – имя
+элемента
+управления
+таймером.</p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">T</span>imer
+– имя
+события.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Время
+между
+наступлением
+событий «<span style="mso-ansi-language:EN-US" lang="EN-US">T</span>imer»
+указывается
+в свойстве «<span style="mso-ansi-language:EN-US" lang="EN-US">I</span>nterval»
+элемента
+управления
+таймером.
+Единицей
+измерения
+интервала
+времени в
+этом свойстве
+является
+миллисекунда.
+В следующей
+строке
+интервал
+времени
+установлен
+равным
+полусекунде:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Ti<span style="mso-ansi-language:EN-US" lang="EN-US">m</span>er<span style="mso-ansi-language:EN-US" lang="EN-US">1</span>.Interval<span style="mso-ansi-language:
+EN-US"> </span>=<span style="mso-ansi-language:EN-US"> </span>500</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:438.6pt;border-collapse:collapse;mso-yfti-tbllook:480;mso-padding-alt:
+ 0cm 5.4pt 0cm 5.4pt" width="585" cellspacing="0" cellpadding="0" border="0">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+  <td style="width:74.55pt;border:none;border-top:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="99" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Примечание</p>
+  </td>
+  <td style="width:364.05pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:none;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="485" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Максимальное
+  значение
+  свойства «<span style="mso-ansi-language:EN-US" lang="EN-US">I</span>nterval» –
+  65535. Это
+  означает,
+  что можно
+  установить
+  максимальный
+  интервал
+  между
+  событиями,
+  немного
+  превышающий
+  65,5 сек. Длительность
+  же
+  наименьшего
+  интервала – 55
+  мс, так как
+  системные
+  часы
+  изменяют
+  свои показания
+  только 18 раз в
+  секунду.</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Свойств
+у элемента
+управления
+таймером совсем
+немного
+(табл. 10),
+поскольку
+главная и единственная
+его задача
+состоит в
+генерации
+события.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right">Таблица
+10</p>
+
+<p class="MsoNormal" style="text-align:center" align="center">Свойства
+элемента
+управления
+таймером</p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:
+ .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext" cellspacing="0" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Свойство</p>
+  </td>
+  <td style="width:378.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Описание</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Name<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Имя
+  элемента
+  управления.
+  По
+  умолчанию
+  для первого
+  таймера
+  устанавливается
+  «<span style="mso-ansi-language:EN-US" lang="EN-US">Timer</span>1»,
+  для второго
+  «Timer2» и т.д.</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Enabled<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Включает/выключает
+  таймер. По
+  умолчанию имеет
+  значение True</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Index<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Индекс
+  в массиве
+  элементов
+  управления.</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Interval<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Определяет
+  интервал
+  времени
+  между наступлениями
+  события «Timer»</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Left<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Определяет
+  координату
+  левого края
+  таймера в
+  форме</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Tag<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Свойство
+  Tag похоже на
+  переменную,
+  встроенную
+  непосредственно
+  в элемент
+  управления;
+  с его
+  помощью
+  можно
+  хранить
+  данные,
+  доступ к которым
+  необходимо
+  иметь в
+  течение
+  всего времени
+  выполнения
+  программы</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:7;mso-yfti-lastrow:yes">
+  <td style="width:60.3pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="80" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">Top<o:p></o:p></span></p>
+  </td>
+  <td style="width:378.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="505" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Определяет
+  координату
+  верхнего
+  значения
+  таймера в
+  форме</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:center" align="center"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><o:p> </o:p></p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:438.6pt;border-collapse:collapse;mso-yfti-tbllook:480;mso-padding-alt:
+ 0cm 5.4pt 0cm 5.4pt" width="585" cellspacing="0" cellpadding="0" border="0">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+  <td style="width:74.55pt;border:none;border-top:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="99" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Примечание</p>
+  </td>
+  <td style="width:364.05pt;border-top:solid windowtext 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:none;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="485" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Таймер
+  – это невидимка.
+  Его
+  свойства «Left»
+  и «<span style="mso-ansi-language:EN-US" lang="EN-US">T</span>ор»
+  совершенно
+  бесполезны,
+  поскольку
+  при работе
+  про­граммы
+  этот
+  элемент
+  управления
+  невидим.</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal"><o:p> </o:p></b></p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal"><o:p> </o:p></b></p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal">7.3.
+Использование
+команд при
+работе со
+временем<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Хотя
+таймер и
+можно
+запрограммировать
+так, чтобы он
+в
+определенное
+время вызывал
+событие «Timer»,
+сам таймер не
+знает истинного
+текущего
+времени.
+Чтобы
+определить
+текущее
+время,
+необходимо
+обратиться к
+системным
+часам
+компьютера.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Чтобы
+узнать
+системное
+время,
+используйте
+функцию «Time», а
+чтобы узнать
+системную
+дату –
+функцию «Date».
+Если же
+необходимо
+узнать и
+время, и дату, воспользуйтесь
+функцией «<span style="mso-ansi-language:EN-US" lang="EN-US">N</span>ow»:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><span style="mso-ansi-language:EN-US" lang="EN-US">Text1.Text = Time<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><span style="mso-ansi-language:EN-US" lang="EN-US">Label2.Caption = Date<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><span style="mso-ansi-language:EN-US" lang="EN-US">Text</span>3.<span style="mso-ansi-language:EN-US" lang="EN-US">Text</span> = <span style="mso-ansi-language:EN-US" lang="EN-US">Now</span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none">Иногда
+бывает
+необходимо
+получить
+только
+количество
+часов, минут
+или только
+название
+месяца из
+системного
+времени. Для
+этого
+пользуются
+следующими
+функциями:</p>
+
+<ul style="margin-top:0cm" type="disc">
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Hour</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     содержащее
+     количество
+     часов из
+     времени, указанного
+     в аргументе
+     «<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>».</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Minute</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     содержащее
+     число минут
+     из времени,
+     указанного
+     в аргументе
+     «<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>».</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Second</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     содержащее
+     количество
+     секунд из
+     времени,
+     указанного
+     в аргументе
+     «<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>».</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Year</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     содержащее
+     год из даты,
+     указанной в
+     аргументе «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>».</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Weekday</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>[,
+     <span style="mso-ansi-language:EN-US" lang="EN-US">week</span>]) –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     которое
+     представляет
+     день недели
+     (от 1 до 7) из
+     даты,
+     указанной в
+     аргументе «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>».
+     По
+     умолчанию 1 –
+     воскресенье,
+     2 – понедельник
+     и т.д. С
+     помощью
+     необязательного
+     параметра «<span style="mso-ansi-language:EN-US" lang="EN-US">week</span>»
+     можно
+     указать,
+     какой день
+     нужно
+     считать
+     первым.</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l2 level1 lfo2;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Day</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Integer</span>»,
+     содержащее
+     день месяца
+     из даты,
+     указанной в
+     аргументе «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>».</li>
+</ul>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none">При работе с
+временными
+параметрами
+очень
+полезными
+функциями
+являются
+следующие:</p>
+
+<ul style="margin-top:0cm" type="disc">
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l1 level1 lfo3;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">DateSerial</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">year</span>,
+     <span style="mso-ansi-language:EN-US" lang="EN-US">month</span>, <span style="mso-ansi-language:EN-US" lang="EN-US">day</span>) –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Date</span>»,
+     которое
+     представляет
+     дату,
+     составленную
+     из
+     указанных
+     значений
+     года (<span style="mso-ansi-language:
+     EN-US" lang="EN-US">year</span>), месяца (<span style="mso-ansi-language:EN-US" lang="EN-US">month</span>) и
+     дня (<span style="mso-ansi-language:EN-US" lang="EN-US">day</span>).</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l1 level1 lfo3;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">DateValue</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Date</span>»,
+     которое
+     представляет
+     дату,
+     полученную
+     на основе
+     аргумента «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>».
+     Как правило,
+     аргумент
+     имеет
+     строковый
+     тип и
+     представляет
+     дату в одном
+     из
+     допустимых
+     форматов.</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l1 level1 lfo3;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">TimeSerial</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">hour</span>,
+     <span style="mso-ansi-language:EN-US" lang="EN-US">minute</span>, <span style="mso-ansi-language:EN-US" lang="EN-US">second</span>) –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Date</span>»,
+     которое
+     представляет
+     время,
+     составленное
+     из
+     указанных
+     часов (<span style="mso-ansi-language:
+     EN-US" lang="EN-US">hour</span>), минут (<span style="mso-ansi-language:EN-US" lang="EN-US">minute</span>) и
+     секунд (<span style="mso-ansi-language:EN-US" lang="EN-US">second</span>).</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l1 level1 lfo3;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">TimeValue</span>(<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>)
+     –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Date</span>»,
+     которое
+     представляет
+     время,
+     полученное на
+     основе
+     аргумента «<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>».
+     Как правило,
+     аргумент
+     имеет
+     строковый
+     тип и
+     представляет
+     время в
+     одном из
+     допустимых
+     форматов.</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l1 level1 lfo3;tab-stops:list 36.0pt"><span style="mso-ansi-language:
+     EN-US" lang="EN-US">Timer</span> –
+     возвращает
+     значение
+     типа «<span style="mso-ansi-language:
+     EN-US" lang="EN-US">Single</span>»,
+     которое
+     представляет
+     число
+     секунд,
+     прошедших
+     после
+     полуночи.</li>
+</ul>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none">Для ручной
+установки
+системного
+времени и
+даты
+применяют
+следующие
+операторы:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><span style="mso-ansi-language:EN-US" lang="EN-US">Time = time<span style="mso-spacerun:yes">    </span></span>и<span style="mso-ansi-language:EN-US" lang="EN-US"><span style="mso-spacerun:yes">    </span>Date = date,<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;mso-pagination:none">которые
+устанавливают
+системное
+время и дату
+в
+соответствии
+со
+значениями
+аргументов «<span style="mso-ansi-language:EN-US" lang="EN-US">time</span>» и «<span style="mso-ansi-language:EN-US" lang="EN-US">d</span>ate»
+соответственно.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><b style="mso-bidi-font-weight:
+normal">7.4.
+Вычисление
+разницы
+между датами<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Если
+понадобится
+написать
+программу,
+вычисляющую
+интервал
+времени
+между двумя
+датами, то
+необходимо
+пользоваться
+функцией «<span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff</span>»,
+имеющей
+следующий
+синтаксис:</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US">MyLong = DateDiff(interval, date1,
+date2[, week[, year]])<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span>MyLong –
+возвращаемое
+значение
+типа «<span style="mso-ansi-language:
+EN-US" lang="EN-US">V</span>ariant» («<span style="mso-ansi-language:
+EN-US" lang="EN-US">L</span>ong»);</p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-US" lang="EN-US"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff</span>
+– имя самой
+функции;<span style="mso-ansi-language:EN-US" lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">interval
+</span>– строка
+символов,
+описывающая
+интервал измерения
+для разности
+между двумя
+датами (см.
+табл. 11);</p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">date</span>1
+– начальная
+дата
+измеряемого
+интервала (тип
+«Date»);</p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">date</span>2
+– конечная
+дата
+измеряемого
+интервала (тип
+«Date»);</p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">week</span>
+– константа,
+устанавливающая
+первый день недели;</p>
+
+<p class="MsoNormal" style="margin-left:63.0pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l4 level1 lfo4;tab-stops:list 63.0pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">year</span>
+– константа,
+указывающая
+первую
+неделю года.</p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right">Таблица
+11</p>
+
+<p class="MsoNormal" style="text-align:center" align="center">Значения
+параметра «<span style="mso-ansi-language:EN-US" lang="EN-US">interval</span>»
+функции «<span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff</span>»</p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:435.5pt;border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:
+ .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext" width="581" cellspacing="0" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Значения
+  параметра</p>
+  </td>
+  <td style="width:78.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Интервал</p>
+  </td>
+  <td style="width:183.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Пример</p>
+  </td>
+  <td style="width:110.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="margin-right:-.3pt;text-align:justify">Итоговое
+  значение</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“yyyy”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Год</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“yyyy”,
+  “4.7.76”, “4.7.86”)<o:p></o:p></span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">10</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“q”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Квартал</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“q”,
+  “4.7.76”, “4.7.86”)<o:p></o:p></span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">40</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“m”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Месяц</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“m”,
+  “4.7.76”, “4.7.86”)<o:p></o:p></span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">120</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“y”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">День
+  года</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“y”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">3652</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“d”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">День
+  месяца</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“d”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">3652</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“w”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">День
+  недели</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“w”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">521</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:7">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“ww”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Неделя</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“ww”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">521</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:8">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“h”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Час</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“h”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">87648</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:9">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“n”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Минута</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“n”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">5258880</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:10;mso-yfti-lastrow:yes">
+  <td style="width:63.35pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="84" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">“s”<o:p></o:p></span></p>
+  </td>
+  <td style="width:78.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:justify">Секунда</p>
+  </td>
+  <td style="width:183.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="244" valign="top">
+  <p class="MsoNormal" style="text-align:justify"><span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff(“s”,
+  “4.7.76”, “4.7.86”)</span></p>
+  </td>
+  <td style="width:110.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="147" valign="top">
+  <p class="MsoNormal" style="text-align:justify">315532800</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><span style="mso-ansi-language:EN-US" lang="EN-US"><o:p> </o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Функция
+«<span style="mso-ansi-language:EN-US" lang="EN-US">DateDiff</span>»
+берет первую
+дату,
+представленную
+параметром «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>1» и
+вычитает ее
+из второй
+даты,
+представленной
+параметром «<span style="mso-ansi-language:EN-US" lang="EN-US">date</span>2».
+Выполнив
+вычитание,
+функция
+возвращает числовое
+значение
+типа «<span style="mso-ansi-language:
+EN-US" lang="EN-US">Long</span>», которое
+и является
+разностью
+дат. Единицу
+измерения
+для
+представления
+ответа указывают
+с помощью
+параметра «<span style="mso-ansi-language:EN-US" lang="EN-US">interval</span>».</p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><b style="mso-bidi-font-weight:
+normal">7.5.
+Использование
+функции «</b><b style="mso-bidi-font-weight:normal"><span style="mso-ansi-language:
+EN-US" lang="EN-US">Format</span>» для
+представления
+времени<o:p></o:p></b></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Функция
+«Format» – это
+мощная
+функция Visual Basic,
+позволяющая
+управлять
+отображением
+строки. Преимущественно
+эта функция
+используется
+для
+форматирования
+значений
+даты, времени
+и числовых
+значений, но
+ее можно
+использовать
+любыми и с
+любыми
+строковыми
+значениями.
+Функция<span style="mso-ansi-language:EN-US" lang="EN-US"> «Format» </span>имеет<span style="mso-ansi-language:EN-US"> </span>следующий<span style="mso-ansi-language:EN-US"> </span>синтаксис<span style="mso-ansi-language:EN-US" lang="EN-US">:<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><span style="mso-ansi-language:EN-US" lang="EN-US">MyString =
+Format(expression, format [, week[, year]])<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-US" lang="EN-US"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">MyStrings
+</span>–<span style="mso-ansi-language:EN-US" lang="EN-US">
+возвращаемое
+строковое
+значение</span>;<span style="mso-ansi-language:EN-US" lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;mso-ansi-language:EN-US" lang="EN-US"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">Format
+</span>–<span style="mso-ansi-language:EN-US" lang="EN-US">
+имя самой
+функции</span>;<span style="mso-ansi-language:EN-US" lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">expression
+</span>– любое
+выражение,
+представляющее
+строку символов,
+дату
+числовое
+значение;</p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">format</span>
+–
+строка-шаблон,
+которая
+определяет
+строку
+результата.</p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">week</span>
+–
+необязательная
+константа,
+устанавливающая
+первый день
+недели. По
+умолчанию
+она имеет
+значение «<span style="mso-ansi-language:EN-US" lang="EN-US">Sunday</span>» (воскресенье),
+но можно
+установить
+другое значение,
+например «<span style="mso-ansi-language:EN-US" lang="EN-US">Monday</span>»
+(понедельник);</p>
+
+<p class="MsoNormal" style="margin-left:64.35pt;text-align:justify;text-indent:
+-18.0pt;mso-list:l3 level1 lfo1;tab-stops:list 64.35pt"><span style="font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol"><span style="mso-list:Ignore">·<span style="font:7.0pt &quot;Times New Roman&quot;">       
+</span></span></span><span style="mso-ansi-language:EN-US" lang="EN-US">year</span>
+–
+необязательная
+константа,
+указывающая первую
+неделю года.
+По умолчанию
+это неделя,
+на которую
+приходится 1
+января. Но
+можно установить
+и другое
+значение,
+например первую
+полную
+неделю года.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">При
+работе с
+функцией «Format»
+основным
+моментом
+является
+умение
+обращаться с
+параметром
+«format», который
+определяет,
+как значение
+параметра «expressi<span style="mso-ansi-language:EN-US" lang="EN-US">on</span>»
+будет
+преобразовываться
+в строку
+символов. В
+табл. 12
+показано, как
+использовать
+настройки
+функции «Format»
+для
+форматирования
+строк с
+информацией
+о дате
+времени.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right">Таблица
+12</p>
+
+<p class="MsoNormal" style="text-align:center" align="center">Примеры
+предопределенных
+форматов для
+отображения
+времени и
+даты</p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:363.75pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext" width="485" cellspacing="0" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Параметр
+  «<span style="mso-ansi-language:EN-US" lang="EN-US">format</span>»</p>
+  </td>
+  <td style="width:166.75pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Пример</p>
+  </td>
+  <td style="width:92.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Результат</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">" Long Date" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (36000, "Long Date" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">24 Июль <st1:metricconverter productid="1998 г" st="on" w:st="on">1998 г</st1:metricconverter>.</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Medium Date" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (36000, "Medium Date" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">24-июл-98</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Short Date" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (36000, "Short Date" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">24.07.98</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Long Time" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (0.874, "Long Time" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">20:58:34</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Medium Time" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (0.874, "Medium Time" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">08:58</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6;mso-yfti-lastrow:yes">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Short Time" </p>
+  </td>
+  <td style="width:166.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="222" valign="top">
+  <p class="MsoNormal">Format (0.874, "Short Time" ) </p>
+  </td>
+  <td style="width:92.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="123" valign="top">
+  <p class="MsoNormal">20:58</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm">Эту
+функцию
+можно
+использовать
+для нужного
+формата
+отображения
+любых
+значений, в том
+числе
+числовых. В
+табл. 13
+показано, как
+использовать
+функцию «Format»
+для
+представления
+числовых значений
+в виде строки
+символов
+нужного вида,
+используя <i style="mso-bidi-font-style:normal">предопределенные
+форматы</i>.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm" align="right">Таблица
+13</p>
+
+<p class="MsoNormal" style="text-align:center" align="center">Использование
+функции
+формат с
+числовыми
+значениями</p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="width:360.75pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext" width="481" cellspacing="0" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Параметр
+  «<span style="mso-ansi-language:EN-US" lang="EN-US">format</span>»</p>
+  </td>
+  <td style="width:178.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Пример</p>
+  </td>
+  <td style="width:77.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">Результат</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"General Number" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "General Number")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">36000<span style="mso-spacerun:yes">  </span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Currency" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Currency")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">$36,000.00<span style="mso-spacerun:yes">  </span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">" Fixed" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Fixed" )</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">36000.00 </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Standard" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Standard")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">36 000,00 </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:5">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">" Percent" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Percent" )</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">3600000,00% </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:6">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Scientific" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Scientific")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">3,60E+04 </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:7">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"Yes/No" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "Yes /No")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">Yes </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:8">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"True/False" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal">Format (36000, "True/False")</p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">True </p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:9;mso-yfti-lastrow:yes">
+  <td style="width:104.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="140" valign="top">
+  <p class="MsoNormal">"On/Off" </p>
+  </td>
+  <td style="width:178.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="238" valign="top">
+  <p class="MsoNormal"><span style="mso-ansi-language:EN-US" lang="EN-US">Format
+  (36000, </span>"<span style="mso-ansi-language:EN-US" lang="EN-US">On
+  /Off")<o:p></o:p></span></p>
+  </td>
+  <td style="width:77.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="103" valign="top">
+  <p class="MsoNormal">On </p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none">В функции «<span style="mso-ansi-language:EN-US" lang="EN-US">Format</span>»
+можно
+использовать
+также
+собственные <i style="mso-bidi-font-style:normal">форматы
+пользователя</i>.
+Они
+представляют
+собой
+специальную <i style="mso-bidi-font-style:normal">маску</i>,
+по которой
+будет
+формироваться
+итоговая строка.
+Для
+формирования
+маски
+используются
+два символа:
+«#»
+(необязательный
+символ) и «0»
+(обязательный
+символ). Для
+добавления в
+строку
+некоторых определенных
+символов их
+добавляют в
+маску в
+нужное место.
+Пример
+использования
+их приведен в
+таблице 14.</p>
+
+<p class="MsoNormal" style="text-align:justify;text-indent:1.0cm;mso-pagination:
+none"><o:p> </o:p></p>
+
+<p class="MsoNormal" style="text-align:right;text-indent:1.0cm;
+mso-pagination:none" align="right">Таблица 14</p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center">Пример
+использования
+маски в
+функции «<span style="mso-ansi-language:EN-US" lang="EN-US">Format</span>»</p>
+
+<div align="center">
+
+<table class="MsoTableGrid" style="border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:
+ .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext" cellspacing="0" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:77.7pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="104" valign="top">
+  <p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center">Число</p>
+  </td>
+  <td style="width:128.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="171" valign="top">
+  <p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center">Маска</p>
+  </td>
+  <td style="width:139.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="186" valign="top">
+  <p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center">Результат</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td rowspan="4" style="width:77.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt" width="104">
+  <p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center">23,256</p>
+  </td>
+  <td style="width:128.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="171" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none">“####.#<span style="mso-ansi-language:EN-US" lang="EN-US">#”<o:p></o:p></span></p>
+  </td>
+  <td style="width:139.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="186" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">23.256</span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:128.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="171" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">“####.00</span> м<span style="mso-ansi-language:EN-US" lang="EN-US">”<o:p></o:p></span></p>
+  </td>
+  <td style="width:139.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="186" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><st1:metricconverter productid="23.25 м" st="on" w:st="on"><span style="mso-ansi-language:EN-US" lang="EN-US">23.25</span> м</st1:metricconverter></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:128.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="171" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">“0000.##”<o:p></o:p></span></p>
+  </td>
+  <td style="width:139.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="186" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">0023.256</span></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;mso-yfti-lastrow:yes">
+  <td style="width:128.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="171" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">“0000.0000</span>
+  р/чел<span style="mso-ansi-language:EN-US" lang="EN-US">”<o:p></o:p></span></p>
+  </td>
+  <td style="width:139.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt" width="186" valign="top">
+  <p class="MsoNormal" style="text-align:justify;mso-pagination:none"><span style="mso-ansi-language:EN-US" lang="EN-US">0023.2560</span>
+  р/чел</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><span style="mso-ansi-language:EN-US" lang="EN-US"><o:p> </o:p></span></p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><span style="mso-ansi-language:EN-US" lang="EN-US"><o:p> </o:p></span></p>
+
+<p class="MsoNormal" style="text-align:center;mso-pagination:none" align="center"><b style="mso-bidi-font-weight:normal">Контрольные
+вопросы для
+самопроверки<o:p></o:p></b></p>
+
+<ol style="margin-top:0cm" start="1" type="1">
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Как в <span style="mso-ansi-language:EN-US" lang="EN-US">Visual Basic</span>
+     представляется
+     время?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Назначение
+     элемента
+     управления
+     «<span style="mso-ansi-language:EN-US" lang="EN-US">Timer</span>»?
+     Какими
+     свойствами
+     он обладает?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Как
+     узнать
+     текущее
+     время и дату?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Какие
+     функции для
+     работы со
+     временем вы
+     знаете?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Как
+     представить
+     некоторое
+     значение
+     нужным
+     образом?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Какие
+     предопределенные
+     форматы вы
+     знаете?</li>
+ <li class="MsoNormal" style="text-align:justify;mso-pagination:none;mso-list:
+     l0 level1 lfo5;tab-stops:list 36.0pt">Как
+     создать
+     формат
+     пользователя?</li>
+</ol>
+
+</div>
+</body>
+</html></p></body></html>

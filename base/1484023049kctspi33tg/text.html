@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Есть ли функция на VBA которая позволяла бы импортировать таблицы из excel и .txt? </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">А где, собсвенно VBA? В Excel или в Access? <br />В Excel это метод SaveAs, в Access можно тот же метод для объекта, созданного методом GetObject(&quot;Путь к XLS), можно DoCmd.TransferText из прилинкованной таблицы Excel, а можно не линкуя таблицу запросом SELECT * INTO ... с соответств. строками подключения к источнику и адресату. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В Аксесс.<br />Есть как понял функция для импорта из эксель:<br /></p>
+<table border="0" style=" margin-top:10px; margin-bottom:10px; margin-left:10px; margin-right:10px;" cellspacing="0" cellpadding="4" bgcolor="#dddddd">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:11px; font-weight:600;">автор</span></p></td></tr>
+<tr>
+<td bgcolor="#efefff" style=" padding-left:7; padding-right:7; padding-top:7; padding-bottom:7;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" background-color:#efefff;">DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel9, &quot;TestTable2&quot;, &quot;c:\a.xls&quot;, 0</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Но она импортирует только первый лист. Как можно указать, конкретный лист для импорта? </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пытаюсь импортировать с txt файла, но разделитель у меня в файле это tab. как можно изменить спецификацию, чтобы вместо ; был tab?<br /></p>
+<table border="0" style=" margin-top:10px; margin-bottom:10px; margin-left:10px; margin-right:10px;" cellspacing="0" cellpadding="4" bgcolor="#dddddd">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:11px; font-weight:600;">автор</span></p></td></tr>
+<tr>
+<td bgcolor="#efefff" style=" padding-left:7; padding-right:7; padding-top:7; padding-bottom:7;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" background-color:#efefff;">DoCmd.TransferText acImportDelim, , &quot;table&quot;, &quot;c:\b.txt&quot;, False</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />В инете все пишут про scheme.ini. Поискал на компе, нет такого файла. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы не дочитали описание TransferSpreadsheet ровно на 1 параметр. Следующий же из пропущенных это Range, в котором можно описать лист екселя или диапазон<br /></p>
+<table border="0" style=" margin-top:10px; margin-bottom:10px; margin-left:10px; margin-right:10px;" cellspacing="0" cellpadding="4" bgcolor="#dddddd">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:11px; font-weight:600;">Kuatishe</span></p></td></tr>
+<tr>
+<td bgcolor="#efefff" style=" padding-left:7; padding-right:7; padding-top:7; padding-bottom:7;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" background-color:#efefff;">DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel9, &quot;TestTable2&quot;, &quot;c:\a.xls&quot;, 0</span><span style=" color:#ff0000;">, &quot;Лист2$&quot;</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Добавлю.<br />Мне кажется более удобным импортировать с помощью запроса.<br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">select * into TestTable2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">from [Лист2$] as x IN 'c:\a.xls'[Excel 8.0;HDR=yes;]</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Кстати, во From можно задавать произвольный диапазон, например [Лист2$a20:d2000] </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В-общем догнал что за файл, создал его, вот его параметры:<br /></p>
+<table border="0" style=" margin-top:10px; margin-bottom:10px; margin-left:10px; margin-right:10px;" cellspacing="0" cellpadding="4" bgcolor="#dddddd">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:11px; font-weight:600;">автор</span></p></td></tr>
+<tr>
+<td bgcolor="#efefff" style=" padding-left:7; padding-right:7; padding-top:7; padding-bottom:7;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" background-color:#efefff;">[b.txt]</span><br />ColNameHeader=False<br />Format=Delimited( )<br />MaxScanRows=0<br />DecimalSymbol=.<br />CharacterSet=ANSI</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />разделитель здесь это пробел, но при импорте все равно все данные сохраняются в один столбец таблицы. <br />хелп! как можно импортировать так, чтобы данные после пробелов сохранялись в отдельный столбец? Варианты кроме смены настроек в реестре. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для импорта/экспорта/связывания в Access предусмотрены спецификации. При импорте через меню вы попадаете в мастер настройки спецификации, создаете, сохраняете, и в дальнейшем можете использовать ее: <br />DoCmd.TransferText acImportDelim, <span style=" color:#0000ff;">&quot;Имя спецификации&quot;</span> , &quot;table&quot;, &quot;c:\b.txt&quot;, False<br /><br />Родная для текстового драйвера спецификация, это файл scheme.ini. Его тоже можно использовать.<br />Подробнее обо всем этом почитайте <a href="http://am.rusimport.ru/MSAccess/topic.aspx?id=692"><span style=" text-decoration: underline; color:#0000ff;">здесь</span></a> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Всем спасибо, за помощь.<br />Напишу-ка я резюме по теме, чтобы кто будет искать, мог получить более-менее исчерпвыающий ответ.<br />Есть разные варианты импорта txt и xls файлов, один из них использование функций:<br />1) для txt файлов я использовал DoCmd.TransferText. Вот мой пример:0<br />DoCmd.TransferText acImportDelim, , &quot;Text&quot;, &quot;c:\b.txt&quot;<br />acImportDelim - это означает что будет производиться импорт.<br />, , - значит используется параметр по умолчанию(разделитель столбцов)<br />&quot;text&quot;- имя таблицы куда будет импортирован файл.<br />&quot;c:\b.txt&quot; - путь и имя txt файла, откуда будет производиться импорт.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />2) для xls файлов я использовал DoCmd.TransferSpreadsheet, вот пример использования:<br />DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel9, &quot;TestTable1&quot;, &quot;c:\a.xls&quot;, 0, &quot;Sheet$&quot;<br />acImport - будет произоводиться импорт.<br />acSpreadsheetTypeExcel9 - некий параметр, незнаю что означает.<br />&quot;TestTable1&quot; - имя таблицы в Аксесс, куда будет все импортироваться.<br />&quot;c:\a.xls&quot; - путь и имя файла.<br />0 - не знаю зачем.<br />&quot;Sheet$&quot; - имя листа из книги xls, который будет импортирован в таблицу. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">А что ж запросом то не попробовали? Гибче чем трансфером. Хотя бы для того, чтобы не плодить таблицы, можно запросом на выборку (вместо Select * Into Таблица оставить только Select *) считать данные в рекордсет и раскидать их рекордсетами также по нужным таблицам.<br /><br />Посмотрите. Полезно. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">спасибо, попробуем. <br />Вопрос по импорту и экспорту файлов:<br />Как можно сделать так, чтобы импорт и экспорт файлов производился в ту же директорию где и БД Аксесса, независимо от каталога, в котором находится БД?<br />ПРобовал с CurDir - не получается. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Текущая папка - currentproject.Path.<br /><br />А что не получилось? Покажите ваш код </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Я делал так:<br />DoCmd.TransferText acImportDelim, , &quot;Text&quot;, CurDir &amp; &quot;\&quot; &amp; &quot;b.txt&quot; </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CurDir - возвращает текущий/рабочий каталог в &quot;терминалоги ДОС&quot; - установленный инструкцией ChDir<br />т.е. это ниразу не каталог БД<br /><br /><span style=" color:#808080;">хотя - в хелпе сделанно всё что бы так и считали ))</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>

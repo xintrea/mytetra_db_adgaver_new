@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:10px; margin-bottom:10px; margin-left:10px; margin-right:10px;" cellspacing="0" cellpadding="4" bgcolor="#dddddd">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial'; font-size:11px; font-weight:600;">MsDatabaseru</span></p></td></tr>
+<tr>
+<td bgcolor="#efefff" style=" padding-left:7; padding-right:7; padding-top:7; padding-bottom:7;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Verdana,Arial'; background-color:#efefff;">подобное использование требует ссылки на скриптинг библиотеку</span><span style=" font-family:'Verdana,Arial';"><br />использование createobject более универсально</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если честно, то просто решил сэкономить время. Можно конечно<br /></p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">    </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">Dim</span><span style=" font-family:'Courier New,courier';"> objFSO </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">As</span><span style=" font-family:'Courier New,courier';"> FileSystemObject</span></pre>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">заменить на </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">Dim</span><span style=" font-family:'Courier New,courier';"> objFSO </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">As</span><span style=" font-family:'Courier New,courier';"> </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">Object</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier';">   </span><span style=" font-family:'Courier New,courier'; color:#0000ff;">Set</span><span style=" font-family:'Courier New,courier';"> objFSO = CreateObject(</span><span style=" font-family:'Courier New,courier'; color:#008080;">&quot;Scripting.FileSystemObject&quot;</span><span style=" font-family:'Courier New,courier';">)</span></pre></body></html>

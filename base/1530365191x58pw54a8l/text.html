@@ -1,0 +1,120 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<header class="node__header"><h1 class="node__title"><span class="field field-name-title field-formatter-string field-type-string field-label-hidden">Абсолютная и относительная адресация. Команда cd</span>
+</h1></header>
+
+    <div class="node__content">
+    
+
+
+<ins class="adsbygoogle ad_top" style="display: block; width: 300px; height: 250px;" data-ad-client="ca-pub-4587725615773462" data-ad-slot="8642904531" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:300px;height:250px;" width="300" height="250" frameborder="0"></iframe></ins></ins></ins>
+<div class="clearfix text-formatted field field-node--body field-formatter-text-default field-name-body field-type-text-with-summary field-label-hidden has-single"><div class="field__items"><div class="field__item"><p><a href="https://younglinux.info/sites/default/files/pdf/cd.pdf">Презентация к уроку</a></p>
+
+<p>Очень частой задачей в командной строке Linux является просмотр 
+содержимого того или иного каталога. Для этого используется команда <strong>ls</strong>.
+ Однако, используя данную команду без аргументов, можно увидеть 
+содержимое только текущего каталога. Обычно в Linux по-умолчанию текущим
+ каталогом является домашний каталог пользователя. Как быть, если 
+требуется узнать содержимое других каталогов? Для этого в качестве 
+аргумента команде ls следует передать адрес каталога.</p>
+
+<p>Вспомним, что адресация бывает абсолютной и относительной. В случае 
+абсолютной адресации путь к каталогу (или файлу) указывается, <strong>начиная с корневого каталога</strong>и далее вглубь по дереву папок до требуемого каталога. Например, все следующие записи являются абсолютными адресами:</p>
+
+<p><strong>/home/sv/Desktop<br>
+/boot<br>
+/etc/vim</strong></p>
+
+<p>Первый знак / (слеш) - это обозначение корневого каталога.</p>
+
+<p>При относительной адресации путь к каталогу указывается, <strong>начиная с текущего каталога</strong> (другими словами, относительно текущего каталога). При этом используются следующие обозначения:</p>
+
+<p>. или ничего - текущий каталог;<br>
+.. - каталог на уровень выше (родительский по отношению к текущему).</p>
+
+<p>При относительной адресации нужно хорошо представлять картину взаимного расположения директорий.</p>
+
+<p>Примеры относительных адресов:</p>
+
+<p><strong>./Documents/images/<br>
+Documents/images/<br>
+../test</strong> – в родительском каталоге по отношению к текущему есть папка test:</p>
+
+<p class="text-align-center"><img alt="address.gif" src="1.png" width="557" height="175"></p>
+
+<p>Уместность использования относительного или абсолютного адреса 
+зависит от ситуации. Так, например, если требуется просмотреть корневой 
+каталог, то проще написать / (т. е. абсолютный адрес); если необходимо 
+узнать содержимое каталога, вложенного в текущий, то можно просто 
+написать его название (относительная адресация).</p>
+
+<p>Можно выделить еще один способ адресации — это адресация относительно
+ домашнего каталога пользователя. Обозначается домашний каталог знаком 
+тильды (~). Например, из любого каталога адрес ~/Documents, заставит 
+обратиться в папку <strong>Documents</strong>, находящуюся в домашнем каталоге.</p>
+
+<p>Пример просмотра различных каталогов с помощью команды <strong>ls</strong>:</p>
+
+<p class="text-align-center"><img alt="ls_0.png" src="2.png" width="553" height="161"></p>
+
+<p>Обратите внимание, на команду ls /. Она выдает список вложенных 
+директорий корневого каталога. Для операционных систем на базе ядра 
+Linux этот список относительно стандартен. Например,</p>
+
+<p><strong>root </strong>– это домашний каталог суперпользователя;<br><strong>bin</strong> – содержит программы, необходимые во время старта системы, а также часто используемые команды;<br><strong>boot</strong> – содержит файлы для загрузки и ядро операционной системы.</p>
+
+<p>Использование адреса с командой <strong>ls</strong> – лишь частный случай. Например, можно направить вывод в файл в другой каталог, отличный от текущего:</p>
+
+<p class="text-align-center"><img alt="cat_0.png" src="3.png" width="589" height="126"></p>
+
+<p>Когда мы используем команду <strong>ls</strong>, то можем увидеть 
+содержимое почти любого каталога, но не переходим в него (текущий 
+каталог не меняется). Мы как бы смотрим из одного помещения в другое, 
+оставаясь по-прежнему в первом. Однако бывают случаи, когда требуется 
+изменить текущий каталог.</p>
+
+<p>Для перемещения по дереву каталогов в командной оболочке Linux 
+используется команда cd. В качестве аргумента передается адрес каталога,
+ куда нужно перейти. Примеры:</p>
+
+<p class="text-align-center"><img alt="cd.png" src="4.png" width="361" height="140"></p>
+
+<p>Обратите внимание на изменения в приглашении командной оболочки. 
+Теперь вместо знака тильды, который обозначает домашний каталог, 
+появились названия каталогов куда был осуществлен переход.</p>
+
+<p>Если требуется выполнить множество различных операций в какой либо 
+папке, то лучше перейти в нее, чем пытаться манипулировать объектами из 
+других каталогов. Это позволит не писать длинные адреса при обращении к 
+объектам (каталогам и файлам).</p>
+
+<p>Следует помнить одну полезную особенность — это автозавершение при 
+нажатии клавиши Tab. Для адресов оно работает также как и при записи 
+команд. Например, желая перейти из домашнего каталога на рабочий стол, 
+достаточно набрать cd De, нажать Tab, затем Enter.</p>
+
+<h2>вопросы</h2>
+
+<ol><li>Как обозначается корневой каталог?</li>
+	<li>Чем отличается относительная адресация от абсолютной? Приведите примеры адресов обоих типов.</li>
+	<li>Что означают следующие записи: <strong>ls /, cd ../../, cd ~</strong>?</li>
+	<li>Какую адресацию уместнее использовать в следующих случаях: переход 
+из Desktop в каталог, вложенный в корневой; просмотр содержимого 
+каталога, вложенного в текущий?</li>
+	<li>Для чего предназначена команда <strong>cd</strong>?</li>
+	<li>Как в командной оболочке Linux можно определить, какой каталог является текущим?</li>
+</ol><h2>практическая работа</h2>
+
+<ol><li>Просмотрите содержимое нескольких каталогов, вложенных в корневой.</li>
+	<li>Директория <strong>/home</strong> содержит домашние папки пользователей системы. Узнайте какие пользователи зарегистрированы в вашей операционной системе.</li>
+	<li>Измените текущий каталог, а затем снова вернитесь в домашний.</li>
+</ol></div></div>
+</div>
+<div class="field field-node--field-date-create field-formatter-datetime-default field-name-field-date-create field-type-datetime field-label-inline clearfix has-single"><h3 class="field__label">Создано</h3><div class="field__items"><div class="field__item"><time datetime="2010-01-09T12:00:00Z" class="datetime">2010-01-09</time>
+</div></div>
+</div></div>
+</body>
+</html></p></body></html>

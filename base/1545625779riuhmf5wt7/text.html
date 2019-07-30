@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h3 class="post-title entry-title" itemprop="name">
+Программное взаимодействие с MS SQL Server из MS Access
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-1148263622649904696" itemprop="description articleBody">
+Недавно для одной из рабочих задач встала необходимость создания 
+клиентского приложения для работы с базой данных на платформе MS SQL 
+Server 2000. По условиям ТЗ клиент должен был быть выполнен в MS Access.<br><br>Ниже
+ я привожу код, который позволяет создать подключение к SQL Server без 
+предварительного создания DSN и создать ссылки на серверные таблицы в 
+Access.<span style="color: rgb(0, 0, 153);"></span><br><br><span style="color: rgb(0, 102, 0);">' Функция проверки существования таблицы в Access</span><br> <span style="color: rgb(0, 102, 0);">'</span><br> <span style="color: rgb(0, 102, 0);">' Parameters</span><br> <span style="color: rgb(0, 102, 0);">' tblName - название таблицы</span><br> <span style="color: rgb(0, 102, 0);">'</span><br> <span style="color: rgb(0, 102, 0);">' Return Value</span><br> <span style="color: rgb(0, 102, 0);">' True - если таблица с заданным именем существует, False - в противном случае</span><br><span style="color: rgb(0, 0, 153);">Public Function</span> isTableExist(tblName) <span style="color: rgb(0, 0, 153);">As Boolean</span><br>    <span style="color: rgb(0, 0, 153);">On Error Resume Next</span><br>   <br>    <span style="color: rgb(0, 0, 153);">Dim</span> td <span style="color: rgb(0, 0, 153);">As</span> TableDef<br><br>    isTableExist = <span style="color: rgb(0, 0, 153);">False</span><br><br>    <span style="color: rgb(0, 0, 153);">Set</span> td = currentDB.TableDefs(tblName)<br>    <span style="color: rgb(0, 0, 153);">If</span> Err.Number = 0 <span style="color: rgb(0, 0, 153);">Then</span><br>        <span style="color: rgb(0, 0, 153);">If</span> td.Connect &lt;&gt; "" <span style="color: rgb(0, 0, 153);">Then</span><br>            isTableExist = <span style="color: rgb(0, 0, 153);">True</span><br>        <span style="color: rgb(0, 0, 153);">End If</span><br>        <span style="color: rgb(0, 0, 153);">Set</span> td = <span style="color: rgb(0, 0, 153);">Nothing</span><br>    <span style="color: rgb(0, 0, 153);">End If</span><br> <br>    Err.Clear<br><span style="color: rgb(0, 0, 153);">End Function</span><br><br><span style="color: rgb(0, 102, 0);">' Функция создания ссылки в Access на таблицу в базе данных MS SQL Server</span><span style="color: rgb(0, 102, 0);"></span><span style="color: rgb(0, 102, 0);"></span><span style="color: rgb(0, 102, 0);"></span><br> <span style="color: rgb(0, 102, 0);">'</span><br> <span style="color: rgb(0, 102, 0);">' Parameters<br><span style="color: rgb(0, 102, 0);">' </span>serverName - имя или IP сервера</span><br> <span style="color: rgb(0, 102, 0);">' serverDBName - название серверной базы данных</span><br> <span style="color: rgb(0, 102, 0);">' tblName - название таблицы</span><br> <span style="color: rgb(0, 102, 0);">' makeHidden - сделать таблицу скрытой (Boolean)</span><br><span style="color: rgb(0, 0, 153);">Public Sub</span> linkTable(serverName, serverDBName , tblName, makeHidden)<br>   <span style="color: rgb(0, 102, 0);"> ' Если в Access уже существует таблица с таким именем ее необходимо удалить</span><br>    <span style="color: rgb(0, 0, 153);">If</span> (isTableExist(tblName) = <span style="color: rgb(0, 0, 153);">True</span>) <span style="color: rgb(0, 0, 153);">Then</span><br>        DoCmd.DeleteObject acTable, tblName<br>    <span style="color: rgb(0, 0, 153);">End If</span><br>   <br>   <span style="color: rgb(0, 102, 0);"> ' Создание ссылки на серверную таблицу в Access</span><br>    DoCmd.TransferDatabase acLink, "ODBC", _<br>                        "ODBC;DRIVER=SQL Server;" &amp; _<br>                        "DATABASE=" &amp; serverDBName &amp; ";" &amp; _<br>                        "APP=Microsoft Office 2003;" &amp; _<br>                        "SERVER=" &amp; serverName &amp; ";" &amp; _<br>                        "Trusted_Connection=Yes;" &amp; _<br>                        "", acTable, tblName, tblName, False, True<br><br>    <span style="color: rgb(0, 102, 0);">' Если makeHidden = True таблица будет скрытой</span><br>    Application.SetHiddenAttribute acTable, tblName, makeHidden<br><span style="color: rgb(0, 0, 153);">End Sub</span><br><br>В
+ процессе выполнения предыдущей процедуры (создания ссылки), если 
+серверная таблица не имеет ключевых полей, будет показано диалоговое 
+окно, с предложением создания ключевых полей. Если отказаться от выбора 
+ключевых полей редактирование и создание новых записей будет невозможно.
+ Доступ к таблицам будет осуществляться только в режиме чтения.<br><br>Если
+ необходимо предоставить доступ к серверным таблицам только для чтения и
+ в подключаемых серверных таблицах нет ключевых полей, например, при 
+создании ссылок на серверные представления (View), удобно 
+воспользоваться следующей функцией. При создании ссылок на серверные 
+таблицы предложений о выборе ключевых полей появляться не будет.<br><br><span style="color: rgb(0, 102, 0);">' Функция создания ссылки в Access на таблицу в базе данных MS SQL Server</span><span style="color: rgb(0, 102, 0);"></span><span style="color: rgb(0, 102, 0);"></span><span style="color: rgb(0, 102, 0);"></span><br>  <span style="color: rgb(0, 102, 0);">'</span><br>  <span style="color: rgb(0, 102, 0);">' Parameters<br><span style="color: rgb(0, 102, 0);">' </span>serverName - имя или IP сервера</span><br>  <span style="color: rgb(0, 102, 0);">' serverDBName - название серверной базы данных</span><br>  <span style="color: rgb(0, 102, 0);">' tblName - название таблицы</span><br>  <span style="color: rgb(0, 102, 0);">' makeHidden - сделать таблицу скрытой (Boolean)</span><br><span style="color: rgb(0, 0, 153);">Public Sub</span> linkView(serverName, serverDBName , tblName, makeHidden)<br>    <span style="color: rgb(0, 102, 0);">' Если в Access уже существует таблица с таким именем ее необходимо удалить</span><br>    <span style="color: rgb(0, 0, 153);">If</span> (isTableExist(tblName) = <span style="color: rgb(0, 0, 153);">True</span>) <span style="color: rgb(0, 0, 153);">Then</span><br>        DoCmd.DeleteObject acTable, tblName<br>    <span style="color: rgb(0, 0, 153);">End If</span><br>   <br>    <span style="color: rgb(0, 102, 0);">' Создание подключения к серверу</span><br>    <span style="color: rgb(0, 0, 153);">Set</span> NewTableDef = currentDB.CreateTableDef(tblName)<br>    NewTableDef.Connect = "ODBC;DRIVER=SQL Server;" &amp; _<br>                        "UID=;" &amp; _<br>                        "DATABASE=" &amp; serverDBName &amp; ";" &amp; _<br>                        "SERVER=" &amp; serverName &amp; ";" &amp; _<br>                        "PWD="<br>    NewTableDef.SourceTableName = tblName<br><br>    <span style="color: rgb(0, 102, 0);">' Создание ссылки на серверную таблицу в Access</span><br>    currentDB.TableDefs.Append NewTableDef<br><br>    <span style="color: rgb(0, 102, 0);">' Если makeHidden = True таблица будет скрытой</span><br>    Application.SetHiddenAttribute acTable, tblName, makeHidden<br>       <br>    <span style="color: rgb(0, 0, 153);">Set</span> NewTableDef = <span style="color: rgb(0, 0, 153);">Nothing</span><br><span style="color: rgb(0, 0, 153);">End Sub</span><br><br>И,
+ наконец, следующая функция иллюстрирует создание подключения к MS SQL 
+Server без необходимости предварительного ручного или программного 
+создания DSN.<br><br><span style="color: rgb(0, 0, 153);">Public Sub</span> ExecSomeStoredProcedure(serverName, serverDBName)<br>    <span style="color: rgb(0, 0, 153);">Dim</span> cnn <span style="color: rgb(0, 0, 153);">As</span> ADODB.Connection<br><br>    <span style="color: rgb(0, 0, 153);">Set</span> cnn= <span style="color: rgb(0, 0, 153);">New</span> ADODB.Connection<br>    cnn.Provider = "MSDataShape"<br>    cnn.Properties("Data Provider") = "SQLOLEDB.1"<br>    cnn.Properties("Initial Catalog") = serverDBName<br>    cnn.Properties("Persist Security Info") = False<br>    cnn.Properties("Data Source") = serverName<br>    cnn.Properties("Integrated Security") = "SSPI"<br>    cnn.Open<br>    cnn.CommandTimeout = 90000<br><br>    cnn.Execute "some_stored_procedure"<br><br>    cnn.Close<br>    <span style="color: rgb(0, 0, 153);">Set</span> cnn = <span style="color: rgb(0, 0, 153);">Nothing</span><br><span style="color: rgb(0, 0, 153);">End Sub</span>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+Posted by
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a class="g-profile" href="https://www.blogger.com/profile/14332265550257998996" rel="author" title="author profile" data-gapiscan="true" data-onload="true" data-gapiattached="true">
+<span itemprop="name">Dmitry I Yastrebkov</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+at
+
+<a class="timestamp-link" href="http://blog.yastrebkov.com/2007/08/ms-sql-server-ms-access.html" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2007-08-03T15:24:00+07:00">3:24 PM</abbr></a>
+</span>
+<span class="reaction-buttons">
+</span>
+<span class="post-comment-link">
+</span>
+<span class="post-backlinks post-comment-link">
+</span>
+<span class="post-icons">
+
+</span>
+<div class="post-share-buttons goog-inline-block">
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<span class="post-labels">
+Labels:
+<a href="http://blog.yastrebkov.com/search/label/Visual%20Basic" rel="tag">Visual Basi</a></span></div></div>
+</body>
+</html></p></body></html>

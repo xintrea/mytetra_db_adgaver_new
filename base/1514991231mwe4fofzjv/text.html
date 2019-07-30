@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как узнать существует ли лист в книге? </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' =====================================================================================</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' ##### существует ли лист в книге</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">'</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' -------------------------------------------------------------------------------------</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Function FnSh_Exist(oWb As Workbook, sName As String) As Boolean</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Dim wsSh As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Set wsSh = oWb.Sheets(sName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    FnSh_Exist = Not wsSh Is Nothing</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Function</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' =====================================================================================</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#0a106a;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' =====================================================================================</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' ##### Добавление(назначение листа)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">'</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub test_FnAdd_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Set oSh = FnAdd_New_Sheet(ThisWorkbook, &quot;Def&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' -------------------------------------------------------------------------------------</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Function FnAdd_New_Sheet(ByVal oWb As Workbook, _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">                            ByVal strShName As String) As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Dim wsSh As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    blnShExist = FnSh_Exist(oWb, strShName) 'проверка существования листа</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    If blnShExist Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        Set FnAdd_New_Sheet = oWb.Sheets(strShName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Else</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        oWb.Sheets.Add(, oWb.Sheets(oWb.Sheets.Count)).Name = strShName</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        Set FnAdd_New_Sheet = oWb.Sheets(strShName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Function</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">' =====================================================================================</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Довольно часто при добавлении листов в книгу кодом необходимо удостовериться существует ли уже лист с таким именем или же нет. Т.к. если уже существует, то попытка создать лист с таким же именем неизбежно приведет к ошибке. Можно, конечно, поставить обработчик ошибки On Error. </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de825e543310370"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub Add_New_Sheet() On Error Resume Next Sheets.Add(, Sheets(Sheets.Count)).Name = &quot;Новый лист&quot; End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub Add_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Sheets.Add(, Sheets(Sheets.Count)).Name = &quot;Новый лист&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Но тогда, если лист с таким именем уже существует, будет создан лист со следующим порядковым номером<span style=" font-style:italic;">(типа Лист4)</span>. А этого в большинстве случаев не надо, т.к. обычно планируется все же либо создать лист с нужным именем, либо не создавать вовсе.<br />Я обычно проверяю так: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de8267523937323"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub Add_New_Sheet() Dim wsSh As Worksheet On Error Resume Next Set wsSh = Sheets(&quot;Новый лист&quot;) If wsSh Is Nothing Then Sheets.Add(, Sheets(Sheets.Count)).Name = &quot;Новый лист&quot; 'здесь можно либо активировать лист, либо производить еще какие действия 'wsSh.Activate End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub Add_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Dim wsSh As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Set wsSh = Sheets(&quot;Новый лист&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    If wsSh Is Nothing Then Sheets.Add(, Sheets(Sheets.Count)).Name = &quot;Новый лист&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    'здесь можно либо активировать лист, либо производить еще какие действия</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    'wsSh.Activate</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если предполагается использовать такую проверку более одного раза в коде, то имеет смысл вынести проверку в отдельную функцию </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de826d546249375"></a><span style=" font-size:12px;">F</span><span style=" font-size:12px;">unction Sh_Exist(wb As Workbook, sName As String) As Boolean Dim wsSh As Worksheet On Error Resume Next Set wsSh = wb.Sheets(sName) Sh_Exist = Not wsSh Is Nothing End Function </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Function Sh_Exist(wb As Workbook, sName As String) As Boolean</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Dim wsSh As Worksheet</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Set wsSh = wb.Sheets(sName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Sh_Exist = Not wsSh Is Nothing</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Function</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Функция проверяет наличие листа в указанной книге и возвращает True, если лист есть в книге и False, если листа нет.<br /><span style=" font-weight:600;">wb</span> - объект Workbook, наличие листа в которой надо проверить.<br /><span style=" font-weight:600;">sName</span> - имя листа, наличие которого необходимо проверить.<br />Код функции <span style=" font-weight:600;">Sh_Exist</span> необходимо поместить в <a href="http://www.excel-vba.ru/chto-umeet-excel/chto-takoe-modul-kakie-byvayut-moduli/#StandartModule"><span style=" text-decoration: underline; color:#0000ff;">стандартный модуль</span></a> и тогда для проверки наличия листа достаточно будет одной строки кода: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de8273603722680"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub Add_New_Sheet() If Not Sh_Exist(ActiveWorkbook, &quot;Новый лист&quot;) Then ActiveWorkbook.Sheets.Add(, ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count)).Name = &quot;Новый лист&quot; End If End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub Add_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    If Not Sh_Exist(ActiveWorkbook, &quot;Новый лист&quot;) Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        ActiveWorkbook.Sheets.Add(, ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count)).Name = &quot;Новый лист&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;Новый лист&quot; - вместо этого текста указывается имя листа, наличие которого необходимо проверить.<br />Если проверять надо не в активной книге, а в какой-либо другой, то вместо ActiveWorkbook необходимо указать эту книгу. Например, если книга называется &quot;Отчет.xlsx&quot;, то код будет таким: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de8278220312430"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub Add_New_Sheet() If Not Sh_Exist(Workbooks(&quot;Отчет.xlsx&quot;), &quot;Новый лист&quot;) Then Workbooks(&quot;Отчет.xlsx&quot;).Sheets.Add(, Workbooks(&quot;Отчет.xlsx&quot;).Sheets(Workbooks(&quot;Отчет.xlsx&quot;).Sheets.Count)).Name = &quot;Новый лист&quot; End If End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub Add_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    If Not Sh_Exist(Workbooks(&quot;Отчет.xlsx&quot;), &quot;Новый лист&quot;) Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        Workbooks(&quot;Отчет.xlsx&quot;).Sheets.Add(, Workbooks(&quot;Отчет.xlsx&quot;).Sheets(Workbooks(&quot;Отчет.xlsx&quot;).Sheets.Count)).Name = &quot;Новый лист&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Хотя в данном случае практичнее выделить отдельную переменную: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4cee3de827d821408893"></a><span style=" font-size:12px;">S</span><span style=" font-size:12px;">ub Add_New_Sheet() Dim wbCheck As Workbook Set wbCheck = Workbooks(&quot;Отчет.xlsx&quot;) If Not Sh_Exist(wbCheck, &quot;Новый лист&quot;) Then wbCheck.Sheets.Add(, wbCheck.Sheets(wbCheck.Sheets.Count)).Name = &quot;Новый лист&quot; End If End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">Sub Add_New_Sheet()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Dim wbCheck As Workbook</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    Set wbCheck = Workbooks(&quot;Отчет.xlsx&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    If Not Sh_Exist(wbCheck, &quot;Новый лист&quot;) Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">        wbCheck.Sheets.Add(, wbCheck.Sheets(wbCheck.Sheets.Count)).Name = &quot;Новый лист&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">    End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#0a106a;">End Sub</span></p></td>
+<td></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Можно еще упростить и конструкцию With использовать, но это уже другая тема </p></body></html>

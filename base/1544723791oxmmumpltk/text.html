@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<header class="entry-header">
+
+			
+				<h1 class="entry-title" itemprop="headline">VBA Excel. ComboBox (заполнение поля со списком)</h1>
+				
+
+				
+				
+				<div class="entry-meta">
+
+					<span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="https://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/" rel="bookmark"><time class="entry-date published" datetime="2018-03-14T22:29:18+00:00" itemprop="dateModified datePublished">14.03.2018</time></a></span><span class="comments-link"><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/#respond">Добавить комментарий<span class="screen-reader-text"> к записи VBA Excel. ComboBox (заполнение поля со списком)</span></a></span>
+				</div>
+
+			
+		</header>
+
+		
+			<div class="entry-content" itemprop="articleBody">
+
+				<p><em>Способы заполнения ComboBox данными с помощью кода VBA Excel.
+ Добавление значений в поле со списком методом AddItem, из массива и из 
+диапазона  рабочего листа.</em><span id="more-1455"></span></p>
+<ol>
+<li><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/#1">Заполнение ComboBox методом AddItem</a></li>
+<li><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/#2">Заполнение ComboBox значениями из массива</a></li>
+<li><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/#3">Заполнение ComboBox значениями из ячеек</a></li>
+</ol>
+<h2><a id="1"></a>Заполнение ComboBox методом AddItem</h2>
+<p>Создайте пользовательскую форму UserForm1 и разместите на ней поле со
+ списком ComboBox1. Используйте метод AddItem для заполнения элемента 
+управления значениями:</p>
+<div><div id="highlighter_899134" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">Test1()</code></div><div class="line number2 index1 alt1"><code class="vb spaces">    </code><code class="vb keyword">With</code> <code class="vb plain">UserForm1.ComboBox1</code></div><div class="line number3 index2 alt2"><code class="vb spaces">        </code><code class="vb plain">.AddItem </code><code class="vb string">"Кружка"</code></div><div class="line number4 index3 alt1"><code class="vb spaces">        </code><code class="vb plain">.AddItem </code><code class="vb string">"Стакан"</code></div><div class="line number5 index4 alt2"><code class="vb spaces">        </code><code class="vb plain">.AddItem </code><code class="vb string">"Бокал"</code></div><div class="line number6 index5 alt1"><code class="vb spaces">        </code><code class="vb plain">.AddItem </code><code class="vb string">"Пиала"</code></div><div class="line number7 index6 alt2"><code class="vb spaces">        </code><code class="vb plain">.AddItem </code><code class="vb string">"Фужер"</code></div><div class="line number8 index7 alt1"><code class="vb spaces">    </code><code class="vb keyword">End</code> <code class="vb keyword">With</code></div><div class="line number9 index8 alt2"><code class="vb plain">UserForm1.Show</code></div><div class="line number10 index9 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Скопируйте код и запустите его выполнение, на открывшейся форме 
+раскройте поле со списком, в результате увидите, что элемент 
+управления ComboBox1 заполнен соответствующими значениями:</p>
+<p><a href="1.png" target="_blank" rel="noopener"><img class="aligncenter wp-image-1456 size-full" title="Заполненный ComboBox" src="1.png" alt="ComboBox, заполненный значениями методом .AddItem" srcset="1.png 801w, https://vremya-ne-zhdet.ru/wp-content/uploads/2017/07/zapolnennyy-komboboks-300x150.png 300w, https://vremya-ne-zhdet.ru/wp-content/uploads/2017/07/zapolnennyy-komboboks-768x384.png 768w" sizes="(max-width: 801px) 100vw, 801px" width="801" height="400"><span class="screen-reader-text"> </span></a></p>
+<h2><a id="2"></a>Заполнение ComboBox значениями из массива</h2>
+<p>Для заполнения элемента управления ComboBox значениями из массива 
+будем использовать свойство поля со списком List и функцию Array:</p>
+<div><div id="highlighter_960079" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">Test2()</code></div><div class="line number2 index1 alt1"><code class="vb spaces">    </code><code class="vb keyword">With</code> <code class="vb plain">UserForm1</code></div><div class="line number3 index2 alt2"><code class="vb spaces">        </code><code class="vb plain">.ComboBox1.List = Array(</code><code class="vb string">"Кружка"</code><code class="vb plain">, </code><code class="vb string">"Стакан"</code><code class="vb plain">, </code><code class="vb string">"Бокал"</code><code class="vb plain">, </code><code class="vb string">"Пиала"</code><code class="vb plain">, </code><code class="vb string">"Фужер"</code><code class="vb plain">)</code></div><div class="line number4 index3 alt1"><code class="vb spaces">        </code><code class="vb plain">.Show</code></div><div class="line number5 index4 alt2"><code class="vb spaces">    </code><code class="vb keyword">End</code> <code class="vb keyword">With</code></div><div class="line number6 index5 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Результат выполнения кода будет таким же, как и на предыдущем изображении.</p>
+<p>Таким же образом можно использовать не только функцию Array, но и 
+переменную массива, предварительно объявленную и заполненную значениями:</p>
+<div><div id="highlighter_727318" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">Test3()</code></div><div class="line number2 index1 alt1"><code class="vb spaces">    </code><code class="vb keyword">Dim</code> <code class="vb plain">a(4) </code><code class="vb keyword">As</code> <code class="vb keyword">String</code></div><div class="line number3 index2 alt2"><code class="vb spaces">        </code><code class="vb plain">a(0) = </code><code class="vb string">"Кружка"</code></div><div class="line number4 index3 alt1"><code class="vb spaces">        </code><code class="vb plain">a(1) = </code><code class="vb string">"Стакан"</code></div><div class="line number5 index4 alt2"><code class="vb spaces">        </code><code class="vb plain">a(2) = </code><code class="vb string">"Бокал"</code></div><div class="line number6 index5 alt1"><code class="vb spaces">        </code><code class="vb plain">a(3) = </code><code class="vb string">"Пиала"</code></div><div class="line number7 index6 alt2"><code class="vb spaces">        </code><code class="vb plain">a(4) = </code><code class="vb string">"Фужер"</code></div><div class="line number8 index7 alt1"><code class="vb spaces">    </code><code class="vb keyword">With</code> <code class="vb plain">UserForm1</code></div><div class="line number9 index8 alt2"><code class="vb spaces">        </code><code class="vb plain">.ComboBox1.List = a</code></div><div class="line number10 index9 alt1"><code class="vb spaces">        </code><code class="vb plain">.Show</code></div><div class="line number11 index10 alt2"><code class="vb spaces">    </code><code class="vb keyword">End</code> <code class="vb keyword">With</code></div><div class="line number12 index11 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<h2><a id="3"></a>Заполнение ComboBox значениями из ячеек</h2>
+<p>Для заполнения поля со списком значениями из диапазона ячеек рабочего
+ листа будем использовать свойство комбинированного списка RowSource, 
+предварительно заполнив диапазон "A1:A5" активного листа уже известными 
+значениями:</p>
+<div><div id="highlighter_473853" class="syntaxhighlighter  vb"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">Test4()</code></div><div class="line number2 index1 alt1"><code class="vb spaces">    </code><code class="vb keyword">With</code> <code class="vb plain">UserForm1</code></div><div class="line number3 index2 alt2"><code class="vb spaces">        </code><code class="vb plain">.ComboBox1.RowSource = </code><code class="vb string">"A1:A5"</code></div><div class="line number4 index3 alt1"><code class="vb spaces">        </code><code class="vb plain">.Show</code></div><div class="line number5 index4 alt2"><code class="vb spaces">    </code><code class="vb keyword">End</code> <code class="vb keyword">With</code></div><div class="line number6 index5 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p><a href="2.png" target="_blank" rel="noopener"><img class="aligncenter wp-image-1457 size-full" title="ComboBox, заполненный значениями ячеек" src="2.png" alt="ComboBox, заполненный значениями из диапазона ячеек" srcset="2.png 800w, https://vremya-ne-zhdet.ru/wp-content/uploads/2017/07/zapolnennyy-komboboks-iz-diapazona-300x150.png 300w, https://vremya-ne-zhdet.ru/wp-content/uploads/2017/07/zapolnennyy-komboboks-iz-diapazona-768x384.png 768w" sizes="(max-width: 800px) 100vw, 800px" width="800" height="400"><span class="screen-reader-text"> </span></a></p>
+<p>Чтобы присвоить элементу управления ComboBox значения из диапазона 
+ячеек любого рабочего листа, добавьте ссылку на него перед наименованием
+ диапазона, например, замените "A1:A5" на "Лист1!A1:A5", и поле со 
+списком будет заполнено значениями ячеек "A1:A5", расположенных на листе
+ с именем "Лист1".</p>
+<p>Эти же способы используются и для заполнения значениями элемента управления ListBox.</p>
+<p>Иногда возникает необходимость заполнения элементов управления 
+ListBox и ComboBox уникальными значениями из диапазона ячеек с 
+повторяющимся содержимым. Смотрите, как <a href="https://vremya-ne-zhdet.ru/vba-excel/otbor-unikalnykh-znacheniy-iz-spiska/">отсортировать уникальные элементы</a> из списка.</p>
+
+			</div>
+
+		
+		<footer class="entry-meta">
+
+			<span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="https://vremya-ne-zhdet.ru/vba-excel/combobox-zapolneniye-polya-so-spiskom/" rel="bookmark"><time class="entry-date published" datetime="2018-03-14T22:29:18+00:00" itemprop="datePublished">14.03.2018</time></a></span><span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="https://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="cat-links" itemprop="articleSection"><span class="screen-reader-text">Рубрики </span><a href="https://vremya-ne-zhdet.ru/category/vba-excel/" rel="category tag">VBA Excel</a></span>
+			
+		</footer>
+</body>
+</html></p></body></html>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<header class="entry-header">
+
+			
+				<h1 class="entry-title" itemprop="headline">VBA Excel. Цвет ячейки</h1>
+				
+
+				
+				
+				<div class="entry-meta">
+
+					<span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="http://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/" rel="bookmark"><time class="entry-date published" datetime="2016-08-04T09:23:43+00:00" itemprop="dateModified datePublished">04.08.2016</time></a></span>
+				</div>
+
+			
+		</header>
+
+		
+			<div class="entry-content" itemprop="articleBody">
+
+				<p><em>Заливка ячейки цветом в VBA Excel. Фон ячейки. Свойства 
+.Interior.Color и .Interior.ColorIndex. Цветовая модель RGB. Стандартная
+ палитра из 56 цветов.</em><span id="more-710"></span></p>
+<ol>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1">Свойство .Interior.Color объекта Range</a>
+<ul>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1.1">Заливка ячейки цветом в VBA Excel</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1.2">Вывод сообщений о числовых значениях цветов</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1.3">Использование предопределенных констант</a></li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#1.4">Цветовая модель RGB</a></li>
+</ul>
+</li>
+<li><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/#2">Свойство .Interior.ColorIndex объекта Range</a></li>
+</ol>
+<h2><a id="1"></a>Свойство .Interior.Color объекта Range</h2>
+<p>Начиная с Excel 2007 основным способом заливки диапазона или 
+отдельной ячейки цветом (зарисовки, добавления, изменения фона) является
+ использование свойства .Interior.Color объекта Range путем присваивания
+ ему значения цвета в виде десятичного числа от 0 до 16777215 (всего  
+16777216 цветов).</p>
+<h3><a id="1.1"></a>Заливка ячейки цветом в VBA Excel</h3>
+<p><strong>Пример кода 1:</strong></p>
+<div><div id="highlighter_639092" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">ColorTest1()</code></div><div class="line number2 index1 alt1"><code class="vb plain">Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.Color = 31569</code></div><div class="line number3 index2 alt2"><code class="vb plain">Range(</code><code class="vb string">"A4:D8"</code><code class="vb plain">).Interior.Color = 4569325</code></div><div class="line number4 index3 alt1"><code class="vb plain">Range(</code><code class="vb string">"C12:D17"</code><code class="vb plain">).Cells(4).Interior.Color = 568569</code></div><div class="line number5 index4 alt2"><code class="vb plain">Cells(3, 6).Interior.Color = 12659</code></div><div class="line number6 index5 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Поместите пример кода в свой программный модуль и нажмите кнопку на 
+панели инструментов «Run Sub» или на клавиатуре «F5», курсор должен быть
+ внутри выполняемой программы. На активном листе Excel ячейки и 
+диапазон, выбранные в коде, окрасятся в соответствующие цвета.</p>
+<p><strong>Есть один интересный нюанс:</strong> если присвоить свойству <strong>.Interior.Color</strong>
+ отрицательное значение от -16777215 до -1, то цвет будет 
+соответствовать значению, равному сумме максимального значения палитры 
+(16777215) и присвоенного отрицательного значения. Например, заливка 
+всех трех ячеек после выполнения следующего кода будет одинакова:</p>
+<div><div id="highlighter_522660" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">ColorTest11()</code></div><div class="line number2 index1 alt1"><code class="vb plain">Cells(1, 1).Interior.Color = -12207890</code></div><div class="line number3 index2 alt2"><code class="vb plain">Cells(2, 1).Interior.Color = 16777215 + (-12207890)</code></div><div class="line number4 index3 alt1"><code class="vb plain">Cells(3, 1).Interior.Color = 4569325</code></div><div class="line number5 index4 alt2"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Проверено в Excel 2016.</p>
+<h3><a id="1.2"></a>Вывод сообщений о числовых значениях цветов</h3>
+<p>Числовые значения цветов запомнить невозможно, поэтому часто 
+возникает вопрос о том, как узнать числовое значение фона ячейки. 
+Следующий код VBA Excel выводит сообщения о числовых значениях 
+присвоенных ранее цветов.</p>
+<p><strong>Пример кода 2:</strong></p>
+<div><div id="highlighter_559347" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">ColorTest2()</code></div><div class="line number2 index1 alt1"><code class="vb plain">MsgBox Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.Color</code></div><div class="line number3 index2 alt2"><code class="vb plain">MsgBox Range(</code><code class="vb string">"A4:D8"</code><code class="vb plain">).Interior.Color</code></div><div class="line number4 index3 alt1"><code class="vb plain">MsgBox Range(</code><code class="vb string">"C12:D17"</code><code class="vb plain">).Cells(4).Interior.Color</code></div><div class="line number5 index4 alt2"><code class="vb plain">MsgBox Cells(3, 6).Interior.Color</code></div><div class="line number6 index5 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Вместо вывода сообщений можно присвоить числовые значения цветов переменным, объявив их как Long.</p>
+<h3><a id="1.3"></a>Использование предопределенных констант</h3>
+<p>В VBA Excel есть предопределенные константы часто используемых цветов для заливки ячеек:</p>
+<table width="100%">
+<tbody>
+<tr>
+<td width="50%"><strong>Предопределенная константа</strong></td>
+<td width="50%"><strong>Наименование цвета</strong></td>
+</tr>
+<tr>
+<td>vbBlack</td>
+<td>Черный</td>
+</tr>
+<tr>
+<td>vbBlue</td>
+<td>Голубой</td>
+</tr>
+<tr>
+<td>vbCyan</td>
+<td>Бирюзовый</td>
+</tr>
+<tr>
+<td>vbGreen</td>
+<td>Зеленый</td>
+</tr>
+<tr>
+<td>vbMagenta</td>
+<td>Пурпурный</td>
+</tr>
+<tr>
+<td>vbRed</td>
+<td>Красный</td>
+</tr>
+<tr>
+<td>vbWhite</td>
+<td>Белый</td>
+</tr>
+<tr>
+<td>vbYellow</td>
+<td>Желтый</td>
+</tr>
+</tbody>
+</table>
+<p>Присваивается цвет ячейке предопределенной константой в VBA Excel точно так же, как и числовым значением:</p>
+<p><strong>Пример кода 3:</strong></p>
+<div><div id="highlighter_422269" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.Color = vbGreen</code></div></div></td></tr></tbody></table></div></div>
+<h3><a id="1.4"></a>Цветовая модель RGB</h3>
+<p>Цветовая система RGB представляет собой комбинацию различных по 
+интенсивности основных трех цветов: красного, зеленого и синего. Они 
+могут принимать значения от 0 до 255. Если все значения равны 0 - это 
+черный цвет, если все значения равны 255 - это белый цвет.</p>
+<p>Выбрать цвет и узнать его значения RGB можно с помощью палитры Excel:</p>
+<figure id="attachment_711" style="max-width: 732px" class="wp-caption aligncenter"><a href="1.png" target="_blank" rel="noopener"><img class="wp-image-711 size-full" title="Палитра Excel" src="1.png" alt="Палитра Excel" srcset="1.png 732w, http://vremya-ne-zhdet.ru/wp-content/uploads/2016/08/palitra-excel-300x190.png 300w, http://vremya-ne-zhdet.ru/wp-content/uploads/2016/08/palitra-excel-237x150.png 237w, http://vremya-ne-zhdet.ru/wp-content/uploads/2016/08/palitra-excel-150x95.png 150w" sizes="(max-width: 732px) 100vw, 732px" width="732" height="463"><span class="screen-reader-text">Открывается в новом окне</span></a><figcaption class="wp-caption-text">Палитра Excel</figcaption></figure>
+<p>Чтобы можно было присвоить ячейке или диапазону цвет с помощью 
+значений RGB, их необходимо перевести в десятичное число, обозначающее 
+цвет. Для этого существует функция VBA Excel, которая так и называется 
+- RGB.</p>
+<p><strong>Пример кода 4:</strong></p>
+<div><div id="highlighter_328507" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.Color = RGB(100, 150, 200)</code></div></div></td></tr></tbody></table></div></div>
+<h2><a id="2"></a>Свойство .Interior.ColorIndex объекта Range</h2>
+<p>До появления Excel 2007 существовала только ограниченная палитра для 
+заливки ячеек фоном, состоявшая из 56 цветов, которая сохранилась и в 
+настоящее время. Каждому цвету в этой палитре присвоен индекс от 1 до 
+56. Присвоить цвет ячейке по индексу или вывести сообщение о нем можно с
+ помощью свойства .Interior.ColorIndex:</p>
+<p><strong>Пример кода 5:</strong></p>
+<div><div id="highlighter_655273" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb plain">Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.ColorIndex = 8</code></div><div class="line number2 index1 alt1"><code class="vb plain">MsgBox Range(</code><code class="vb string">"A1"</code><code class="vb plain">).Interior.ColorIndex</code></div></div></td></tr></tbody></table></div></div>
+<p>Просмотреть ограниченную палитру для заливки ячеек фоном можно, запустив в VBA Excel простейший макрос:</p>
+<p><strong>Пример кода 6:</strong></p>
+<div><div id="highlighter_118178" class="syntaxhighlighter  vb"><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="vb keyword">Sub</code> <code class="vb plain">ColorIndex()</code></div><div class="line number2 index1 alt1"><code class="vb keyword">Dim</code> <code class="vb plain">i </code><code class="vb keyword">As</code> <code class="vb keyword">Byte</code></div><div class="line number3 index2 alt2"><code class="vb keyword">For</code> <code class="vb plain">i = 1 </code><code class="vb keyword">To</code> <code class="vb plain">56</code></div><div class="line number4 index3 alt1"><code class="vb plain">Cells(i, 1).Interior.ColorIndex = i</code></div><div class="line number5 index4 alt2"><code class="vb keyword">Next</code></div><div class="line number6 index5 alt1"><code class="vb keyword">End</code> <code class="vb keyword">Sub</code></div></div></td></tr></tbody></table></div></div>
+<p>Номера строк активного листа от 1 до 56 будут соответствовать индексу
+ цвета, а ячейка в первом столбце будет залита соответствующим индексу 
+фоном.</p>
+<p>Готовую стандартную палитру из 56 цветов можете посмотреть <a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-teksta-shrifta-v-yacheyke/#3">здесь</a>.</p>
+
+			</div>
+
+		
+		<footer class="entry-meta">
+
+			<span class="posted-on"><span class="screen-reader-text">Опубликовано </span><a href="http://vremya-ne-zhdet.ru/vba-excel/tsvet-yacheyki-zalivka-fon/" rel="bookmark"><time class="entry-date published" datetime="2016-08-04T09:23:43+00:00" itemprop="datePublished">04.08.2016</time></a></span><span class="byline"><span class="author vcard" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span class="screen-reader-text">Автор </span><a class="url fn n" href="http://vremya-ne-zhdet.ru/author/rkjey1/" rel="author" itemprop="url name">Время не ждёт</a></span></span><span class="cat-links" itemprop="articleSection"><span class="screen-reader-text">Рубрики </span><a href="http://vremya-ne-zhdet.ru/category/vba-excel/" rel="category tag">VBA Excel</a></span>
+			
+		</footer>
+</body>
+</html></p></body></html>

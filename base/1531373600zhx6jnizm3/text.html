@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/897.html"><font color="Red">063. Открытие базы данных разными методами</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                02. В этом примере показаны два разных метода открытия базы данных через ADO, DAO и использование файла udl
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#0000aa">Option Compare </font>Database<br>
+<font color="#0000aa">Option Explicit</font><br>
+<font color="#007700">'***************************************************************</font><br>
+<font color="#007700">' 02. Открытие базы данных разными методами</font><br>
+<font color="#007700">'***************************************************************</font><br>
+<br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">' ADO. Открытие базы данных</font><br>
+<font color="#0000aa">Private Sub </font>butADO_Click()<br>
+<font color="#0000aa">Dim </font>cnn <font color="#0000aa">As </font>ADODB.Connection <font color="#007700">' Переменная для соединения</font><br>
+<font color="#0000aa">Dim </font>myLinks <font color="#0000aa">As </font>MSDASC.DataLinks <font color="#007700">' Переменная для граф.интерфейса</font><br>
+   <font color="#0000aa">On Error GoTo </font>999<br>
+   <font color="#007700">' Текущее соединение</font><br>
+   <font color="#007700">' Set cnn = CurrentProject.Connection</font><br>
+   <br>
+   <font color="#007700">' Определяем новое соединение</font><br>
+   <font color="#0000aa">Set </font>cnn = <font color="#0000aa">New </font>ADODB.Connection<br>
+   <br>
+   <font color="#0000aa">If </font>Me.grOpen <font color="#0000aa">Then </font><font color="#007700">' Графический интерфейс</font><br>
+        <font color="#0000aa">If </font>Me.grOpen = 1 <font color="#0000aa">Then </font><font color="#007700">' Графический интерфейс</font><br>
+         <font color="#007700">' 1. Открытие соединения без файла</font><br>
+           cnn.Provider = <font color="#660000">"Microsoft.Jet.OLEDB.4.0"</font><br>
+           cnn.Mode = adModeReadWrite <font color="#007700">' Открываем на чтение и запись</font><br>
+           cnn.Properties(<font color="#660000">"User ID"</font>) = <font color="#660000">"Admin"</font><br>
+           cnn.Properties(<font color="#660000">"Data Source"</font>) = CodeProject.Path &amp; <font color="#660000">"\la_form.mdb"</font><br>
+        <font color="#0000aa">Else</font><br>
+           <font color="#007700">' 2. Открываем соединение, используя файл udl (2 варианта открытия)</font><br>
+           <font color="#0000aa">On Error Resume Next</font><br>
+           cnn.Open<br>
+           cnn.Properties(<font color="#660000">"Extended Properties"</font>) = <font color="#660000">"File Name="</font> &amp; CodeProject.Path &amp; <font color="#660000">"\la_ado.udl"</font><br>
+           <font color="#007700">' Дополнительный пример</font><br>
+           <font color="#007700">' cnn.Open "File Name=" &amp; CodeProject.Path &amp; "\la_ado.udl"</font><br>
+           cnn.Close<br>
+           Err.Clear<br>
+        <font color="#0000aa">End If</font><br>
+        <font color="#007700">' Включаем редактор udl (см. также Tools/References ...)</font><br>
+        <font color="#0000aa">Set </font>myLinks = <font color="#0000aa">New </font>MSDASC.DataLinks<br>
+        myLinks.hWnd = Application.hWndAccessApp <font color="#007700">' Родственник udl</font><br>
+        <font color="#0000aa">If </font>myLinks.PromptEdit(cnn) = <font color="#0000aa">True Then </font><font color="#007700">' Редактирование, OK = true</font><br>
+            cnn.Open<br>
+            cnn.Close<br>
+            <font color="#007700">' Отображаем строку подключения</font><br>
+            Me.listCon.RowSource = cnn.ConnectionString<br>
+        <font color="#0000aa">Else</font><br>
+            <font color="#007700">' Отображаем пустую строку подключения</font><br>
+            Me.listCon.RowSource = <font color="#660000">"Отмена соединения;"</font><br>
+        <font color="#0000aa">End If</font><br>
+        <br>
+        <font color="#0000aa">Set </font>myLinks = <font color="#0000aa">Nothing </font><font color="#007700">' Уничтожаем ссылку</font><br>
+   <font color="#0000aa">Else </font><font color="#007700">' Программный интерфейс</font><br>
+        <font color="#007700">' Определяем строку соединения для Microsoft.Jet.OLEDB</font><br>
+        <font color="#007700">' Полностью определить переменные подключения для других провайдеров</font><br>
+        <font color="#007700">' можно открыв файл udl, который создается в проводнике</font><br>
+        <font color="#0000aa">Dim </font>strCnn <font color="#0000aa">As String</font><br>
+        strCnn = <font color="#660000">"Provider=Microsoft.Jet.OLEDB.4.0;"</font> <font color="#007700">' Провайдер</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Data Source="</font> &amp; CurrentProject.Path &amp; <font color="#660000">"\la_form.mdb;"</font> <font color="#007700">' база данных</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"User ID=Admin;"</font> <font color="#007700">' Пользователь</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Mode=ReadWrite|Read;"</font> <font color="#007700">' Режим чтения и записи+другие свойства</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Extended Properties=</font><font color="#007700">'';" ' Расширенные свойства, например, файл udl</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Persist Security Info=False;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Locale Identifier=1033;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:System database=</font><font color="#007700">'';" 'C:\..\SYSTEM.MDW;</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Database Password=</font><font color="#007700">'';" ' Пароль внутри базы</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:New Database Password=</font><font color="#007700">'';"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Encrypt Database=False;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Create System Database=False;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Registry Path=</font><font color="#007700">'';"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Engine Type=5;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Database Locking Mode=1;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Global Partial Bulk Ops=2;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Global Bulk Transactions=1;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Don</font><font color="#007700">'t Copy Locale on Compact=False;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:SFP=False;"</font><br>
+        strCnn = strCnn &amp; <font color="#660000">"Jet OLEDB:Compact Without Replica Repair=False;"</font><br>
+        <br>
+        <font color="#007700">' Назначаем строку соединения</font><br>
+        cnn.ConnectionString = strCnn<br>
+        <br>
+        <font color="#007700">' Отображаем строку подключения</font><br>
+        Me.listCon.RowSource = cnn.ConnectionString<br>
+        <br>
+        <font color="#007700">' Открываем соединение</font><br>
+        cnn.Open<br>
+        cnn.Close<br>
+<font color="#0000aa">End If</font><br>
+    <font color="#007700">' Конец</font><br>
+    <font color="#0000aa">Set </font>cnn = <font color="#0000aa">Nothing</font><br>
+    <font color="#0000aa">Exit Sub</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+    Err.Clear<br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">' DAO. Открытие базы данных</font><br>
+<font color="#0000aa">Private Sub </font>butDAO_Click()<br>
+<font color="#0000aa">Dim </font>dbs <font color="#0000aa">As </font>DAO.Database<br>
+    <font color="#007700">' Текущая база</font><br>
+    <font color="#007700">' Set dbs = CurrentDb</font><br>
+    <br>
+    <font color="#007700">' Открываем новую базу</font><br>
+    <font color="#0000aa">Set </font>dbs = DBEngine.OpenDatabase(CurrentProject.Path &amp; <font color="#660000">"\la_form.mdb"</font>, , <font color="#0000aa">True</font>)<br>
+    <font color="#007700">' Отображаем строку подключения</font><br>
+    Me.listCon.RowSource = <font color="#660000">"DAO"</font><br>
+    <br>
+    <font color="#007700">' Закрываем базу</font><br>
+    dbs.Close<br>
+    <font color="#0000aa">Set </font>dbs = <font color="#0000aa">Nothing</font><br>
+    MsgBox <font color="#660000">"База открыта и закрыта (DAO)!"</font>, vbExclamation, <font color="#660000">"Лидер Access"</font><br>
+<font color="#0000aa">End Sub</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td colspan="2">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="lbArtHeader"></a><span style=" font-size:8.25pt;">F</span><span style=" font-size:8.25pt;">AQ: Безопасное сжатие базы (mdb) или проекта (adp) Access</span></p></td></tr>
+<tr>
+<td colspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="lbArtObr"></a><span style=" font-size:8.25pt;">(</span><span style=" font-size:8.25pt;">обращений: </span><span style=" font-size:8.25pt; font-weight:600;">12383</span><span style=" font-size:8.25pt;"> с 29.11.2007)<br /><br /></span><a name="lbIssueListH"></a><span style=" font-size:8.25pt;">Р</span><span style=" font-size:8.25pt;">азделы:  </span><a name="lbIssueList"></a><a href="http://am.rusimport.ru/msaccess/content.aspx?id=23"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Ч</span></a><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">аВо (FAQ)</span><span style=" font-size:8.25pt;">, </span><a href="http://am.rusimport.ru/msaccess/content.aspx?id=25"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Базы</span></a><span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">  </span></p></td></tr>
+<tr>
+<td colspan="2">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="lbBody"></a><span style=" font-size:8.25pt;">О</span><span style=" font-size:8.25pt;">писание: Как можно просто реализовать управление сжатием базы или проекта для пользователей.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Автор: </span><a href="mailto:banderlogi@bk.ru"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Дмитрий Сонных (AKA Joss)</span></a><span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Добавил на сайт: </span><img src="image28026.png" /><a href="mailto:banderlogi@bk.ru"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Joss</span></a><span style=" font-size:8.25pt;"> 29.11.2007</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">О сжатии многопользовательских баз данных можно посмотреть вот здесь. </span><a href="http://am.rusimport.ru/MsAccess/topic.aspx?ID=333"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Сжатие и архивирование БД </span></a><span style=" font-size:8.25pt;">я же остановлюсь на сжатии клиентских приложений сделанных как в формате MDB (базы), так и формате ADP (проекты).<br /><br />Ещё, когда начинал писать на Access 97, возник вопрос, как периодически сжимать базу данных? За время работы она довольно сильно распухала. Решений было несколько, но все они по тем или иным причинам были не оптимальны.<br />1) давать пользователю доступ к полному меню Access, что бы он мог сжимать базу не очень хорошо. Он может изменить какую-нибудь важную установку.<br />2) Поставлять с базой утилиту </span><span style=" font-size:8.25pt; font-weight:600;">JetCompact</span><span style=" font-size:8.25pt;"> тоже не давало желательного эффекта. Утилиту часто теряли, забывали передавать или устанавливать вместе с базой, При использовании защиты, требовалось задавать дополнительные параметры. Кроме того, многие пользователи были так сказать, «не квалифицированными» и затруднялись ею воспользоваться.<br />3) Использование параметров командной строки </span><span style=" font-size:8.25pt; font-style:italic;">/compact</span><span style=" font-size:8.25pt;"> и </span><span style=" font-size:8.25pt; font-style:italic;">/repair</span><span style=" font-size:8.25pt;"> требовало размещение на рабочем столе дополнительных иконок и иногда сбивало пользователя с толку, если у иконок оказывалось одинаковое изображение. Автоматическое создание иконок на рабочем столе требовало дополнительных знаний в программировании, а вручную создавать было не всегда возможно. Хотя это и был, на мой взгляд, наиболее корректный способ обеспечения пользователя инструментом для сжатия базы.<br />4) Всевозможные программные ухищрения на основе Access и VBScript. Генерировались всевозможные скрипты для запуска программы на сжатие, программно создавались кнопки, на которые вешались команды на сжатие, создавались специальные программы (mdb) сжималки. Если поикать по форумам, то можно найти много следов этой деятельности.<br />С появлением Access 2000 ситуация несколько улучшилась. В параметрах базы появился флажок «Сжимать при закрытии». Но им не очень-то спешили воспользоваться. Постоянное сжимание базы, хоть и позволяло минимизировать объем базы, но замедляло работу (в и-нете это обсуждалось). Одно ожидание завершения сжатия, особенно когда объем базы перевалил за 10 Мб, может помотать пользователю нервы (а он, естественно, помотает Вам). Вот если бы можно было управлять этим флажком из программы. Тогда можно дать указание на сжатие файла базы при закрытии, а при открытии базы, сбрасывать установку флажка. Так можно реализовать однократное сжатие базы. Можно написать подпрограмму сжатия базы по расписанию. Осталось только узнать, как это можно сделать. Оказывается, сделать это очень просто. Всего две строчки кода<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">    SetOption </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#0000ff;">&quot;Auto Compact&quot;</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">, </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">True</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#008000;">' включить</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-size:8.25pt; color:#008000;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">и <br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">    SetOption </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#0000ff;">&quot;Auto Compact&quot;</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;">, </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#00008b;">False</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt;"> </span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#008000;">' выключить</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-size:8.25pt; color:#008000;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Теперь одну строку надо повесить на кнопку включения сжатия файла, а вторую вставить в макрос AutoExec или стартовую форму. Вот всё и готово.<br /><br />Работает для Access 2000. 2002, 2003. Для 97 не работает. Для 2007 не проверялось.<br /><br />Для написания статьи были использованы материалы с сайта SQL.RU (топик </span><a href="http://sql.ru/forum/actualthread.aspx?bid=4&amp;tid=498946"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Иры с параметрами базы </span></a><span style=" font-size:8.25pt;">)<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="javascript:history.back(1)"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">[Back]</span></a></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p></td></tr>
+<tr>
+<td colspan="2">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Rating1_lbBar"></a><span style=" font-size:8.25pt;">Т</span><span style=" font-size:8.25pt;">екущий рейтинг:<br />5 из 5 (проголосовало:2).<br /></span></p></td>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;"></td></tr></table></td></tr></table></td></tr></table>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td width="100%" style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="95%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td colspan="2" style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td colspan="2" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Скажите, почему Вы оценили так (необязательно):<br /></span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;"></td>
+<td style=" vertical-align:top;"></td></tr></table></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td colspan="2" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Rating1_edComment"></a><span style=" font-size:8.25pt;"><br /></span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="comments"></a><span style=" font-size:8.25pt;">О</span><span style=" font-size:8.25pt;">бсуждение статьи:  </span></p></td></tr></table></td></tr>
+<tr>
+<td colspan="2" style=" vertical-align:top;"></td></tr></table>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="47921"></a><a href="http://am.rusimport.ru/msaccess/topic.aspx?ID=638"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Б</span></a><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">езопасное сжатие базы (mdb) или проекта (adp) Access</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="mailto:shekn@mail.ru"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">NIC</span></a></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; background-color:#eeeeee;">Всё это конечно хорошо, но если эта БД используется как файл-сервер и в данный момент какой-то пользователь просто открыл хоть одну таблицу из этой БД ( а такой всегда найдётся), то сжатия не будет! Было бы перспективно используя дополнительный блок обработки (по расписанию или процентное увеличение размера БД)так же из программы отключать всех подключённых к этой БД ( монопольный режим)без перезагрузки БД, вот это имело бы перспективу! Сам имею такую проблему и периодически вынужден делать &quot; закат солнца в ручную&quot;.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">18.12.2007 14:53</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="47922"></a><a href="http://am.rusimport.ru/msaccess/topic.aspx?ID=638"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Б</span></a><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">езопасное сжатие базы (mdb) или проекта (adp) Access</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="mailto:shekn@mail.ru"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">NIC</span></a></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; background-color:#eeeeee;">Теже проблемы и при резервном копировании БД.</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">18.12.2007 15:00</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="47934"></a><a href="http://am.rusimport.ru/msaccess/topic.aspx?ID=638"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">О</span></a><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">твет NIC</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Joss</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; background-color:#eeeeee;">В самом начале статьи я указал ссылку на статью, где рассматривается сжатие многопользовательских баз данных. Я подчеркнул, что здесь рассматривается сжатие клиентских приложений. Сжатие многопользовательских файл-серверных баз я тоже реализовывал. Но не хотелось дублировать вышеуказанную статью.</span><span style=" font-size:8.25pt;"><br />Алгоритм сжатия был такой.<br />а) Заблокировать базу на подключение новых пользователей.<br />б) Проверить, сколько пользователей подключено к базе, если пользователей нет, то приступить к сжатию.<br />в) Послать всем подключенным пользователям предупреждение о необходимости завершить работу.<br />г) Через заданное количество минут отключить всех пользователей.<br />д) Проверить, все ли пользователи отключены<br />е) Приступить к сжатию базы<br />ж) Разблокировать базу после сжатия для подключения пользователей.<br />Весь этот алгоритм запускался нажатием одной кнопки, и в случае необходимости мог быть отменен во время пункта г).</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">19.12.2007 01:10</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:top;">
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="47941"></a><a href="http://am.rusimport.ru/msaccess/topic.aspx?ID=638"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Б</span></a><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">езопасное сжатие базы (mdb) или проекта (adp) Access</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">NIC</span></p></td>
+<td bgcolor="#cacaca" style=" vertical-align:top;">
+<p align="right" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p></td></tr></table></td></tr></table></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; background-color:#eeeeee;">Извинения за мою невнимательность!</span></p></td></tr>
+<tr>
+<td bgcolor="#eeeeee" style=" vertical-align:top;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">19.12.2007 11:42</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span></p></td></tr></table></td>
+<td></td></tr>
+<tr>
+<td colspan="2"></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p></body></html>

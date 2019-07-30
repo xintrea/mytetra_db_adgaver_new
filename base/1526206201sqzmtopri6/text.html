@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h3 class="post-title entry-title" itemprop="name">
+Урок 6. Работа с внешними изображениями
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-3103785608575814123" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+На прошлом уроке я упоминал о том, что на встроенных (штатных) кнопках 
+можно использовать только встроенные изображения, уже имеющиеся в офисе.
+ Если же мы создадим свою кнопку, то сможем разместить на ней как 
+встроенное, так и собственное, внешнее изображение. Давайте попробуем 
+это сделать, добавить в интерфейс внешнее изображение.<br>
+<br>
+Откроем проект прошлого урока и добавим в нашу группу вторую кнопку. 
+Пусть кнопка должна будет в итоге выводить на экран окно с приветствием.
+ Поскольку кнопка будет самодельная, вместо <b>idMso</b> для задания идентификатора используем <b>id</b>. В качестве идентификатора укажем произвольное слово, например, «Приветствие»:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;ribbon startFromScratch="false"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;tab id="Вкладка1" label="Моя вкладка" insertBeforeMso="TabHome"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;group id="Группа1" label="Моя группа"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                    &lt;button idMso="DeleteWord"/&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                    &lt;button id="Приветствие" label="Поприветствовать" /&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                &lt;/group&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            &lt;/tab&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        &lt;/tabs&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;/ribbon&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/customUI&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Теперь запустим документ на выполнение и посмотрим, что получилось. Мы 
+увидим, что справа от нашей большой кнопки, которую мы поместили туда 
+ранее, появилась маленькая, со словом «Поприветствовать». Поскольку 
+изображение ей мы ещё не присвоили, кнопка будет содержать только 
+надпись.<br>
+<br>
+Теперь займёмся изображением. В идеале мы должны создать иконку 32x32, 
+которая бы хорошо смотрелась не только в своём истинном размере, но и 
+при автоматической интерполяции до 16x16. Предпочтительный формат файла 
+изображения, конечно, «png», поскольку он поддерживает градацию 
+прозрачности, что позволит нам избежать рваных краёв у рисунка при его 
+отображении на кнопке.<br>
+<br>
+Само создание иконки в графическом редакторе выходит за рамки нашей 
+темы. В качестве альтернативы, можно поискать нужные иконки в Интернете.
+ Чтобы не нагружать читателя лишними заботами, я выложу пример иконки 
+здесь. Скачайте её и сохраните на диске:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://3.bp.blogspot.com/-64qIQ4zFkcU/VPIql_vporI/AAAAAAAAAK8/kADml2l2kg8/s1600/%D0%A0%D1%83%D0%BA%D0%B0.png" imageanchor="1" style=""><img src="1.png" border="0"></a></div>
+Чтобы вставить изображение в код, нужно, чтобы оно уже находилось внутри
+ структуры документа. На втором уроке я упоминал о паре мест внутри 
+документа, которые нас будут интересовать при использовании внешних 
+изображений. Эти места отображаются на вкладках «Ссылки на изображения» и
+ «Типы файлов».<br>
+<br>
+Поскольку изображений в документе ещё нет, редактор вкладки «Ссылки на 
+изображения» будет пуст. Он будет отображать содержимое файла 
+CustomUI.xml.rels с сылками на импортированные изображения, который 
+будет располагаться внутри документа в папке customUI\_rels. Но пока 
+этого файла тоже нет. Всю эту структуру, а также папку images для 
+хранения изображений внутри документа, Ribbon XML Editor создаст 
+автоматически, в процессе импорта внешнего изображения.<br>
+<br>
+Давайте импортируем изображение в документ. Для работы с внешними 
+изображениями в интерфейсе редактора предусмотрен специальный блок, 
+состоящий из кнопки импорта файла изображения, комбобокса выбора 
+изображения для вставки его идентификатора в текст, кнопки вставки 
+идентификатора и кнопки удаления файла изображения из документа:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-QWefuEAl0to/VPIq6t4PkdI/AAAAAAAAALE/8AWfAV5QSKI/s1600/%D0%91%D0%BB%D0%BE%D0%BA-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D0%BC%D0%B8.png" imageanchor="1" style=""><img src="2.png" border="0"></a></div>
+<br>
+<br>
+На рисунке блок работы с изображениями выделен красной рамкой. Нажмём 
+первую кнопку блока для выбора изображения для импорта, и выберем 
+скачанный и сохранённый ранее файл Рука.png. Его изображение и 
+идентификатор тотчас добавится в комбобокс. Изображение уже в документе.<br>
+<br>
+Что изменилось на вкладках «Ссылки на изображения» и «Типы файлов». На первой из этих вкладок появился следующий текст:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;?xml version="1.0"?&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;relationship id="Рука" target="images/xTCxUBxU2xTS.png" type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"&gt;</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/relationship&gt;&lt;/relationships&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Внутри корневого тега Relationships содержится тег Relationship с сылкой
+ на только что импортированное изображение. Бегло пройдёмся по атрибутам
+ этого тега. C атрибутом <b>id</b> всё понятно — это идентификатор изображения, который будет применяться в тексте. А вот дальше следует атрибут <b>target</b>,
+ указывающий расположение файла внутри папки интерфейса, но вместо имени
+ файла мы видим странный набор символов. Объясняется это просто — офис 
+не поддерживает кириллицу в именах файлов изображений, и поэтому Ribbon 
+XML Editor автоматически кодирует кириллистические символы 36-ричными 
+кодами, содержащими только цифры и латиницу.<br>
+<br>
+Последним атрибутом ссылки является <b>type</b> — тип ссылки. Тип 
+записывается наподобие пространства имён — интернет-адресом, по 
+которому, на момент написания урока, ничего нет. Из его записи мы можем 
+лишь понять, что рассматриваемый тег является ссылкой на изображение, 
+что мы уже и так знаем.<br>
+<br>
+На второй из рассматриваемых вкладок отображается файл 
+[Content_Types].xml, который тоже подвергается некоторым изменениям во 
+время импорта изображений. Файл находится в корне структуры документа и 
+содержит перечисление типов объектов, помещённых в документ. Он уже 
+содержит ряд объектов, а при добавлении изображения в него помещается 
+строка с указанием типа файла изображения в привязке к его расширению. В
+ нашем случае мы добавляли файл «png», поэтому в список добавилась 
+соответствующая строка:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;default contenttype="image/png" extension="png"/&gt;</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+При добавлении следующего изображения с тем же расширением редактор 
+обнаружит наличие этой строки, и не будет уже добавлять новую. А вот 
+если добавить файл другого формата, то в текст вставится новая строка, 
+соответствующая новому формату файла.<br>
+<br>
+Тут надо упомянуть про форматы изображений, поддерживаемых офисом. 
+Процитирую справку Ribbon XML Editor с перечислением форматов, которые 
+поддерживаются этим редактором для импорта:<br>
+<ol style="font-style: italic; text-align: left;">
+<li>png (тип image/png) — поддерживает градацию прозрачности.</li>
+<li>gif (тип image/gif) — поддерживает единственный уровень прозрачности — полную прозрачность.</li>
+<li>bmp (конвертируя в png) — может поддерживать градацию прозрачности (32-битный формат)</li>
+<li>ico, icon (тип image/x-icon) — поддерживает градацию прозрачности.</li>
+<li>jpg, jpeg, jpe, pjpeg (тип image/jpeg) — не поддерживает прозрачность.</li>
+<li>tif, tiff (тип image/tiff) — поддерживает градацию прозрачности.</li>
+<li>wmf (тип image/x-wmf) — векторный формат, поддерживает прозрачность.</li>
+<li>emf (тип image/x-emf) — усовершенствованный wmf, поддерживает прозрачность.</li>
+</ol>
+Практически интерес представляют только первые четыре формата. 
+Остальные, как правило, для интерфейсных изображений не применяются. 
+Отдельно скажу про формат «bmp», опять же процитировав справку:<br>
+<br>
+<i>«Несмотря на то, что интерфейс офисных программ понимает файлы 
+формата .bmp, он отображает их без учёта прозрачности (в случае 
+32-битного bmp) и без принудительного вырезания фона, поэтому Ribbon XML
+ Editor при импорте конвертирует такие файлы в формат .png либо копируя 
+канал прозрачности в случае 32-битного .bmp, либо вырезая фон, определяя
+ его, как пиксели, цвет которых совпадает с цветом левого нижнего 
+пикселя.»</i><br>
+<br>
+Так что, если у вас есть коллекция иконок в формате «bmp», никто не 
+запрещает их применять. Но я всё же рекомендую использовать именно 
+формат «png», как наиболее приспособленный для этого дела.<br>
+<br>
+Итак, изображение у нас в документе. Дело осталось за малым — сослаться 
+на него в коде интерфейса. Для этого ставим курсор в конец атрибутов 
+тега кнопки, и нажимаем кнопку «Вставить ссылку на изображение в текущую
+ позицию курсора». В тег вставляется атрибут <b>image</b> со значением идентификатора картинки. Происходит это так же, как и при вставке встроенного изображения из галереи в атрибут <b>imageMso</b>.<br>
+<br>
+Запускаем документ на выполнение, и любуемся красивой кнопкой. При желании можем тоже сделать её большой, добавив атрибут <b>size</b> с указанием в нём значения <b>large</b>.<br>
+<br>
+На этом урок мы закончим. На следующем уроке мы разберём ещё несколько 
+атрибутов, задающих различные надписи элементам, а также увидим 
+интересный пример реализации классического меню с панелями, размещённого
+ прямо на вкладке ленты. </div></div>
+</body>
+</html></p></body></html>

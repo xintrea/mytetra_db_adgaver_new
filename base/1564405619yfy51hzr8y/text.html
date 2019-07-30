@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Количество уникальных в каждой группе</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Доброго времени суток.</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Есть база с записями заказа референсов</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Каждый референс используется в разных группах и разных количествах.</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">1. Как получить сколько референсов (уникальных) было использовано для каждой группы, без выведения поля самих референсов?</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">2. Общий результат без выведения поля самих референсов?</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">Например если первый референс использовался 2 раза для группы А(2+1 шт.) и один раз для группы В(5 шт.) и</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">и второй 3 раза для группы А(1+1+2шт.),то хотелось бы получить</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">A 2 6</span></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;"><span style=" font-family:'DejaVu Sans';">В 1 5</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px; font-family:'DejaVu Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:4px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:4px;">1. </p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Код: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">SELECT qry.группа, Count(qry.группа) AS [Количество], Sum(qry.SUMKOL) AS [СУММА]</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">FROM (</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">SELECT t1.референс, t1.группа, Sum(t1.Количество) AS SUMKOL</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">FROM t1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">GROUP BY t1.референс, t1.группа</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">ORDER BY t1.группа</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">) as qry</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">GROUP BY qry.группа;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2.<br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Код: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">SELECT Count(qry.референс) AS Количество, Sum(qry.SUMKOL) AS СУММА</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">FROM (SELECT t1.референс, Sum(t1.Количество) AS SUMKOL</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">FROM t1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">GROUP BY t1.референс</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">ORDER BY t1.референс</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">)  AS qry;</span><span style=" font-family:'DejaVu Sans';"> </span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">--\\---------------------------------------------------------------------------------------</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">SELECT Year(Дата) As Год, Month(Дата) As Месяц, DatePart('ww',Дата,0,2) AS Неделя, Дата, </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">    Объединенные_поля, Count(Объединенные_поля) AS T_PJI, Sum(T_D) AS TDef</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">FROM </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">    (</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">        SELECT Дата, PJI, Sum(TD) AS T_D, Модель As Объединенные_поля</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">        FROM AVES</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">        WHERE (((Дата) Between #01/01/2017# And #01/28/2018#)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">             AND Модель IN ('H79', 'HHA', 'H79N')</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">             AND Оценка IN ('V1+', 'V1', 'V2')) </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">        GROUP BY Дата, PJI, Модель</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">    ) AS qry</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; color:#00007f;">GROUP BY Дата, Объединенные_поля</span></p></body></html>

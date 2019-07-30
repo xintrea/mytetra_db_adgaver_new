@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:x-large; font-weight:600;">Функции для работы со строками</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Последнее обновление: 29.07.2017</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="aswift_0_expand"></a><span style=" font-family:'DejaVu Sans';">Д</span><span style=" font-family:'DejaVu Sans';">ля работы со строками в T-SQL можно применять следующие функции:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LEN: возвращает количество символов в строке. В качестве параметра в функцию передается строка, для которой надо найти длину:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_966492"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">LEN('Apple')  -- 5</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LTRIM: удаляет начальные пробелы из строки. В качестве параметра принимает строку:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_837552"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">LTRIM('  Apple')</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RTRIM: удаляет конечные пробелы из строки. В качестве параметра принимает строку:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_183280"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">RTRIM(' Apple    ')</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CHARINDEX: возвращает индекс, по которому находится первое вхождение подстроки в строке. В качестве первого параметра передается подстрока, а в качестве второго - строка, в которой надо вести поиск:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_91746"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">CHARINDEX('pl', 'Apple') -- 3</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PATINDEX: возвращает индекс, по которому находится первое вхождение определенного шаблона в строке:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_712684"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">PATINDEX('%p_e%', 'Apple')   -- 3</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LEFT: вырезает с начала строки определенное количество символов. Первый параметр функции - строка, а второй - количество символов, которые надо вырезать сначала строки:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_531987"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">LEFT('Apple', 3) -- App</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RIGHT: вырезает с конца строки определенное количество символов. Первый параметр функции - строка, а второй - количество символов, которые надо вырезать сначала строки:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_294539"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">RIGHT('Apple', 3)    -- ple</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SUBSTRING: вырезает из строки подстроку определенной длиной, начиная с определенного индекса. Певый параметр функции - строка, второй - начальный индекс для вырезки, и третий параметр - количество вырезаемых символов:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_93642"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">SUBSTRING('Galaxy S8 Plus', 8, 2)    -- S8</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">REPLACE: заменяет одну подстроку другой в рамках строки. Первый параметр функции - строка, второй - подстрока, которую надо заменить, а третий - подстрока, на которую надо заменить:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_497460"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">REPLACE('Galaxy S8 Plus', 'S8 Plus', 'Note 8')   -- Galaxy Note 8</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">REVERSE: переворачивает строку наоборот:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_817202"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">REVERSE('123456789') -- 987654321</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CONCAT: объединяет две строки в одну. В качестве параметра принимает от 2-х и более строк, которые надо соединить:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_139261"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">CONCAT('Tom', ' ', 'Smith')  -- Tom Smith</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LOWER: переводит строку в нижний регистр:</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_106879"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">LOWER('Apple')   -- apple</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">UPPER: переводит строку в верхний регистр</li>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_438774"></a><span style=" font-family:'DejaVu Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">UPPER('Apple')   -- APPLE</span></p></td></tr></table>
+<li style=" font-family:'DejaVu Sans';" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SPACE: возвращает строку, которая содержит определенное количество пробелов</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">Например, возьмем таблицу:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_641161"></a><span style=" font-family:'DejaVu Sans';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">8</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">CREATE</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">TABLE</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">Products</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">(</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    Id INT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">IDENTITY PRIMARY</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">KEY,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    ProductName NVARCHAR(30) NOT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">NULL,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    Manufacturer NVARCHAR(20) NOT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">NULL,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    ProductCount INT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">DEFAULT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">0,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    Price MONEY NOT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">NULL</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">);</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">И при извлечении данных применим строковые функции:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_81396"></a><span style=" font-family:'DejaVu Sans';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans';">4</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">SELECT</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">UPPER(LEFT(Manufacturer,2)) AS</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">Abbreviation,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">       CONCAT(ProductName, ' - ',  Manufacturer) AS</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">FullProdName</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">FROM</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">Products</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">ORDER</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">BY</span><span style=" font-family:'DejaVu Sans';"> </span><span style=" font-family:'Courier New';">Abbreviation</span></p></td></tr></table></body></html>

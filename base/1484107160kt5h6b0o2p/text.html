@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style="-qt-paragraph-type:empty; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="mainSection"></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">When the Text driver is used, the format of the text file is determined by using a schema information file. The schema information file is always named Schema.ini and always kept in the same directory as the text data source. The schema information file provides the IISAM with information about the general format of the file, the column name and data type information, and several other data characteristics. A Schema.ini file is always required for accessing fixed-length data. You should use a Schema.ini file when your text table contains DateTime, Currency, or Decimal data, or any time that you want more control over the handling of the data in the table.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Note </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The Text ISAM will obtain initial values from the registry, not from Schema.ini. The same default file format applies to all new text data tables. All files that were created by the CREATE TABLE statement inherit those same default format values, which are set by selecting file format values in the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Define Text Format</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> dialog box with &lt;default&gt; chosen in the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Tables</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> list. If the values in the registry differ from the values in Schema.ini, the values in the registry will be overwritten by the values from Schema.ini.</span></p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Understanding Schema.ini Files</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Schema.ini files provide schema information about the records in a text file. Each Schema.ini entry specifies one of five characteristics of the table: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The text file name</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The file format</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The field names, widths, and types</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The character set</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Special data type conversions</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The following sections discuss these characteristics.</span></p>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Specifying the File Name</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The first entry in Schema.ini is always the name of the text source file enclosed in square brackets. The following example illustrates the entry for the file Sample.txt:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-snippet-1"></a><a href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_7c8898d5-15ba-4148-b597-36d180d2d8a2');"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">К</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">опировать</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="CodeSnippetContainerCode_7c8898d5-15ba-4148-b597-36d180d2d8a2"></a><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">[</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">Sample.txt]</span></p>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Specifying the File Format</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Format</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> option in Schema.ini specifies the format of the text file. The Text IISAM can read the format automatically from most character-delimited files. You can use any single character as a delimiter in the file except the double quotation mark (&quot;). The </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Format</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> setting in Schema.ini overrides the setting in the Windows Registry, file by file. The following table lists the valid values for the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Format</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> option.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Format specifier</span></p></td>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Table format</span></p></td>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Schema.ini Format statement</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Tab Delimited</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Fields in the file are delimited by tabs.</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Format=TabDelimited</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CSV Delimited</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Fields in the file are delimited by commas (comma-separated values).</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Format=CSVDelimited</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Custom Delimited</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Fields in the file are delimited by any character you choose to input into the dialog box. All except the double quotation marks (&quot;) are allowed, including blank.</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Format=Delimited(</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">custom character</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">-or-</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">With no delimiter specified:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Format=Delimited( )</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Fixed Length</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Fields in the file are of a fixed length.</span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Format=FixedLength</span></p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Specifying the Fields</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">You can specify field names in a character-delimited text file in two ways: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Include the field names in the first row of the table and set <span style=" font-weight:600;">ColNameHeader</span> to <span style=" font-weight:600;">True.</span></li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Specify each column by number and designate the column name and data type. </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">You must specify each column by number and designate the column name, data type, and width for fixed-length files.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Note </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">ColNameHeader</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> setting in Schema.ini overrides the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">FirstRowHasNames</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> setting in the Windows Registry, file by file.</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The data types of the fields can also be determined. Use the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">MaxScanRows</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> option to indicate how many rows should be scanned when determining the column types. If you set </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">MaxScanRows</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> to 0, the whole file is scanned. The </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">MaxScanRows</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> setting in Schema.ini overrides the setting in the Windows Registry, file by file.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The following entry indicates that Microsoft Jet should use the data in the first row of the table to determine field names and should examine the whole file to determine the data types used:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-snippet-2"></a><a href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_d196fde7-9db9-44da-8f0d-3c8805e9dbc7');"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">К</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">опировать</span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="CodeSnippetContainerCode_d196fde7-9db9-44da-8f0d-3c8805e9dbc7"></a><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">C</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">olNameHeader=True</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">MaxScanRows=0</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The next entry designates fields in a table by using the column number (</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Col</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">n</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">) option, which is optional for character-delimited files and required for fixed-length files. The example shows the Schema.ini entries for two fields, a 10-character CustomerNumber text field and a 30-character CustomerName text field:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-snippet-3"></a><a href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_95cf0b5e-bac5-482b-b56b-9c99b0755a46');"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">К</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">опировать</span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="CodeSnippetContainerCode_95cf0b5e-bac5-482b-b56b-9c99b0755a46"></a><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">C</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">ol1=CustomerNumber Text Width 10</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">Col2=CustomerName Text Width 30</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The syntax of </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Col</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">n</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> is:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-snippet-4"></a><a href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_8d883994-6123-4739-b132-50cab271974c');"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">К</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">опировать</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="CodeSnippetContainerCode_8d883994-6123-4739-b132-50cab271974c"></a><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">n</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">=ColumnNametype [#]</span></p>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Remarks</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The following table describes each part of the </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Col</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">n</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> entry.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Parameter</span></p></td>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Description</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">ColumnName</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The text name of the column. If the column name contains embedded spaces, you must enclose it in double quotation marks.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">type</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Data types are as follows:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Microsoft Jet data types</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Bit</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Byte</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Short</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Long</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Currency</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Single</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Double</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">DateTime</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Text</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Memo</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">ODBC data types</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> Char (same as Text)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Float (same as Double)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Integer (same as Short)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">LongChar (same as Memo)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Date </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">date format</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Width</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The literal string value Width. Indicates that the following number designates the width of the column (optional for character-delimited files; required for fixed-length files).</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-style:italic;">#</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The integer value that designates the width of the column (required if </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Width</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> is specified).</span></p></td></tr></table>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Selecting a Character Set</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">You can select from two character sets: ANSI and OEM. The </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CharacterSet</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> setting in Schema.ini overrides the setting in the Windows Registry, file by file. The following example shows the Schema.ini entry that sets the character set to ANSI:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="code-snippet-5"></a><a href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_511ec7d5-5b85-4f51-a3ce-6a659aa1a755');"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">К</span></a><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; text-decoration: underline; color:#0000ff;">опировать</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="CodeSnippetContainerCode_511ec7d5-5b85-4f51-a3ce-6a659aa1a755"></a><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">C</span><span style=" font-family:'Courier New,courier'; font-size:8.25pt; color:#000000;">haracterSet=ANSI</span></p>
+<p style=" margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Specifying Data Type Formats and Conversions</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;"><br /></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">The Schema.ini file contains several options that you can use to specify how data is converted or displayed. The following table lists each of these options.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Option</span></p></td>
+<td>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Description</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">DateTimeFormat</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Can be set to a format string that indicates dates and times. You should specify this entry if all date/time fields in the import/export are handled with the same format. All Microsoft Jet formats except A.M. and P.M. are supported. If there is no format string, the Windows Control Panel short date picture and time options are used.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">DecimalSymbol</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Can be set to any single character that is used to separate the integer from the fractional part of a number. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">NumberDigits</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Indicates the number of decimal digits in the fractional portion of a number. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">NumberLeadingZeros</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Specifies whether a decimal value less than 1 and more than –1 should contain leading zeros; this value can be either False (no leading zeros) or True. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencySymbol</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Indicates the currency symbol that can be used for currency values in the text file. Examples include the dollar sign ($) and Dm.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencyPosFormat</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Can be set to any of the following values:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency symbol prefix with no separation ($1)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency symbol suffix with no separation (1$)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency symbol prefix with one character separation ($ 1)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Currency symbol suffix with one character separation (1 $)</li></ul></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencyDigits</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Specifies the number of digits used for the fractional part of a currency amount. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencyNegFormat</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Can be one of the following values:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">($1)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">–$1</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$–1</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$1–</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(1$)</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">–1$</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1–$</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1$–</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">–1 $</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">–$ 1</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 $–</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$ 1–</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$ –1</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1– $</li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">($ 1) </li>
+<li style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(1 $)</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">This example shows the dollar sign, but you should replace it with the appropriate </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencySymbol</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;"> value in the actual program. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencyThousandSymbol</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Indicates the single-character symbol that can be used for separating currency values in the text file by thousands.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">               </span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">CurrencyDecimalSymbol</span><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">             </span></p></td>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">Can be set to any single character that is used to separate the whole from the fractional part of a currency amount. </span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:600;">Note </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt;">If you omit an entry, the default value in the Windows Control Panel is used.</span></p></td></tr></table></body></html>

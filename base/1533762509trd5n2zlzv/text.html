@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<main>
+        <h1>Используйте Psyco, и Python будет работать так же быстро, как и С</h1>
+        <h3>Используя Psyco, компилятор обработки Python</h3>
+<p>В некоторых отношениях дизайн Python напоминает дизайн Java. Оба 
+используют виртуальную машину, которая интерпретирует 
+псевдотранслируемый байткод. Область, в которой виртуальная машина Java 
+обошла Python — это оптимизация выполнения байткода. Psyco, компилятор 
+обработки Python, помогает "сравнять счет". Сейчас Psyco — это внешний 
+модуль, но когда-нибудь он может быть включен в сам Python. Совсем 
+чуть-чуть дополнительного программирования, и Psyco можно использовать, 
+чтобы на порядок ускорить код Python. В этой статье Дэвид рассматривает,
+ что есть Psyco, а также тестирует его в некоторых приложениях.</p>
+<p>Обычно Python достаточно быстро делает то, что вы хотите. Девяносто 
+процентов вопросов, которые возникают у начинающих программистов 
+касательно скорости исполнения интерпретируемых/ байткомпилируемых 
+языков, подобных Python, просто наивны. На современных аппаратных 
+средствах большинство неоптимизированных программ Python исполняются так
+ быстро, как от них требуется, и в действительности нет никакого смысла 
+тратить дополнительные усилия на программирование, чтобы приложение 
+работало быстрее.</p>
+<p>В этой статье, следовательно, я коснусь только оставшихся десяти 
+процентов. Время от времени программы на Python (или программы на других
+ языках программирования) выполняются недопустимо медленно. Решаемые 
+вопросы могут быть самыми разными; редко требуется выигрыш в 
+миллисекунды, но ускорение задач, которые выполняются в течение минут, 
+часов, дней или недель часто стоит усилий. Более того, необходимо 
+заметить, что не все, что работает медленно, вызвано центральным 
+процессором. Если, например, на выполнение запроса к базе данных 
+требуются часы, не имеет особого значения, обрабатывается ли 
+результирующий набор данных в течение минуты или двух. Эта статья также и
+ не о проблемах ввода/вывода.</p>
+<p>Существует несколько способов ускорить программы на Python. Первое, 
+что должно прийти в голову любому программисту, — это улучшить алгоритмы
+ или используемые структуры данных. Микрооптимизация шагов неумелого 
+алгоритма -удел глупцов. Например, если порядок сложности текущей 
+технологии O(n**2), десятикратное ускорение шагов гораздо менее полезно,
+ чем нахождение замены O(n). Это правило применимо даже при рассмотрении
+ такого исключительного подхода, как перепрограммирование на ассемблере:
+ правильный алгоритм на Python часто будет выполняться быстрее, чем 
+неверный алгоритм, переложенный вручную на ассемблер.</p>
+<p>Вторая технология, которую вы должны рассмотреть в первую очередь — 
+это профилирование своего приложения Python с позиции 
+перепрограммирования ключевых частей в виде модулей расширения на С. 
+Используя обертку расширений, как, например, SWIG (см. Ресурсы), вы 
+можете создать расширение С, которое выполняет в виде кода на С элементы
+ вашей программы, которые поглощают больше всего времени. Такое 
+расширение Python относительно просто, но требует некоторого времени на 
+освоение (и знания С). Вы увидите, что очень часто львиная доля времени,
+ отводимого на выполнение вашего приложения на Python, затрачивается на 
+горстку функций, и поэтому возможен значительный выигрыш.</p>
+<p>Третья технология основывается на второй. Грэг Эуинг (Greg Ewing) 
+создал язык Pyrex, который соединяет Python и С. В частности, чтобы 
+воспользоваться Pyrex, вы пишете функции на схожем с Python языке, 
+который добавляет к выбранным переменным объявления типов. Pyrex 
+(средство) преобразует pyx-файлы в расширения ".с". После трансляции 
+компилятором С, эти модули Pyrex (язык) могут быть импортированы и 
+использованы в ваших обычных приложениях Python. Поскольку Pyrex 
+использует практически такой же синтаксис, как и сам Python (включая 
+директивы цикла, ветви и исключения, формы присвоения [assignment 
+forms], структурированное расположение и так далее), программисту на 
+Pyrex не нужно изучать С, чтобы писать расширения. Более того, Pyrex 
+допускает более цельное — по сравнению с расширением, написанным 
+непосредственно на С — смешение переменных уровня С с переменными уровня
+ Python в пределах одного и того же кода.</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-A"><div class="block block-174 type-custom "><div class="field field-528">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="1901069998" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display: inline-table; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><p>Тема данной статьи — еще одна технология. Модуль 
+расширения Psyco может встраиваться в самые недра интерпретатора Python и
+ выборочно заменять части интерпретируемого байткода Python 
+оптимизированным машинным кодом. В отличие от описанных выше методик, 
+Psyco работает исключительно во время исполнения Python. Другими 
+словами, исходный код Python транслируется командой python в байткод 
+точно так же, как и раньше (за исключением пары директив import и 
+вызовов функций, добавленных для запуска Psyco). Однако, пока 
+интерпретатор Python выполняет приложение, Psyco иногда делает проверки,
+ чтобы выяснить, может ли он заменить обычные операции байткода Python 
+на некоторый обработанный машинный код. Эта обрабатываемая трансляция не
+ только очень похожа на то, что делает компиляция по месту (just-in-time
+ compilers) Java (по крайней мере, в широком смысле), но и зависит от 
+архитектуры. В настоящее время, Psyco доступен только для архитектур с 
+процессором i386. Прелесть Psyco заключается в том, что вы можете 
+использовать тот же самый код Python, который вы писали всё это время 
+(буквально!), но исполнять его быстрее.<br>
+Как Psyco работает</p>
+<p>Чтобы полностью понять Psyco, вам, вероятно, потребуется хорошо 
+разбираться и в функции eval_frame() интерпретатора Python, и в 
+ассемблере i386. К сожалению, сам я не могу претендовать на роль 
+эксперта, но думаю, что смогу объяснить Psyco в общих чертах, не 
+допуская слишком серьезных ошибок.</p>
+<p>В обычном Python функция eval_frame() — это внутренний цикл 
+интерпретатора Python. В основном, функция eval_frame() смотрит на 
+текущий байткод в контексте выполнения и переключает управление в 
+функцию, подходящую для реализации этого байткода. Специфика того, что 
+эта функция поддержки будет делать, зависит, в общем, от состояния 
+различных объектов Python, находящихся в памяти. Поясним — суммирование 
+объектов Python "2" и "3" приводит к результату, отличному от 
+суммирования объектов "5" и "6", хотя обе операции обрабатываются 
+одинаково.</p>
+<p>Psyco заменяет функцию eval_frame() составным оценочным модулем. 
+Существует несколько способов, позволяющих Psyco улучшить то, что делает
+ Python. Во-первых, Psyco транслирует операции в до некоторой степени 
+оптимизированной машинный код; само по себе это приводит только к 
+незначительным улучшениям, поскольку то, что машинный код должен 
+выполнить, — это то же самое, что делают обработанные функции Python. 
+Более того, то, что является "обработанным" в трансляции Psyco, это 
+больше, чем выбор байткода Python, Psyco также уточняет значения 
+переменных, которые известны в контексте выполнения. Например, в коде, 
+аналогичном приведенному ниже, переменная x распознаваема на протяжении 
+цикла:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span></li><li class="L1"><span class="pln">l </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span></li><li class="L2"><span class="kwd">for</span><span class="pln"> i </span><span class="kwd">in</span><span class="pln"> range</span><span class="pun">(</span><span class="lit">1000</span><span class="pun">):</span></li><li class="L3"><span class="pln"> l</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">x</span><span class="pun">*</span><span class="pln">i</span><span class="pun">)</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Оптимизированной версии этого кода не нужно умножать каждый i на 
+"содержимое переменной/объекта x" — менее расточительно просто умножать 
+каждый i на 5, исключая тем самым поиск/косвенную ссылку.</p>
+<p>Помимо создания кода, предназначенного для i386, для небольших 
+операций, Psyco кеширует этот транслированный машинный код для 
+дальнейшего использования. Если Psyco способен установить, что отдельная
+ операция такая же, как выполненная (и "обработанная") ранее, он может 
+положиться на этот кэшированный код, а не транслировать этот сегмент. 
+Это экономит еще немного времени.</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-B"><div class="block block-175 type-custom "><div class="field field-529">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="3760946574" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display: inline-table; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent;"><ins id="aswift_1_anchor" style="display: block; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><p>Реальная экономия в Psyco, однако, является 
+результатом распределения операций по трем различным уровням. Для Psyco 
+существуют переменные "времени исполнения ("run-time"), "времени 
+трансляции" ("compile-time") и "виртуального времени" ("virtual-time"). 
+При необходимости Psyco перемещает переменные с одного уровня на другой.
+ Переменные времени исполнения — это просто исходный байткод и структуры
+ объекта, которые обрабатывает обычный интерпретатор Python. Переменные 
+времени трансляции отображаются в машинные регистры и ячейки памяти с 
+прямым доступом, как только Psyco транслирует эти операции в машинный 
+код.</p>
+<p>Наиболее интересный уровень — это переменные виртуального времени. 
+Изнутри переменная Python — это полная структура с множеством членов — 
+даже если объект представляет всего лишь целое число. Переменные 
+виртуального времени Psyco представляют объекты Python, которые 
+потенциально могут быть построены, если возникнет такая необходимость, 
+но их деталями пренебрегают, пока необходимости нет. Например, 
+рассмотрим следующее присваивание:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">15</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="pun">(</span><span class="lit">14</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="lit">13</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="lit">12</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">11</span><span class="pun">)))</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Стандартный Python строит и разрушает ряд объектов, чтобы вычислить 
+это значение. Целый целочисленный (integer) объект создается для того, 
+чтобы содержать значение (12/11); затем значение извлекается из 
+структуры этого временного объекта и используется для вычисления нового 
+временного объекта (13-PyInt). Psyco пропускает эти объекты и просто 
+вычисляет значения, зная, что "при необходимости" объект может быть 
+создан из этого значения.</p>
+<h3>Используя Psyco</h3>
+<p>Гораздо легче использовать Psyco, чем его объяснять. В основном, все,
+ что нужно, — это сказать Psyco какую функцию/метод "обрабатывать". Не 
+надо менять код ни одной из ваших функций Python, ни сами классы.</p>
+<p>Существует пара подходов, предназначенных для указания, что Psyco 
+должен делать. "Бронебойный" подход — это разрешить Psyco везде 
+выполнять операцию компиляции по месту. Чтобы сделать это, поместите 
+следующие строки кода в начале вашего модуля:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="kwd">import</span><span class="pln"> psyco </span><span class="pun">;</span><span class="pln"> psyco</span><span class="pun">.</span><span class="pln">jit</span><span class="pun">()</span></li><li class="L1"><span class="kwd">from</span><span class="pln"> psyco</span><span class="pun">.</span><span class="pln">classes </span><span class="kwd">import</span><span class="pln"> </span><span class="pun">*</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Первая строка указывает Psyco применить свою магию ко всем глобальным
+ функциям. Вторая строка (для Python 2.2 и выше) приказывает Psyco 
+сделать то же самое с методами класса. Чтобы немного точнее направить 
+поведение Psyco, вы можете воспользоваться командой:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="pln">psyco</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="pln">somefunc</span><span class="pun">)</span><span class="pln"> </span><span class="com"># or method, class</span></li><li class="L1"><span class="pln">newname </span><span class="pun">=</span><span class="pln"> psyco</span><span class="pun">.</span><span class="pln">proxy</span><span class="pun">(</span><span class="pln">func</span><span class="pun">)</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Вторая форма оставляет func в качестве стандартной функции Python, но
+ оптимизирует вызовы, которые задействуют newname. Практически во всех 
+случаях, кроме тестирования и отладки, форма psyco.bind() — это то, что 
+вы будете использовать.</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-C"><div class="block block-176 type-custom "><div class="field field-530">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="3929425397" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display: inline-table; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent;"><ins id="aswift_2_anchor" style="display: block; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><h3>Производительность Psyco</h3>
+<p>Несмотря на магию Psyco, его использование требует некоторого 
+осмысления и тестирования. Главное, что нужно понять — это то, что Psyco
+ полезен для обработки многократно выполняющиехся циклов, и то, что он 
+знает, как оптимизировать операции, в которых задействованы целые и 
+числа с плавающей запятой. Для нециклических функций и для операций над 
+другими типами объектов Psyco обычно просто добавляет накладные расходы 
+на свой анализ и внутреннюю компиляцию. Более того, для приложений с 
+большим числом функций и классов, включение Psyco для приложения целиком
+ является дополнительным бременем при трансляции машинного кода и 
+использование памяти для этого кэширования. Гораздо лучше выборочно 
+подключить те функции, которые смогут извлечь больше пользы из 
+оптимизации Psyco.</p>
+<p>Я начал с самого простого тестирования. Я просто подумал, какое из 
+приложений, которые я недавно запускал, неплохо было бы ускорить. Первый
+ пример, который пришел мне в голову, — это программа манипулирования 
+текстом, которую я использую для преобразования чернового варианта моей 
+будущей книги "Текстовая обработка в Python" (Text Processing in Python)
+ в формат LaTeX. Это приложение использует некоторые строчные методы, 
+некоторые регулярные выражения и некую программную логику, управляемую 
+главным образом регулярными выражениями и совпадениями строк. В 
+действительности это ужасный кандидат для Psyco, но поскольку я его 
+использую, я начал с него.</p>
+<p>При первом заходе, все, что я сделал — это добавил psyco.jit() в 
+начало моего скрипта. Достаточно безболезненно. К сожалению, результаты 
+были (как и ожидалось) удручающими. Если первоначально скрипт работал 
+8.5 секунд, то после "ускорения" с Psyco он выполнялся 12 секунд. 
+Скверно! Я догадался, что компиляция по месту, вероятно, имеет некоторые
+ накладные расходы на запуск, которые затягивают время исполнения. 
+Поэтому следующее, что я сделал, была обработка гораздо более крупного 
+входного файла (состоящего из множества копий первоначального файла). 
+Это привело к крайне скромному успеху — время выполнения сократилось со 
+120 секунд до 110. Это улучшение оставалось устойчивым при нескольких 
+запусках, но в любом случае весьма незначительным.</p>
+<p>Второй заход с моим кандидатом на обработку текста. Вместо добавления
+ вызова psyco.jit() без параметров, я добавил только строку 
+psyco.bind(main), поскольку функция main() имеет несколько циклов (но 
+минимально использует арифметические операции с целыми числами). В этом 
+случае результаты номинально были лучше. Этот подход урезал время 
+выполнения на несколько десятых секунды для первого примера и на 
+несколько секунд для версии большого входного файла. Но по-прежнему 
+ничего впечатляющего (хотя и никакого вреда).</p>
+<p>Для более достойного тестирования Psyco, я откопал некий код 
+нейронной сети, о котором я писал в одной из предыдущих статье (см. 
+Ресурсы). Это приложение "code_recognizer" может быть настроено для 
+опознания возможных распределений разных значений ASCII в различных 
+языках программирования. Нечто подобное потенциально могло бы быть 
+полезно при угадывании типов файла (скажем, потерянных сетевых пакетов);
+ но этот код в действительности полностью универсален в отношении того, 
+чему он был обучен — с таким же успехом он мог бы научиться распознавать
+ лица или звуки, или виды приливов. В любом случае "code_recognizer" 
+базируется на библиотеке Python bpnn, которая в качестве контрольного 
+примера также включена (в модифицированной форме) в дистрибутив Psyco 
+0.4. Что важно знать о "code_recognizer" в свете этой статьи, так то, 
+что оно вычисляет много циклов с числами с плавающей запятой, и что его 
+выполнение занимает много времени. Вот у нас и появился хороший кандидат
+ для Psyco.</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-D"><div class="block block-177 type-custom "><div class="field field-531">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="2005011772" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display: inline-table; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent;"><ins id="aswift_3_anchor" style="display: block; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><p>Поэкспериментировав немного, я детально установил, 
+как использовать Psyco. Для этого приложения в случае небольшого 
+количества классов и функций не имеет особого значения, используете вы 
+направленное связывание или по месту. Но лучший результат — на несколько
+ процентов — по-прежнему оказывается за выборочным связыванием классов, 
+которые лучше всего оптимизируются. Более важно, однако, понять область 
+связывания Psyco.</p>
+<p>Скрипт "code_recognizer" содержит строки наподобие:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="kwd">class</span><span class="pln"> NN2</span><span class="pun">(</span><span class="pln">NN</span><span class="pun">):</span></li><li class="L1"><span class="pln"> </span><span class="com"># customized output methods, math core inherited</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Другими словами, интересный момент с точки зрения Psyco находится в 
+классе bpnn.NN. Добавление psyco.jit() или psyco.bind(NN2) в скрипт 
+code_recognizer.py мало что дает. Чтобы Psyco выполнял желаемую 
+оптимизацию, вам потребуется добавить psyco.bind(NN) в 
+code_recognizer.py, либо psyco.jit() в bpnn.py. В отличие от того, что 
+вы могли бы предположить, компиляция по месту происходит не при создании
+ экземпляра или вызове методов, а при описании класса. Вдобавок, при 
+подключении производных классов их унаследованные методы не 
+обрабатываются.</p>
+<p>Как только были выработаны детали подходящего связывания Psyco, 
+результирующее ускорение оказалось весьма впечатляющим. Используя те же 
+примеры тестирования и режим обучения сети, который был представлен в 
+упомянутой статье (500 шаблонов обучения, 1000 итераций обучения), время
+ обучения нейронной сети было уменьшено с где-то 2000 секунд до 
+приблизительно 600 секунд — больше, чем в три раза. Сокращение числа 
+итераций до 10 показало пропорциональное ускорение (но никуда не годное 
+распознавание нейронной сети) — так же как и промежуточное число 
+итераций.</p>
+<p>Я нахожу весьма замечательным ускорение кода, выполнявшегося полчаса,
+ до 10 минут, с помощью двух строк кода. Это ускорение, вероятно, все 
+еще меньше скорости исполнения аналогичного приложения на С, и 
+определенно меньше десятикратного ускорения, которое зарегистрировано в 
+некоторых единичных случаях тестирования Psyco. Но это приложение явно 
+из "реальной жизни", и эти улучшения достаточны для того, чтобы их 
+отметить во многих контекстах.</p>
+<h3>Куда движется Psyco?</h3>
+<p>В настоящий момент Psyco не производит статистику или профилирование и
+ выполняет только минимальную оптимизацию генерируемого машинного кода. 
+Возможно, более поздняя версия будет знать, как определять операции, 
+которые могли бы более всего выиграть от оптимизации, и выбрасывать из 
+кеша машинный код для неоптимизируемых операций. Вдобавок, возможно, 
+будущий Psyco мог бы решать выполнять более обширную (но и более 
+дорогую) оптимизацию многократно исполняемых операций. Такой анализ 
+исполнения был бы похож на то, что технология HotSpot компании Sun 
+делает для Java. То обстоятельство, что Java, в отличие от Python, имеет
+ декларации типов, в действительности менее значимо, чем думают многие 
+(однако предшествующие работы по оптимизации Self, Smalltalk, Lisp и 
+Scheme также отмечают это).</p>
+<p>Хотя я и сомневаюсь, что это когда-нибудь случится, но было бы 
+здорово, если бы технология типа Psyco была интегрирована в какую-нибудь
+ будущую версию самого Python. Несколько строк для импорта и связываний —
+ не так уж много работы, но тогда Python выполнялся бы существенно 
+быстрее, и изначально это было бы гораздо более цельно. Поживём — 
+увидим.</p>
+    </main>
+</body>
+</html></p></body></html>

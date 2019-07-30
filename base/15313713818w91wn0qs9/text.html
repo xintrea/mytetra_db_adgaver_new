@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/850.html"><font color="Red">004. Бинарный вид файла Access</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                05. Данный пример показывает бинарный вид файла Access. 
+Когда вы сможете читать файлы Access бинарным способом, то Вам не будут 
+страшны программы взломщики. Например, Вы сохранили в базе данных 
+свойства, которые  используются для авторизации. Далее нашли в базе 
+данных смещение и расчитали контрольную сумму этих байт. Используя для 
+проверки авторизации это число, то можно понять как прошла авторизация. 
+Если неправильно (взломщик переписал байты), то можно "аккуратно", не 
+выключая программу, "подать к столу" "отравленные" данные (реверс 
+строки, vbNewLine добавить в текст и т.п.).
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">'==============================================================</font><br>
+<font color="#007700">'   Загрузка файла</font><br>
+<font color="#0000aa">Public Function </font>funLoadDataBase(strFile <font color="#0000aa">As String</font>)<br>
+<font color="#0000aa">Dim </font>dbs <font color="#0000aa">As </font>DAO.Database, rst <font color="#0000aa">As </font>DAO.Recordset<br>
+<font color="#0000aa">Dim </font>j <font color="#0000aa">As Long</font><br>
+<font color="#0000aa">Dim </font>strСмещение <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>strИсходник <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>strЦифровик <font color="#0000aa">As String</font><br>
+<font color="#0000aa">Dim </font>ID <font color="#0000aa">As Byte</font>, bt <font color="#0000aa">As Byte</font><br>
+<br>
+    <font color="#007700">'Проверяем файл и читаем его</font><br>
+    <font color="#0000aa">If </font>strFile &lt;&gt; <font color="#660000">""</font> <font color="#0000aa">Then</font><br>
+        Me.Parent.Tag = <font color="#660000">"start"</font><br>
+        <font color="#007700">' Удаляем все из таблицы</font><br>
+        <font color="#0000aa">Set </font>dbs = CurrentDb<br>
+        dbs.Execute <font color="#660000">"DELETE * FROM [Пример 05]"</font><br>
+        Me.Requery<br>
+        <font color="#0000aa">On Error GoTo </font>999<br>
+            ID = FreeFile <font color="#007700">'Получаем свободный идентификатор файла</font><br>
+            <font color="#0000aa">Set </font>rst = dbs.OpenRecordset(<font color="#660000">"SELECT * FROM [Пример 05]"</font>)<br>
+            Open strFile <font color="#0000aa">For Binary As </font>ID <font color="#007700">'Открываем файл</font><br>
+            j = 0<br>
+            <font color="#0000aa">Do While Not </font>EOF(ID)    <font color="#007700">' Проверка конца файла</font><br>
+                strСмещение = j <font color="#007700">'или hex(j)</font><br>
+                strИсходник = <font color="#660000">""</font><br>
+                strЦифровик = <font color="#660000">""</font><br>
+                Me.Parent.myTimer.Caption = <font color="#660000">" Загрузка: "</font> &amp; Format(j, <font color="#660000">"000000"</font>)<br>
+                DoEvents<br>
+                <font color="#0000aa">Do While Not </font>EOF(ID)    <font color="#007700">' Проверка конца файла</font><br>
+                    j = j + 1<br>
+                    <font color="#0000aa">Get </font>#ID, , bt <font color="#007700">'Читаем байты</font><br>
+                    strЦифровик = strЦифровик &amp; Format(<font color="#0000aa">CLng</font>(bt), <font color="#660000">"000"</font>) &amp; <font color="#660000">" "</font><br>
+                    <font color="#0000aa">If </font>(bt &lt; 32) <font color="#0000aa">Or </font>(bt &gt; 255) <font color="#0000aa">Then</font><br>
+                        strИсходник = strИсходник &amp; <font color="#660000">"."</font><br>
+                    <font color="#0000aa">Else</font><br>
+                        strИсходник = strИсходник &amp; Chr(bt)<br>
+                    <font color="#0000aa">End If</font><br>
+                    <font color="#0000aa">If </font>(j \ 16) = (j / 16) <font color="#0000aa">Then Exit Do</font><br>
+                <font color="#0000aa">Loop</font><br>
+                <font color="#007700">' Вставляем строку</font><br>
+                rst.AddNew<br>
+                rst!Смещение = strСмещение<br>
+                rst!Исходник = strИсходник<br>
+                rst!Цифровик = strЦифровик<br>
+                rst.Update<br>
+                <font color="#0000aa">If </font>Me.Parent.Tag = <font color="#660000">"stop"</font> <font color="#0000aa">Then Exit Do</font><br>
+            <font color="#0000aa">Loop</font><br>
+            rst.Close<br>
+            Me.Parent.myTimer.Caption = <font color="#660000">" Загрузка завершена"</font><br>
+            Me.Requery<br>
+            Close <font color="#007700">'Закрываем открытые файлы</font><br>
+    <font color="#0000aa">End If</font><br>
+    <font color="#0000aa">Exit Function</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+<font color="#0000aa">End Function</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

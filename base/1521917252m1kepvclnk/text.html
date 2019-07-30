@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>
+			Подключение Excel к SQL Server		</h1>
+
+
+
+
+
+
+
+
+<div class="HorBanners">
+
+<ins class="adsbygoogle" style="display: block; height: 60px;" data-ad-client="ca-pub-8033133062049011" data-ad-slot="9585595084" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:620px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:620px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:620px;height:60px;" width="620" height="60" frameborder="0"></iframe></ins></ins></ins>
+</div>
+<p>Для обработки данных в Excel требуется сначала получить сами данные. 
+Часто такая информация находится во внешних источниках, а именно базах 
+данных. В этой статье описывается подключение электронных таблиц к БД MS
+ SQL Server.</p>
+<p>На вкладке «Данные» имеется область «Получение внешних данных» на 
+которой необходимо кликнуть по кнопке «Из других источников». Раскроется
+ список источников, к которым можно осуществить подключение. В этом 
+списке выберите пункт «С сервера SQL Server».</p>
+<a class="modal" href="1.png"><img src="1.png" alt="Выбор SQL Server в качестве источника данных" title="Выбор SQL Server в качестве источника данных" style="width:545px"></a>
+<p>Теперь на экране появилось окно мастера подключения к данным. 
+Изначально требуется указать имя сервера и учетные сведения для 
+подключения (если Вы их не знаете, то обратитесь к администратору БД).</p>
+<a class="modal" href="2.png"><img src="2.png" alt="Мастер подключения к данным" title="Мастер подключения к данным"></a>
+<p>После заполнения формы нажмите кнопку «Далее», чтобы перейти к выбору базы данных.</p>
+<a class="modal" href="3.png"><img src="3.png" alt="Выбор базы данных" title="Выбор базы данных"></a>
+<p>Здесь же можно выбрать таблицы, из которых будут грузиться данные, 
+или же снять галочку с пункта «Подключение к определенной таблице».</p>
+<p>Нажмите кнопку «Далее», чтобы задать имя файла подключения и описание, чтобы в дальнейшем было проще найти данный файл.</p>
+<a class="modal" href="4.png"><img src="4.png" alt="Имя и описание файла подключения" title="Имя и описание файла подключения"></a>
+<p>Нажав кнопку «Готово», Вам будет предложено произвести импорт данных с
+ сервера (если в мастере подключений Вами не была выбрана таблица, то 
+сначала ее придется выбрать).</p>
+<a class="modal" href="5.png"><img src="5.png" alt="Импорт данных из внешнего источника" title="Импорт данных из внешнего источника"></a>
+<p>В текущем окне можно выбрать место и способ представления 
+импортируемых данных: таблица, сводная таблица, сводная диаграмма или 
+пропустить импорт, выбрав пункт «Только создать подключение».</p>
+<h2>SQL-запрос</h2>
+<p>По умолчанию, при импорте из SQL Server, Excel выгружает всю таблицу. Можно изменить выборку, указав SQL-запрос.</p>
+<p>Для этого во время импорта данных (предыдущий рисунок) необходимо 
+кликнуть по кнопке «Свойства», если подключение создается впервые, либо,
+ если файл подключения уже был добавлен к книге, на вкладке «Данные» в 
+области «Получение внешних данных» кликнуть по кнопке «Подключения», 
+выбрать нужное из списка и открыть его свойства.</p>
+<a class="modal" href="6.png"><img src="6.png" alt="Изменение свойств подключения к внешним источникам" title="Изменение свойств подключения к внешним источникам" style="width:545px"></a>
+<p>В свойствах подключения на вкладке «Определение» в поле «Тип команды»
+ поменяйте значение на «SQL», а в поле «Текст команды» введите SQL-код и
+ нажмите «ОК».</p>
+<a class="modal" href="7.png"><img src="7.png" alt="Указание SQL-запроса в свойствах подключения" title="Указание SQL-запроса в свойствах подключения"></a>
+<p>Теперь, чтобы получить данные с помощью нового подключения, 
+достаточно вызвать его из существующих подключений на вкладке «Данные» в
+ области «Получение внешних данных». Дальнейшая процедура импорта 
+аналогична рассмотренному выше.</p>
+</body>
+</html></p></body></html>

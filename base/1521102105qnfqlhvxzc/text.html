@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div id="threeColumns"><div class="main" ms.cmpgrp="content body"><div id="oaContent" class="row"><div class="" id="api-doc-contents"><h1 id="how-to-resize-a-control-horizontally-and-vertically-with-the-form"><span data-ttu-id="07f11-103" data-original-title="" title="" class="translation-hover" aria-describedby="popover334240">изменение размеров элемента управления по горизонтали и по вертикали с формой</span></h1><span><div class="gitContributors"><span class="author-bio"><a target="_blank" href="https://github.com/o365devx" aria-label="office 365 dev account"><span class="author-img" style="background-image:url('https://avatars.githubusercontent.com/u/29209169?v=3&amp;s=50')"></span></a></span><span class="username"><a target="_blank" href="https://github.com/o365devx">office 365 dev account</a></span><span class="contributorSplitter">|</span><span class="contributorsLabel">Последнее обновление: 29.09.2017</span><div id="contributorList"><span class="contributorSplitter">|</span><div class="contributors"><span class="contributorsLabel">1 Участник</span><ul><li><a target="_blank" href="https://github.com/olprod" aria-label="olprod"><span class="contributor-img" style="background-image:url('https://avatars.githubusercontent.com/u/16075726?v=3&amp;s=25')"></span></a></li></ul></div></div></div></span><div id="movileInPageNav"></div><p><span data-ttu-id="07f11-p101" data-original-title="" title="" class="">В следующем примере кода показано, как изменить размер элемента управления с формой. Использует класс <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/olkcontrol-object-outlook">OlkControl</a></strong> , представляющий некоторые основные свойства (например, <strong><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/olkcontrol-horizontallayout-property-outlook">HorizontalLayout</a></strong> и ** <a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/olkcontrol-verticallayout-property-outlook">VerticalLayout</a><strong>)
+ общие для Outlook элементы управления формы. Он предполагается 
+существующей Outlook текстового поля, myTextBox, в форме и использует 
+приведение в Visual Basic, чтобы разрешить текстового поля для 
+использования свойства **OlkControl</strong>.</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">Dim</span> olkCtrl <span class="hljs-keyword">As</span> Outlook.OlkControl</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <span class="hljs-comment">' Let the text box control use the properties of OlkControl</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <span class="hljs-keyword">Set</span> olkCtrl = myTextBox</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <span class="hljs-comment">' Enable automatic adjustments of the layout with respect to the rest of the form</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    olkCtrl.EnableAutoLayout = <span class="hljs-literal">True</span></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    <span class="hljs-comment">' Allow resizing the text box control horizontally and vertically with the form</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    olkCtrl.HorizontalLayout = olHorizontalLayoutGrow</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    olkCtrl.VerticalLayout = olVerticalLayoutGrow</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><a href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/how-to-resize-a-control-horizontally-and-vertically-with-the-form#" role="button" aria-label="collapse code snippet" aria-expanded="true" class="expandCollapseButton collapse"></a></div><div></div></div>
+        
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div id="rightColumn" class="right" ms.cmpgrp="right nav">
+            <div id="right-nav-wrapper">
+        <div id="right-nav-area" class="bs-sidebar affix-top" style="position: relative; top: 0px;">
+            <div id="navigationButtons">
+                
+
+
+                <a id="isdShare" title="Общий доступ" href="https://msdn.microsoft.com/ru-ru/vba/outlook-vba/articles/how-to-resize-a-control-horizontally-and-vertically-with-the-form#" role="button" aria-expanded="false">
+                    <ins class="share"></ins>
+                    Общий доступ
+                </a>
+                
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+</body>
+</html></p></body></html>

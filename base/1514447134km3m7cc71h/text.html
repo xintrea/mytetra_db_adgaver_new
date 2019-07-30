@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">VBA: объектная модель FSO</span><span style=" font-size:8.25pt;"> </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">FileSystemObject (FSO) – основной объект группы с полными методами, которые позволят Вам создавать, удалять, получать информацию, выполнять произвольные манипуляции с логическими дисками, каталогами и файлами, т.е. данный объект обеспечивает доступ к файловой системе компьютера. Многие из методов, связанных с этим объектом дублированы в других объектах.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Порядок использования объектной модели FileSystemObject, т.е. ее объектов с их свойствами и методами при программировании приложения следующий:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">- подключить к проекту библиотеку типов SCRRUN.DLL. Эта библиотека входит в комплект поставки последних разновидностей Windows95, а все более новые Windows, как 9x, так и NT содержат ее обязательно. Получить эту бибилотеку можно бесплатно на сайте Microsoft http://msdn.microsoft.com/scripting.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">- создать новый объект типа FileSystemObject стандартными методами (посредством New или CreateObject)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">- использовать его методы и свойства для получения необходимой информации, в том числе ссылок на другие (подчиненные) объекты модели. Соответственно, использовать методы и свойства подчиненных объектов модели.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">После завершения работы закрыть все использованные объекты, начиная с нижних в иерархии. Там где это необходимо использовать для закрытия объектов их методы, в прочих случаях использовать</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Set objvar=Nothing</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Объектная модель включает следующие классы</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Класс (тип объекта)</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Назначение</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">FileSystemObject</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Обеспечивает доступ к файловой системе компьютера.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Drives</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Cодержит объекты Drive, каждый из которых ассоциируется ровно с одним диском в файловой системе компьютера, с учетом сети.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Drive</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Обеспечивает доступ к информации о заданном диске компьютера002E</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Folders</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Семейство Folders содержит объекты Folder, каждый из которых ассоциируется ровно с одним подкаталогом заданного каталога.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Folder</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Обеспечивает доступ к информации о заданной папке, содержащимся в ней папках и каталогах, а также методы перемещения папки и создания текстового файла.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Files</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Семейство Files содержит все объекты File, каждый из которых ассоциируется ровно с одним файлом в заданной папке.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">File</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Обеспечивает доступ к информации о заданном файле, методы перемещения файла и открытия текстового файла в режиме последовательного доступа.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">TextStream</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Обеспечивает проведение операций чтения/записи для текстового файла открытого в режиме последовательного доступа.</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Объект</span><span style=" font-size:8.25pt;"> FileSystemObject обеспечивает доступ к файловой системе компьютера. Будучи объектом верхнего уровня объектной модели FileSystemObject является “точкой входа” в файловую систему компьютера. Только после его создания возможен доступ к другим объектам модели, их методам и свойствам.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Dim objFSO As FileSystemObject</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Set objFSO = CreateObject(“Scripting.FileSystemObject”)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">или</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Set objFSO = New FileSystemObject</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Свойства объекта FileSystemObject</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Свойство</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Тип данных</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Чтение/запись</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Описание</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Drives</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Drives</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Только чтение</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Содержит ссылку на семейство Drives, содержащую объекты для каждого устройства дисковой памяти компьютера</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Свойство Drives</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Описание</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Возвращает коллекцию, состоящую из интерфейсных объектов Drive для всех</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">дисков, доступных на локальной машине. Эту коллекцию можно только читать.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Синтаксис</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">object .Drives</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">object   – всегда объект класса FileSystemObject</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Замечания</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Для того, чтобы диски для съемных носителей были включены в коллекцию Drives,</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">необязательно, чтобы в них присутствовали носители.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Можно последовательно получать доступ ко всем членам коллекции Drives, приме‐</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">няя конструкцию For Each … Next – примерно так, как показано в нижеприведен‐</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">ном коде:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Sub ShowDriveList</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Dim fs As FileSystemObject, d As Drive, dc As Collection, _</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">s As String, n As String</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Set fs = CreateObject(“Scripting.FileSystemObject”)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Set dc = fs.Drives</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">For Each d in dc</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">s = s &amp; d.DriveLetter &amp; ” – ”</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">If d.DriveType = 3 Then</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">n = d.ShareName</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Else</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">n = d.VolumeName</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">End If</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">      Next</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">MsgBox s</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">End Sub</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Объект FileSystemObject имеет 26 методов:</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Методы объекта FileSystemObject</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Метод</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Назначение</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/%D0%BC%D0%B5%D1%82%D0%BE%D0%B4-buildpath/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">BuildPath</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Создание строки путем слияния аргументов и добавления между ними, если его нет, разделителя “\” (обратной косой черты).</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4-copyfile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CopyFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Копирование одного или нескольких файлов из одной папки в другую.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4-copyfolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CopyFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Копирование содержимого папки со всеми содержащимися в ней папками (подкаталогами) в заданное место.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-createfolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CreateFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Создание новой папки с заданным именем.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-createtextfile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CreateTextFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Создание файла и открытие его в режиме текстового файла последовательного доступа для записи как объекта TextStream</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4deletefile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">DeleteFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Удаление одного или нескольких заданных файлов.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-deletefolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">DeleteFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Удаление одной или нескольких заданных папок вместе со всем их содержимым.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-driveexists/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">DriveExists</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Проверка существования диска с заданным именем на локальной машине или в сети.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-fileexists/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">FileExists</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Проверка существования файла с заданным именем на локальной машине или в сети.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-folderexists/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">FolderExists</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Проверка существования папки с заданным именем на локальной машине или в сети</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getabsolutepathname/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetAbsolutePathName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение полного имени файла или папки по относительному имени.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getbasename/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetBaseName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение поcледнего компонента – имени папки или файла (без расширения) по его полному или относительному имени.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getdrive/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetDrive</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение ссылки на объект Drive, связанный с заданным диском.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getdrivename/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetDriveName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение имени диска из имени папки или файла.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getextensionname/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetExtensionName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение расширения из заданного имени файла.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getfile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение ссылки на объект File, связанный с заданным файлом.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getfilename/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetFileName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение имени (с расширением) файла из полного имени (пути) файла.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getfolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение ссылки на объект Folder, связанный с заданной папкой.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getparentfoldername/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetParentFolderName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение имени папки, являющейся предпоследним компонентом полного имени (пути) файла или папки.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getspecialfolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetSpecialFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-getspecialfolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Получение ссылки на объект Folder, связанный с одной из трех специальных папок – папки Windows, системной папки и папки временных файлов.</span></a></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-gettempname/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">GetTempName</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Получение имени для временного файла.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-movefile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">MoveFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Перемещение одного или нескольких файлов из одной папки в другую.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-movefolder/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">MoveFolder</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Перемещение содержимого папки со всеми содержащимися в ней папками (подкаталогами) в заданное место.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://msexcel-vba.ru/fso-%d0%bc%d0%b5%d1%82%d0%be%d0%b4-opentextfile/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">OpenTextFile</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Открытие файла как объекта TextStream для проведения операций чтения/записи в режиме последовательного доступа.</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Боле подробно методы объекта FileSystemObject рассмотрим в отдельной статье</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">  </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image27258.png" /><span style=" font-size:8.25pt;"> Опубликовано в рубрике </span><a href="http://msexcel-vba.ru/category/vba/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">VBA</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/category/%d0%bd%d0%be%d0%b2%d0%be%d1%81%d1%82%d0%b8/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Новости</span></a><span style=" font-size:8.25pt;"> </span><img src="image27016.png" /><span style=" font-size:8.25pt;"> Метки: </span><a href="http://msexcel-vba.ru/tag/createobjectscripting-filesystemobject/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">CreateObject(&quot;Scripting.FileSystemObject&quot;)</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/tag/drives/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Drives</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/tag/filesystemobject/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">FileSystemObject</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/tag/fso/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">FSO</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/tag/object-drives/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">object .Drives</span></a><span style=" font-size:8.25pt;">, </span><a href="http://msexcel-vba.ru/tag/scrrun-dll/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">SCRRUN.DLL</span></a></p></body></html>

@@ -1,0 +1,619 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #ff0000;"><strong>Microsoft Access: ActiveX Data Objects Library (ADO)</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #993300;"><strong>Microsoft Access: ActiveX Data Objects (ADO), Connect with Access Databases from Excel using VBA.</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #993300;"><strong>Part 1 of 4</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<hr>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333; font-size: 12pt;"><strong>Microsoft Access: ActiveX Data Objects (ADO), Connect with Access Databases from Excel using VBA:</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>1. Microsoft Access: ActiveX Data Objects Library (ADO).</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=172:microsoft-access-use-ado-to-execute-sql-statements&amp;catid=79:excel-vba&amp;Itemid=475">2. Microsoft Access: Use ADO to Execute SQL statements.</a></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=173:import--export-data-from-access-to-excel-using-ado&amp;catid=79:excel-vba&amp;Itemid=475">3. Import or Export Data from Access to Excel using ADO.</a></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=174:microsoft-access-activex-data-objects-extensions-adox&amp;catid=79&amp;Itemid=475">4. Microsoft Access: ActiveX Data Objects Extensions (ADOX).</a></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">----------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"><strong>Also Read:</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=175:microsoft-access-data-access-objects-library-dao&amp;catid=79&amp;Itemid=475">Microsoft Access: Data Access Objects Library (DAO), Connect with Access Databases from Excel using VBA.</a></p>
+<hr>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">To
+ connect with other databases, when working in VBA, you can use either 
+DAO (Data Access Objects), RDO (Remote Data Objects) or ADO (ActiveX 
+Data Objects). After connecting to a database, you can manipulate its 
+data. DAO, RDO and ADO are data access interfaces ie. they are object 
+and programming models used to access data. Earlier, DAO was used to 
+interface with local databases (viz. MS Access), RDO was used to 
+interface with large databases such as Oracle and SQL Server. ADO was 
+their replacement to interface with all types of data sources. Both DAO 
+and ADO are commonly used while connecting to Microsoft Access Database.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">-------------------------------------------------------------------------------------------------------------------------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong><span style="font-size: 12pt;">Contents:</span></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=171:microsoft-access-activex-data-objects-library-ado&amp;catid=79&amp;Itemid=475#Connect with Databases using DAO, RDO and ADO Objects" rel="alternate">Connect with Databases using DAO, RDO and ADO Objects</a></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=171:microsoft-access-activex-data-objects-library-ado&amp;catid=79&amp;Itemid=475#ADO Objects &amp; Programming model" rel="alternate">ADO Objects &amp; Programming model</a></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=171:microsoft-access-activex-data-objects-library-ado&amp;catid=79&amp;Itemid=475#Connecting to a Data Source, viz. Microsoft Access, using the ADO Connection Open Method" rel="alternate">Connecting to a Data Source, viz. Microsoft Access, using the ADO Connection Open Method</a></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=171:microsoft-access-activex-data-objects-library-ado&amp;catid=79&amp;Itemid=475#Access records from a database table" rel="alternate">Access records from a database table</a></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong><a href="http://www.globaliconnect.com/excel/index.php?option=com_content&amp;view=article&amp;id=171:microsoft-access-activex-data-objects-library-ado&amp;catid=79&amp;Itemid=475#Access fields in a Recordset" rel="alternate">Access fields in a Recordset</a></strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; margin: 0px;">-------------------------------------------------------------------------------------------------------------------------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #0000ff;"><strong><a id="Connect with Databases using DAO, RDO and ADO Objects"></a>Connect with Databases using DAO, RDO and ADO Objects</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">To
+ connect with other databases, when working in VBA, you can use either 
+DAO (Data Access Objects), RDO (Remote Data Objects) or ADO (ActiveX 
+Data Objects). After connecting to a database, you can manipulate its 
+data.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">DAO,
+ RDO and ADO are data access interfaces ie. they are object and 
+programming models used to access data. Earlier, DAO was used to 
+interface with local databases (viz. MS Access), RDO was used to 
+interface with large databases such as Oracle and SQL Server. ADO was 
+their replacement to interface with all types of data sources. Both DAO 
+and ADO are commonly used while connecting to Microsoft Access Database.
+ DAO is native to Access, the DAO object library is the default 
+reference in Access 2007 and the library will be existing when you use 
+Access (ADO object library was the default reference in Access 2000 and 
+2002, whereas DAO returned as the default object library with Access 
+2003 after being the default in Access 97 earlier). DAO integrates well 
+with Access databases and provides faster access. ADO provides access to
+ a wider variety of data sources than DAO, besides Access. ADO has 
+succeeded DAO and is the latest data access technology, is simpler and 
+more flexible, and interfaces with Microsoft's powerful data access 
+technology of OLE DB. In ADO the objects are less than in DAO, and it 
+contains more properties, methods and events. ADO/OLE DB is recommended 
+for new projects but it might not be worthwhile to convert DAO code to 
+ADO for existing projects.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">ADO
+ creates a reference to the database using the Connection object, to 
+connect to the data source. You use the Open and Close methods to open 
+and close a Connection object. DAO creates a reference to the database 
+using the database object, to connect to the data source.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">In
+ Microsoft Access, Recordset objects are used to access and manipulate 
+data in a database. A Recordset object represents a set of records in a 
+database table, or a set of records returned from running a query. Both 
+DAO and ADO libraries have a Recordset object, though the methods, 
+properties, and options of the respective object is different. A Record 
+object is one row of data in a Recordset. A Recordset object has a 
+Fields collection which contains all the Field objects, where each Field
+ object represents a column in the Recordset. In other words, each 
+record represents a row of data and contains many fields, and each field
+ corresponds to a column in the database table.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">In
+ your VBA code, you should ideally precede the object name by its 
+program ID (ProgID) prefix, which in ADO is "ADODB" and in DAO is "DAO".
+ Many objects, for example the Recordset object, have similar names in 
+both DAO and ADO and it is advisable to have explicit references in your
+ project. This becomes a must if you have included references to both 
+the DAO and ADO libraries in your VBA project, else the object library 
+mentioned first in the References list will prevail, resulting in 
+confusion in the vba code.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="text-decoration: underline;">While instantiating the Recordset object, you should use:</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">Dim daoRecSet As DAO.Recordset</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">Dim adoRecSet As ADODB.Recordset</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><em>instead of:</em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">Dim RecSet As Recordset</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #0000ff;"><strong><a id="ADO Objects &amp; Programming model"></a>ADO Objects &amp; Programming model</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>ADO stands for ActiveX Data Objects</strong>,
+ and it enables an application (viz. Excel) to access and manipulate 
+data from a database (viz. Access), interfacing with an OLE DB provider.
+ ADO is used with many programming languages, including Microsoft Visual
+ Basic, and an ADO version is installed with Microsoft Office.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>OLE DB</strong>
+ is a data access technology of Microsoft, providing access to a data 
+source using a COM component. The COM component is a binary file 
+(supporting the COM standard) which is the software that exposes data to
+ an ADO application, and is called a data provider, also referred to as 
+an OLE DB provider. COM (Component Object Model) is a binary-interface 
+standard used to enable interaction between objects. A wide variety of 
+data sources can be accessed with OLE DB providers.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>A database engine</strong>
+ is the underlying software component of a database used to manipulate 
+its data. Jet (Joint Engine Technology) is used by Microsoft Access as 
+its database engine. The Microsoft Jet 4.0 OLE DB Provider is used to 
+work with the Jet database engine which opens and provides access to an 
+Access database, hence the Provider property of the ADO Connection 
+object should specify the Jet 4.0 OLE DB provider before opening the 
+connection. ADO uses the Connection object to connect to the data 
+source, to open an Access Database. For Access 2007 (.accdb database), 
+you will need to change the Provider to "Microsoft.ACE.OLEDB.12.0", ACE 
+(Access Connectivity Engine) being Jet's successor.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"><strong><div class="img_caption none" style="float: none; width: 456px;"><img class="caption" title="Image 1" src="1.png" alt="" border="0"><p class="img_caption">Image 1</p></div></strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">To use ADO in your VBA project, you must <strong>add a reference to the ADO Object Library</strong>
+ in Excel (your host application) by clicking Tools-References in VBE, 
+and then choose an appropriate version (mostly, you should choose the 
+highest version number) of Microsoft ActiveX Data Objects x.x Library 
+from the list. The ADO version depends on your Windows operating system,
+ viz. Microsoft ActiveX Data Objects 6.1 Library for Windows 7 or later,
+ Microsoft ActiveX Data Objects 6.0 Library for Windows Vista, and 
+Microsoft ActiveX Data Objects 2.8 Library for Windows XP. In Windows 
+Vista or in later versions of Windows only one of the ADO version 6.0 or
+ version 6.1 will be available in the Reference list at one time. Refer 
+Image 1 for available libraries, wherein 'Microsoft ActiveX Data Objects
+ 6.1 Library' has been selected.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>ADOX:</strong>
+ ADOX refers to ActiveX Data Objects Extensions for Data Definition 
+Language and Security, and it is an extension to the ADO library in 
+which additional objects, for creating and modifying database tables, 
+and for security, are exposed. To use ADOX in your VBA project, you must
+ add a reference to the ADOX Object Library in Excel (your host 
+application) by clicking Tools-References in VBE, and then choose an 
+appropriate version viz.  Microsoft ADO Ext. x.x for DDL and Security. 
+Note that ADO does not by itself support creating databases &amp; 
+tables, which is actually done with ADOX. However, you can create 
+database tables in ADO using SQL.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">ADOX
+ is best used for creating and manipulating database structure and 
+tables, though ADO can also be used for this in limited ways (usually 
+with SQL DDL queries). ADO is best used to access your data and for data
+ manipulation ie. to add / edit/ delete records.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #0000ff;"><strong><a id="Connecting to a Data Source, viz. Microsoft Access, using the ADO Connection Open Method"></a>Connecting to a Data Source, viz. Microsoft Access, using the ADO Connection Open Method</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use the <strong>Open Method (ADO Connection)</strong> to physically establish a connection to a data source. <strong>Syntax: ConnectionObject.Open ConnectionString, UserID, Password, Options.</strong> <strong>ConnectionString argument</strong>
+ is a string value which contains information for connecting to a data 
+source. All four arguments of the Open Method are optional, and it is 
+common to only use the ConnectionString argument to establish a 
+connection (specifying values for Provider and the Data Source in the 
+ConnectionString).</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">The
+ ConnectionString argument has a series of values which contain 
+information for connecting to a data source. Each value statement is in 
+the format of "keyword=value" and is separated by semicolons, within the
+ quoted ConnectionString. The "<strong>Provider</strong>" keyword specifies the OLE DB provider name to be used for the connection; the "<strong>Data Source</strong>"
+ keyword specifies the path and name of the database to which you are 
+connecting. It may be noted that Keywords are not case sensitive, and 
+spaces between "keyword=value" pairs are ignored.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Specify
+ the provider name to be used for the connection, in the 
+ConnectionString as, "Microsoft.Jet.OLEDB.4.0". For Access 2007 (.accdb 
+database), you will need to change the Provider to 
+"Microsoft.ACE.OLEDB.12.0". This driver, provided by Microsoft, was 
+released with Office 2007 and can connect to data sources including 
+Access 2007, Excel 2007 and Access / Excel 97-2003. 
+Microsoft.Jet.OLEDB.4.0 is not available in 64 bit. Jet has been 
+installed in and works with all windows 32-bit systems, and its 
+successor ACE is available in both 32 bit and 64 bit versions and 
+compatible with both the Access mdb &amp; accdb files. To download the 
+"Microsoft.ACE.OLEDB.12.0" driver, click 
+http://www.microsoft.com/en-us/download/details.aspx?id=13255.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">The
+ ACE driver is supported by the operating systems: Windows 8; Windows 7;
+ Windows Server 2003 R2 (32-Bit x86); Windows Server 2003 R2 x64 
+editions; Windows Server 2008 R2; Windows Server 2008 Service Pack 2; 
+Windows Vista Service Pack 1; Windows XP Service Pack 3. Only the 32-bit
+ Access Database Engine may be used on Windows XP Service Pack 3.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use the <strong>Mode property</strong>
+ of the Connection object to specify the mode for opening a database, 
+before calling the open method, because this property can be set only on
+ a closed Connection object.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><br>The
+ default Mode property value for a Connection is adModeUnknown 
+indicating that the permissions have not yet been set or cannot be 
+determined. This is the default value used by the ADO connection object 
+when not specified by the user, however the ADO provider named in the 
+connection string will determine the access mode. The 
+Microsoft.Jet.OLEDB.4.0 and Microsoft.ACE.OLEDB.12.0 providers both, by 
+Default, open a database connection in shared-access mode ie. 
+adModeShareDenyNone.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><br>To
+ open a database in shared-access mode where neither read nor write 
+access can be denied to others, set the value as adModeShareDenyNone. To
+ open a database in shared read-only mode, set the value as adModeRead, 
+and to prevent others from opening a connection set the value as 
+adModeShareExclusive. Other values are: Write-only (adModeWrite), 
+Read/Write (adModeReadWrite), Prevents others from opening in read mode 
+(adModeShareDenyRead), Prevents others from opening in write mode 
+(adModeShareDenyWrite), Prevents others from opening in read/write mode 
+(adModeShareDenyExclusive). </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">While using Jet/ACE database engine to access data in  file formats other than MS Access database, viz. Excel, "<strong>Extended Properties</strong>"
+ specifies a string containing connection information which is 
+provider-specific, that cannot be specified through standard ADO 
+properties.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><br>When
+ to add the optional HDR= setting to the Extended Properties of the 
+connection string: if the first row contains column names and not data, 
+use the setting HDR=YES, which is also the default. Specifying HDR=No 
+will be a must if you do not have column headings.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><br>The Extended Properties parameter should also refer to the appropriate Excel version.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>The Connection Object</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>A two-line code to instantiate an ADO object</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><span style="color: #008000;">'declare variable as a specific object type:</span><br>Dim connDB As ADODB.Connection<br><span style="color: #008000;">'set
+ the object variable to create a new instance of the connection object -
+ a new object reference is created by using the New keyword:</span><br>Set connDB = New ADODB.Connection</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>A single-line code to instantiate an ADO object</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><span style="color: #008000;">'this uses Dim (to declare) with the New keyword (to instantiate):</span><br>Dim connDB As New ADODB.Connection</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Instantiate an object using Late Binding - you need not add a reference to the ADO library in Excel (your host application)</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><span style="color: #008000;">'declare variable as Object type, which can be a reference to any object:</span><br>Dim connDB As Object<br><span style="color: #008000;">'set the object variable to create a new instance of the connection object, using the CreateObject method:</span><br>Set connDB = CreateObject("ADODB.Connection")</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Establish Connection to a Data Source</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em>Note: In the below examples, <strong>connDB</strong> is the connection object, instantiated as shown above.</em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>1. With a single-line code</strong>
+ you can establish a connection to a data source calling the Connection 
+object's Open method and specifying connection values for the 
+ConnectionString argument. Each value statement is separated by 
+semicolons within the quoted ConnectionString, as shown below.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">In a single-line, specify the Connection object arguments, with values for the ConnectionString argument.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>(i) opening a connection with a Jet provider (pre - MS Access 2007 databases)</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">connDB.Open ConnectionString:=<span style="color: #333333;">"Provider=Microsoft.Jet.OLEDB.4.0; data source=C:\Users\Documents\SalesReport.accdb; User ID=john, Password=123"</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>(ii) connecting with MS Access 2007 databases (.accdb files):</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">---------------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><span style="color: #008000;">'connect to database with the Mode value adModeShareExclusive ie. prevent others from opening a connection:</span><br><span style="color: #000000;">connDB.Open ConnectionString:=<span style="color: #333333;">"Provider</span> = Microsoft.ACE.OLEDB.12.0; data source=C:\Users\Documents\SalesReport.accdb; Mode =<span style="color: #333333;">" &amp; adModeShareExclusive</span></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"> </span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">---------------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">Dim strMyPath As String, strDBName As String, strDB As String<br><br><span style="color: #008000;">'your data source with which to establish connection - MS Access Database Name:</span><br>strDBName = <span style="color: #333333;">"SalesReport.accdb"</span><br><br><span style="color: #008000;">'get path / location of the database, presumed to be in the same location as the host workbook:</span><br>strMyPath = ThisWorkbook.Path<br><br><span style="color: #008000;">'set the string variable to the Database:</span><br>strDB = strMyPath &amp; "\" &amp; strDBName<br><br><span style="color: #008000;">'instantiate an ADO object:</span><br>Dim connDB As New ADODB.Connection<br><br><span style="color: #008000;">'connect to database:</span><br><span style="color: #000000;">connDB.Open ConnectionString:=<span style="color: #333333;">"Provider</span> = Microsoft.ACE.OLEDB.12.0; data source=<span style="color: #333333;">" &amp; strDB</span></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"> </span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">---------------------</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><span style="color: #008000;">'open a password protected file:</span><br>connDB.Open ConnectionString:=<span style="color: #333333;">"Provider = Microsoft.ACE.OLEDB.12.0; data source=C:\Users\Documents\SalesReport.accdb; Jet OLEDB:Database Password=123"</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>2. Another way to establish a connection to a data source</strong>
+ is that before opening the Connection object you can set its 
+ConnectionString property. The ConnectionString property contains 
+information for connecting to a data source and is a series of value 
+statements separated by semicolons. The ConnectionString property values
+ are set before calling the Open method, as shown below.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">Dim strMyPath As String, strDBName As String, strDB As String<br><br><span style="color: #008000;">'your data source with which to establish connection - MS Access Database Name:</span><br>strDBName = <span style="color: #333333;">"SalesReport.accdb"</span><br><br><span style="color: #008000;">'get path / location of the database, presumed to be in the same location as the host workbook:</span><br>strMyPath = ThisWorkbook.Path<br><br><span style="color: #008000;">'set the string variable to the Database:</span><br>strDB = strMyPath &amp; "\" &amp; strDBName<br><br><span style="color: #008000;">'instantiate an ADO object</span><br>Dim connDB As New ADODB.Connection<br><br><span style="color: #008000;">'connect to database</span><br>With connDB</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">.Provider = <span style="color: #333333;">"Microsoft.ACE.OLEDB.12.0"</span><br>.Mode = adModeShareDenyNone</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">.Open strDB</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">End With</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="text-decoration: underline;"><strong>To connect to Excel files:</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Use the Office 2007 driver Microsoft.ACE.OLEDB.12.0 to connect to Excel 2007 (.xlsx) files:</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">connDB.Open "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\Users\Documents\SampleWB.xlsx;Extended Properties=<span style="color: #333333;">'Excel 12.0;HDR = YES'</span>" </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Use the Office 2007 driver Microsoft.ACE.OLEDB.12.0 to connect to older 97-2003 (.xls) Excel files:</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">connDB.Open "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\Users\Documents\SampleWB.xls;Extended Properties=<span style="color: #333333;">'Excel 8.0;HDR = YES'</span>"</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #0000ff;"><strong><a id="Access records from a database table"></a>Access records from a database table</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">After
+ connecting to a database, you can manipulate its data. In Microsoft 
+Access, Recordset objects are used to access and manipulate data in a 
+database. A Recordset object represents a set of records in a database 
+table, or a set of records returned from running a query. Both DAO and 
+ADO libraries have a Recordset object, though the methods, properties, 
+and options of the respective object is different. A Record object is 
+one row of data in a Recordset. A Recordset object has a Fields 
+collection which contains all the Field objects, where each Field object
+ represents a column in the Recordset. In other words, each record 
+represents a row of data and contains many fields, and each field 
+corresponds to a column in the database table.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>The ADO Recordset Open Method, to open an ADO Recordset object</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use
+ the Open Method (ADO Recordset) to access data / records from a table -
+ it opens a cursor (ie. a pointer) to a record, or a range of records, 
+within the Recordset. <strong>Syntax: recordset.Open Source, ActiveConnection, CursorType, LockType, Options.</strong> All arguments are optional. On opening a Recordset, the first record is the current record.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Source argument</strong>
+ refers to the source of the record(s), and Source often mentions an SQL
+ statement, or it mentions a table name containing a recordset, while 
+using the ADO Recordset Open Method. Source can also be a valid Command 
+object, a stored procedure call, a URL or a file name. ActiveConnection 
+is a valid connection object variable (or a string of ConnectionString 
+values) specifying the connection in which to open the Recordset object.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">The default <strong>CursorType</strong>
+ used by the provider when opening the Recordset, is adOpenForwardOnly 
+which allows only forward movement. Cursor type adOpenStatic allows all 
+movement (forward or backward) through records and changes being made by
+ other users who are working on the Recordset are not visible or shown, 
+so that all records appear the same way since the Recordset was opened. 
+Cursor type adOpenDynamic also allows all movement (forward or backward)
+ through records and changes being made by other users are visible or 
+shown. Cursor type adOpenKeyset is similar to adOpenDynamic, it allows 
+all movement (forward or backward) through records and data changes made
+ by other users are visible, however, any new records added or records 
+deleted by other users are not visible. Cursor type adOpenUnspecified 
+does not specify a cursor.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>LockType</strong>
+ mentions the type of lock to be placed when records are being edited. 
+Optimistic locking (adLockOptimistic) locks records only when you are 
+updating a record (ie. when the Update Method is called), and the same 
+record can be read and edited by other users while it is open. 
+Pessimistic locking (adLockPessimistic) locks a record as soon as you 
+start editing, and the same record cannot be read or edited by other 
+users until you either save or cancel changes by using the Update or 
+CancelUpdate methods respectively. Optimistic batch updates 
+(adLockBatchOptimistic) LockType is used for making multiple changes 
+(ie. changes to multiple records at the same time) and then writing them
+ to the data source only when the UpdateBatch method is called, and till
+ then any Recordset changes that were made will not be updated. Default 
+type is adLockReadOnly ie. read only records, wherein data cannot be 
+edited.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Options</strong>
+ is a Long value used to determine how the Source argument is to be 
+evaluated, provided it is not a Command object. Though this is an 
+optional argument, it is used to evaluate the Source argument optimally,
+ viz. if you are aware of the Source type (say, it is a table name), 
+then using the adCmdTable value for this argument will make ADO  
+directly evaluate Source as a table name whose columns are all returned 
+by an SQL query. Other values are: adCmdUnspecified - does not specify 
+how to evaluate; adCmdText - evaluates Source as a textual definition of
+ a command or stored procedure call; adCmdStoredProc - evaluates Source 
+as a stored procedure name; adCmdUnknown (default) - type of command in 
+the Source argument is not known; adCmdFile - evaluates Source as the 
+file name of a persistently stored Recordset; adCmdTableDirect - 
+evaluates Source as a table name whose columns are all returned. You 
+will encounter an error if there is a mis-match between the Options 
+argument and the Source type.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Create a new record using the Recordset Object's AddNew method</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Create a new record in a table, using the AddNew method (of the Recordset object). <strong>Syntax: RecordsetObject.AddNew FieldList, Values.</strong> Both arguments are optional. <strong>FieldList</strong>
+ is the Field Name or ordinal position of the field, and it can be a 
+single name or an array of names. If FieldList is an array of names, 
+then <strong>Values</strong> should also be an array of values for the fields, of the same number and in the same order of field names.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Update Method (ADO Recordset)</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">After
+ creating a new record using the AddNew method or after changing a field
+ value of a record, you must use the Update method (of Recordset object)
+ to save changes to the current record. After using the Update method, 
+the current record will remain the current one.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Close method</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">You
+ should close a Connection, a Record or a Recordset, by using the Close 
+method, which will free any associated system resources. Active 
+Recordset objects associated with the connection also get closed when 
+you close a Connection object. Closing an object is not enough to remove
+ it from memory, for which you need to set the object variable to 
+Nothing, after closing the object.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>To close a Recordset:</strong> RecordsetObject.Close<br><strong>To close a Connection:</strong> ConnectionObject.Close</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>To destroy the Recordset variable:</strong> Set RecordsetObject = Nothing</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>To destroy the Connection variable:</strong> Set ConnectionObject = Nothing</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Delete Method (ADO Recordset)</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use the ADO Recordset Delete Method, to delete the current record or a group of records. <strong>Syntax: <strong>RecordsetObject</strong>.Delete AffectRecords</strong>. The <strong>AffectRecords</strong>
+ argument determines how many records will the delete method affect, 
+with the default value being adAffectCurrent which affects the current 
+record only. The deleted record remains the current record even after 
+being deleted, and you can use the Move method to move to a different 
+record.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Moving between Records in a Recordset</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Move Method</strong> (ADO). <strong>Syntax: RecordsetObject.Move NumRecords, Start</strong>.
+ This method moves the position of the current record as per the 
+specified number of records (NumRecords argument) from a starting 
+location (Start argument value adBookmarkCurrent indicates current 
+record, adBookmarkFirst indicates first record and adBookmarkLast 
+indicates the last record - defalut value of this optional argument is 
+adBookmarkCurrent). It is necessary to specify the NumRecords argument, 
+and if this is more than 0 the current record moves forward towards end 
+of recordset, and if less than 0 then the current record moves 
+backwards.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>MoveFirst, MoveLast, MoveNext, and MovePrevious Methods</strong>
+ (ADO): MoveFirst method moves the current record to the first record. 
+Using the MoveLast method moves the current record to the last record in
+ the set of records. MoveNext method moves the current record one 
+position forward and MovePrevious moves the current record one position 
+backward. <em><strong>Syntax: RecordsetObject.MoveFirst, RecordsetObject.MoveLast, RecordsetObject.MoveNext, RecordsetObject.MovePrevious</strong></em>.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p><span style="color: #000000;"><strong>EOF Property</strong> (ADO) 
+indicates whether the current record position is after the last record 
+in the set of records, wherein its value will be TRUE. <strong>BOF Property</strong>
+ (ADO) indicates whether the current record position is before the first
+ record in the set of records, wherein its value will be TRUE. Both 
+properties return a Boolean value and are used to determine if the 
+current record is outside the limits of the Recordset object. There will
+ be no current record if either the EOF Property or BOF Property is 
+True, and if both properties are True on opening a recordset it will 
+indicate that there are no records. Opening a Recordset having atleast 
+one record makes the first record as the current record and in this case
+ both the EOF Property and BOF Property will be False. <em><strong>Syntax: RecordsetObject .EOF, RecordsetObject .BOF</strong></em>.</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Count the number of Records in a Recordset</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use the <strong>RecordCount Property</strong>
+ (ADO) to Count the number of Records in a Recordset. The RecordCount 
+Property will return -1 if the number of records cannot be determined or
+ if RecordCount is not supported by the provider or cursor type. 
+CursorType adOpenForwardOnly does not support RecordCount, you can use 
+adOpenStatic or adOpenKeyset. CursorType adOpenDynamic might return -1 
+or return the actual count, depending on the data source. The Execute 
+method of a connection object opens a recordset with CursorType 
+adOpenForwardOnly which does not support RecordCount, hence use the 
+recordset Open method, which can use all CursorTypes.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Example of using the RecordCount property:</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">MsgBox RecordsetObject.RecordCount</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #0000ff;"><strong><a id="Access fields in a Recordset"></a>Access fields in a Recordset</strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Count the number of Fields</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">The<strong> Count property</strong>
+ (adoRecSet.Fields.count) determines the number of fields in a 
+collection (Recordset), wherein numbering for members of a collection 
+begins with zero. If you have seven fields in a table, using 
+RecordsetObject.Fields.count will return 7, and 
+RecordsetObject.Fields(0) will return the value of the first field.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Access Fields by Item property viz. recordset.Fields.Item(index)</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">You can access fields by the <strong>Item property</strong>
+ which refers to the field name or its position, viz. 
+recordset.Fields.Item(index), where index is the Field Name or its 
+ordinal position. Note that the Item property is the default property of
+ the fields collection, so omitting the Item keyword will have no 
+effect.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Recordset.Fields(0).Name
+ returns the Field name of the first field, and 
+Recordset.Fields(0).Value returns the content of the first field. The 
+Value property of the Field object is the Default property viz 
+Recordset.Fields(0) is the same as Recordset.Fields(0).Value and will 
+return the first fields's value.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Examples: To reference a field named "FirstName", which is the second field in the table, you can use any of the following:-</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">RecordsetObject.Fields("FirstName")</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">RecordsetObject.Fields.Item("FirstName")</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">RecordsetObject.Fields(1)</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">RecordsetObject.Fields.Item(1)</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">RecordsetObject![firstName]</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Type property sets or returns the Data Type of a Field</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;">Use the <strong>Type property</strong> to set or return the data type of a Field.</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Examples of data type enumerated constants that are supported by ADO, for the Type property, include:</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">adBoolean
+ (Boolean Value - Yes/No); adChar (String Value); adCurrency (Currency 
+Value); adDate (date value - number of days since December 30, 1899 + 
+the fraction of a day); adDBDate (date value - yyyymmdd); adDecimal (an 
+exact numeric value with a fixed precision and scale); adDouble (a 
+double-precision floating-point value); adGUID (FieldSize = Replication 
+ID); adInteger (a four-byte signed integer); adLongVarChar (Long String 
+Value); adNumeric (an exact numeric value with a fixed precision and 
+scale); adSingle (a single-precision floating-point value); adVarWChar 
+(a null-terminated Unicode character string); ...</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><em>Default
+ data type of a column is a value of 202 (adVarWChar). Data Types of 
+adGUID and adInteger can be used for AutoNumber also.</em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em><strong>Return the data type of a Field using the follwing code:</strong></em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;">MsgBox RecordsetObject.Fields("FirstName").Type</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: medium; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><strong>Example 1: Use ADO to Connect to Access Database, Open Recordset, and Manipulate Records.</strong></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><em>Refer to Images 2a, 2b &amp; 2c as mentioned in the code. </em></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"><strong><div class="img_caption none" style="float: none; width: 771px;"><img class="caption" title="Image 2a" src="2.png" alt="" border="0"><p class="img_caption">Image 2a</p></div></strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"><strong><div class="img_caption none" style="float: none; width: 770px;"><img class="caption" title="Image 2b" src="3.png" alt="" border="0"><p class="img_caption">Image 2b</p></div></strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"><span style="color: #333333;"><strong><div class="img_caption none" style="float: none; width: 771px;"><img class="caption" title="Image 2c" src="4.png" alt="" border="0"><p class="img_caption">Image 2c</p></div></strong></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><strong>Sub adoAutomateAccess_1()</strong><br><span style="color: #008000;">'In this example we show how to:</span><br><span style="color: #008000;">'1. Connect to the data source: ADO uses the Connection object to open an Access Database.</span><br><span style="color: #008000;">'2. Open a Recordset (set of records in a table) using the ADO Recordset Open Method.</span><br><span style="color: #008000;">'3. Reference all records in each field of a Recordset.</span><br><span style="color: #008000;">'4. Moving between Records in a Recordset, using MoveNext ...</span><br><span style="color: #008000;">'5. Create a new record in a table, using the AddNew method.</span><br><span style="color: #008000;">'6. Edit an ADO record.</span><br><span style="color: #008000;">'7. Access / Reference fields in a Recordset.</span><br><span style="color: #008000;">'8. Delete the new ADO record.</span><br><span style="color: #008000;">'9. Close Recordset and destroy object variable.</span><br><br><span style="color: #008000;">'To
+ use ADO in your VBA project, you must add a reference to the ADO Object
+ Library in Excel (your host application) by clicking Tools-References 
+in VBE, and then choose an appropriate version of Microsoft ActiveX Data
+ Objects x.x Library from the list.</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><span style="color: #008000;">'--------------</span><br><span style="color: #008000;">'DIM STATEMENTS</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><br>Dim strMyPath As String, strDBName As String, strDB As String<br>Dim adoRecSet As ADODB.Recordset<br>Dim i As Long<br><br><span style="color: #008000;">'--------------</span><br><span style="color: #008000;">'THE CONNECTION OBJECT - ESTABLISH CONNECTION TO A DATA SOURCE</span><br><br><span style="color: #008000;">'your data source with which to establish connection - ENTER the MS Access Database Name:</span><br>strDBName = <span style="color: #333333;">"SalesReport.accdb"</span><br><br><span style="color: #008000;">'get path / location of the database, presumed to be in the same location as the host workbook:</span><br>strMyPath = ThisWorkbook.Path<br><br><span style="color: #008000;">'set the string variable to the Database:</span><br>strDB = strMyPath &amp; "\" &amp; strDBName<br><br><span style="color: #008000;">'instantiate an ADO object:</span><br>Dim connDB As New ADODB.Connection<br><br><span style="color: #008000;">'connect to database with the Mode value adModeShareExclusive ie. prevent others from opening a connection:</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><span style="color: #008000;">'For
+ pre - MS Access 2007, .mdb files (viz. MS Access 97 up to MS Access 
+2003), use the Jet provider: "Microsoft.Jet.OLEDB.4.0". For Access 2007 
+(.accdb database) use the ACE Provider: "Microsoft.ACE.OLEDB.12.0". The 
+ACE Provider can be used for both the Access .mdb &amp; .accdb files.<br></span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">connDB.Open ConnectionString:=<span style="color: #333333;">"Provider</span> = Microsoft.ACE.OLEDB.12.0; data source=C:\Users\Documents\SalesReport.accdb; Mode =<span style="color: #333333;">" &amp; adModeShareExclusive</span><br><br><span style="color: #008000;">'--------------</span><br><span style="color: #008000;">'OPEN RECORDSET, ACCESS RECORDS AND FIELDS</span><br><br><span style="color: #008000;">'Note
+ that a Recordset object represents a set of records, but at any time 
+only a single record within the set of records is referred by a 
+Recordset object as the current record.</span><br><br><span style="color: #008000;">'Use
+ the Open Method (ADO Recordset) to access data from a table - it opens a
+ cursor (ie. a pointer) to a record, or a range of records, within the 
+Recordset. On opening a Recordset, the first record is the current 
+record.</span><br><br><span style="color: #008000;">'Set the ADO Recordset object:</span><br>Set adoRecSet = New ADODB.Recordset<br><br><span style="color: #008000;">'Opening the table named SalesManager:</span><br>strTable = <span style="color: #333333;">"SalesManager"</span><br><br>adoRecSet.Open Source:=strTable, ActiveConnection:=connDB, CursorType:=adOpenStatic, LockType:=adLockOptimistic</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><span style="color: #008000;">'refer Image 2a to view the existing SalesManager Table in MS Access file "SalesReport.accdb".</span><br><span style="color: #008000;">'reference all records in each field of a Recordset:</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">For i = 0 To adoRecSet.Fields.count - 1</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;"><span style="color: #008000;">'get field / column name:</span><br>MsgBox adoRecSet.Fields(i).Name</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">adoRecSet.MoveFirst</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">Do While Not adoRecSet.EOF</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 120px; margin: 0px;"><span style="color: #008000;">'get record value:</span><br>MsgBox adoRecSet.Fields(i).Value</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 120px; margin: 0px;">adoRecSet.MoveNext</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">Loop</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">Next i</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;"> </p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><span style="color: #008000;">'refer Image 2b to view the SalesManager Table after adding the new record.</span><br><span style="color: #008000;">'Create a new record in a table, using the AddNew method (of the Recordset object).</span><br><span style="color: #008000;">'NOTE: values of a primary field will need to be unique and cannot be Null.</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">With adoRecSet</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">.AddNew<br>.Fields("EmployeeId") = 40<br>.Fields("FirstName") = <span style="color: #333333;">"Lisa"</span><br>.Fields("SurName") = <span style="color: #333333;">"Randall"</span><br>.Fields("JoinDate") = <span style="color: #333333;">"08/11/2007"</span><br>.Fields("Telephone") = <span style="color: #333333;">"224-1357967"</span><br>.Fields("City") = <span style="color: #333333;">"Dallas"</span><br>.Fields("ZipCode") = <span style="color: #333333;">"54650"</span><br><span style="color: #008000;">'will save only after Update method is run:</span><br><span style="color: #008000;">'In
+ DAO, after the Update the current record will be the record which had 
+focus before the AddNew method, whereas in ADO, after calling Update the
+ current record will be the new one.</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">.Update</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">End With</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><br><span style="color: #008000;">'To return a field named "FirstName", which is the second field in the table, you can use any of the following:-</span><br>MsgBox adoRecSet.Fields("FirstName")<br><span style="color: #008000;">'MsgBox adoRecSet.Fields.Item("FirstName")</span><br><span style="color: #008000;">'MsgBox adoRecSet.Fields(1)</span><br><span style="color: #008000;">'MsgBox adoRecSet.Fields.Item(1)</span><br><span style="color: #008000;">'MsgBox adoRecSet![firstName]</span><br><br><span style="color: #008000;">'count number of fields - returns 7 fields:</span><br>MsgBox adoRecSet.Fields.count<br><span style="color: #008000;">'count number of records in the Recordset - returns 6, a new record is added to the original 5 records:</span><br>MsgBox adoRecSet.RecordCount<br><br><span style="color: #008000;">'Use the Type property to return the data type of a Field.</span><br>MsgBox adoRecSet.Fields("FirstName").Type<br><br></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><span style="color: #008000;">'refer Image 2c to view the SalesManager Table after editing the new record.</span><br><span style="color: #008000;">'edit the new record - an ADO recordset is already in edit mode (the Edit method is used only for DAO recordset):</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">With adoRecSet</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">.Fields("FirstName") = <span style="color: #333333;">"Julia"</span><br>.Fields("SurName") = <span style="color: #333333;">"Green"</span><br><span style="color: #008000;">'will save only after Update method is run:</span></p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 90px; margin: 0px;">.Update</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;">End With</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 60px; margin: 0px;"><br><span style="color: #008000;">'Delete the new record:</span><br>adoRecSet.Delete<br><br><span style="color: #008000;">'--------------</span><br><span style="color: #008000;">'CLOSE RECORDSET, DESTROY OBJECT VARIABLES</span><br> <br><span style="color: #008000;">'close the objects</span><br>adoRecSet.Close<br>connDB.Close<br><br><span style="color: #008000;">'destroy the object variables</span><br>Set adoRecSet = Nothing<br>Set connDB = Nothing</p>
+<p style="font-size: small; font-style: normal;  font-weight: normal; font-variant: normal; color: #000000; word-spacing: normal; letter-spacing: normal; text-align: left; white-space: normal; padding: 0px 0px 0px 30px; margin: 0px;"><br><strong>End Sub </strong></p>
+</body>
+</html></p></body></html>

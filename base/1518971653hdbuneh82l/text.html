@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="page-header">
+<h1 itemprop="headline">
+				Option Explicit. Требование явного объявления переменных			</h1>
+</div>
+<dl class="article-info muted">
+<dt class="article-info-term">
+									Подробности							</dt>
+<dd class="category-name">
+																		Категория: <a href="http://macros-vba.ru/knigi/vba" itemprop="genre">Основы VBA</a>	</dd>
+<dd class="published">
+<span class="icon-calendar" aria-hidden="true"></span>
+<time datetime="2012-10-08T18:54:38+00:00" itemprop="datePublished">
+					Опубликовано: 08 октября 2012				</time>
+</dd>
+</dl>
+<div itemprop="articleBody">
+<p style="text-align: justify;" align="center"><span style="text-align: justify;">В предыдущей статье уже рассматривались <em><a href="http://macros-vba.ru/knigi/vba/118-kak-obyavit-peremennuyu-obyavlenie-peremennyh-v-vba">способы явного и неявного объявления переменных</a>, </em>но стоит отдельно обратить внимание на такую команду VBA, как <em>Option Explicit</em>.
+ Не смотря на то, что неявное объявление переменных простым их 
+использованием удобно, с ним могут быть связаны определенные проблемы. 
+При неявном объявлении переменной существует риск случайно создать новую
+ переменную, когда необходимо использовать уже существующую. Такая 
+ситуация может приводить к ошибкам, которые очень сложно выявлять. 
+Использование оператора Dim для объявления переменных не всегда помогает
+ предотвращать ошибки в коде, относящиеся к неявному объявлению 
+переменных.</span><span style="text-align: justify;"></span></p>
+<p style="text-align: justify;">Для того, чтобы было проще обнаруживать ошибки, связанные с неявным объявлением переменных, в VBA предусмотрена команда <em>Option Explicit</em>. Использование <em>Option Explicit</em> препятствует
+ неявному объявлению переменных, при этом VBA требует объявления всех 
+переменных с использованием оператора Dim. Такие команды, как <em>Option Explicit</em>,
+ называются директивами компилятора и инструктируют VBA о специфических 
+правилах, которым должен следовать VBA при компиляции исходного кода. <em>Option Explicit</em> действует только в пределах модуля, в котором она прописана.</p>
+<p style="text-align: justify;">Для того чтобы установить режим Option 
+Explicit, при котором VBA требует явного объявления всех переменных в 
+модуле, необходимо добавить команду Option Explicit в начало модуля, 
+перед любыми объявлениями переменных.</p>
+<p></p><div style="overflow: hidden; display: block; height: auto; width: auto;"><div id="highlighter_921148" class="syntaxhighlighter "><div class="lines"><div class="line alt1"><code class="number">1.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">Option</code> <code class="plain">Explicit   </code><code class="comments">'требование явного объявления переменных в модуле</code></span></span></div><div class="line alt2"><code class="number">2.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">Dim</code> <code class="plain">HelloMsg      </code><code class="comments">'переменная будет использоваться всеми процедурами модуля</code></span></span></div><div class="line alt1"><code class="number">3.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">Sub</code> <code class="plain">HelloWorld()</code></span></span></div><div class="line alt2"><code class="number">4.</code><span class="content"><span class="block" style="margin-left: 32px !important;"><code class="plain">HelloMsg=</code><code class="string">"Hello, World!"</code></span></span></div><div class="line alt1"><code class="number">5.</code><span class="content"><span class="block" style="margin-left: 32px !important;"><code class="plain">MsgBox HelloMsg,, </code><code class="string">"Окно приветствия"</code></span></span></div><div class="line alt2"><code class="number">6.</code><span class="content"><span class="block" style="margin-left: 0px !important;"><code class="keyword">End</code> <code class="keyword">Sub</code></span></span></div></div></div></div><p></p>
+<p style="text-align: justify;">Если добавить неявное объявление 
+переменной в этот модуль, VBA отобразит ошибку времени исполнения, 
+сообщая о том, что переменная является необъявленной.</p>
+<p style="text-align: justify;">Редактором Visual Basic предусмотрена 
+возможность автоматически включать Option Explicit в каждый новый модуль
+ при его создании. Для этого необходимо в редакторе VB зайти в меню 
+Tools/Options  и в диалоговом окне "Options" на вкладке "Editor" 
+поставить флажок перед опцией Require Variable Declaration (явное 
+описание переменных).</p>
+<p><img alt="как добавить Option Explicit во все новые модули VBA" src="1.png" style="display: block; margin-left: auto; margin-right: auto;" width="428" height="367"></p>
+<p style="text-align: justify;">	</p><div class="moduletable">
+<h3>Другие материалы по теме:</h3>
+<ul class="relateditems">
+<li>
+<a href="http://macros-vba.ru/knigi/vba/118-kak-obyavit-peremennuyu-obyavlenie-peremennyh-v-vba">
+				Как объявить переменную? Объявление переменных в VBA</a>
+</li>
+</ul>
+</div></div>
+</body>
+</html></p></body></html>

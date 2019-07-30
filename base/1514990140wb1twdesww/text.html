@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Диалоговое окно выбора файлов/папки<span style=" font-size:8.25pt;"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Часто при работе с файлами и написании кодов начинающие &quot;кодить&quot; в VBA сталкиваются с необходимостью предоставить пользователю возможность самостоятельного выбора файлов: либо всех в указанной папке, либо каких-то отдельных. Конечно, можно жестко в коде написать нечто вроде: &quot;C:\Documents\Files\Книга1.xls&quot;, но это требует не только наличия именно диска С, но и полной структуры папок и имен файлов. Это очень неудобно в большинстве случаев и куда чаще необходимо дать пользователю возможность самому указать имя файла. Записывать в ячейку листа полный путь и имя весьма непрактично и часто для неискушенного пользователя вызывает только &quot;отторжение&quot; от программы. В статье </span><a href="http://www.excel-vba.ru/chto-umeet-excel/prosmotret-vse-fajly-v-papke/"><span style=" font-size:8.25pt; text-decoration: underline; color:#0000ff;">Просмотреть все файлы в папке</span></a><span style=" font-size:8.25pt;"> я приводил пример кода, который просматривает все файлы в указанной папке и папка при этом выбирается сами пользователем из привычного по работе с Windows диалога. Там используется диалог выбора папок. Именно на этом я и хочу сделать акцент в этой статье - рассказать про некоторые способы вызова подобных диалогов для выбора файлов или папки. Так же обращу внимание на некоторые вещи, которые следует учитывать при использовании того или иного типа диалогов.</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/dialogovoe-okno-vybora-fajlovpapki/#tips_vba_GetOpenFileName"><span style=" text-decoration: underline; color:#0000ff;">Диалог выбора файлов Applicaton.GetOpenFileName</span></a></li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/dialogovoe-okno-vybora-fajlovpapki/#tips_vba_FileDialogFilePicker"><span style=" text-decoration: underline; color:#0000ff;">Диалог выбора файлов FileDialog(msoFileDialogFilePicker)</span></a></li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/dialogovoe-okno-vybora-fajlovpapki/#tips_vba_FileDialogFolderPicker"><span style=" text-decoration: underline; color:#0000ff;">Диалог выбора папки FileDialog(msoFileDialogFolderPicker)</span></a></li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.excel-vba.ru/chto-umeet-excel/dialogovoe-okno-vybora-fajlovpapki/#tips_vba_DialogFolderShell"><span style=" text-decoration: underline; color:#0000ff;">Диалог выбора папки через Shell</span></a></li></ul>
+<hr />
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если рассматривать наиболее простые варианты, то их два. Выбрать файлы можно через Applicaton.GetOpenFileName или через Application.FileDialog. Отличия в них есть, но я заострю внимание на главном: GetOpenFileName будет работать в любой версии Excel, а класс FileDialog только начиная с Excel 2002, т.к. именно в этой версии впервые был использован класс FileDialog. Это стоит учитывать при разработке.<br /> <br /></span><a name="tips_vba_GetOpenFileName"></a><span style=" font-size:8.25pt;"><br /></span><span style=" font-size:8.25pt;"> <br />Диалог выбора файлов Applicaton.GetOpenFileName<br />Параметры:<br />Application.GetOpenFilename([FileFilter], [FilterIndex], [Title], [ButtonText], [MultiSelect])<br />По сути я часто использую именно его, т.к. это универсальный метод и в нем есть все, что лично мне необходимо: выбрать определенные типы файлов позволяет, возможность запрета выбора нескольких файлов сразу есть.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="2" cellpadding="0">
+<tr>
+<td width="15%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">FileFilter</span><span style=" font-size:8.25pt;"> </span></p></td>
+<td width="85%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Указываются типы файлов, которые будут отображаться в диалоговом окне выбора. Например, если указать &quot;Excel files(*.xls*),*.xls*&quot;, то возможно будет выбрать только файлы Excel(с расширением, начинающимся на .xls - .xls, .xlsx, .xlsb, .xlsm и т.д.). Если указать &quot;Text files(*.txt),*.txt&quot;, то можно будет выбрать только текстовые файлы с расширением .txt. Так же можно указать более одного типа расширений: &quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;. По умолчанию тип файлов в диалоговом окне будет принадлежать первому указанному типу файлов(*.xls*). Но можно указать любой из перечисленных типов при помощи аргумента FilterIndex. Так же можно указать выбор любых типов файлов: &quot;All files(*.*),*.*&quot; </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">FilterIndex</span><span style=" font-size:8.25pt;"> </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если аргументом FileFilter указано более одного типа файлов(расширений), то этот аргумент указывает какой именно тип использовать. Например, следующая строка по умолчанию назначает выбор текстовых типов файлов:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4c4906498819"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _ (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , True) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4c4906498819-1"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4c4906498819-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , True)</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;"><br /></span><img src="image22259.png" /><span style=" font-size:8.25pt;"> </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Title</span><span style=" font-size:8.25pt;"> </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Текст заголовка диалогового окна. Если указать &quot;Выбрать текстовые или Excel файлы&quot;, то именно этот текст будет в заголовке. Если не указывать, то будет текст по умолчанию(нечто вроде &quot;Открытие документа&quot;) </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">ButtonText</span><span style=" font-size:8.25pt;"> </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Данный аргумент доступен только для ПК под управлением Macintosh(MAC). Назначает текст для кнопки диалогового окна Открыть. Для владельцев Windows этот текст всегда будет &quot;Открыть&quot; </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">MultiSelect</span><span style=" font-size:8.25pt;"> </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Указывает, может быть выбран только один файл или несколько:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">True</span> - можно будет выбрать более одного файла для обработки(через Shift или Ctrl или простым выделением мышью внутри окна)</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">False</span> - можно будет выбрать только один файл</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">По умолчанию принимает значение </span><span style=" font-size:8.25pt; font-weight:600;">False</span><span style=" font-size:8.25pt;"><br />Выбора только одного файла: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4d0686148905"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _ (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , False) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4d0686148905-1"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4d0686148905-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , False)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Выбор нескольких файлов: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4d5868454231"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _ (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , True) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4d5868454231-1"></a><span style=" font-size:8.25pt;">a</span><span style=" font-size:8.25pt;">vFiles = Application.GetOpenFilename _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4d5868454231-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   (&quot;Excel files(*.xls*),*.xls*,Text files(*.txt),*.txt&quot;, 2, &quot;Выбрать текстовые или Excel файлы&quot;, , True)</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Пример применения диалога Application.GetOpenFilename </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4da099507118"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowGetOpenDialod() Dim avFiles 'по умолчанию к выбору доступны файлы Excel(xls,xlsx,xlsm,xlsb) avFiles = Application.GetOpenFilename _ (&quot;Excel files(*.xls*),*.xls*&quot;, 1, &quot;Выбрать Excel файлы&quot;, , False) If VarType(avFiles) = vbBoolean Then 'была нажата кнопка отмены - выход из процедуры Exit Sub End If 'avFiles - примет тип String MsgBox &quot;Выбран файл: '&quot; &amp; avFiles &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot; End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">12 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4da099507118-1"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowGetOpenDialod()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim avFiles</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'по умолчанию к выбору доступны файлы Excel(xls,xlsx,xlsm,xlsb)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-4"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   avFiles = Application.GetOpenFilename _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-5"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">               (&quot;Excel files(*.xls*),*.xls*&quot;, 1, &quot;Выбрать Excel файлы&quot;, , False)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-6"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   If VarType(avFiles) = vbBoolean Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-7"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       'была нажата кнопка отмены - выход из процедуры</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-8"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       Exit Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-9"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-10"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'avFiles - примет тип String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-11"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   MsgBox &quot;Выбран файл: '&quot; &amp; avFiles &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4da099507118-12"></a><span style=" font-size:8.25pt;">E</span><span style=" font-size:8.25pt;">nd Sub</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">В данном случае совершенно неважно указан ли выбор только одного файла или нескольких. Может поменяться только способ обработки полученного результата. Если параметр MultiSelect установлен в False, то переменная avFiles примет тип String, т.е. это будет одна строка. Предположим, что была выбрана книга Excel. Тогда открыть её можно будет как обычно это делается при использовании переменной: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4e0000893178"></a><span style=" font-size:8.25pt;">W</span><span style=" font-size:8.25pt;">orkbooks.Open avFiles </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4e0000893178-1"></a><span style=" font-size:8.25pt;">W</span><span style=" font-size:8.25pt;">orkbooks.Open avFiles</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если же параметр MultiSelect установлен в True, то переменная avFiles примет тип Array - массив строк, в котором будут записаны все пути и имена выбранных файлов. Обрабатывать в таком случае следует циклом: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4e5853687450"></a><span style=" font-size:8.25pt;">'</span><span style=" font-size:8.25pt;">avFiles - примет тип Array For Each x In avFiles Workbooks.Open x Next </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4e5853687450-1"></a><span style=" font-size:8.25pt;">'</span><span style=" font-size:8.25pt;">avFiles - примет тип Array</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4e5853687450-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   For Each x In avFiles</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4e5853687450-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       Workbooks.Open x</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4e5853687450-4"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Next</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">В приложенном к статье файле приведены две процедуры с использованием этого типа диалога и обработкой файлов с параметром MultiSelect, установленным в True и False.</span></p>
+<hr />
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">У этого диалога тоже есть параметры и они очень схожи с таковыми в Application.GetOpenFilename:<br />Ниже в статье примера кода с применением всех описанных параметров</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="2" cellpadding="0">
+<tr>
+<td width="15%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">AllowMultiSelect</span></p></td>
+<td width="85%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Указывает, может быть выбран только один файл или несколько:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">True</span> - можно будет выбрать более одного файла для обработки(через Shift или Ctrl или простым выделением мышью внутри окна)</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">False</span> - можно будет выбрать только один файл</li></ul></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Title</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Текст заголовка диалогового окна. Если указать &quot;Выбрать текстовые или Excel файлы&quot;, то именно этот текст будет в заголовке. Если не указывать, то будет текст по умолчанию(нечто вроде &quot;Открытие документа&quot;) </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Filters</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Перечисляются типы файлов, которые будут отображаться в диалоговом окне выбора. Для добавления типа файла(расширения) необходимо использовать метод Add:<br />.Filters.Add([Description],[Extensions],[Position])</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Description</span> - описание типа файлов. Произвольный текст, указывающий тип файлов. Например &quot;Рисунки&quot; или &quot;Файлы Excel&quot;.</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Extensions</span> - расширения файлов. Непосредственно перед расширением обязательно должна стоять звездочка и точка: *.xls. Иначе диалог выдаст ошибку. Для перечисления нескольких расширений используется разделитель в виде точки-с-запятой: &quot;*.xls*;*.xla*&quot; или &quot;*.xls;*.xlsx;*.xlsm&quot;. Звездочка после расширения заменяет любой набор символов или ни одного. Например, при указании &quot;*.xls*&quot; будет возможным выбрать любые файлы, расширение которых начинается на .xls: .xls,.xlsx,.xlsm,.xlsb и т.д., но нельзя будет выбрать файлы с расширением .xla,.xlam и тем более .doc или .txt. Если необходимо осуществить выбор любого типа файлов, то необходимо просто очистить фильтр и не добавлять никакие типы: .Filters.Clear</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Position</span> - указывает, каким по счету в списке будет тип файлов. На рисунке ниже первым идет тип &quot;Excel files&quot;, а вторым &quot;Text files&quot;:<br /><img src="image22259.png" /></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-size:8.25pt;">Тип файлов, который будет показан по умолчанию при вызове диалога определяется свойством FilterIndex диалога FileDialog.<br />Важный момент: диалог, вызванный в одном сеансе Excel сохраняет добавленные ранее типы файлов. Поэтому перед назначением новых типов необходимо выполнить очистку фильтра:<br />.Filters.Clear </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Каждый новый тип файлов добавляется новым Add: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4ed999480076"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">Filters.Add &quot;Excel files&quot;, &quot;*.xls*;*.xla*&quot;, 1 'добавляем возможность выбора файлов Excel .Filters.Add &quot;Text files&quot;, &quot;*.txt&quot;, 2 'добавляем возможность выбора текстовых файлов </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4ed999480076-1"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">Filters.Add &quot;Excel files&quot;, &quot;*.xls*;*.xla*&quot;, 1 'добавляем возможность выбора файлов Excel</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4ed999480076-2"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">Filters.Add &quot;Text files&quot;, &quot;*.txt&quot;, 2 'добавляем возможность выбора текстовых файлов</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">FilterIndex</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Назначает тип файлов, который будет выбран по умолчанию из всех перечисленных в коллекции Filters при вызове диалога</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">InitialFileName</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Этим параметром можно задать начальную папку, на которой будет открыт диалог:</span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4f2109811942"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4f2109811942-1"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Если при этом еще добавить имя файла, то в поле диалога Имя файла будет так же отображено это имя: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4f7191573899"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\Книга1.xlsx&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4f7191573899-1"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\Книга1.xlsx&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Я лично не рекомендую указывать имя файла, т.к. после показа диалога этот файл автоматически будет выбран, что не всегда бывает правильным. Но все зависит от задач. Если пользователь не выберет самостоятельно ни одного файла, то ответом диалога будет именно файл с указанным именем(Книга1.xlsx). Если такого файла не окажется в папке, то диалог выдаст предупреждение, что такого файла нет. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">InitialView</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Данный параметр определяет внешний вид и структуру окна диалога. Доступно 9 вариантов:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewDetails</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewLargeIcons</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewList</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewPreview</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewProperties</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewSmallIcons</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewThumbnail</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewTiles</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewWebView</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">При использовании данного параметра следует учитывать, что на разных операционных системах могут быть доступны не все варианты. Поэтому прежде чем использовать лучше убедиться, что на конечных ПК поддерживается указанный тип. В принципе ничего страшного не произойдет - будет просто показано окно с видом по умолчанию. Но куда правильнее в разработке придерживаться однотипного вида на всех ПК. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">SelectedItems</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Возвращает коллекцию выбранных файлов. В отличии от Application.GetOpenFilename всегда возвращается массив строк, поэтому можно всегда использовать цикл для открытия файлов, даже если параметр AllowMultiSelect установлен в False:</span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4fd014263906"></a><span style=" font-size:8.25pt;">F</span><span style=" font-size:8.25pt;">or Each x In .SelectedItems Workbooks.Open x Next </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd4fd014263906-1"></a><span style=" font-size:8.25pt;">F</span><span style=" font-size:8.25pt;">or Each x In .SelectedItems</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4fd014263906-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Workbooks.Open x</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd4fd014263906-3"></a><span style=" font-size:8.25pt;">N</span><span style=" font-size:8.25pt;">ext</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Так же можно отбирать только отдельные файлы по индексам или организовать цикл иначе: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd502990269391"></a><span style=" font-size:8.25pt;">F</span><span style=" font-size:8.25pt;">or lf = 1 to .SelectedItems.Count x = .SelectedItems(lf) Workbooks.Open x Next </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd502990269391-1"></a><span style=" font-size:8.25pt;">F</span><span style=" font-size:8.25pt;">or lf = 1 to .SelectedItems.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd502990269391-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   x = .SelectedItems(lf)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd502990269391-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Workbooks.Open x</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd502990269391-4"></a><span style=" font-size:8.25pt;">N</span><span style=" font-size:8.25pt;">ext</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Нумерация строк в SelectedItems всегда начинается с 1 </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Show</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Пожалуй, самый важный метод в диалоге - отвечает за показ диалога. При этом метод Show возвращает ответ в виде целого числа:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">-1</span> - выбор файлов был сделан и нажата кнопка Открыть</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">0</span> - была нажата кнопка отмены</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Это можно(точнее нужно!) использовать, чтобы не продолжать выполнение кода, если нажата кнопка Отмены: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd507641425713"></a><span style=" font-size:8.25pt;">I</span><span style=" font-size:8.25pt;">f .Show = 0 Then Exit Sub 'была нажата кнопка отмены </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd507641425713-1"></a><span style=" font-size:8.25pt;">I</span><span style=" font-size:8.25pt;">f .Show = 0 Then Exit Sub 'была нажата кнопка отмены</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Пример вызова диалога выбора файлов: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd50c727626613"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowFileDialog() Dim oFD As FileDialog Dim x, lf As Long 'назначаем переменной ссылку на экземпляр диалога Set oFD = Application.FileDialog(msoFileDialogFilePicker) With oFD 'используем короткое обращение к объекту 'так же можно без oFD 'With Application.FileDialog(msoFileDialogFilePicker) .AllowMultiSelect = False .Title = &quot;Выбрать файлы отчетов&quot; 'заголовок окна диалога .Filters.Clear 'очищаем установленные ранее типы файлов .Filters.Add &quot;Excel files&quot;, &quot;*.xls*;*.xla*&quot;, 1 'устанавливаем возможность выбора только файлов Excel .Filters.Add &quot;Text files&quot;, &quot;*.txt&quot;, 2 'добавляем возможность выбора текстовых файлов .FilterIndex = 2 'устанавливаем тип файлов по умолчанию - Text files(Текстовые файлы) .InitialFileName = &quot;С:\Temp\Книга1.xlsx&quot; 'назначаем папку отображения и имя файла по умолчанию .InitialView = msoFileDialogViewDetails 'вид диалогового окна(доступно 9 вариантов) If oFD.Show = 0 Then Exit Sub 'показывает диалог 'цикл по коллекции выбранных в диалоге файлов For lf = 1 To .SelectedItems.Count x = .SelectedItems(lf) 'считываем полный путь к файлу Workbooks.Open x 'открытие книги 'можно также без х 'Workbooks.Open .SelectedItems(lf) Next End With End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">15</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">16</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">17</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">18</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">19</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">20</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">21</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">22</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">23</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">24</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">25</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">26 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd50c727626613-1"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowFileDialog()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim oFD As FileDialog</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim x, lf As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-4"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'назначаем переменной ссылку на экземпляр диалога</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-5"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Set oFD = Application.FileDialog(msoFileDialogFilePicker)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-6"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   With oFD 'используем короткое обращение к объекту</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-7"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'так же можно без oFD</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-8"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'With Application.FileDialog(msoFileDialogFilePicker)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-9"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .AllowMultiSelect = False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-10"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Title = &quot;Выбрать файлы отчетов&quot; 'заголовок окна диалога</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-11"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Filters.Clear 'очищаем установленные ранее типы файлов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-12"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Filters.Add &quot;Excel files&quot;, &quot;*.xls*;*.xla*&quot;, 1 'устанавливаем возможность выбора только файлов Excel</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-13"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Filters.Add &quot;Text files&quot;, &quot;*.txt&quot;, 2 'добавляем возможность выбора текстовых файлов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-14"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .FilterIndex = 2 'устанавливаем тип файлов по умолчанию - Text files(Текстовые файлы)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-15"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .InitialFileName = &quot;С:\Temp\Книга1.xlsx&quot; 'назначаем папку отображения и имя файла по умолчанию</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-16"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .InitialView = msoFileDialogViewDetails 'вид диалогового окна(доступно 9 вариантов)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-17"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       If oFD.Show = 0 Then Exit Sub 'показывает диалог</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-18"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       'цикл по коллекции выбранных в диалоге файлов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-19"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       For lf = 1 To .SelectedItems.Count</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-20"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">           x = .SelectedItems(lf) 'считываем полный путь к файлу</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-21"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">           Workbooks.Open x 'открытие книги</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-22"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">           'можно также без х</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-23"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">           'Workbooks.Open .SelectedItems(lf)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-24"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-25"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd50c727626613-26"></a><span style=" font-size:8.25pt;">E</span><span style=" font-size:8.25pt;">nd Sub</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<hr />
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="2" cellpadding="0">
+<tr>
+<td width="15%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Title</span></p></td>
+<td width="85%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Текст заголовка диалогового окна. Если указать &quot;Выбрать папку с отчетами&quot;, то именно этот текст будет в заголовке. Если не указывать, то будет текст по умолчанию(нечто вроде &quot;Открыть папку&quot;) </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">InitialFileName</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Этим параметром можно задать начальную папку, на которой будет открыт диалог:<br /></span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd512648664866"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd512648664866-1"></a><span style=" font-size:8.25pt;">.</span><span style=" font-size:8.25pt;">InitialFileName = &quot;С:\Temp\&quot;</span></p></td></tr></table></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">InitialView</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Данный параметр определяет внешний вид и структуру окна диалога. Доступно 9 вариантов:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewDetails</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewLargeIcons</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewList</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewPreview</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewProperties</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewSmallIcons</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewThumbnail</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewTiles</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">msoFileDialogViewWebView</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">При использовании данного параметра следует учитывать, что на разных операционных системах могут быть доступны не все варианты. Поэтому прежде чем использовать лучше убедиться, что на конечных ПК поддерживается указанный тип. В принципе ничего страшного не произойдет - будет просто показано окно с видом по умолчанию. Но куда правильнее в разработке придерживаться однотипного вида на всех ПК. </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">SelectedItems</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Возвращает коллекцию с одним элементом, в котором содержится путь к выбранной папке. Нумерация строк в SelectedItems всегда начинается с 1, но т.к. выбор нескольких папок невозможен, то всегда указывается 1: x = .SelectedItems(1) </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">ButtonName</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Назначает текст кнопки, которой подтверждается выбор папки. Может содержать не более 51 знака(чего как правило достаточно). </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Show</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Метод, который вызывает показ диалога с выбранными параметрами. Возвращает ответ в виде целого числа:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:8.25pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">-1</span> - папка выбрана и нажата кнопка Открыть</li>
+<li style=" font-size:8.25pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">0</span> - была нажата кнопка отмены</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Это можно(точнее нужно!) использовать, чтобы не продолжать выполнение кода, если нажата кнопка Отмены: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd519963856410"></a><span style=" font-size:8.25pt;">I</span><span style=" font-size:8.25pt;">f .Show = 0 Then Exit Sub 'была нажата кнопка отмены </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd519963856410-1"></a><span style=" font-size:8.25pt;">I</span><span style=" font-size:8.25pt;">f .Show = 0 Then Exit Sub 'была нажата кнопка отмены</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Пример вызова диалога выбора папки: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd51e526291747"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowFolderDialog() Dim oFD As FileDialog Dim x, lf As Long 'назначаем переменной ссылку на экземпляр диалога Set oFD = Application.FileDialog(msoFileDialogFolderPicker) With oFD 'используем короткое обращение к объекту 'так же можно без oFD 'With Application.FileDialog(msoFileDialogFolderPicker) .Title = &quot;Выбрать папку с отчетами&quot; '&quot;заголовок окна диалога .ButtonName = &quot;Выбрать папку&quot; .Filters.Clear 'очищаем установленные ранее типы файлов .InitialFileName = &quot;C:\Temp\&quot; '&quot;назначаем первую папку отображения .InitialView = msoFileDialogViewLargeIcons 'вид диалогового окна(доступно 9 вариантов) If oFD.Show = 0 Then Exit Sub 'показывает диалог 'цикл по коллекции выбранных в диалоге файлов x = .SelectedItems(1) 'считываем путь к папке MsgBox &quot;Выбрана папка: '&quot; &amp; x &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot; End With End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">15</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">16</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">17</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">18</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">19 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd51e526291747-1"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub ShowFolderDialog()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim oFD As FileDialog</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim x, lf As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-4"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'назначаем переменной ссылку на экземпляр диалога</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-5"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Set oFD = Application.FileDialog(msoFileDialogFolderPicker)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-6"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   With oFD 'используем короткое обращение к объекту</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-7"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'так же можно без oFD</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-8"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'With Application.FileDialog(msoFileDialogFolderPicker)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-9"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Title = &quot;Выбрать папку с отчетами&quot; '&quot;заголовок окна диалога</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-10"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .ButtonName = &quot;Выбрать папку&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-11"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .Filters.Clear 'очищаем установленные ранее типы файлов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-12"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .InitialFileName = &quot;C:\Temp\&quot; '&quot;назначаем первую папку отображения</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-13"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       .InitialView = msoFileDialogViewLargeIcons 'вид диалогового окна(доступно 9 вариантов)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-14"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       If oFD.Show = 0 Then Exit Sub 'показывает диалог</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-15"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       'цикл по коллекции выбранных в диалоге файлов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-16"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       x = .SelectedItems(1) 'считываем путь к папке</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-17"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       MsgBox &quot;Выбрана папка: '&quot; &amp; x &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-18"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd51e526291747-19"></a><span style=" font-size:8.25pt;">E</span><span style=" font-size:8.25pt;">nd Sub</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<hr />
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="2" cellpadding="0">
+<tr>
+<td width="15%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">Hwnd</span></p></td>
+<td width="85%">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Дескриптор окна, к которому будет относится диалог. Как правило указывается 0</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">sTitle</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Поясняющий текст, который будет отображен в диалоге. Подобие заголовка окна. Может быть любым текстом, например &quot;Выбрать папку с отчетами&quot;</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">iOptions</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Дополнительные параметры для диалога. Рекомендуется использовать 0. Но можно попробовать и пару других вариантов. Например, если указать 20, то в диалоговом окне появится дополнительное текстовое поле, в котором будет отображено имя выбранной папки.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt; font-weight:600;">vRootFolder</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Аналогично InitialFileName в рассмотренных выше диалогах. Задает начальную папку, на которой диалог будет открыт после запуска.</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image27659.png" /><span style=" font-size:8.25pt;"><br />Пример вызова диалога выбора папки через Shell: </span></p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd525472214816"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub GetFolderDialog_Shell() On Error Resume Next Dim objShellApp As Object, objFolder As Object, ulFlags Dim x As String Set objShellApp = CreateObject(&quot;Shell.Application&quot;) 'ulFlags = 0 - наиболее часто применяемый. Лучше использовать всегда именно 0 'ulFlags = 2 - так же можно выбрать файлы 'ulFlags = 20 - добавляется тестовое поле с отображением имени выбранной папки ulFlags = 0 Set objFolder = objShellApp.BrowseForFolder(0, &quot;Выбрать папку с отчетами&quot;, ulFlags, &quot;C:\Temp\&quot;)'&quot; x = objFolder.Self.Path 'записываем в переменную путь к папке If Err.Number &lt;&gt; 0 Then MsgBox &quot;Папка не выбрана!&quot;, vbInformation, &quot;www.excel-vba.ru&quot; Else MsgBox &quot;Выбрана папка: '&quot; &amp; x &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot; End If End Sub </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:8.25pt;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">9</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">10</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">11</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">12</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">13</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">14</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">15</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">16</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">17 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><a name="crayon-5a4ce6c1dd525472214816-1"></a><span style=" font-size:8.25pt;">S</span><span style=" font-size:8.25pt;">ub GetFolderDialog_Shell()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-2"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   On Error Resume Next</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-3"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim objShellApp As Object, objFolder As Object, ulFlags</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-4"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Dim x As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-5"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Set objShellApp = CreateObject(&quot;Shell.Application&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-6"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'ulFlags = 0 - наиболее часто применяемый. Лучше использовать всегда именно 0</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-7"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'ulFlags = 2 - так же можно выбрать файлы</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-8"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   'ulFlags = 20 - добавляется тестовое поле с отображением имени выбранной папки</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-9"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   ulFlags = 0</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-10"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Set objFolder = objShellApp.BrowseForFolder(0, &quot;Выбрать папку с отчетами&quot;, ulFlags, &quot;C:\Temp\&quot;)'&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-11"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   x = objFolder.Self.Path 'записываем в переменную путь к папке</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-12"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   If Err.Number &lt;&gt; 0 Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-13"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       MsgBox &quot;Папка не выбрана!&quot;, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-14"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   Else</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-15"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">       MsgBox &quot;Выбрана папка: '&quot; &amp; x &amp; &quot;'&quot;, vbInformation, &quot;www.excel-vba.ru&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-16"></a><span style=" font-size:8.25pt;"> </span><span style=" font-size:8.25pt;">   End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-5a4ce6c1dd525472214816-17"></a><span style=" font-size:8.25pt;">E</span><span style=" font-size:8.25pt;">nd Sub</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Конечно, диалог подобный выглядит довольно убого, особенно на современных операционных системах. Но он работает в любых версиях офиса. Порой это бывает полезней красоты.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8.25pt;">Скачать пример: </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image24825.png" /><span style=" font-size:8.25pt;">  </span><a href="http://www.excel-vba.ru/download/105/"><span style=" font-size:8.25pt; font-weight:600; text-decoration: underline; color:#0000ff;">Tips_Macro_GetOpenFileFolder.xls</span></a><span style=" font-size:8.25pt;"> (100,0 KiB, 1 235 скачиваний)</span></p></body></html>

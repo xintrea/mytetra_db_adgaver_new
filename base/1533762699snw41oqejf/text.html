@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<main>
+        <h1>Функциональное программирование на языке Python</h1>
+        <p>Хотя пользователи обычно думают о Python как о процедурном и 
+объектно-ориентированном языке, он содержит все необходимое для 
+поддержки полностью функционального подхода к программированию.<br>
+В этой статье рассматриваются общие концепции функционального 
+программирования и иллюстрируются способы реализации функционального 
+подхода на Python.</p>
+<h3>Что такое Python?</h3>
+<p>Python — свободно распространяемый, очень высокоуровневый 
+интерпретируемый язык, разработанный Гвидо ван Россумом (Guido van 
+Rossum). Он сочетает прозрачный синтаксис с мощной (но необязательной) 
+объектно-ориентированной семантикой. Python доступен почти на всех 
+существующих ныне платформах и обладает очень высокой переносимостью 
+между платформами.</p>
+<h3>Что такое функциональное программирование?</h3>
+<p>Лучше всего начать с труднейшего вопроса — а что, собственно, такое 
+«функциональное программирование (FP)»? Один из возможных ответов — «это
+ когда вы пишете на языке наподобие Lisp, Scheme, Haskell, ML, OCAML, 
+Clean, Mercury или Erlang (или еще на некоторых других)». Этот ответ, 
+безусловно, верен, но не сильно проясняет суть. К сожалению, получить 
+четкое мнение о том, что же такое FP, оказывается очень трудно даже 
+среди собственно функциональных программистов. Вспоминается притча о 
+трех слепцах и слоне. Возможно также определить FP, противопоставив его 
+«императивному программированию» (тому, что вы делаете на языках 
+наподобие C, Pascal, C++, Java, Perl, Awk, TCL и на многих других — по 
+крайнее мере, большей частью).</p>
+<p>Хотя автор всеми силами приветствует советы со стороны тех, кто лучше
+ него знает предмет, он мог бы приблизительно охарактеризовать 
+функциональное программирование как обладающее как минимум несколькими 
+из следующих свойств. В языках, называемых функциональными, хорошо 
+поддерживаются нижеперечисленные подходы, а все прочие подходы 
+поддерживаются плохо или не поддерживаются вовсе:</p>
+<p> * Функции — объекты первого класса. Т.е., все, что можно делать с 
+«данными», можно делать и с функциями (вроде передачи функции другой 
+функции в качестве параметра).<br>
+ * Использование рекурсии в качестве основной структуры контроля потока 
+управления. В некоторых языках не существует иной конструкции цикла, 
+кроме рекурсии.<br>
+ * Акцент на обработке списков (lists, отсюда название Lisp — LISt 
+Processing). Списки с рекурсивным обходом подсписков часто используются в
+ качестве замены циклов.<br>
+ * «Чистые» функциональные языки избегают побочных эффектов. Это 
+исключает почти повсеместно распространенный в императивных языках 
+подход, при котором одной и той же переменной последовательно 
+присваиваются различные значения для отслеживания состояния программы.<br>
+ * FP не одобряет или совершенно запрещает утверждения (statements), 
+используя вместо этого вычисление выражений (т.е. функций с 
+аргументами). В предельном случае, одна программа есть одно выражение 
+(плюс дополнительные определения).<br>
+ * FP акцентируется на том, что должно быть вычислено, а не как.<br>
+ * Большая часть FP использует функции «высокого порядка» (функции, оперирующие функциями, оперирующими функциями).</p>
+<p>Защитники функционального программирования доказывают, что все эти 
+характеристики приводят к более быстрой разработке более короткого и 
+безошибочного кода. Более того, высокие теоретики от компьютерной науки,
+ логики и математики находят, что процесс доказательства формальных 
+свойств для функциональных языков и программ много проще, чем для 
+императивных.</p>
+<h3>Функциональные возможности, присущие Python</h3>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-A"><div class="block block-174 type-custom "><div class="field field-528">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 185px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="1901069998" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><p>Python поддерживает большую часть характеристик 
+функционального программирования, начиная с версии Python 1.0. Но, как 
+большинство возможностей Python, они присутствуют в очень смешанном 
+языке. Так же как и с объектно-ориентированными возможностями Python, вы
+ можете использовать то, что вам нужно, и игнорировать все остальное 
+(пока оно вам не понадобится). В Python 2.0 было добавлено очень удачное
+ «синтаксическое украшение» — списочные встраивания (list 
+comprehensions). Хотя и не добавляя принципиально новых возможностей, 
+списочные встраивания делают использование многих старых возможностей 
+значительно приятнее.</p>
+<p>Базовые элементы FP в Python — функции map(), reduce(), filter() и 
+оператор lambda. В Python 1.x введена также функция apply(), удобная для
+ прямого применения функции к списку, возвращаемому другой. Python 2.0 
+предоставляет для этого улучшенный синтаксис. Несколько неожиданно, но 
+этих функций и всего нескольких базовых операторов почти достаточно для 
+написания любой программы на Python; в частности, все управляющие 
+утверждения (‘if’, ‘elif’, ‘else’, ‘assert’, ‘try’, ‘except’, ‘finally’,
+ ‘for’, ‘break’, ‘continue’, ‘while’, ‘def’) можно представить в 
+функциональном стиле, используя исключительно функции и операторы. 
+Несмотря на то, что задача реального удаления всех команд управления 
+потоком, возможно, полезна только для представления на конкурс 
+«невразумительный Python» (с кодом, выглядящим как программа на Lisp’е),
+ стоит уяснить, как FP выражает управляющие структуры через вызовы 
+функций и рекурсию.</p>
+<h3>Исключение команд управления потоком</h3>
+<p>Первое, о чем стоит вспомнить в нашем упражнении — то, что Python 
+«замыкает накоротко» вычисление логических выражений.1 Оказывается, это 
+предоставляет эквивалент блока ‘if’/’elif’/’else’ в виде выражения. 
+Итак:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#------ "Короткозамкнутые" условные вызовы в Python -----#</span></li><li class="L1"><span class="com"># Обычные управляющие конструкции </span></li><li class="L2"><span class="kwd">if</span><span class="pln"> </span><span class="str">&lt;cond1&gt;</span><span class="pun">:</span><span class="pln"> func1</span><span class="pun">()</span></li><li class="L3"><span class="kwd">elif</span><span class="pln"> </span><span class="str">&lt;cond2&gt;</span><span class="pun">:</span><span class="pln"> func2</span><span class="pun">()</span></li><li class="L4"><span class="kwd">else</span><span class="pun">:</span><span class="pln"> func3</span><span class="pun">()</span></li><li class="L5"><span class="pln"> </span></li><li class="L6"><span class="com"># Эквивалентное "накоротко замкнутое" выражение</span></li><li class="L7"><span class="pun">(&lt;</span><span class="pln">cond1</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> func1</span><span class="pun">())</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(&lt;</span><span class="pln">cond2</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> func2</span><span class="pun">())</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">func3</span><span class="pun">())</span></li><li class="L8"><span class="pln"> </span></li><li class="L9"><span class="com"># Пример "накоротко замкнутого" выражения</span></li><li class="L0"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">3</span></li><li class="L1"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span><span class="kwd">def</span><span class="pln"> pr</span><span class="pun">(</span><span class="pln">s</span><span class="pun">):</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> s</span></li><li class="L2"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">1</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">'one'</span><span class="pun">))</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">2</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">'two'</span><span class="pun">))</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">pr</span><span class="pun">(</span><span class="str">'other'</span><span class="pun">))</span></li><li class="L3"><span class="str">'other'</span></li><li class="L4"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span></li><li class="L5"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">1</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">'one'</span><span class="pun">))</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">2</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">'two'</span><span class="pun">))</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">pr</span><span class="pun">(</span><span class="str">'other'</span><span class="pun">))</span></li><li class="L6"><span class="str">'two'</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Казалось бы, наша версия условных вызовов с помощью выражений — не 
+более, чем салонный фокус; однако все становится гораздо интересней, 
+если учесть, что оператор lambda может содержать только выражения! Раз, 
+как мы только что показали, выражения могут содержать условные блоки, 
+используя короткое замыкание, выражение lambda позволяет в общей форме 
+представить условные возвращаемые значения. Базируясь на предыдущем 
+примере:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#--------- Lambda с короткозамкнутыми условными выражениями в Python -------#</span></li><li class="L1"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> pr </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> s</span><span class="pun">:</span><span class="pln">s</span></li><li class="L2"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> namenum </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> x</span><span class="pun">:</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">1</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">"one"</span><span class="pun">))</span><span class="pln"> </span></li><li class="L3"><span class="pun">...</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">==</span><span class="lit">2</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> pr</span><span class="pun">(</span><span class="str">"two"</span><span class="pun">))</span><span class="pln"> </span></li><li class="L4"><span class="pun">...</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> </span><span class="pun">(</span><span class="pln">pr</span><span class="pun">(</span><span class="str">"other"</span><span class="pun">))</span></li><li class="L5"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> namenum</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span></li><li class="L6"><span class="str">'one'</span></li><li class="L7"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> namenum</span><span class="pun">(</span><span class="lit">2</span><span class="pun">)</span></li><li class="L8"><span class="str">'two'</span></li><li class="L9"><span class="pun">&gt;&gt;&gt;</span><span class="pln"> namenum</span><span class="pun">(</span><span class="lit">3</span><span class="pun">)</span></li><li class="L0"><span class="str">'other'</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-B"><div class="block block-175 type-custom "><div class="field field-529">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 185px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="3760946574" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><h3>Функции как объекты первого класса</h3>
+<p>Приведенные примеры уже засвидетельствовали, хотя и неочевидным 
+образом, статус функций как объектов первого класса в Python. Дело в 
+том, что, создав объект функции оператором lambda, мы произвели 
+чрезвычайно общее действие. Мы имели возможность привязать наш объект к 
+именам pr и namenum в точности тем же способом, как могли бы привязать к
+ этим именам число 23 или строку «spam». Но точно так же, как число 23 
+можно использовать, не привязывая ни к какому имени (например, как 
+аргумент функции), мы можем использовать объект функции, созданный 
+lambda, не привязывая ни к какому имени. Функция в Python — всего лишь 
+еще одно значение, с которым можно что-то сделать.</p>
+<p>Главное, что мы делаем с нашими объектами первого класса — передаем 
+их во встроенные функции map(), reduce() и filter(). Каждая из этих 
+функций принимает объект функции в качестве первого аргумента. map() 
+применяет переданную функцию к каждому элементу в переданном списке 
+(списках) и возвращает список результатов. reduce() применяет переданную
+ функцию к каждому значению в списке и ко внутреннему накопителю 
+результата; например, reduce(lambda n,m:n*m, range(1,10)) означает 10! 
+(факториал 10 — умножить каждый элемент на результат предыдущего 
+умножения). filter() применяет переданную функцию к каждому элементу 
+списка и возвращает список тех элементов исходного списка, для которых 
+переданная функция вернула значение истинности. Мы также часто передаем 
+функциональные объекты нашим собственным функциям, но чаще некоторым 
+комбинациям вышеупомянутых встроенных функций.</p>
+<p>Комбинируя три этих встроенных FP-функции, можно реализовать 
+неожиданно широкий диапазон операций потока управления, не прибегая к 
+утверждениям (statements), а используя лишь выражения.</p>
+<h3>Функциональные циклы в Python</h3>
+<p>Замена циклов на выражения так же проста, как и замена условных 
+блоков. ‘for’ может быть впрямую переведено в map(). Так же, как и с 
+условным выполнением, нам понадобится упростить блок утверждений до 
+одного вызова функции (мы близки к тому, чтобы научиться делать это в 
+общем случае):</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#---------- Функциональный цикл 'for' в Python ----------#</span></li><li class="L1"><span class="kwd">for</span><span class="pln"> e </span><span class="kwd">in</span><span class="pln"> lst</span><span class="pun">:</span><span class="pln"> func</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="com"># цикл на утверждении 'for'</span></li><li class="L2"><span class="pln">map</span><span class="pun">(</span><span class="pln">func</span><span class="pun">,</span><span class="pln">lst</span><span class="pun">)</span><span class="pln"> </span><span class="com"># цикл, основанный на map()</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Кстати, похожая техника применяется для реализации последовательного 
+выполнения программы, используя функциональный подход. Т.е., 
+императивное программирование по большей части состоит из утверждений, 
+требующих "сделать это, затем сделать то, затем сделать что-то еще". 
+‘map()’ позволяет это выразить так:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#----- Функциональное последовательное выполнение в Python ----------#</span></li><li class="L1"><span class="com"># создадим вспомогательную функцию вызова функции</span></li><li class="L2"><span class="pln">do_it </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> f</span><span class="pun">:</span><span class="pln"> f</span><span class="pun">()</span></li><li class="L3"><span class="pln"> </span></li><li class="L4"><span class="com"># Пусть f1, f2, f3 (etc) - функции, выполняющие полезные действия</span></li><li class="L5"><span class="pln">map</span><span class="pun">(</span><span class="pln">do_it</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[</span><span class="pln">f1</span><span class="pun">,</span><span class="pln">f2</span><span class="pun">,</span><span class="pln">f3</span><span class="pun">])</span><span class="pln"> </span><span class="com"># последовательное выполнение, реализованное на map()</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>В общем случае, вся главная программа может быть вызовом ‘map()’ со 
+списком функций, которые надо последовательно вызвать, чтобы выполнить 
+программу. Еще одно удобное свойство функций как объектов — то, что вы 
+можете поместить их в список.</p>
+<p>Перевести ‘while’ впрямую немного сложнее, но вполне получается :</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-C"><div class="block block-176 type-custom "><div class="field field-530">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 0px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="3929425397" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display: inline-table; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent;"><ins id="aswift_2_anchor" style="display: block; border: medium none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 740px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#-------- Функциональный цикл 'while' в Python ----------#</span></li><li class="L1"><span class="com"># Обычный (основаный на утверждении 'while') цикл</span></li><li class="L2"><span class="kwd">while</span><span class="pln"> </span><span class="str">&lt;cond&gt;</span><span class="pun">:</span></li><li class="L3"><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">pre</span><span class="pun">-</span><span class="pln">suite</span><span class="pun">&gt;</span></li><li class="L4"><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="str">&lt;break_condition&gt;</span><span class="pun">:</span></li><li class="L5"><span class="pln"> </span><span class="kwd">break</span></li><li class="L6"><span class="pln"> </span><span class="kwd">else</span><span class="pun">:</span></li><li class="L7"><span class="pln"> </span><span class="str">&lt;suite&gt;</span></li><li class="L8"><span class="pln"> </span></li><li class="L9"><span class="com"># Рекурсивный цикл в функциональном стиле</span></li><li class="L0"><span class="kwd">def</span><span class="pln"> while_block</span><span class="pun">():</span></li><li class="L1"><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">pre</span><span class="pun">-</span><span class="pln">suite</span><span class="pun">&gt;</span></li><li class="L2"><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="str">&lt;break_condition&gt;</span><span class="pun">:</span></li><li class="L3"><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">1</span></li><li class="L4"><span class="pln"> </span><span class="kwd">else</span><span class="pun">:</span></li><li class="L5"><span class="pln"> </span><span class="str">&lt;suite&gt;</span></li><li class="L6"><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span></li><li class="L7"><span class="pln"> </span></li><li class="L8"><span class="pln">while_FP </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pun">:</span><span class="pln"> </span><span class="pun">(&lt;</span><span class="pln">cond</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> while_block</span><span class="pun">())</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> while_FP</span><span class="pun">()</span></li><li class="L9"><span class="pln">while_FP</span><span class="pun">()</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Наш вариант ‘while’ все еще требует функцию while_block(), которая 
+сама по себе может содержать не только выражения, но и утверждения 
+(statements). Но мы могли бы продолжить дальнейшее исключение 
+утверждений в этой функции (как, например, замену блока ‘if/else’ в 
+вышеописанном шаблоне на короткозамкнутое выражение). К тому же, обычная
+ проверка на месте &lt;cond&gt; (наподобие ‘while myvar==7’) вряд ли 
+окажется полезной, поскольку тело цикла (в представленном виде) не может
+ изменить какие-либо переменные (хотя глобальные переменные могут быть 
+изменены в while_block()). Один из способов применить более полезное 
+условие — заставить while_block() возвращать более осмысленное значение и
+ сравнивать его с условием завершения. Стоит взглянуть на реальный 
+пример исключения утверждений:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#---------- Функциональный цикл 'echo' в Python ------------#</span></li><li class="L1"><span class="com"># Императивная версия "echo()"</span></li><li class="L2"><span class="kwd">def</span><span class="pln"> echo_IMP</span><span class="pun">():</span></li><li class="L3"><span class="pln"> </span><span class="kwd">while</span><span class="pln"> </span><span class="lit">1</span><span class="pun">:</span></li><li class="L4"><span class="pln"> x </span><span class="pun">=</span><span class="pln"> raw_input</span><span class="pun">(</span><span class="str">"IMP -- "</span><span class="pun">)</span></li><li class="L5"><span class="pln"> </span><span class="kwd">if</span><span class="pln"> x </span><span class="pun">==</span><span class="pln"> </span><span class="str">'quit'</span><span class="pun">:</span></li><li class="L6"><span class="pln"> </span><span class="kwd">break</span></li><li class="L7"><span class="pln"> </span><span class="kwd">else</span></li><li class="L8"><span class="pln"> </span><span class="kwd">print</span><span class="pln"> x</span></li><li class="L9"><span class="pln">echo_IMP</span><span class="pun">()</span></li><li class="L0"><span class="pln"> </span></li><li class="L1"><span class="com"># Служебная функция, реализующая "тождество с побочным эффектом"</span></li><li class="L2"><span class="kwd">def</span><span class="pln"> monadic_print</span><span class="pun">(</span><span class="pln">x</span><span class="pun">):</span></li><li class="L3"><span class="pln"> </span><span class="kwd">print</span><span class="pln"> x</span></li><li class="L4"><span class="pln"> </span><span class="kwd">return</span><span class="pln"> x</span></li><li class="L5"><span class="pln"> </span></li><li class="L6"><span class="com"># FP версия "echo()"</span></li><li class="L7"><span class="pln">echo_FP </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pun">:</span><span class="pln"> monadic_print</span><span class="pun">(</span><span class="pln">raw_input</span><span class="pun">(</span><span class="str">"FP -- "</span><span class="pun">))==</span><span class="str">'quit'</span><span class="pln"> </span><span class="kwd">or</span><span class="pln"> echo_FP</span><span class="pun">()</span></li><li class="L8"><span class="pln">echo_FP</span><span class="pun">()</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Мы достигли того, что выразили небольшую программу, включающую 
+ввод/вывод, циклы и условия в виде чистого выражения с рекурсией 
+(фактически — в виде функционального объекта, который при необходимости 
+может быть передан куда угодно). Мы все еще используем служебную функцию
+ monadic_print(), но эта функция совершенно общая и может использоваться
+ в любых функциональных выражениях , которые мы создадим позже (это 
+однократные затраты).2 3 Заметьте, что любое выражение, содержащее 
+monadic_print(x) вычисляется так же, как если бы оно содержало просто x.
+ В FP (в частности, в Haskell) есть понятие "монады" для функции, 
+которая "не делает ничего, и вызывает побочный эффект при выполнении".</p>
+<h3>Исключение побочных эффектов</h3>
+<p>После всей проделанной работы по избавлению от совершенно осмысленных
+ конструкций и замене их на невразумительные вложенные выражения, 
+возникает естественный вопрос — «Зачем?!». Перечитывая мои описания 
+характеристик FP, мы можем видеть, что все они достигнуты в Python. Но 
+важнейшая (и, скорее всего, в наибольшей степени реально используемая) 
+характеристика — исключение побочных эффектов или, по крайней мере, 
+ограничение их применения специальными областями наподобие монад. 
+Огромный процент программных ошибок и главная проблема, требующая 
+применения отладчиков, случается из-за того, что переменные получают 
+неверные значения в процессе выполнения программы. Функциональное 
+программирование обходит эту проблему, просто вовсе не присваивая 
+значения переменным. </p>
+<p>Взглянем на совершенно обычный участок императивного кода. Его цель —
+ распечатать список пар чисел, чье произведение больше 25. Числа, 
+составляющие пары, сами берутся из двух других списков. Все это весьма 
+напоминает то, что программисты реально делают во многих участках своих 
+программ. Императивный подход к этой задаче мог бы выглядеть так:</p>
+<div class="a69fc18d" data-region="main-content" data-finished="true"><div class="group group-D"><div class="block block-177 type-custom "><div class="field field-531">
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 185px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7264282846152864" data-ad-slot="2005011772" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:185px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:740px;height:185px;" width="740" height="185" frameborder="0"></iframe></ins></ins></ins>
+</div>
+</div></div></div><div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#--- Императивный код для "печати произведений" ----#</span></li><li class="L1"><span class="com"># Процедурный стиль - поиск больших произведений с помощью вложенных циклов</span></li><li class="L2"><span class="pln">xs </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">4</span><span class="pun">)</span></li><li class="L3"><span class="pln">ys </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="lit">10</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">22</span><span class="pun">)</span></li><li class="L4"><span class="pln">bigmuls </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span></li><li class="L5"><span class="com">#...прочий код...</span></li><li class="L6"><span class="kwd">for</span><span class="pln"> x </span><span class="kwd">in</span><span class="pln"> xs</span><span class="pun">:</span></li><li class="L7"><span class="pln"> </span><span class="kwd">for</span><span class="pln"> y </span><span class="kwd">in</span><span class="pln"> ys</span><span class="pun">:</span></li><li class="L8"><span class="pln"> </span><span class="com">#...прочий код...</span></li><li class="L9"><span class="pln"> </span><span class="kwd">if</span><span class="pln"> x</span><span class="pun">*</span><span class="pln">y </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">25</span><span class="pun">:</span></li><li class="L0"><span class="pln"> bigmuls</span><span class="pun">.</span><span class="pln">append</span><span class="pun">((</span><span class="pln">x</span><span class="pun">,</span><span class="pln">y</span><span class="pun">))</span></li><li class="L1"><span class="pln"> </span><span class="com">#...прочий код...</span></li><li class="L2"><span class="com">#...прочий код...</span></li><li class="L3"><span class="kwd">print</span><span class="pln"> bigmuls</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Этот проект слишком мал для того, чтобы что-нибудь пошло не так. Но, 
+возможно, он встроен в код, предназначенный для достижения множества 
+других целей в то же самое время. Секции, комментированные как "#…прочий
+ код…" — места, где побочные эффекты с наибольшей вероятностью могут 
+привести к ошибкам. В любой из этих точек переменные xs, ys, bigmuls, x,
+ y могут приобрести неожиданные значения в гипотетическом коде. Далее, 
+после завершения этого куска кода все переменные могут иметь значения, 
+которые могут ожидаются, а могут и не ожидаться посдедующим кодом. 
+Очевидно, что инкапсуляция в функциях/объектах и тщательное управление 
+областью видимости могут использоваться, чтобы защититься от этого рода 
+проблем. Вы также можете всегда удалять (‘del’) ваши переменные после 
+использования. Но, на практике, указанный тип ошибок весьма обычен. </p>
+<p>Функциональный подход к нашей задаче полностью исключает ошибки, 
+связанные с побочными эффектами. Возможное решение могло бы быть таким:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#--- Функциональный код для поиска/печати больших произведений на Python ----#</span></li><li class="L1"><span class="pln">bigmuls </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> xs</span><span class="pun">,</span><span class="pln">ys</span><span class="pun">:</span><span class="pln"> filter</span><span class="pun">(</span><span class="kwd">lambda</span><span class="pln"> </span><span class="pun">(</span><span class="pln">x</span><span class="pun">,</span><span class="pln">y</span><span class="pun">):</span><span class="pln">x</span><span class="pun">*</span><span class="pln">y </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">25</span><span class="pun">,</span><span class="pln"> combine</span><span class="pun">(</span><span class="pln">xs</span><span class="pun">,</span><span class="pln">ys</span><span class="pun">))</span></li><li class="L2"><span class="pln">combine </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> xs</span><span class="pun">,</span><span class="pln">ys</span><span class="pun">:</span><span class="pln"> map</span><span class="pun">(</span><span class="kwd">None</span><span class="pun">,</span><span class="pln"> xs</span><span class="pun">*</span><span class="pln">len</span><span class="pun">(</span><span class="pln">ys</span><span class="pun">),</span><span class="pln"> dupelms</span><span class="pun">(</span><span class="pln">ys</span><span class="pun">,</span><span class="pln">len</span><span class="pun">(</span><span class="pln">xs</span><span class="pun">)))</span></li><li class="L3"><span class="pln">dupelms </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">lambda</span><span class="pln"> lst</span><span class="pun">,</span><span class="pln">n</span><span class="pun">:</span><span class="pln"> reduce</span><span class="pun">(</span><span class="kwd">lambda</span><span class="pln"> s</span><span class="pun">,</span><span class="pln">t</span><span class="pun">:</span><span class="pln">s</span><span class="pun">+</span><span class="pln">t</span><span class="pun">,</span><span class="pln"> map</span><span class="pun">(</span><span class="kwd">lambda</span><span class="pln"> l</span><span class="pun">,</span><span class="pln">n</span><span class="pun">=</span><span class="pln">n</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">l</span><span class="pun">]*</span><span class="pln">n</span><span class="pun">,</span><span class="pln"> lst</span><span class="pun">))</span></li><li class="L4"><span class="kwd">print</span><span class="pln"> bigmuls</span><span class="pun">((</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">4</span><span class="pun">),(</span><span class="lit">10</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">22</span><span class="pun">))</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<p>Мы связываем в примере анонимные (‘lambda’) функции с именами, но это
+ не необходимо. Вместо этого мы могли просто вложить определения. Мы 
+использовали имена как ради большей читаемости, так и потому, что 
+combine() — в любом случае отличная служебная функция (генерирует список
+ всех возможных пар элементов из двух списков). В свою очередь, 
+dupelms() в основном лишь вспомогательная часть combine(). Хотя этот 
+функциональный пример более многословен, чем императивный, при повторном
+ использовании служебных функций код в собственно bigmuls() окажется, 
+вероятно, более лаконичным, чем в императивном варианте.</p>
+<p>Реальное преимущество этого функционального примера в том, что в нем 
+абсолютно ни одна переменная не меняет своего значения. Какое-либо 
+неожиданное побочное влияние на последующий код (или со стороны 
+предыдущего кода) просто невозможно. Конечно, само по себе отсутствие 
+побочных эффектов не гарантирует безошибочность кода, но в любом случае 
+это преимущество. Однако заметьте, что Python, в отличие от многих 
+функциональных языков, не предотвращает повторное привязывание имен 
+bigmuls, combine и dupelms. Если дальше в процессе выполнения программы 
+combine() начнет значить что-нибудь другое — увы! Можно было бы 
+разработать класс-одиночку (Singleton) для поддержки однократного 
+связывания такого типа (напр. ‘s.bigmuls’, etc.), но это выходит за 
+рамки настоящей статьи. </p>
+<p>Еще стоит отметить, что задача, которую мы только что решили, скроена
+ в точности под новые возможности Python 2.0. Вместо вышеприведенных 
+примеров — императивного или функционального — наилучшая (и 
+функциональная) техника выглядит следующим образом:</p>
+<div class="prettyprint-wrap"><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><ol class="linenums"><li class="L0"><span class="com">#----- Код Python для "bigmuls" с использованием списочных встраиваний (list comprehensions) -----#</span></li><li class="L1"><span class="kwd">print</span><span class="pln"> </span><span class="pun">[(</span><span class="pln">x</span><span class="pun">,</span><span class="pln">y</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">for</span><span class="pln"> x </span><span class="kwd">in</span><span class="pln"> </span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">for</span><span class="pln"> y </span><span class="kwd">in</span><span class="pln"> </span><span class="pun">(</span><span class="lit">10</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">22</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> x</span><span class="pun">*</span><span class="pln">y </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">25</span><span class="pun">]</span></li></ol></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></div>
+<h3>Заключение </h3>
+<p>Эта статья продемонстрировала способы замены практически любой 
+конструкции управления потоком в Python на функциональный эквивалент 
+(избавляясь при этом от побочных эффектов). Эффективный перевод 
+конкретной программы требует дополнительного обдумывания, но мы увидели,
+ что встроенные функциональные примитивы являются полными и общими. В 
+последующих статьях мы рассмотрим более мощные подходы к функциональному
+ программированию; и, я надеюсь, сможем подробнее рассмотреть "pro" и 
+"contra" функционального подхода.</p>
+    </main>
+</body>
+</html></p></body></html>

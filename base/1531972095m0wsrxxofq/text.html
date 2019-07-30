@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h1>Как обратиться к полю формы или подчиненной формы</h1>
+<p class="CodeAutor">Автор: Geo, Владимир Саныч<br>
+По материалам: <a href="http://www.sql.ru/faq/faq_topic.aspx?fid=156" rel="nofollow" target="_blank">http://www.sql.ru/faq/faq_topic.aspx?fid=156</a></p>
+
+<p class="CodeDescription"><span class="CodeSubHeader">Вопросы</span><br>
+<br>
+Q1: Как обратиться к объекту формы?<br>
+Q2: Как обратиться к объекту формы, имя которого вычисляется на лету или содержит специальные символы?<br>
+Q3: Как обратиться к объекту подчиненной формы?<br>
+Q4: Обращение к объекту формы из контекста этой формы.<br>
+<br>
+Ответы<br>
+<br>
+Чтобы прочитать или изменить содержимое или свойство объекта формы, в 
+первую очередь надо составить выражение, позволяющее однозначно 
+определить ссылку именно на этот объект.<br>
+<br>
+<span class="CodeSubHeader">Q1. Обращение к объекту формы</span><br>
+<br>
+Выражение, определяющее ссылку на свойство .Value (значение) объекта формы, в общем виде выглядит так:</p>
+
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Форма1].Controls![Поле1].Value(1)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+
+<p class="CodeDescription">Обратите внимание, что операторы "!" и "." 
+идут через один. Чередуются имена коллекций и их элементов, причем 
+оператор "!" означает, что справа от него указан элемент коллекции, а 
+оператор "." служит для обращения к свойству этого элемента (см. пп. 3.5
+ и 3.6).<br>
+<br>
+Квадратные скобки ([] - в русифицированной версии Access они называются 
+"прямыми") следует использовать, если имя элемента содержит внутренние 
+пробелы или другие специальные символы (кроме, соответственно, "]" и 
+"["), иначе их наличие не обязательно.<br>
+<br>
+Серым цветом здесь и далее выделены коллекции и свойства, используемые 
+Access'ом по умолчанию. Их также можно опускать, если при этом не 
+возникнет двусмысленности. То есть выражение (1) может быть записано 
+по-другому:<br>
+</p>
+
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Форма1]![Поле1]</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+<br>
+Будьте внимательны, если пользуетесь подобными сокращениями. В случае, 
+когда форма содержит одноименные элементы различных коллекций, пропуск 
+идентификатора коллекции может повлечь за собой неверную работу вашей 
+программы (см. п. 3.6). Хороший способ избегать подобных "совпадений" - 
+использовать префиксы в именах, например, поле "Поле1" в форме 
+переименовать в "пфПоле1" и т.п.<br>
+<br>
+<span class="CodeSubHeader">Q2. Обращение к объектам, имена которых вычисляются "на лету" или не соответствуют "соглашению об именах"</span><br>
+<br>
+В выражении (1), разделенные оператором ".", перечисляются связки типа<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Коллекция![Имя элемента]</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p class="CodeDescription"> (2)<br>
+<br>
+<br>
+Любую из этих связок можно переписать в виде</p>
+
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Коллекция.Item("Строка - имя элемента")</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+ <p class="CodeDescription">(3)<br>
+<br>
+<br>
+где в качестве аргумента может быть указано любое выражение, 
+возвращающее значение типа String, соответствующее имени существующего 
+элемента коллекции, а также<br>
+<br>
+Коллекция.Item(ПорядковыйНомерЭлементаВКоллекции) (4)<br>
+<br>
+<br>
+где ПорядковыйНомерЭлементаВКоллекции - выражение, возвращающее целое 
+число (нумерация элементов в коллекции начинается с 0). При изменении 
+состава коллекции (например, при удалении или добавлении поля в форму) 
+нумерация элементов может измениться. Поэтому, прежде чем использовать 
+выражение (4), следует убедиться, что элемент с данным порядковым 
+номером действительно является тем элементом, к которому вы хотите 
+обратиться. Выражение (4) можно использовать, например, если требуется в
+ цикле перебрать все элементы коллекции.<br>
+<br>
+<span class="CodeSubHeader">Q3. Обращение к объекту подчиненной формы</span><br>
+<br>
+Корректная ссылка на свойство подчиненной формы или отчета требует 
+указания полного идентификатора формы c использованием свойства Form 
+элемента управления - подчиненная форма:<br>
+<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Форма1].Controls![Форма2].Form.Controls![Поле1].Value</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+В данном примере:</p>
+
+<p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Форма1].Controls![Форма2]</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+является ссылкой на элемент управления, в котором выводится подчиненная форма. А
+<p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Форма1].Controls![Форма2].Form</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription">является ссылкой на саму подчиненную форму. 
+Указание свойства Form для ссылки на подчиненную форму или на ее 
+свойства является обязательным для MS Access версии 97 и желательным для
+ версий 2000-2003.<br>
+<br>
+Аналогичным образом, с помощью вставки выражений типа<br>
+<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">.Controls![Форма2].Form</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+(или<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">.Controls("Форма2").Form</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+<p class="CodeDescription">), строятся выражения для подчиненных форм третьего и далее уровней вложености.<br>
+<br>
+<span class="CodeSubHeader">Q4. Обращение к объекту формы из контекста этой формы<br>
+</span><br>
+Для ссылки на текущий экземпляр объекта, в котором в данное время 
+выполняется программа, рекомендуется использовать ключевое слово Me. Все
+ процедуры, связанные с текущим объектом, имеют доступ к объекту, 
+указываемому с помощью слова Me. Пример использования слова Me в модуле 
+формы, содержащей поле Поле1:<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Me.Controls![Поле1].Value</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+<p class="CodeDescription">Примечания<br>
+<br>
+<br>
+1. Построитель выражений некоторых русифицированных версий Microsoft 
+Access автоматически ставит несуществующую инструкцию [Форма] вместо 
+[Form]. Для корректной работы программы следует вручную исправить 
+полученное выражение.<br>
+<br>
+2. Некоторые построители выражений обособляют все названия полей и форм,
+ а также ключевые слова квадратными скобками, например так:<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[Forms]![Форма1]![Форма2].[Form]![Поле1].[Value]</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription"><br>
+В принципе, их использование необходимо только для элементов, чьи имена 
+содержат внутренние пробелы или другие специальные символы (за 
+исключением самих квадратных скобок - тогда надо пользоваться 
+выражениями типа (3) или (4)).<br>
+<br>
+3. В Соглашении об именах полей, элементов управления и объектов 
+сказано, что имя может включать любую комбинацию букв, цифр, пробелов и 
+специальных символов за исключением точки (.), восклицательного знака 
+(!), надстрочного символа (`), квадратных скобок ([ ]) и управляющих 
+символов (с кодами ASCII от 0 до 31), а также не должно начинаться с 
+символа пробела. Однако вы легко сможете создать объект, имя которого 
+нарушает эти правила. Если вы решили спорить с программистами Microsoft,
+ то следует быть готовым к тому, что, например, Пробелы в именах могут 
+при некоторых обстоятельствах вызывать конфликты в программах Visual 
+Basic .<br>
+<br>
+4. Обратите внимание: название формы, под которым она хранится в файле 
+базы данных, и имя (Name) объекта .Control, содержащего эту подчиненную 
+форму, которое и следует использовать в ссылках, не одно и то же!<br>
+<br>
+5. Отличия . и ! .<br>
+<br>
+<span class="CodeSubHeader">Из системы помощи Microsoft Access 97</span><br>
+<strong>Операторы ! и . (точка) в идентификаторах указывают тип элемента, стоящего справа от оператора.<br>
+Оператор ! указывает, что следующий за ним элемент является элементом, 
+определяемым пользователем (элементом семейства). Например, с помощью 
+оператора ! определяют ссылку на открытую форму, отчет или элемент 
+управления в открытой форме или отчете. (Forms![Заказы]![КодЗаказа])<br>
+Оператор . (точка) обычно указывает, что следующий за ним элемент 
+определен в Microsoft Access. Например, оператор . (точка) используется 
+для ссылок на свойства форм, отчетов и элементов управления. Допускается
+ также использование оператора . (точка) для ссылок на значение поля в 
+инструкции SQL, метод Visual Basic for Application или семейство. 
+Например, идентификатор Forms![Заказы].Controls представляет ссылку на 
+семейство Controls формы Заказы.</strong><br>
+<br>
+6. Совпадающие наименования полей, переменных, полей данных.<br>
+<br>
+В системе помощи Microsoft Access описаны довольно обширные правила 
+наименования объектов, суть которых сводится к рекомендации давать 
+уникальные имена полям таблиц, самим таблицам, формам, переменным, 
+функциям и пр. Причем имена не должны совпадать с длинным перечнем 
+зарезервированных слов. Эти правила можно нарушить, но тогда вы будете 
+действовать на свой страх и риск.<br>
+<br>
+Несмотря на вышеуказанные правила, встроенные мастера создания форм 
+создают поля с именами, совпадающими с именами соответствующих полей 
+таблицы - источника данных. В этом случае следует использовать полный 
+синтаксис обращения к объектам.<br>
+<br>
+7. Ускорение работы программ.<br>
+<br>
+При построении выражений, определяющих ссылки на объект, следует иметь в виду, что:<br>
+программа, использующая ключевое слово Me, выполняется быстрее, чем 
+использующая полный синтаксис имени объекта. Причем чем больше уровень 
+вложенности подчиненной формы, тем больший выигрыш в скорости вы 
+получите, используя слово Me.<br>
+если вам требуется обратиться к свойству .Value (значение) объекта, ключевое слово .Value лучше опустить.<br>
+выражение типа (3) выполняется медленнее, чем (2) и (4).<br>
+<br>
+Кроме того, если в некотором фрагменте кода встречаются две и более 
+ссылок на некоторый объект, присвойте его объектной переменной или 
+используйте блок With. Каждый раз, когда вы ссылаетесь на объект, 
+Access'у приходится выяснять, к какому объекту относится ссылка, что 
+приводит к выполнению лишней работы. Но если, например, присвоить ссылку
+ на объект переменной, Access ищет объект всего один раз и кэширует 
+ссылку на него в памяти.<br>
+<br>
+Имейте в виду, что в случае с объектной переменной после окончания использования ее следует очистить:<br>
+<br>
+Set objVar = nothing<br>
+<br>
+<br>
+8. Вместо инструкции .Value, использованной в большинстве примеров, 
+может быть указано любое доступное свойство или метод объекта формы, 
+например, .Name, .Width, .Enabled, .Tag и т.д. Если требуется прочитать 
+или изменить именно содержимое объекта, то инструкцию .Value можно не 
+использовать.<br>
+<br>
+9. Все вышесказанное в равной мере относится и к отчетам, если заменить 
+все вхождения ключевых слов Form и Forms на Report и Reports.<br>
+<br>
+10. Некоторые программисты предпочитают обращаться к форме не как 
+Forms![Форма1], а как Form_Форма1. При использовании этого способа надо 
+иметь в виду, что Form_Форма1 - это обращение не к форме, а к ее классу.
+ Если экземпляр этой формы уже создан (форма открыта), то Access 
+обращается к нему. Если же форма не имеет модуля, то такое обращение 
+приведет к ошибке. Более подробную информацию о работе с экземплярами 
+форм и об этом способе обращения к формам см. в 
+http://www.sql.ru/faq/faq_topic.aspx?fid=240.<br>
+<br>
+Примеры<br>
+<br>
+Допустим, есть форма [Главная], содержащая подчиненную форму 
+[Подчиненная]. Приведу несколько способов обращений к полям и свойствам 
+подчиненной формы.<br>
+<br>
+Еще раз напомню, что название контрола главной формы может отличаться от
+ имени формы (которое видно в окне базы данных). Узнать название 
+контрола можно, один раз щелкнув по нему в конструкторе главной формы 
+правой кнопкой мыши (при этом должна выделиться вся подформа, а не 
+какой-либо из ее элементов, как может делать Access 2000 и более поздних
+ версий), и выбрав пункт меню свойства - имя контрола будет показано в 
+заголовке появившегося окна свойств, а имя формы в поле 
+"Объект-источник" вкладки "Данные". Обращаться к объектам подчиненной 
+формы можно только по названию контрола, содержащего ее в главной форме.<br>
+<br>
+1. Значение поля [Поле1]<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная].Controls![Подчиненная].Form.Controls![Поле1].Value</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная]![Подчиненная].Form![Поле1]</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная").Controls("Подчиненная").Form.Controls("Поле1").Value</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная")("Подчиненная").Form("Поле1").Value</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms(i)(j).Form(k).Value ' Где i, j, k - числовые переменные типа integer с заранее известными и заполненными значениями</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription">2. Свойство .Enabled поля [Поле1]<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная].Controls![Подчиненная].Form.Controls![Поле1].Enabled</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная]![Подчиненная].Form![Поле1].Enabled</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная").Controls("Подчиненная").Form.Controls("Поле1").Enabled</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная")("Подчиненная").Form("Поле1").Enabled</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms(i)(j).Form(k).Enabled</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+<p class="CodeDescription">3. Вызов метода .SetFocus поля [Поле1]<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная].Controls![Подчиненная].Form.Controls![Поле1].SetFocus</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная]![Подчиненная].Form![Поле1].SetFocus</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная").Controls("Подчиненная").Form.Controls("Поле1").SetFocus</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная")("Подчиненная").Form("Поле1").SetFocus</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms(i)(j).Form(k).SetFocus</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+
+
+<p class="CodeDescription">4. Свойство .RecordsetClone формы [Подчиненная]<br>
+</p>
+
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная].Controls![Подчиненная].Form.RecordsetClone</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms![Главная]![Подчиненная].Form.RecordsetClone</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная").Controls("Подчиненная").Form.RecordsetClone</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms("Главная")("Подчиненная").Form.RecordsetClone</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Forms(i)(j).Form.RecordsetClone</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</body>
+</html></p></body></html>

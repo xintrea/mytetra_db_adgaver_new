@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p style="font:large;margin-bottom :20px;font-family:Arial;">
+                Очень частов базах данных используются запросы с параметрами. В этом примере дано 2 варианта их применения.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#0000aa">dim </font>q <font color="#0000aa">as </font>dao.querydef<br>
+<font color="#0000aa">dim </font>txt <font color="#0000aa">as </font>stringtxt=<font color="#660000">"select ... where val=</font><font color="#007700">'" &amp; Me.Val &amp; "'"</font><br>
+<font color="#0000aa">set </font>q=currentdb.querydefs(<font color="#660000">"MyQ"</font>)<br>
+q.sql=txt<br>
+<font color="#0000aa">set </font>q=nothing<br>
+docmd.Openquery <font color="#660000">"MyQ"</font><br>
+<br>
+/*<br>
+<font color="#007700">'Dim dbs As DAO.Database</font><br>
+<font color="#007700">'Dim qdf As DAO.QueryDef</font><br>
+<font color="#007700">'</font><br>
+<font color="#007700">'Set dbs = CurrentDb</font><br>
+<font color="#007700">'Set qdf = dbs.QueryDefs("МойЗапросСПараметром")</font><br>
+<font color="#007700">'qdf.Parameters("ПараметрВЗапросе") = 1</font><br>
+*/</font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

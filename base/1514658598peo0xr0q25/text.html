@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">Ошибками пользуются в любой нормально написанной программе,<br />вне зависимости от объема ее кода.<br /><br />Это помогает проанализировать, правильно ли работает программа.<br />И если нет, минимальными усилиями узнать причину проблемы.<br /><br />Для этого в идеале, в каждой из функций следует использовать обработчик ошибок (<span style=" font-weight:600;">On Error Goto</span>).<br />А там, где используются API-функции, каждую из них проверять на предмет возвращаемого значения, а также кода ошибки API-функции (<span style=" font-weight:600;">Err.LastDllError</span>).<br />Это позволит минимизировать затраты на отладку программы<br />и еще на этапе проектирования исключить некоторые наиболее вероятные ошибки в вызове функций.<br /><br />Внутреннюю ошибку VB можно также симмитировать вручную с помощью вызова процедуры <span style=" font-weight:600;">Err.Raise [Номер ошибки]</span><br />Это спровоцирует переход к метке обработчика ошибок, указанной в директиве <span style=" font-weight:600;">On Error Goto Имя_Метки</span><br />Это иногда полезно, если Вы хотите ввести в программу собственные ошибки (выход из функции при возникновении, на Ваш взгляд, критической ситуации).<br /><br />Номер внутренней ошибки также можно очистить методом <span style=" font-weight:600;">Err.Clear</span><br />Обработчик ошибок в любой момент можно отключить, вернув стандартное поведение программы, с помощью директивы <span style=" font-weight:600;">On Error Goto 0</span><br />В этом случае, если произойдет ошибка, программа прекратит свое выполнение и выведет ошибку и краткое описание в стандартном диалоговом окне (msgbox)*<br />* Кроме случаев, когда обработчик ошибок установлен в родительской функции (вниз по стеку вызовов), т.е. функции, которая вызвала эту функцию. В этом случае будет вызван именно её обработчик, а программа продолжит свое выполнение.<br /><br />При возникновении внутренней ошибки, ее номер и описание можно получить через свойства <span style=" font-weight:600;">Number</span> и <span style=" font-weight:600;">Description</span> объекта <span style=" font-weight:600;">Err</span>.<br />Стандартный обработчик ошибок VB имеет такой вид:<br /><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">Код (vb.net): </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Function</span> foo<span style=" color:#000000;">()</span><br />    <span style=" font-weight:600; color:#0000ff;">On</span> <span style=" font-weight:600; color:#0000ff;">Error</span> <span style=" font-weight:600; color:#0000ff;">Goto</span> ErrorHandler<br /><br />    <span style=" font-style:italic; color:#008000;">' ... тело функции</span><br /><br />    <span style=" font-weight:600; color:#0000ff;">if</span> <span style=" color:#000000;">{</span>что<span style=" color:#000000;">-</span>то можем проверить<span style=" color:#000000;">}</span> <span style=" font-weight:600; color:#0000ff;">then</span><br />        <span style=" font-style:italic; color:#008000;">' здесь, если нам нужно, можем вызвать ошибку самостоятельно</span><br />        err<span style=" color:#000000;">.Raise</span> <span style=" color:#a52a2a;">51</span>   <span style=" font-style:italic; color:#008000;">'Internal error</span><br />    <span style=" font-weight:600; color:#0000ff;">end</span> <span style=" font-weight:600; color:#0000ff;">if</span><br /><br />    <span style=" font-weight:600; color:#0000ff;">Exit</span> <span style=" font-weight:600; color:#0000ff;">function</span><br />ErrorHandler:<br />    <span style=" font-style:italic; color:#008000;">'обработчик</span><br />    <span style=" font-style:italic; color:#008000;">'выводим номер внутренней ошибки, краткое описание, номер ошибки API-функции</span><br />    Debug<span style=" color:#000000;">.?</span> <span style=" color:#a52a2a;">&quot;Error: &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.Number</span> <span style=" color:#000000;">&amp;</span> <span style=" color:#a52a2a;">&quot;. &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.Description</span> <span style=" color:#000000;">&amp;</span> <span style=" color:#a52a2a;">&quot;. LastDllErr: &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.LastDllError</span><br /><span style=" font-weight:600; color:#0000ff;">End</span> <span style=" font-weight:600; color:#0000ff;">function</span><br /> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Описание ошибки API-функции (или COM-объекта) можем получить с помощью такой функции:<br /><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">Код (vb.net): </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#0000ff;">Private</span> <span style=" font-weight:600; color:#0000ff;">Declare</span> <span style=" font-weight:600; color:#0000ff;">Function</span> FormatMessage <span style=" font-weight:600; color:#0000ff;">Lib</span> <span style=" color:#a52a2a;">&quot;kernel32.dll&quot;</span> <span style=" font-weight:600; color:#0000ff;">Alias</span> <span style=" color:#a52a2a;">&quot;FormatMessageA&quot;</span> <span style=" color:#000000;">(</span><span style=" font-weight:600; color:#0000ff;">ByVal</span> dwFlags <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span>, lpSource <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span>, <span style=" font-weight:600; color:#0000ff;">ByVal</span> dwMessageId <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span>, <span style=" font-weight:600; color:#0000ff;">ByVal</span> dwLanguageId <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span>, <span style=" font-weight:600; color:#0000ff;">ByVal</span> lpBuffer <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">String</span>, <span style=" font-weight:600; color:#0000ff;">ByVal</span> nSize <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span>, Arguments <span style=" font-weight:600; color:#0000ff;">As</span> Any<span style=" color:#000000;">)</span> <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span><br /><br /><span style=" font-weight:600; color:#0000ff;">Const</span> MAX_PATH <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span> <span style=" color:#000000;">=</span> <span style=" color:#a52a2a;">260</span><span style=" color:#000000;">&amp;</span><br /><br /><span style=" font-weight:600; color:#0000ff;">Public</span> <span style=" font-weight:600; color:#0000ff;">Function</span> MessageText<span style=" color:#000000;">(</span>lCode <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span><span style=" color:#000000;">)</span> <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">String</span><br />    <span style=" font-weight:600; color:#0000ff;">On</span> <span style=" font-weight:600; color:#0000ff;">Error</span> <span style=" font-weight:600; color:#0000ff;">goto</span> ErrorHandler<br />    <span style=" font-weight:600; color:#0000ff;">Const</span> FORMAT_MESSAGE_FROM_SYSTEM    <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span> <span style=" color:#000000;">=</span> <span style=" color:#000000;">&amp;</span>H1000<span style=" color:#000000;">&amp;</span><br />    <span style=" font-weight:600; color:#0000ff;">Const</span> FORMAT_MESSAGE_IGNORE_INSERTS <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span> <span style=" color:#000000;">=</span> <span style=" color:#000000;">&amp;</span>H200<br /><br />    <span style=" font-weight:600; color:#0000ff;">Dim</span> sRtrnCode   <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">String</span><br />    <span style=" font-weight:600; color:#0000ff;">Dim</span> lRet        <span style=" font-weight:600; color:#0000ff;">As</span> <span style=" color:#6a5acd;">Long</span><br /><br />    sRtrnCode <span style=" color:#000000;">=</span> <a href="http://www.google.com/search?q=SPACE%24+site:msdn.microsoft.com"><span style=" text-decoration: underline; color:#000066;">Space$</span></a><span style=" color:#000000;">(</span>MAX_PATH<span style=" color:#000000;">)</span><br />    lRet <span style=" color:#000000;">=</span> FormatMessage<span style=" color:#000000;">(</span>FORMAT_MESSAGE_FROM_SYSTEM <span style=" font-weight:600; color:#0000ff;">Or</span> FORMAT_MESSAGE_IGNORE_INSERTS, <span style=" font-weight:600; color:#0000ff;">ByVal</span> <span style=" color:#a52a2a;">0</span><span style=" color:#000000;">&amp;</span>, lCode, <span style=" font-weight:600; color:#0000ff;">ByVal</span> <span style=" color:#a52a2a;">0</span><span style=" color:#000000;">&amp;</span>, sRtrnCode, MAX_PATH, <span style=" font-weight:600; color:#0000ff;">ByVal</span> <span style=" color:#a52a2a;">0</span><span style=" color:#000000;">&amp;)</span><br />    <span style=" font-weight:600; color:#0000ff;">If</span> lRet <span style=" color:#000000;">&gt;</span> <span style=" color:#a52a2a;">0</span> <span style=" font-weight:600; color:#0000ff;">Then</span><br />        MessageText <span style=" color:#000000;">=</span> <a href="http://www.google.com/search?q=LEFT%24+site:msdn.microsoft.com"><span style=" text-decoration: underline; color:#000066;">Left$</span></a><span style=" color:#000000;">(</span>sRtrnCode, lRet<span style=" color:#000000;">)</span><br />        MessageText <span style=" color:#000000;">=</span> Replace$<span style=" color:#000000;">(</span>MessageText, vbCrLf, vbNullString<span style=" color:#000000;">)</span><br />    <span style=" font-weight:600; color:#0000ff;">End</span> <span style=" font-weight:600; color:#0000ff;">If</span><br />  <span style=" font-weight:600; color:#0000ff;">Exit</span> <span style=" font-weight:600; color:#0000ff;">function</span><br />ErrorHandler:<br />  Debug<span style=" color:#000000;">.?</span> <span style=" color:#a52a2a;">&quot;Error: &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.Number</span> <span style=" color:#000000;">&amp;</span> <span style=" color:#a52a2a;">&quot;. &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.Description</span> <span style=" color:#000000;">&amp;</span> <span style=" color:#a52a2a;">&quot;. LastDllErr: &quot;</span> <span style=" color:#000000;">&amp;</span> Err<span style=" color:#000000;">.LastDllError</span><br /><span style=" font-weight:600; color:#0000ff;">End</span> <span style=" font-weight:600; color:#0000ff;">Function</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" font-weight:600; color:#0000ff;">Список внутренних ошибок VB6:</span><br /><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><a name="DataTable_5a47a11485f20_wrapper"></a>Отфильтровать: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px;" cellspacing="2" cellpadding="0"><thead>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Код</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Описание</span></p></td></tr></thead>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Return without GoSub</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid procedure call or argument</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Overflow</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Out of memory</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Subscript out of range</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This array is fixed or temporarily locked</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Division by zero</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">13</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Type mismatch</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">14</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Out of string space</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Expression too complex</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">17</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Can't perform requested operation</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">18</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User interrupt occurred</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">20</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Resume without error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">28</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Out of stack space</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">35</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub or Function not defined</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">47</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Too many DLL application clients</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">48</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Error in loading DLL</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">49</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bad DLL calling convention</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">51</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Internal error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">52</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bad file name or number</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">53</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">File not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">54</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bad file mode</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">55</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">File already open</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">57</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Device I/O error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">58</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">File already exists</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">59</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bad record length</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">61</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Disk full</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">62</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Input past end of file</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">63</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bad record number</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">67</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Too many files</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">68</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Device unavailable</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">70</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Permission denied</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">71</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Disk not ready</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">74</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Can't rename with different drive</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">75</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Path/File access error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">76</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Path not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">91</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object variable or With block variable not set</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">92</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">For loop not initialized</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">93</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid pattern string</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">94</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid use of Null</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">96</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Unable to sink events of object because the object is already firing events to the maximum number of event receivers that it supports</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">97</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Can not call friend function on object which is not an instance of defining class</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">98</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">A property or method call cannot include a reference to a private object, either as an argument or as a return value</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">321</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid file format</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">322</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Can't create necessary temporary file</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">325</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid format in resource file</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">380</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid property value</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">381</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid property array index</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">382</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set not supported at runtime</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">383</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set not supported (read-only property)</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">385</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Need property array index</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">387</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set not permitted</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">393</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Get not supported at runtime</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">394</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Get not supported (write-only property)</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">422</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">423</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property or method not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">424</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object required</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">429</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ActiveX component can't create object</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">430</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Class does not support Automation or does not support expected interface</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">432</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">File name or class name not found during Automation operation</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">438</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object doesn't support this property or method</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">440</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Automation error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">442</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Connection to type library or object library for remote process has been lost. Press OK for dialog to remove reference.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">443</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Automation object does not have a default value</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">445</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object doesn't support this action</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">446</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object doesn't support named arguments</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">447</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object doesn't support current locale setting</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">448</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Named argument not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">449</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Argument not optional</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">450</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Wrong number of arguments or invalid property assignment</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">451</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property let procedure not defined and property get procedure did not return an object</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">452</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid ordinal</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">453</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Specified DLL function not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">454</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Code resource not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">455</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Code resource lock error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">457</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This key is already associated with an element of this collection</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">458</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Variable uses an Automation type not supported in Visual Basic</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">459</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Object or class does not support the set of events</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">460</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid clipboard format</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">461</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method or data member not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">462</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The remote server machine does not exist or is unavailable</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">463</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Class not registered on local machine</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">481</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Invalid picture</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">482</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Printer error</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">735</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Can't save file to TEMP</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">744</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Search text not found</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">746</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Replacements too long</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><a name="DataTable_5a47a11485f20_info"></a>Showing 1 to 87 of 87 entries </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Последнее редактирование: 26 авг 2015 </p></body></html>

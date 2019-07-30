@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div id="ctl10_ctl03_PanelHeader" style="width:100%;"><table id="table01" style="line-height: normal" width="100%" cellspacing="5" cellpadding="0" border="0"><tbody><tr><td class="page_header" valign="middle" align="left"><font color="#C91F49">Отправить письмо из Outlook
+                                                        </font>
+        </td>
+        <td rowspan="3" style="padding: 10px" valign="top" align="left">
+            <a id="ctl10_ctl03_ImageLogo" class="HyperlinkCssLogo" title="Отправить письмо из Outlook" href="http://www.leadersoft.ru/Rus/help/code/Products/11860/images/logo.gif"></a>  
+                  </td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">
+        <div id="modernbricksmenu2">
+            <font color="#C91F49">
+            <a id="ctl10_ctl03_img_left" class="img_left" href="http://www.leadersoft.ru/Rus/help/code/Default.aspx"><img src="1.png" style="border-width:0px;"></a>
+            </font>
+            <ul id="ctl10_ctl03_ProductMenu">
+			<li id="current"><a href="http://www.leadersoft.ru/Rus/help/code/Default.aspx?go=product&amp;ProductID=11860">Описание</a></li><li><a href="http://www.leadersoft.ru/Rus/help/code/Default.aspx?go=product&amp;ProductID=11860&amp;t2=galary">Галерея</a></li>
+		</ul>
+        </div>
+             </td>
+    </tr>
+    <tr>
+        <td style="padding:15px;" valign="top" align="left">
+            <span id="ctl10_ctl03_ProductDescription">01. Этот пример 
+(1) позволяет вам отправить электронное сообщение из Access через 
+Outlook. Для работы программы в новых файлах создайте ссылку на Outlook в
+ VBA: C:\Program Files\Microsoft Office\OFFICE11\MSOUTL.OLB</span>
+        </td>
+    </tr>
+    </tbody></table>
+            <div id="line_green2" class="line_green2">
+            </div>
+
+	</div>
+<div>
+<div id="ctl10_ctl03_ctl00_PanelLine" style="width:100%;">
+		
+            <table id="Table2" class="bg_line" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody><tr>
+                    <td style="width: 6px; height: 27px;" valign="top" nowrap="nowrap">
+                        <img id="ctl10_ctl03_ctl00_Image2" src="2.png" style="border-width:0px;"></td>
+                    <td class="text12" style="font-weight: bold; height: 27px;" width="100%">
+                        <span id="ctl10_ctl03_ctl00_Label4" style="font-family:arial;font-size:Small;font-weight:bold;">Свойства продукта</span></td>
+                    <td style="height: 27px" valign="middle" nowrap="nowrap">
+                    </td>
+                </tr>
+            </tbody></table>
+
+	</div>
+<br>
+<table id="ctl10_ctl03_ctl00_DataListProperty" style="font-weight:normal;width:100%;border-collapse:collapse;" cellspacing="0" border="0">
+		<tbody><tr>
+			<td style="width:50%;" valign="top" align="left">
+         <img id="ctl10_ctl03_ctl00_DataListProperty_ctl00_Image1" src="3.png" style="border-width:0px;"><span id="ctl10_ctl03_ctl00_DataListProperty_ctl00_Label2">Источник: </span><a id="ctl10_ctl03_ctl00_DataListProperty_ctl00_HyperLink1" href="http://www.leadersoft.ru/Rus/Market/Db/Default.aspx?go=product&amp;pid=60" style="color:#C00000;">Перейти</a>
+    </td><td></td>
+		</tr>
+	</tbody></table>
+
+<br>
+            <table id="Table3" class="bg_line" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody><tr>
+                    <td style="width: 6px; height: 27px;" valign="top" nowrap="nowrap">
+                         </td>
+                    <td class="text12" style="font-weight: bold; height: 27px;" width="100%">
+                         </td>
+                    <td style="height: 27px" valign="middle" nowrap="nowrap">
+                    </td>
+                </tr>
+            </tbody></table>
+<br>
+
+<font size="-1" face="Courier New"><font color="#007700">'==============================================================</font><br>
+<font color="#007700">'  Назначение</font><br>
+<font color="#007700">'    "Послать почту из базы данных"</font><br>
+<font color="#0000aa">Private Sub </font>butExecute_Click()<br>
+<font color="#0000aa">Dim </font>app <font color="#0000aa">As </font>Outlook.Application  <font color="#007700">'Приложение программы</font><br>
+<font color="#0000aa">Dim </font>dbs <font color="#0000aa">As </font>Database <font color="#007700">'База данных</font><br>
+<font color="#0000aa">Dim </font>rst <font color="#0000aa">As </font>Recordset <font color="#007700">'Источник email</font><br>
+<font color="#0000aa">Dim </font>i <font color="#0000aa">As Integer </font><font color="#007700">'Счетчик</font><br>
+<font color="#0000aa">Dim </font>itm <font color="#0000aa">As </font>MailItem <font color="#007700">'Почтовое сообщение</font><br>
+<font color="#0000aa">Dim </font>myFile <font color="#0000aa">As String </font><font color="#007700">'Присоединяемый файл</font><br>
+<br>
+    <font color="#0000aa">On Error GoTo </font>999<br>
+    <font color="#0000aa">Set </font>dbs = CurrentDb <font color="#007700">'Выбор базы данных</font><br>
+    Me.Refresh <font color="#007700">'Сохраняем данные</font><br>
+    myFile = Application.CurrentProject.Path &amp; <font color="#660000">"\"</font> &amp; Me.Attachment<br>
+    myFile = Dir(myFile)<br>
+    <font color="#007700">'Открываем таблицу c почтовыми адресами</font><br>
+    <font color="#0000aa">Set </font>rst = dbs.OpenRecordset(<font color="#660000">"SELECT * FROM [Пример 01email] WHERE ([Вкл]=True);"</font>)<br>
+    <font color="#0000aa">If </font>rst.RecordCount &lt;&gt; 0 <font color="#0000aa">Then </font><font color="#007700">'Проверяем записи</font><br>
+        rst.MoveLast <font color="#007700">'Заполняем запрос</font><br>
+        rst.MoveFirst <font color="#007700">'Первая запись</font><br>
+        <font color="#0000aa">Set </font>app = <font color="#0000aa">New </font>Outlook.Application <font color="#007700">'Новое сообщение</font><br>
+        <font color="#0000aa">Dim </font>myNamespace, myfolder <font color="#0000aa">As </font>MAPIFolder, mynewfolder<br>
+        <font color="#0000aa">Set </font>myNamespace = app.GetNamespace(<font color="#660000">"MAPI"</font>)<br>
+        <font color="#0000aa">Set </font>myfolder = myNamespace.GetDefaultFolder(olFolderInbox)<br>
+        <font color="#007700">'Set myfolder = _<br>
+        '    app.ActiveExplorer.CurrentFolder.Folders</font><br>
+        <font color="#0000aa">Set </font>mynewfolder = myfolder.Folders.Add(<font color="#660000">"My Contacts"</font>)<br>
+        <br>
+        <font color="#0000aa">Set </font>itm = app.CreateItem(olMailItem) <font color="#007700">'Добавляем письмо</font><br>
+        itm.Subject = Me.Subject  <font color="#007700">'Тема письма</font><br>
+        itm.Body = Me.Body <font color="#007700">'Текст письма</font><br>
+        <font color="#0000aa">If </font>myFile &lt;&gt; <font color="#660000">""</font> <font color="#0000aa">Then </font>itm.Attachments.Add myFile <font color="#007700">'Прикрепляем файл</font><br>
+        <font color="#0000aa">For </font>i = 0 <font color="#0000aa">To </font>rst.RecordCount - 1 <font color="#007700">'Просматриваем адреса</font><br>
+            <font color="#0000aa">If </font>rst!Вкл = <font color="#0000aa">True Then </font>_<br>
+                itm.Recipients.Add rst!Email <font color="#007700">'Добавляем новый адрес</font><br>
+            rst.MoveNext <font color="#007700">'Следующий адрес</font><br>
+        <font color="#0000aa">Next</font><br>
+        itm.Send <font color="#007700">'Отсылаем письмо</font><br>
+        app.Quit <font color="#007700">'Закрываем Outlook</font><br>
+        MsgBox <font color="#660000">"Письмо успешно отправлено!"</font>, vbExclamation, <font color="#660000">"Почта"</font><br>
+    <font color="#0000aa">End If</font><br>
+    rst.Close <font color="#007700">'Закрываем запрос</font><br>
+    <font color="#0000aa">Exit Sub</font><br>
+999:<br>
+    MsgBox Err.Description  <font color="#007700">'Ошибка</font><br>
+    Err.Clear<br>
+    app.Quit<br>
+<font color="#0000aa">End Sub</font></font></div>
+</body>
+</html></p></body></html>

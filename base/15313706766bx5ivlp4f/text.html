@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<p style="font:large;margin-bottom :20px;font-family:Arial;">
+                04. У каждого компьютера в организации могут быть 
+различные диски, имеющий свой уникальный номер. Если прочитать эту 
+информацию, то можно создать программу, которая будет привязана к 
+конкретному компьютеру.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">'  Получаем информацию о серийных номерах</font><br>
+<font color="#007700">'</font><br>
+<font color="#0000aa">Private Sub </font>Form_Load()<br>
+<font color="#0000aa">Dim </font>fs, dc, D, s <font color="#0000aa">As String</font><br>
+<font color="#0000aa">On Error Resume Next</font><br>
+    s = <font color="#660000">""</font><br>
+    <font color="#007700">' Получаем информацию о файловой системе</font><br>
+    <font color="#0000aa">Set </font>fs = CreateObject(<font color="#660000">"Scripting.FileSystemObject"</font>)<br>
+    <font color="#0000aa">Set </font>dc = fs.Drives<br>
+    <font color="#0000aa">For Each </font>D <font color="#0000aa">In </font>dc<br>
+        s = s &amp; D.DriveLetter &amp; <font color="#660000">": серийный номер: "</font> &amp; D.SerialNumber &amp; <font color="#660000">";"</font><br>
+        Err.Clear<br>
+    <font color="#0000aa">Next </font>D<br>
+    Me.myList.RowSource = s<br>
+<font color="#0000aa">End Sub</font></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>

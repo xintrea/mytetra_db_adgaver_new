@@ -1,0 +1,870 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/index.html"><span style=" text-decoration: underline; color:#0000ff;">Перейти на главную страничку сайта (список статей, файлы для скачивания)</span></a></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://forum.script-coding.com/"><span style=" text-decoration: underline; color:#0000ff;">ФОРУМ (здесь можно обсудить эту статью, а также любые проблемы программирования на различных макроязыках и в скриптовых средах)</span></a> </p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Использование протокола LDAP в скриптах</span> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Содержание: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/Python/LDAP.html#intro"><span style=" text-decoration: underline; color:#0000ff;">Введение</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/Python/LDAP.html#search"><span style=" text-decoration: underline; color:#0000ff;">Поиск объектов в каталоге</span></a></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/Python/LDAP.html#classes"><span style=" text-decoration: underline; color:#0000ff;">Классы ADSI</span></a></li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/Python/LDAP.html#samples"><span style=" text-decoration: underline; color:#0000ff;">Примеры</span></a> </li></ul>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="intro"></a><span style=" font-size:x-large; font-weight:600;">В</span><span style=" font-size:x-large; font-weight:600;">ведение</span> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Протокол LDAP (Lightweight Directory Access Protocol, упрощённый протокол для доступа к каталогу) служит для доступа к службам каталогов, в том числе Active Directory в Windows 2000/2003. Провайдер LDAP является одним из провайдеров <a href="http://www.script-coding.com/ADSI.html"><span style=" text-decoration: underline; color:#0000ff;">ADSI (Active Directory Service Interface)</span></a>. Все примеры сценариев в настоящей статье будут приводиться на языке <a href="http://activestate.com/Products/ActivePython/"><span style=" text-decoration: underline; color:#0000ff;">Python</span></a>. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Служба каталогов Active Directory является LDAP-совместимой реализацией службы каталогов Microsoft для операционных систем семейства Windows и хранит информацию о сетевых ресурсах - пользователях, компьютерах, файлах, папках и принтерах, а также информацию безопасности, касающуюся этих ресурсов. Active Directory упрощает администрирование путём централизации управления. Домен - это логическая группа компьютеров и метод организации административной безопасности. Логическая структура Active Directory состоит из доменов, лесов и деревьев, а физическая структура состоит из серверов - контроллеров домена и сайтов (IP-подсетей). Active Directory использует модель репликации, когда копия каталога существует на каждом контроллере домена, что повышает отказоустойчивость (домен может содержать один или более контроллеров домена). Сайт (Site) Active Directory - это совокупность одной или нескольких IP-подсетей, объединенных высокоскоростными каналами связи. Сайт может содержать один или более доменов, а домен может быть размещен в нескольких сайтах. Сайты предназначены для управления <span style=" font-style:italic;">репликацией</span> Active Directory между сетями, соединёнными каналами связи с низкой пропускной способностью. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Домены в Active Directory организованы в иерархические структуры - <span style=" font-style:italic;">деревья</span>. Ветви такого дерева называются поддоменами. Имя дочернего домена включает имя родительского, например: microsoft.com, msdn.microsoft.com, vb.msdn.microsoft.com и т.д. <span style=" font-style:italic;">Лес</span> представляет собой группу деревьев, связанных доверительными отношениями - контроллеры домена в одном домене доверяют пользователям из другого домена (дают возможность использовать свои ресурсы). Отношения доверия транзитивны, то есть если домен А доверяет домену Б, а домен Б доверяет домену В, то домен А также доверяет домену В. Все деревья в лесу используют общую схему и общий глобальный каталог (Global Catalog, GC). Доверительными отношениями связываются корневые домены деревьев леса. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">Схема</span> (Schema) содержит формальное описание содержания и структуры хранилища Active Directory, включая все атрибуты, классы и свойства классов. Для каждого класса объектов схема определяет, какими атрибутами должен обладать экземпляр класса, какие дополнительные атрибуты он может иметь и какой класс объектов является предком текущего класса. При установке Active Directory создаётся стандартная схема, содержащая определения наиболее часто используемых объектов и их свойств, таких как пользователи, группы, компьютеры, принтеры и т.п. Схема Active Directory расширяема, т.е. вы можете определить новые типы объектов каталога и их атрибуты, в том числе и новые атрибуты для существующих объектов. Схема хранится вместе с данными Active Directory в глобальном каталоге и обновляется динамически (т.е. добавленные и изменённые атрибуты можно использовать практически сразу). Схема определяет структуру леса Active Directory, который может содержать несколько деревьев, которые, в свою очередь, могут содержать несколько иерархически структурированных доменов. В лесе Active Directory один из контроллеров объявляется мастером схемы (Schema Master) и отвечает за репликацию данных схемы на все контроллеры доменов. Cтруктурой леса и деревьев Active Directory является <span style=" font-style:italic;">конфигурация</span> (Configuration). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">Глобальный каталог</span> (Global Catalog, GC) - это центральное хранилище информации об объектах в дереве доменов и лесе Active Directory. Глобальный каталог является физическим хранилищем части атрибутов всех объектов леса Active Directory. Процесс частичной репликации позволяет находить большинство сведений непосредственно в глобальном каталоге, без обращения к исходному домену. По умолчанию в глобальном каталоге хранятся атрибуты, наиболее часто используемые при поиске (например имя пользователя, его учетной записи и т.п.), а также сведения, необходимые для обнаружения объекта (полный LDAP-путь к соответствующему объекту каталога). Хранение только основных атрибутов объектов в глобальном каталоге позволяет уменьшить его размер, поэтому один сервер глобального каталога может обслуживать много контроллеров домена Windows. При установке первого контроллера домена в лесу Active Directory он становится сервером глобального каталога. При наличии нескольких контроллеров домена можно перенести глобальный каталог на другой сервер или настроить несколько серверов на его поддержку. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В ADSI предусмотрен специальный провайдер &quot;ADs&quot;, который возвращает ссылку на объект IADsNamespaces, который можно использовать для получения информации об установленных на компьютере провайдерах ADSI: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; color:#000080;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;ADs:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Class, &quot;\n&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for i in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print i.Name</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Корневой объект пространства имён провайдера LDAP (объект IADsNamespace) может быть получен следующим образом: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; color:#000080;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># получение объекта текущего домена в локальной сети:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Class, adsi.ADsPath, '\n'</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for i in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print i.Class, i.ADsPath</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print i.Name, &quot;\n&quot;</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; color:#000080;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># получение объекта корневого домена в локальной сети:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;GC:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Class, adsi.ADsPath, '\n'</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for i in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print i.Class, i.ADsPath</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print i.Name, &quot;\n&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># Примечание: в данном случае идёт обращение</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># к глобальному каталогу контроллера домена (Global Catalog, GC).</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LDAP имеет иерархическую модель данных. <span style=" font-style:italic;">Вы можете исследовать структуру ADSI с помощью оснастки ADSI Edit для MMC из пакета Windows Support Tools (пакет доступен для скачивания на сайте Microsoft).</span> Для идентификации объектов существует два вида имен: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отличительное (характерное) имя - Distinguished Name (DN).</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Относительное отличительное (характерное) имя - Relatively Distinguished Name (RDN). </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отличительное имя объекта содержит полный путь к этому объекту в иерархии. Относительное отличительное имя объекта — часть отличительного имени, являющаяся именем объекта. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кроме того, в каталоге существуют организационные блоки (организационные единицы или подразделения) <span style=" font-style:italic;">Organization Units - OU</span>, с помощью которых администратор каталога может создавать иерархию логических групп записей. Организационное подразделение - это контейнерный объект, предназначенный для группировки других объектов в логические административные группы в рамках домена. Организационные подразделения могут содержать такие объекты, как учетные записи пользователей, группы, компьютеры, принтеры и т.п. Иерархия организационных единиц домена не зависит от других доменов - каждый домен может поддерживать свою собственную иерархию. Часто <span style=" font-style:italic;">групповые политики</span> применяются именно к подразделениям (групповые политики сами являются объектами Active Directory). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пользователь или группа имеет &quot;дружественное&quot; имя – основное имя пользователя (<span style=" font-style:italic;">UPN – User Principal Name</span>). Основное имя пользователя составляется из &quot;сокращённого&quot; имени пользователя и имени домена DNS, где находится объект, определяющий пользователя. UPN известны как адреса электронной почты. Например, пользователь James Smith в дереве microsoft.com может иметь UPN вида &quot;JamesS@Microsoft.com&quot;. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каждый объект каталога обладает глобальным уникальным идентификатором (Globally Unique Identifier, GUID) - 128-битным числом, генерируемым при создании объекта. GUID не изменяется в течение всего срока жизни объекта, даже при его переименовании или перемещении в другой домен. Поэтому приложения могут хранить GUID объекта и всегда однозначно находить его в каталоге. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Аббревиатуры, используемые в строках подключения (в так называемых URL LDAP): </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">OU - Organization Unit - организационный блок (организационная единица или подразделение), которая содержит такие объекты, как пользователи, контакты, группы и др.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CN - Common Name - общее (относительное) имя. Пользователь, контакт, группа или другой объект, который как правило не имеет дочерних объектов.</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DC - Domain Component – компонент доменного имени. </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для связывания (определения) объекта с помощью технологии ADSI можно использовать два способа: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;Развёрнутая&quot; форма: </li>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">moniker = &quot;LDAP://ServerName/DC=ru/DC=имяДомена/OU=название подразделения/CN=имя пользователя&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(moniker)</span> </pre>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;Сокращённая&quot; форма: </li></ul>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">moniker = &quot;LDAP://ServerName:TCP_Port/CN=имя пользователя, OU=название подразделения, DC=имяДомена, DC=ru&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(moniker)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как видно из примеров, строки связывания в разных формах отличаются в основном направлением переходов по иерархии (вверх или вниз по иерархии). Примечание: порт можно указать только во второй форме, порт по умолчанию - 389. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Имя сервера (контроллера домена) и номер порта можно не указывать. В этом случае программные модули ADSI автоматически найдут контроллер домена для указанного вами домена и произведут к нему подключение с параметрами по умолчанию. При этом используются те же механизмы, что и при входе клиентского компьютера в сеть (такой вариант называется привязкой без сервера - serverless binding). Например: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://DC=ru/DC=имяДомена/OU=название подразделения/CN=имя пользователя&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://CN=имя пользователя, OU=название подразделения, DC=имяДомена, DC=ru&quot;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для просмотра атрибутов записи каталога можно связать запись, а затем использовать метод <span style=" font-style:italic;">Get</span>. Если сервер LDAP разрешает анонимный доступ к каталогу, можно использовать следующий подход: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://DC=ru/DC=имяДомена/OU=название подразделения&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for entry in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print entry.Class, entry.Get('objectClass')</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если сервер LDAP не разрешает анонимный доступ к каталогу, можно использовать следующий подход: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=имяДомена/OU=название подразделения&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                        &quot;имя_пользователя&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for entry in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print entry.Class, entry.Get('objectClass')</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для просмотра архитектуры существующего каталога LDAP используйте скрипт, приведённый чуть ниже. Изменяя отправную точку (startingPoint), можно просмотреть различные части каталога: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">startingPoint = &quot;/OU=название подразделения&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://DC=ru/DC=имяДомена&quot; + startingPoint)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for entry in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print entry.Name, entry.Class</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рекурсивный просмотр архитектуры существующего каталога LDAP, вглубь от указанной отправной точки (startingPoint): </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; color:#000080;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">def structLDAP(startingPoint, level):</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    adsi = win32com.client.GetObject(&quot;LDAP://&quot; + startingPoint)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    for entry in adsi:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        print '  ' * level + entry.Name + ' (' + entry.Class + ')'</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        # для перенаправления в файл:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        # print ('  ' * level + entry.Name + ' (' + entry.Class + ')').encode('cp1251')</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        structLDAP(startingPoint + '/' + entry.Name.replace('/', '\\/'), level + 1)</span></pre>
+<pre style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; color:#000080;"><br /></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">startingPoint = &quot;DC=ru/DC=имяДомена&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">structLDAP(startingPoint, 0)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Специальный объект RootDSE (Root Directory Service Entry) автоматически вернёт имя того домена, к которому принадлежит данный компьютер: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># получение имени домена, к которому принадлежит данный компьютер:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://RootDSE&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">domain = adsi.Get(&quot;defaultNamingContext&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://&quot; + domain)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Name, adsi.Class</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект RootDSE предоставляет различную информацию о возможностях LDAP-сервера: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">adsi = win32com.client.GetObject(&quot;LDAP://RootDSE&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;configurationNamingContext&quot;) # отличительное имя контейнера конфигурации</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;currentTime&quot;) # текущее время на этом сервере каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;defaultNamingContext&quot;) # отличительное имя домена, членом которого является этот сервер каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;dnsHostName&quot;) # DNS адрес этого сервера каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;dsServiceName&quot;) # отличительное имя объекта NTDS параметров настройки этого сервера каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># наивысший USN, используемый на этом сервере каталога (это свойство используется репликацией каталога)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;highestCommittedUSN&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;LDAPServiceName&quot;) # Service Principal Name (SPN) этого сервера каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for namingContext in adsi.Get(&quot;namingContexts&quot;): # отличительные имена всех контекстов, имеющихся на этом сервере каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">   print namingContext</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># отличительное имя корневого домена в лесу, который содержит домен, членом которого является этот сервер каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;rootDomainNamingContext&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;schemaNamingContext&quot;) # отличительное имя контейнера схемы</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;serverName&quot;) # отличительное имя объекта сервера этого сервера каталога в контейнере конфигурации</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;subschemaSubentry&quot;) # отличительное имя объекта subschema (LDAP 3.0.)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># объектные идентификаторы (OID), которые идентифицирует поддерживаемые возможности сервера</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print adsi.Get(&quot;supportedCapabilities&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for supportedControl in adsi.Get(&quot;supportedControl&quot;): # расширенные OID</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print supportedControl</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for supportedLDAPPolice in adsi.Get(&quot;supportedLDAPPolicies&quot;): # поддерживаемые LDAP политики управления</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print supportedLDAPPolice</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for supportedLDAPVersion in adsi.Get(&quot;supportedLDAPVersion&quot;): # версии LDAP, поддерживаемые этим сервером каталога</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print supportedLDAPVersion</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for supportedSASLMechanism in adsi.Get(&quot;supportedSASLMechanisms&quot;): # поддерживаемые механизмы безопасности</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print supportedSASLMechanism</span> </pre>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="search"></a><span style=" font-size:x-large; font-weight:600;">П</span><span style=" font-size:x-large; font-weight:600;">оиск объектов в каталоге</span> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В ADSI реализовано несколько технологий поиска. Основная технология связана с применением для этой цели возможностей объектной модели ADO. При этом подключение к службе каталогов производится при помощи объекта ADODB.Connection, формулировка текста запроса и его выполнение — при помощи объекта ADODB.Command, а результаты запроса возвращаются в виде обычного объекта ADODB.Recordset. Объектная модель ADO полностью поддерживает OLE Automation, поэтому эту технологию можно использовать из любых языков программирования, которые поддерживают OLE Automation, в том числе VBA, VBScript, JScript и т.п. Остальные технологии поиска ADSI могут использоваться в основном только из программ на языке C++, и здесь рассматриваться не будут. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запросы к службам каталогов в ADSI могут выполняться на двух диалектах - диалекте LDAP (фильтры запроса определяются в соответствии с правилами синтаксиса запросов LDAP по RFC 2254) и диалекте SQL (фильтры запроса определяются в соответствии со стандартом ANSI SQL с учетом особенностей работы со службами каталогов). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример запроса на диалекте LDAP: </p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">&lt;LDAP://DC=domainName,DC=ru&gt;;(objectClass=*);AdsPath, cn;subTree</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первая часть запроса - базовое отличительное имя (base distinguished name) - использует синтаксис вида <span style=" font-weight:600;">&lt;LDAP://отличительное_имя&gt;</span>. Отличительное имя должно принадлежать контейнерному объекту, в котором производится поиск (обычно домену, сайту или организационному подразделению). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вторая часть запроса (в примере - (objectClass=*)) является поисковым фильтром LDAP. В примере фильтр означает &quot;искать любые объекты&quot;. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Третья часть запроса (в примере - AdsPath, cn) является набором атрибутов (столбцов), которые будут возвращаться в ходе выполнения запроса. Если необходимо вернуть несколько атрибутов для объекта, наименования атрибутов должны быть разделены запятыми. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Четвертая часть запроса (в примере - subTree) задаёт диапазон поиска. Возможные значения: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">base</span> - поиск производится только по одному объекту, указанному в первой части запроса. Всегда возвращается либо один объект, либо пустой набор объектов. По сути это проверка существования объекта;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">onelevel</span> - поиск производится только по непосредственным дочерним объектам контейнерного объекта, указанного в первой части запроса. Поиск по вложенным объектам более низких уровней производится не будет. В поиск не попадёт и сам контейнерный объект;</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">subtree</span> - поиск будет производиться по всем объектам вниз по иерархии - глубокий поиск (deep search). В поиск при этом не попадает сам контейнерный объект. </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для поисковых фильтров LDAP предусмотрено два варианта синтаксиса. Первый вариант использует только один фильтр: </p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">(&lt;имя_атрибута&gt;&lt;оператор&gt;&lt;значение&gt;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Второй вариант использует несколько фильтров, объединённых логическим оператором: </p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">(&lt;оператор&gt;&lt;фильтр1&gt;&lt;фильтр2&gt;...&lt;фильтрN&gt;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Операторы, используемые в фильтрах поиска LDAP: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">=</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Равно.</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">~=</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Приблизительно равно.</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;=</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Меньше или равно.</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&gt;=</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Больше или равно.</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&amp;</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">И</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">|</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ИЛИ</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">!</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">НЕ</p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">*</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Групповой подстановочный символ (любое количество символов).</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Примеры: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(objectClass=*)</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для атрибута objectClass может быть использовано любое значение (т.е. вернутся все объекты).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(&amp;(objectCategory=person)(objectClass=user)(!cn=andy))</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Несколько фильтров объединены при помощи оператора &quot;И&quot;. Вернутся только те объекты, у которых одновременно: атрибут objectCategory имеет значение &quot;person&quot;, атрибут objectClass - значение &quot;user&quot;, атрибут cn - значение, не равное &quot;andy&quot;.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(&amp;(objectCategory=person)(objectClass=contact)(|(sn=Lee)(sn=Smith)))</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вернутся все объекты, у которых значение атрибута objectCategory равно &quot;Person&quot;, objectClass - &quot;contact&quot;, а значение атрибута sn равно либо &quot;Lee&quot;, либо &quot;Smith&quot;. </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для проверки наличия определенных флагов в атрибутах объектов применяется синтаксис с использованием так называемых объектных идентификаторов (object identifiers, OIDs). LDAP поддерживает два OID: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1.2.840.113556.1.4.803 - совпадение будет признано только тогда, когда совпадут все биты в сравниваемых значениях (bitwise AND);</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1.2.840.113556.1.4.804 - совпадение будет признано в случае, если совпадет любой бит в сравниваемых значениях (bitwise OR). </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Чаще всего OID используются при проверке флагов типов групп. Например, если необходимо найти все группы безопасности, но не группы распределения, синтаксис может быть таким: </p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">(&amp;(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483648))</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Здесь число 2147483648 - это десятичное представление числа 0x80000000, которое соответствует флагу ADS_GROUP_TYPE_SECURITY_ENABLED в атрибуте groupType. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Некоторые символы в поисковых фильтрах являются зарезервированными и в значениях атрибутов должны заменяться на специальные последовательности: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">*</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\2a</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\28</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">)</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\29</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\5c</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">NUL</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\00</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">/</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">\2f</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример скрипта, разыскивающего все объекты в домене, в имени которых используется прямой слеш: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn = win32com.client.Dispatch(&quot;ADODB.Connection&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Provider = &quot;ADSDSOObject&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Open(&quot;ADs Provider&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">query = &quot;&lt;LDAP://DC=имяДомена,DC=ru&gt;;(Name=*\\2f*);ADsPath;subTree&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">rs = conn.Execute(query)[0]</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">while not rs.EOF:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    obj = win32com.client.GetObject(rs.Fields(0).Value)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print obj.Class, obj.Name</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    rs.MoveNext()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Close()</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример запроса на диалекте языка SQL к службе каталогов: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">SELECT ADsPath, cn</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">FROM 'LDAP://OU=имяПодразделения,DC=имяДомена,DC=ru'</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">WHERE objectCategory='person' AND objectClass='user' AND sn = 'H*'</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">ORDER BY sn</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В разделе SELECT перечисляются атрибуты объектов Active Directory, которые будут возвращаться запросом. В результатах запроса они будут представлены полями объекта ADODB.Recordset. Несколько имен атрибутов должны разделяться запятыми. Вместо списка атрибутов можно использовать ключевое слово ALL или звездочку (*). Эти значения определяют, что должны вернуться все атрибуты. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В разделе FROM указывается отличительное имя базового объекта поиска (то есть того контейнерного объекта, начиная с которого будет производиться поиск). Этот путь обязательно должен быть заключен в одинарные кавычки. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В разделе WHERE указываются условия, поисковые фильтры, которые используются для выбора объектов при поиске. Синтаксис соответствует стандартам языка SQL. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В разделе ORDER BY указывается атрибут объекта службы каталогов, по значению которого будет производиться сортировка возвращаемых результатов. Active Directory поддерживает сортировку только по одному атрибуту. Однако можно указать порядок сортировки при помощи ключевых слов ASC и DESC (по умолчанию используется ASC). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор JOIN в запросах к Active Directory не поддерживается (если запрос производится из SQL Server, а Active Directory используется в качестве внешнего источника данных, то можно производить JOIN между таблицами SQL Server и информацией, возвращаемой Active Directory). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример скрипта, разыскивающего все объекты в домене, в имени которых используется прямой слеш: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn = win32com.client.Dispatch(&quot;ADODB.Connection&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Provider = &quot;ADSDSOObject&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Open(&quot;Active Directory Provider&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">query = &quot;SELECT ADsPath FROM 'LDAP://DC=имяДомена,DC=ru' WHERE Name='*/*'&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">rs = conn.Execute(query)[0]</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">while not rs.EOF:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    obj = win32com.client.GetObject(rs.Fields(0).Value)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print obj.Class, obj.Name</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    rs.MoveNext()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Close()</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В случае необходимости подключения под конкретной учётной записью следует использовать строку подключения, аналогично следующему примеру: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn = win32com.client.Dispatch(&quot;ADODB.Connection&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">conn.Open(&quot;Provider=ADSDSOObject;User Id=myDomain\\myUsername;Password=myPassword;&quot;)</span> </pre>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="classes"></a><span style=" font-size:x-large; font-weight:600;">К</span><span style=" font-size:x-large; font-weight:600;">лассы ADSI</span> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейс IADs определяет набор базовых свойств и методов для любого объекта ADSI: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADsPath</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство возвращает отличительное имя объекта в Active Directory. Значение этого свойства может выглядеть по разному в зависимости от того, как именно получена ссылка на данный объект. Значение этого свойства выглядит как путь LDAP и может использоваться для получения этого объекта функцией GetObject.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Class</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство возвращает имя класса Active Directory, к которому принадлежит данный объект, согласно схеме Active Directory. Например, &quot;domainDNS&quot; или &quot;user&quot;.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GUID</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Глобальный уникальный идентификатор объекта Active Directory.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Name</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство возвращает относительное отличительное имя данного объекта (relative distinguished name, RDN), например, &quot;cn=TestUser1&quot;.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Parent</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство возвращает значение свойства ADsPath родительского контейнера данного объекта.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Schema</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство возвращает ADsPath объекта в схеме Active Directory.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetInfo()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет заново получить в оперативную память компьютера, на котором создан объект ADSI, информацию о значениях свойств этого объекта с контроллера домена.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SetInfo()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод записывает информацию об изменениях, произведённых с объектом ADSI в оперативной памяти, на контроллер домена, делая таким образом изменения постоянными. Фактически любая операция по внесению изменений в Active Directory средствами ADSI завершается вызовом метода SetInfo(). Контроллер домена по разным причинам может отказаться сохранять внесенные изменения (например, настроенный для пользователя пароль не соответствует парольной политике домена), поэтому лучше всего при вызове этого метода позаботиться об обработке ошибок.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Get()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод, как и метод GetInfo(), обновляет кэш свойств, скачивая значения заново с контроллера домена. Однако GetInfo() обновляет значения всех свойств, а Get() - только указанного. Имя этого свойства передается в качестве параметра.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetEx()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод делает практически то же, что и метод Get(). Если для какого-то свойства предусмотрено единственное значение (например, строковое), метод Get() вернет просто это строковое значение. Если для этого свойства предусмотрено несколько строковых значений, метод Get() вернет массив строковых значений. Метод GetEx() всегда возвращает массив значений типа Variant, вне зависимости от того, было ли для свойства настроено одно значение или несколько. Поэтому метод GetEx() очень удобно использовать в ситуации, когда неизвестно, вернется одно значение или несколько.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetInfoEx()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод аналогичен методу GetEx(). Отличием является то, что метод GetEx() принимает в качестве параметра имя единственного свойства, а метод GetInfoEx() - массив с именами свойств. Соответственно, этот метод может обновить значения не для одного свойства, а для набора свойств.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Put()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет присвоить значение свойству в кэше свойств для объекта ADSI в оперативной памяти. Чаще всего он используется в ситуации, когда объект ADSI только что создан и ещё не сохранен на контроллере домена (в этом случае прямое присвоение значения свойству вызовет ошибку). Потом при вызове метода SetInfo() настроенные значения свойств будут сохранены вместе с объектом в базе данных Active Directory. Обычно метод Put() используется только для присвоения значений обязательным свойствам, без которых сохранение объекта невозможно. Далее вызывается метод SetInfo(), и работа со значениями свойств идёт уже обычным порядком.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PutEx()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод предназначен для тех же целей, что и метод Put(), но в качестве ещё одного параметра принимает информацию о том, что именно нужно сделать с указанным значением свойства (далее указаны значения перечисления ADS_PROPERTY_OPERATION_ENUM): </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_CLEAR (1) - очистить данное свойство, убрав все его значения; </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_UPDATE (2) - обновить значение для данного свойства, заменив его указанным новым значением;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_APPEND (3) - новое значение должно добавиться к уже существующим (если свойство поддерживает набор значений);</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_DELETE (4) - указанное значение должно быть удалено из набора значений для данного свойства.</li></ul></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейс IADsContainer обеспечивает набор свойств и методов для контейнерных объектов Active Directory (в основном - объектов организационных подразделений и доменов): <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Filter</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство позволяет настроить фильтр для элементов в данном контейнере. Элементы, которые не соответствуют данному фильтру, при работе с контейнером (переборе его элементов) будут игнорироваться. Это свойство в качестве значения принимает массив значений типа Variant с именами классов объектов Active Directory согласно схеме (например, &quot;user&quot;, &quot;computer&quot; и т.п.).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Create()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет создать новый элемент в данном контейнере. Он принимает два обязательных параметра: имя класса создаваемого объекта (например, &quot;user', &quot;group&quot;, &quot;organizationalUnit&quot;, &quot;computer&quot; и т.п.) и относительное отличительное имя для данного объекта (точно в таком же формате, в котором это имя возвращается при помощи свойства IADs.Name). Этот метод возвращает ссылку на созданный объект. Затем можно присвоить значение свойствам данного объекта (лучше при помощи метода IADs.Put(), чтобы гарантировать отсутствие ошибок) и сохранить созданный объект при помощи метода SetInfo(). </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Delete()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет удалить элемент из данного контейнерного объекта. Он принимает в качестве параметров имя класса и относительное отличительное имя удаляемого объекта. Если класс в Active Directory уже отключен, вместо имени класса можно передать NULL.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetObject()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет вернуть ссылку на элемент в контейнерном объекте. В качестве параметров этот элемент принимает класс объекта и его относительное отличительное имя.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveHere()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет переместить какой-либо элемент в данный контейнерный объект. В качестве параметров принимает полное отличительное имя существующего объекта и его новое относительное отличительное имя. Возвращает ссылку на интерфейс IADs для перемещённого объекта, которую можно использовать для дальнейшей настройки свойств объекта. Если переместить объект в тот же контейнер, в котором он уже находится, указав при помощи второго параметра новое имя, тем самым можно переименовать объект. При помощи этого метода можно перемещать в данный контейнерный объект как объекты из того же домена, так и объекты из других доменов данного леса. Однако для перемещения объектов из других доменов необходимо, чтобы домен назначения работал по крайней мере в режиме Windows 2000 Native, и перемещать можно только конечные объекты (например, объекты пользователей) или пустые контейнерные объекты (например, организационное подразделение, в котором нет никаких вложенных объектов). При перемещении объекта между доменами для объекта создается новый SID, а старый сохраняется при помощи атрибута SIDHistory. Явно предоставленные разрешения для пользователя при этом сохраняются, но теряется его членство в глобальных группах. Для перемещаемых объектов пользователей назначенные им пароли сохраняются. </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейс IADsPropertyList предназначен для работы со свойствами объектов Active Directory. В принципе, работать со свойствами можно и без него (например, при помощи метода Put), однако средствами IADsPropertyList можно получить информацию о всех свойствах конкретного объекта, их типе и т.п. Использовать свойства и методы этого интерфейса можно только после того, как для соответствующего объекта Active Directory будет вызван метод IADs.GetInfo() или GetInfoEx(), или Get(), или GetEx(). </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример получения информации об имени, типе и значениях всех свойств объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">GetObject = win32com.client.GetObject</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">propList = GetObject(&quot;LDAP://CN=Фамилия Имя,OU=Подразделение,DC=домен,DC=ru&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">propList.GetInfo()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">v = propList.Next()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">ADSTYPE_UNKNOWN = 26</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">while 1:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print v.Name, v.ADsType, v.Values[0].GetObjectProperty(ADSTYPE_UNKNOWN)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    try:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        v = propList.Next()</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    except:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">        break</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойства и методы интерфейса IADsPropertyList: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PropertyCount</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство интерфейса IADsPropertyList возвращает информацию о количестве свойств, предусмотренных для данного объекта.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetPropertyItem()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет вернуть свойство по его имени. В качестве параметров этот метод принимает имя свойства и его тип в виде значения перечисления ADSTYPEENUM (в нём предусмотрено 28 значений). Если тип свойства вам не известен, можно передать специальное значение ADSTYPE_UNKNOWN (26). Этот метод возвращает информацию в виде ссылки на объект IADsPropertyEntry, который можно использовать для получения информации о значении свойства.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Item()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод отличается от метода GetPropertyItem() тем, что позволяет получить свойство (то есть объект IADsPropertyEntry) по имени или номеру. Тип свойства передавать при этом не надо.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Next()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет вернуть следующее свойство в виде объекта IADsPropertyEntry. Обычно он используется для перебора всех свойств какого-либо объекта.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PurgePropertyList()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод можно считать обратным методу IADs.GetInfo() - он очищает кэш свойств, удаляя из него информацию для всех свойств данного объекта. При этом сам объект Active Directory никак не затрагивается — этот метод работает только с представлением данного объекта в памяти. Обычно он используется, чтобы высвободить память на компьютере, на котором производятся операции с объектами Active Directory средствами ADSI.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PutPropertyItem()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет присвоить новое значение свойству объекта Active Directory. По своим возможностям этот метод очень похож на метод Put() интерфейса IADs, и после его вызова необходимо вызвать метод IADs.SetInfo(). В качестве параметра метод PutPropertyInfo() принимает объект PropertyEntry, в котором должно быть задано новое значение для свойства.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Reset()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет вернутся на начало списка свойств после вызова метода Next(), чтобы вернуться к исходному состоянию.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ResetPropertyItem()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет удалить указанное свойство из кэша свойств. Этому методу можно передать как имя свойства, так и его номер. Этот метод используется только для экономии оперативной памяти, на сам объект Active Directory он никак не влияет.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Skip()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет переместить курсор для списка свойств на указанное количество позиций. В качестве параметра этот метод принимает количество позиций, на которое следует переместиться. Обычно этот метод используется вместо метода Next() или вместе с ним для сокращения количества выполняемых операций.</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейс IADsPropertyEntry предназначен для работы со значением (или значениями) свойства объекта Active Directory. Он может использоваться как для получения информации о значении свойства, так и для назначения свойству нового значения или значений. Свойства и методы: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Name</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Имя свойства, которое всегда соответствует наименованию соответствующего атрибута для объекта Active Directory согласно схеме.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADsType</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Тип свойства в соответствии со значением перечисления ADSTYPEENUM.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ControlCode</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Позволяет определить тип операции, выполняемой со свойством. Возможные значения (перечисление ADS_PROPERTY_OPERATION_ENUM): </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_CLEAR (1) - очистить объект свойства, убрав все настроенные для него ранее значения свойств;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_UPDATE (2) - заменить существующее значение свойства другим значением;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_APPEND (3) - добавить указанное значение к уже существующим;</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADS_PROPERTY_DELETE (4) - убрать ранее настроенное конкретное значение.</li></ul></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Values</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Определяет значения для свойства. Свойство Values работает с массивом объектов типа Variant. Любой из объектов типа Variant, который находится в данном массиве, должен обязательно реализовывать интерфейс IADsPropertyValue.</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейсы IADsPropertyValue и IADsPropertyValue2 используются непосредственно для работы со значениями свойств. Каждому объекту IADsPropertyValue соответствует конкретное значение свойства. Массив значений (то есть массив объектов IADsPropertyValue) передаётся при помощи свойства Values объекта IADsPropertyEntry. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойства и методы интерфейса IADsPropertyValue: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADsType</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство позволяет определить тип данных для свойства в соответствии с набором значений, предусмотренных перечислением ADSTYPEENUM.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Clear()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет очистить все значения, заданные ранее для объекта IADsPropertyValue.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DNString<br />CaseExactString<br />CaseIgnoreString<br />PrintableString<br />NumericString<br />Boolean<br />Integer<br />OctetString<br />UTCTime<br />LargeInteger<br />SecurityDescriptor</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Эти свойства предназначены для работы с атрибутами соответствующих типов (в соответствии с перечислением ADSTYPEENUM). Попытка обращения к свойству несоответствующего типа вернёт ошибку. Если вам потребовалось выполнить какую-либо операцию со значением такого типа, который не представлен в этой таблице, интерфейс IADsPropertyValue для этой цели использовать будет невозможно. Вместо этого вам придётся воспользоваться интерфейсом IADsPropertyValue2.</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Методы интерфейса IADsPropertyValue2: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetObjectProperty()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет получить значение атрибута объекта Active Directory. Он принимает единственный параметр: тип атрибута в соответствии с перечислением ADSTYPEENUM и возвращает значение этого атрибута при помощи типа данных Variant.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PutObjectProperty()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет задать значение для атрибута объекта Active Directory. В качестве параметров он принимает тип атрибута в соответствии с перечислением ADSTYPEENUM и само значение (как Variant).</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Значения перечисления ADSTYPEENUM: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_INVALID</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_DN_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_CASE_EXACT_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_CASE_IGNORE_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_PRINTABLE_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_NUMERIC_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_BOOLEAN</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_INTEGER</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_OCTET_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_UTC_TIME</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_LARGE_INTEGER</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_PROV_SPECIFIC</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_OBJECT_CLASS</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_CASEIGNORE_LIST</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">13</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_OCTET_LIST</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">14</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_PATH</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">15</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_POSTALADDRESS</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_TIMESTAMP</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">17</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_BACKLINK</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">18</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_TYPEDNAME</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">19</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_HOLD</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">20</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_NETADDRESS</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">21</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_REPLICAPOINTER</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">22</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_FAXNUMBER</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">23</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_EMAIL</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">24</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_NT_SECURITY_DESCRIPTOR</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">25</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_UNKNOWN</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">26</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_DN_WITH_BINARY</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">27</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ADSTYPE_DN_WITH_STRING</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">28</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В интерфейсе IADsDomain реализованы свойства, обращаться к которым можно только через провайдер WinNT. Пример работы со свойствами объекта домена приведён в статье <a href="http://www.script-coding.com/ADSI.html"><span style=" text-decoration: underline; color:#0000ff;">Введение в Active Directory Service Interface (ADSI): провайдер WinNT</span></a>. Впрочем, можно работать через значения атрибутов и интерфейсы IADsPropertyList, IADsPropertyEntry, IADsPropertyValue. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект организационного подразделения реализует стандартные интерфейсы IADs, IADsContainer, IADsPropertyList, а также специализированный интерфейс IADsOU. Свойства IADsOU (например, BusinessCategory, Description, FaxNumber, LocalityName, TelephoneNumber) достаточно очевидны. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект группы поддерживает стандартные интерфейсы IADs и IADsPropertyList, а также специализированный интерфейс IADsGroup. Многие важные свойства групп (например, тип группы) через данный интерфейс недоступны и работать с ними нужно средствами интерфейсов IADsPropertyList, IADsPropertyEntry, IADsPropertyValue. Для атрибута groupType (тип группы) используются значения: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:5px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 - системная группа (такие группы создаются автоматически при создании домена, самостоятельно создать такую группу нельзя);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2 - глобальная группа (по умолчанию);</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4 - доменная локальная группа;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8 - универсальная группа;</li>
+<li style=" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0x80000000 - группа безопасности. Это значение используется только в сочетании с другими значениями. </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойства и методы интерфейса IADsGroup: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Description</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство представляет текстовое описание для данной группы.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Add()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет добавить объект Active Directory (чаще всего учетную запись пользователя) в группу. Ему можно передавать путь в формате AdsPath или SID объекта в различных форматах.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IsMember()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет проверить, является ли объект Active Directory членом данной группы и возвращает True или False. Учитывается только непосредственное членство: если, например, объект пользователя входит в глобальную группу, которая в свою очередь входит в локальную, то проверка членства для пользователя в локальной группе вернет False. Проверка может быть произведена только для объектов того же домена. Метод принимает в качестве параметра путь AdsPath или SID объекта (для провайдера WinNT проверка по SID не поддерживается).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Members()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод возвращает коллекцию объектов Active Directory, которые являются членами данной группы (как Variant).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Remove()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод, обратный методу Add(), позволяет удалить объект из группы. Этот метод принимает параметры в том же формате, что и метод Add().</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Объект пользователя в ADSI поддерживает свойства и методы стандартных интерфейсов IADs и IADsPropertyList. Также для него реализован специализированный интерфейс IADsUser, в который сведены свойства для доступа к наиболее часто используемым атрибутам. Для объекта пользователя в Active Directory предусмотрено огромное количество атрибутов (несколько сотен), и для многих из них доступ возможен только через интерфейсы IADsPropertyList, IADsPropertyEntry, IADsPropertyValue (но не через IADsUser). Большая часть свойств (Department, Division, EmailAddress, FaxNumber, FirstName, FullName и т.п.) очевидна и комментариев не требует. Некоторые не самые очевидные свойства и методы: <br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AccountDisabled</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство определяет, отключена ли учетная запись. По умолчанию объект пользователя создается в отключенном состоянии. Для этого свойства используются значения True и False. Однако для атрибута UserAccountControl объекта пользователя в Active Directory, который соответствует этому свойству, предусмотрено несколько десятков значений. Значению False свойства AccountDisabled соответствует значение атрибута UserAccountControl 544, а значению True (то есть учетная запись отключена) - 546.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AccountExpirationDate</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Время и дата, когда учётная запись автоматически отключится. Обычно используется для временных сотрудников.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">BadLoginAddress</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о компьютере, с которого была произведена последняя попытка неудачного входа (с неверным паролем) для данной учётной записи. Эту информацию (свойство доступно только на чтение) можно использовать для обнаружения вторжений.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">BadLoginCount</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о количестве неудачных попыток входа (с неверным паролем) после последнего сброса счётчика.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GraceLoginsAllowed</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о количестве входов в сеть, которые пользователь может произвести после того, как срок его пароля истек.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GraceLoginsRemaining</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество оставшихся входов в сеть для данного пользователя (когда срок действия пароля закончился).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IsAccountLocked</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Заблокирована ли учетная запись пользователя после превышения порогового значения неверных попыток входа. Это свойство доступно и на чтение, и на запись, поэтому его можно использовать для разблокирования учетной записи.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LastFailedLogin</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о дате и времени последней неудачной попытки (по причине неверного пароля) входа пользователя. Можно использовать для расследования попыток вторжения.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LastLogin</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о дате и времени последнего входа в сеть.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LastLogoff</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о последнем выходе пользователя из сети (если этот выход был произведен корректно).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MaxLogins</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о максимальном количестве пользователей, которые могут одновременно входить в сеть от имени данной учетной записи.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PasswordExpirationDate</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Дата и время, когда срок действия пароля данного пользователя истечет.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PasswordLastChanged</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Дата и время последнего изменения пароля.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PasswordMinimumLength</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Минимальная длина пароля в символах.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PasswordRequired</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство (доступное и на чтение, и на запись) позволяет определить, обязателен ли пароль для данного пользователя.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RequireUniquePassword</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Это свойство (доступное и на чтение, и на запись) позволяет определить, распространяются ли на данную учетную запись требования по уникальности пароля (то есть будет ли к нему применяться проверка истории паролей).</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ChangePassword()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет поменять пароль пользователя. В качестве параметров этот метод принимает старый пароль и новый пароль. Обычно этот метод используется для того, чтобы создать свой собственный интерфейс, при помощи которого пользователь сможет менять себе пароль.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SetPassword()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод предназначен для администраторов и позволяет поменять пароль, не зная старого. В качестве параметра он принимает только новый пароль.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Groups()</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Этот метод позволяет вернуть коллекцию объектов групп, в которые входит данный пользователь. При этом системные группы (такие, как Domain Users) не учитываются.</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="samples"></a><span style=" font-size:x-large; font-weight:600;">П</span><span style=" font-size:x-large; font-weight:600;">римеры</span> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Просмотр атрибутов объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">GetObject = win32com.client.GetObject</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = GetObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение/CN=Фамилия Имя&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">print obj.Get(&quot;sAMAccountName&quot;), obj.Get(&quot;cn&quot;), obj.Get(&quot;sn&quot;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Модификация атрибутов объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение/CN=Фамилия Имя&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                       &quot;домен\\пользователь&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.Put(&quot;sn&quot;, &quot;НовоеИмя&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.SetInfo()</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отображение всех объектов пользователей, групп или компьютеров указанного контейнера: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">GetObject = win32com.client.GetObject</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = GetObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.Filter = [&quot;User&quot;]</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># obj.Filter = [&quot;Group&quot;]</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># obj.Filter = [&quot;Computer&quot;]</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for o in obj:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print o.ADsPath</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Просмотр всех обязательных свойств класса объекта (важно для создания объектов): </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">GetObject = win32com.client.GetObject</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = GetObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение/CN=Фамилия Имя&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">objClass = GetObject(obj.Schema)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">for prop in objClass.MandatoryProperties:</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">    print prop</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Создание объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                       &quot;домен\\пользователь&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">objClass = &quot;user&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">objRelativeName = &quot;CN=_TestAdmin&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">Prop1Name = &quot;sAMAccountName&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">Prop1Value = &quot;TestAdmin&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># здесь могут быть заданы значения других обязательных свойств</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">newObject = obj.Create(objClass, objRelativeName)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">newObject.Put(Prop1Name, Prop1Value)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># здесь могут быть присвоены другие обязательные свойства</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">newObject.SetInfo()</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Переименование объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                       &quot;домен\\пользователь&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.MoveHere(&quot;LDAP://DC=ru/DC=домен/OU=подразделение/CN=_TestAdmin&quot;, &quot;CN=_CoolAdmin&quot;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Перемещение объекта в другой контейнер: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделениеКуда&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                       &quot;домен\\пользователь&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.MoveHere(&quot;LDAP://DC=ru/DC=домен/OU=подразделениеОткуда/CN=_CoolAdmin&quot;, &quot;CN=_CoolAdmin&quot;)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Удаление объекта: </p>
+<pre style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;"># -*- coding: cp1251 -*-</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">import win32com.client</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">dso = win32com.client.GetObject(&quot;LDAP:&quot;)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj = dso.OpenDSObject(&quot;LDAP://DC=ru/DC=домен/OU=подразделение&quot;,</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">                       &quot;домен\\пользователь&quot;, &quot;пароль&quot;, 0)</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">objClass = &quot;user&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">objRelativeName = &quot;CN=_CoolAdmin&quot;</span></pre>
+<pre style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New,courier'; font-weight:600; color:#000080;">obj.Delete(objClass, objRelativeName)</span> </pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/resume.html"><span style=" font-size:small; text-decoration: underline; color:#0000ff;">Людоговский Александр</span></a> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://www.script-coding.com/index.html"><span style=" text-decoration: underline; color:#0000ff;">Перейти на главную страничку сайта (список статей, файлы для скачивания)</span></a> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:small;">© 2007 </span><a href="http://www.script-coding.com/"><span style=" font-size:small; text-decoration: underline; color:#0000ff;">http://www.script-coding.com</span></a><span style=" font-size:small;"> При любом использовании материалов сайта обязательна </span><span style=" font-size:small; font-weight:600;">ссылка</span><span style=" font-size:small;"> на него как на источник информации, а также сохранение </span><span style=" font-size:small; font-weight:600;">целостности</span><span style=" font-size:small;"> и </span><span style=" font-size:small; font-weight:600;">авторства</span><span style=" font-size:small;"> материалов.</span> </p></body></html>

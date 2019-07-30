@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="post hentry uncustomized-post-template" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><h3 class="post-title entry-title" itemprop="name">
+Урок 3. Атрибуты id, idMso и idQ и пространство имён.
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-3461060491230433499" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+На первом уроке мы добавили свою вкладку со своей группой в интерфейс. 
+Как вы, наверное, уже заметили, каждый элемент интерфейса формируется 
+XML-структурой, которая состоит из открывающего и закрывающего тегов, 
+атрибутов, присутствующих внутри открывающего тега, а также значений 
+этих атрибутов, помещённых в кавычки. Имя тега — это имя элемента. 
+Атрибуты — это параметры того или иного элемента.<br>
+<br>
+Одним из важнейших параметров является идентификатор элемента, по 
+которому приложение офиса отличает его от других элементов того же типа,
+ находящихся рядом в том же родительском элементе-контейнере. Другими 
+словами, он присутствует в любом элементе, если подразумевается 
+возможность нахождения нескольких однотипных элементов на одном уровне 
+иерархии. Так, например, элемент tabs не имеет идентификатора, поскольку
+ внутри родительского элемента ribbon может быть только один элемент 
+tabs. Других элементов tabs рядом быть не может. А вот элемент tab 
+обязан иметь идентификатор, поскольку внутри tabs этих элементов может 
+быть много, и их надо как-то различать.<br>
+<br>
+Когда мы вставляем в интерфейс какой-либо элемент, вместе с формирующими
+ элемент тегами в него вставляются некие обязательные атрибуты. При 
+вставке tabs были вставлены только теги, обязательных атрибутов у этого 
+элемента нет. А вот у tab обязательно должен быть идентификатор, поэтому
+ внутри открывающего тега мы видим атрибут <b>id</b>, который как раз и 
+задаёт этот идентификатор. Кроме того, странно было бы видеть вкладку 
+без названия (её тогда даже не будет видно, если она не является 
+текущей), поэтому в тег по умолчанию включён также атрибут <b>label</b>, который, хотя и не является обязательным, но практически всегда используется.<br>
+<br>
+Атрибут <b>id</b> позволяет задать пользовательский идентификатор 
+созданного элемента. Но наряду с элементами, созданными пользователем, 
+существуют и штатные элементы, уже присутствующие в приложении. Это 
+имеющиеся в нём изначально вкладки, группы, кнопки и т.д. Если мы 
+захотим вставить в нашу вкладку уже готовую штатную группу, то вместо <b>id</b> мы пишем <b>idMso</b>
+ (атрибут, задающий штатный идентификатор Microsoft Office) и вставляем в
+ его значение идентификатор того элемента, который хотим видеть. Таким 
+образом, <b>id</b> задаёт идентификатор для созданных пользователем элементов, а <b>idMso</b> — идентификатор уже существующего, штатного элемента офиса.<br>
+<br>
+Проверим это на практике, вставив на нашу вкладку вместо нашей группы другую, уже существующую в Word’е. Для этого откроем в <a href="http://novikovmaxim.narod.ru/products/ribbon/ribbon.htm" target="_blank">Ribbon XML Editor</a> наш последний документ, установим курсор в любое место атрибута <b>id</b> созданной нами группы и нажмём <b>Ctrl+Пробел</b>. Выберем в появившемся списке атрибут <b>idMso</b>. Атрибут <b>id</b> поменяется на атрибут <b>idMso</b>. Теперь поставим курсор внутрь кавычек перед нашим идентификатором, и снова нажмём <b>Ctrl+Пробел</b>. Откроется список идентификаторов существующих групп. Выберем идентификатор <i>GroupFont</i>.
+ Теперь запустим документ, и если у вас было включено отображение ошибок
+ интерфейса (Файл - Параметры - Дополнительно - Общие - Показывать 
+ошибки интерфейса пользователя надстроек), Word выдаст ошибку по поводу 
+того, что не может изменить label существующей группы. Закрыв окно 
+ошибки, мы увидим, что вместо нашей группы в нашей вкладке появилась 
+существующая в Word’е группа «Шрифт», а наш атрибут <b>label</b> не 
+применился. Так же были бы обруганы и все другие созданные нами 
+элементы, если бы мы попытались вставить их внутрь этой группы. Отметим 
+на будущее, что готовые штатные группы не поддаются модификации.<br>
+<br>
+Помимо <b>id</b> и <b>idMso</b> есть ещё один интересный  атрибут для задания идентификаторов — <b>idQ</b>.
+ С помощью него можно выйти за рамки пользовательских и штатных 
+идентификаторов, и сослаться на элемент, находящийся, например, в 
+какой-нибудь сторонней надстройке. Это становится возможным благодаря 
+тому, что <b>idQ</b> позволяет задать в своём значении не только сам идентификатор, но и некий префикс, которому заранее присвоено <b>пространство имён</b>, использующееся в сторонней надстройке. Другими словами, можно сказать, что область видимости <b>idQ</b> не ограничена конкретным пространством имён, как это происходит у <b>id</b> или <b>idMso</b>.<br>
+<br>
+Немного о том, что такое упомянутое мной в выше пространство имён. 
+Пространство имён — это просто часть имени идентификатора, т.е. кусок 
+строки, негласно добавляемый перед строкой каждого идентификатора, 
+находящегося в зоне действия этого пространства имён. Этим достигается 
+уникальность имён всех идентификаторов внутри офисного приложения, даже 
+если элементы одновременно присутствующих надстроек, в которых объявлены
+ разные пространства имён, названы одинаково.<br>
+<br>
+Кроме банального достижения уникальности, пространство имён часто 
+используется для того, чтобы объединить несколько надстроек на одной, 
+созданной для них вкладке. Обычно это делается в случае разделения одной
+ большой надстройки на несколько более мелких. Это особенно удобно, 
+если, например, разные группы в надстройке разрабатывается разными 
+авторами. В этом случае во всех разрабатываемых надстройках объявляется 
+одинаковое пространство имён, а идентификатор общей вкладки указывается 
+атрибутом <b>idQ</b> с указанием префикса этого пространства. С примером использования <b>idQ</b> для объединения надстроек на одной вкладке мы познакомимся позже.<br>
+<br>
+Исходя из вышесказанного вытекает, что <b>idQ</b> можно применять и вместо <b>id</b> и вместо <b>idMso</b>,
+ и это так. Поясню на простейшем примере. Все штатные идентификаторы в 
+2007-й версии офиса находятся в пространстве имён 
+«http://schemas.microsoft.com/office/2006/01/customui». Если мы 
+посмотрим атрибуты элемента customUI в нашем коде, то найдём среди них 
+атрибут xmlns, которому присвоена вышеупомянутая строка. Если в xmlns не
+ указан префикс, то всем идентификаторам без префикса присваивается 
+именно это пространство имён (т.н. пространство имён по умолчанию). В 
+этом случае, атрибут <b>idQ</b> рассматривает все идентификаторы без 
+префикса как идентификаторы пространства имён 
+«http://schemas.microsoft.com/office/2006/01/customui». То есть, 
+теоретически, мы можем писать <b>idQ</b> вместо <b>idMso</b> без какой-либо дополнительной доработки кода.<br>
+<br>
+Теперь про использование <b>idQ</b> вместо <b>id</b>. Для этого надо объявить какое-то своё, дополнительное пространство имён — добавить второй атрибут <b>xmlns</b>
+ с указанием желаемого префикса (в виде постфикса атрибута xmlns), и 
+присвоить ему любую другую строку, которая и будет определять новое 
+пространство имён, например:<br>
+<br>
+<p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    xmlns:моё="Моё пространство имён"</p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<br>
+Теперь все идентификаторы, имеющие префикс «моё:» будут находится в 
+нашем пространстве имён «Моё пространство имён», и вместо 
+id="мояВкладка" можно написать idQ="моё:мояВкладка". В качестве 
+пространств имён можно использовать любую строку с пробелами и другими 
+символами, но на практике чаще всего используют URL (интернет-адрес). <br>
+<br>
+Фактически по этому адресу в Интернете может не быть ничего. Например, в
+ случае со стандартными пространствами имён 
+«http://schemas.microsoft.com/office/2006/01/customui» и 
+«http://schemas.microsoft.com/office/2009/07/customui» при переходе по 
+этим адресам (по крайней мере, на момент написания этого урока) сайт <a href="http://schemas.microsoft.com/">http://schemas.microsoft.com</a>
+ вываливает строку «The resource you are looking for has been removed, 
+had its name changed, or is temporarily unavailable.», т.е. «Ресурс, 
+который вы ищете, был удалён, переименован, или временно недоступен.». 
+Но в других случаях по подобным адресам можно найти странички с 
+описанием соответствующего пространства имён.<br>
+<br>
+На практике с пространствами имён и атрибутами, позволяющими его задавать внутри своих значений (а это не только idQ, а ещё и <b>insertAfterQ</b> и <b>insertBeforeQ</b>), мы познакомимся позже. А пока мы просто попытались понять различия между атрибутами <b>id</b>, <b>idMso</b> и <b>idQ</b>, а также получили первичное представление о пространствах имён.<br>
+<br>
+На этом сегодняшний урок мы закончим, а следующий раз продолжим 
+модификацию интерфейса и познакомимся с некоторыми другими полезными 
+атрибутами элементов интерфейса.</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+
+<a href="https://www.blogger.com/profile/15132597310126998409" rel="author" title="author profile">
+<span itemprop="name">dolbodub</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+на
+
+<a class="timestamp-link" href="http://fluentui.blogspot.ru/2015/02/3-id-idmso-idq.html?m=1" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2015-02-24T17:12:00+03:00">17:12</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<div class="mobile-link-button goog-inline-block" id="mobile-share-button">
+<a href="javascript:void(0);">Поделиться</a>
+</div>
+<div class="goog-inline-block dummy-container"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none;  font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1526205998572" name="I0_1526205998572" src="1.png" data-gapiattached="true" title="G+" width="100%" frameborder="0"></iframe></div></div>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>14 комментариев:</h4>
+<div class="comments-content">
+
+
+<div id="comment-holder">
+
+<div id="bc_0_15C" kind="c"><div id="bc_0_15CT"><div id="bc_0_14T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_14TB"><li id="bc_0_8B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c3780945274431297230" class="comment-block"><div id="bc_0_8M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13357728351184639665">Алексей Мальков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1443688578717&amp;m=1#c3780945274431297230">01 октября, 2015 11:36</a></span></div><p id="bc_0_8MC" class="comment-content">При
+ вставке стандартного idMso сам Ворд пишет об ошибке свойства label, 
+после чего переименовывает его в Шрифт. Ошибка возникает и при свойстве 
+label="Шрифт". Само приложение ошибку не показывает при проверке. Пока 
+не справился. </p><span id="bc_0_8MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_8BR" class="comment-replies"><span id="bc_0_8b+seedGh3CD" kind="d"><div id="bc_0_0T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_0TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_0TA" class="thread-arrow"></span><span id="bc_0_0TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_0TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_0TC" class="thread-chrome thread-expanded"><div><li id="bc_0_0B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c2817457276346282120" class="comment-block"><div id="bc_0_0M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1443728480585&amp;m=1#c2817457276346282120">01 октября, 2015 22:41</a></span></div><p id="bc_0_0MC" class="comment-content">Приведите пожалуйста пример кода, чтобы я мог его проверить.</p><span id="bc_0_0MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_0BR" class="comment-replies"></div><div id="bc_0_0B_box" class="comment-replybox-single"></div></li><li id="bc_0_1B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c6612994527215091717" class="comment-block"><div id="bc_0_1M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13357728351184639665">Алексей Мальков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444046883506&amp;m=1#c6612994527215091717">05 октября, 2015 15:08</a></span></div><p id="bc_0_1MC" class="comment-content"><br>  <br>   <br>    <br>     <br>    <br>   <br>  <br> <br><br>Код ошибки: 0х80004005<br>Не удаётся изменить элементы управления во встроенной группе GroupFont</p><span id="bc_0_1MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_1BR" class="comment-replies"></div><div id="bc_0_1B_box" class="comment-replybox-single"></div></li><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c1399506156314841040" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13357728351184639665">Алексей Мальков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444046961212&amp;m=1#c1399506156314841040">05 октября, 2015 15:09</a></span></div><p id="bc_0_2MC" class="comment-content"><span class="deleted-comment">Этот комментарий был удален автором.</span></p><span id="bc_0_2MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_2BR" class="comment-replies"></div><div id="bc_0_2B_box" class="comment-replybox-single"></div></li><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c5920224938518983789" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13357728351184639665">Алексей Мальков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444047158459&amp;m=1#c5920224938518983789">05 октября, 2015 15:12</a></span></div><p id="bc_0_3MC" class="comment-content">Виден ли код? А то на телефоне не отображается.</p><span id="bc_0_3MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_3BR" class="comment-replies"></div><div id="bc_0_3B_box" class="comment-replybox-single"></div></li><li id="bc_0_4B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c8848762501375324436" class="comment-block"><div id="bc_0_4M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444076681564&amp;m=1#c8848762501375324436">05 октября, 2015 23:24</a></span></div><p id="bc_0_4MC" class="comment-content">Код
+ не виден, но ведь он правильно пишет, элементы встроенной группы 
+изменять нельзя. Можно создать свою группу, и натаскать туда нужные 
+элементы.</p><span id="bc_0_4MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_4BR" class="comment-replies"></div><div id="bc_0_4B_box" class="comment-replybox-single"></div></li><li id="bc_0_5B" class="comment" kind="b"><div class="avatar-image-container"><img src="2.png"></div><div id="c7238019071880822327" class="comment-block"><div id="bc_0_5M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/13357728351184639665">Алексей Мальков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444117162695&amp;m=1#c7238019071880822327">06 октября, 2015 10:39</a></span></div><p id="bc_0_5MC" class="comment-content">Я
+ понимаю, но это не согласуется с вашим утверждением: "а атрибут label 
+вообще игнорирован". Если оставлять любое значение атрибута label, то 
+выйдет ошибка. Чтобы её избежать данный атрибут нужно удалить полностью.</p><span id="bc_0_5MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_5BR" class="comment-replies"></div><div id="bc_0_5B_box" class="comment-replybox-single"></div></li><li id="bc_0_6B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c7246964906130348862" class="comment-block"><div id="bc_0_6M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1444176734214&amp;m=1#c7246964906130348862">07 октября, 2015 03:12</a></span></div><p id="bc_0_6MC" class="comment-content">У меня он игнорировался. Возможно, у меня не было принудительно включено отображение ошибок в Word'е. Спасибо за замечание.</p><span id="bc_0_6MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_6BR" class="comment-replies"></div><div id="bc_0_6B_box" class="comment-replybox-single"></div></li><li id="bc_0_7B" class="comment" kind="b"><div class="avatar-image-container"><img src="10.png"></div><div id="c4755633928750041593" class="comment-block"><div id="bc_0_7M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/06164174392650393751">Unknown</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1508135313235&amp;m=1#c4755633928750041593">16 октября, 2017 09:28</a></span></div><p id="bc_0_7MC" class="comment-content">Надо удалить Label вообще, т.е. оставить только идентификатор.</p><span id="bc_0_7MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_7BR" class="comment-replies"></div><div id="bc_0_7B_box" class="comment-replybox-single"></div></li></div><div id="bc_0_0I" class="continue" kind="ci"><a href="javascript:;" target="_self">Ответить</a></div></ol><div id="bc_0_0T_box" class="comment-replybox-thread"></div></div></span></div><div id="bc_0_8B_box" class="comment-replybox-single"></div></li><li id="bc_0_13B" class="comment" kind="b"><div class="avatar-image-container"><img src="10.png"></div><div id="c1699593866754250441" class="comment-block"><div id="bc_0_13M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/04586904316093804620">Unknown</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1490956174020&amp;m=1#c1699593866754250441">31 марта, 2017 13:29</a></span></div><p id="bc_0_13MC" class="comment-content">Подскажите, пожайлуста, IdMso елемента "Цвет заливки" и к какой группе контролов он относится</p><span id="bc_0_13MN" class="comment-actions secondary-text" kind="m"><a kind="i" href="javascript:;" target="_self" o="r">Ответить</a></span></div><div id="bc_0_13BR" class="comment-replies"><span id="bc_0_13b+seedGh3KD" kind="d"><div id="bc_0_9T" class="comment-thread inline-thread" kind="t" t="0" u="0"><span id="bc_0_9TT" class="thread-toggle thread-expanded" kind="g"><span id="bc_0_9TA" class="thread-arrow"></span><span id="bc_0_9TN" class="thread-count"><a href="javascript:;" target="_self">Ответы</a><div id="bc_0_9TD" class="thread-dropContainer thread-expanded"><span class="thread-drop"></span></div></span></span><ol id="bc_0_9TC" class="thread-chrome thread-expanded"><div><li id="bc_0_9B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c1775344010971826578" class="comment-block"><div id="bc_0_9M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1490956548283&amp;m=1#c1775344010971826578">31 марта, 2017 13:35</a></span></div><p id="bc_0_9MC" class="comment-content">Видимо, вы имеете ввиду это:<br><br><br>Нужные идентификаторы ищите в Word через всплывающие подсказки команд в настройках ленты.</p><span id="bc_0_9MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_9BR" class="comment-replies"></div><div id="bc_0_9B_box" class="comment-replybox-single"></div></li><li id="bc_0_10B" class="comment" kind="b"><div class="avatar-image-container"><img src="3.png"></div><div id="c1268212600360633400" class="comment-block"><div id="bc_0_10M" class="comment-header" kind="m"><cite class="user blog-author"><a rel="nofollow" href="https://www.blogger.com/profile/15132597310126998409">dolbodub</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1490956687125&amp;m=1#c1268212600360633400">31 марта, 2017 13:38</a></span></div><p id="bc_0_10MC" class="comment-content">Не пропечаталось, повторю тут:<br><br>Элемент: control<br>idMso="TextHighlightColorPicker"</p><span id="bc_0_10MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_10BR" class="comment-replies"></div><div id="bc_0_10B_box" class="comment-replybox-single"></div></li><li id="bc_0_11B" class="comment" kind="b"><div class="avatar-image-container"><img src="10.png"></div><div id="c4259410703113003501" class="comment-block"><div id="bc_0_11M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/04586904316093804620">Aleksandr H.</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1490963335490&amp;m=1#c4259410703113003501">31 марта, 2017 15:28</a></span></div><p id="bc_0_11MC" class="comment-content">Спасибо
+ за ответ. Но...мне в Excele надо и нет такого idMso. Зато нашел 
+CellFillColorPicker. Брал список с 
+https://www.microsoft.com/en-us/download/details.aspx?id=36798, но 
+трудно понять что есть что. <br>За "Смотреть идентификаторы через всплывающие подсказки" отдельное спасибо! теперь все будет на одной вкладке :)</p><span id="bc_0_11MN" class="comment-actions secondary-text" kind="m"></span></div><div id="bc_0_11BR" class="comment-replies"></div><div id="bc_0_11B_box" class="comment-replybox-single"></div></li><li id="bc_0_12B" class="comment" kind="b"><div class="avatar-image-container"><img src="15.png"></div><div id="c5223506713014589386" class="comment-block"><div id="bc_0_12M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="https://www.blogger.com/profile/10528953694270691440">Олег Кончаков</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://fluentui.blogspot.com/2015/02/3-id-idmso-idq.html?showComment=1525106735343&amp;m=1#c5223506713014589386">30 апреля, 2018 19:45</a></span></div><p id="bc_0_12MC" class="comment-content">https://www.microsoft.com/en-us/download/details.aspx?id=36798 <br>Оччень помогло. <br>Получилось:<br>idMso="MergeCells" — Объединить ячейки;<br>idMso="SplitCells" — Разъединить ячейки;<br>idMso="AutoSum"  — Автосумма;<br>idMso="SheetRowsInsert" — Вставить строки на лист;<br>idMso="SheetRowsDelete" — Удалить строки с листа.</p></div></li></div></ol></div></span></div></li></ol></div></div></div></div></div></div>
+</body>
+</html></p></body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<h3>Как вычислить интервал между двумя датами, измеряемый в разных единицах</h3>
+<p>
+Как вы уже наверняка знаете, для вычисления интервала между двумя
+датами можно использовать встроенную в VB функцию DateDiff. Но
+работать с этой функцией нужно очень внимательно, с учетом входящих в
+нее ограничений.
+</p><p>
+Отгадайте такую загадку. Заданы две даты в виде переменных DateStart и
+DateFinish. Чтобы определить временной интервал между ними, мы
+написали такую процедуру:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в годах = "; DateDiff("yyyy", DateStart, DateFinish)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в месяцах= "; DateDiff("m", DateStart, DateFinish)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в днях = "; DateDiff("d", DateStart, DateFinish)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в часах = "; DateDiff("h", DateStart, DateFinish)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в минутах = "; DateDiff("n", DateStart, DateFinish)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Print "Интервал в секундах= "; DateDiff("s", DateStart, DateFinish)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+И получили такой парадоксальный результат:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в годах = 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в месяцах = 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в днях = 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в часах = 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в минутах = 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интервал в секундах = 1</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+<i><b>ВОПРОС.</b> Почему так произошло и о каких датах шла речь?</i>
+</p><p>
+<b>ОТВЕТ.</b> Дело в том, что функция DateDiff определяет временной интервал
+элементарно — в соответствии с заданным первым параметром просто
+отбрасывает значения даты "после этой точки". То есть если вы задали
+"день", то отбрасываются часы (0 часов), если месяц — дни (первое
+число месяца). В соответствии с этим алгоритмом получается, что между
+31 мая 2000-го и 1 июня 2000-го в единицах "месяц" разница — один
+месяц (что в определенном смысле совершенно верно).
+</p><p>
+В нашем же примере исходные значения даты были равны
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DateS = "31.12.2000 23:59:59"</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DateF = "01.01.2001"</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+Изменение показателя текущего момента на одну секунду привело к
+изменению минут, часов, суток, месяца и года (и даже века и
+тысячелетия). Очевидно, что самое точное определение интервала дается
+в данном случае в секундах (этой точности вполне достаточно для
+решения большинства бытовых и деловых проблем). Но как
+интерпретировать величину типа 12 345 678 сек? Конечно, желательно
+получить информацию в более привычных единицах — месяцах, днях,
+минутах. В таких случаях вам поможет подпрограмма DateIntervals,
+позволяющая передавать две даты и свои собственные переменные для
+указанного интервала:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Public Sub DateIntervals(ByVal DateS _</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  As Date, ByVal DateF As Date, ParamArray Prams())</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  If UBound(Prams) &lt; 0 Then Exit Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  Dim i As Long, itr As String</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  '</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  ' Если не задан день, то считаем его "сегодняшним"</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  If DateValue(DateS) = 0 Then DateS = DateS + DateValue(Now)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  If DateValue(DateF) = 0 Then DateF = DateF + DateValue(Now)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  '</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  For i = 0 To IIf(UBound(Prams) &gt; 5, 5, UBound(Prams))</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    If Not IsMissing(Prams(i)) Then</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      If i = 0 Then</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        itr = "yyyy"</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Else</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        itr = Mid$("mdhns", i, 1)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      End If</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      Prams(i) = DateDiff(itr, DateS, DateF)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      If DateAdd(itr, Prams(i), DateS) &lt;= DateF Then _</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        Prams(i) = Prams(i) - 1</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">      DateS = DateAdd(itr, Prams(i), DateS)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    End If</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  Next i</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+Подпрограмма DateIntervals возвращает наибольший полный интервал
+указанного вами типа (год, месяц, день, час, минута, секунда) между
+двумя датами. Например, чтобы получить интервал времени в часах и
+минутах между 09:00 и 17:15, передайте в подпрограмму эти две даты, а
+также две переменные, задающие размерность интервала. Используйте
+запятые, чтобы пропустить более крупные ненужные интервалы:
+<p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim Hours As Variant, Minutes As Variant</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Call DateIntervals(Now, "23.05.2000", , , , Hours, Minutes)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox "Часов = " &amp; Hours &amp; _</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">       "Минут = " &amp; Minutes</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+Подпрограмма вернет "Часов = 8, Минут = 15".
+</p><p>
+Однако здесь следует обратить внимание на такой любопытный момент. Если вы
+выполните такое обращение к функции:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Call DateIntervals("28.02.2000", "01.03.2001", Years, , Days)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Years &amp; " " &amp; Days</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Call DateIntervals("29.02.2000", "01.03.2001", Years, , Days)</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MsgBox Years &amp; " " &amp; Days</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+то получите для разных начальных дат один и тот же результат — 1 год
+и 1 день. Казалось бы, в подпрограмме есть ошибка, но это не так.
+Данный парадокс объясняется неопределенностью интервала в один год —
+он может быть 365 и 366 дней (так же, как и в один месяц).
+Соответственно в первом случае "год" является високосным
+(366 дней), а во втором — обычным (365 дней). Чтобы представить
+эту ситуацию, вообразите, что ваш знакомый говорит 31 января:
+"Позвони мне ровно через месяц" (или 29 февраля 2000 года
+— "ровно через год"). Когда же будет эта точная дата
+намеченного звонка?
+</p><p>
+Отметим также, что алгоритм расчета интервала с использованием
+привычных единиц можно выполнить и по-другому — сначала
+определить интервал в секундах, а потом выделить из него минуты, часы
+и сутки (с месяцами и годами тут возникнут те же проблемы). Но он
+будет выглядеть не так изящно, как приведенная выше подпрограмма.
+</p><p>
+В процедуре DateIntervals хотелось бы обратить внимание еще на три
+используемые нами конструкции:
+</p><ol>
+<p>
+</p><li>Для передачи возвращаемых параметров мы используем массив Param() с ключевым 
+словом ParamArray. Такая конструкция применима только в конце списка аргументов 
+подпрограммы и указывает, что данный аргумент является массивом типа Optional 
+элементов типа Variant. С его помощью можно задать произвольное число 
+аргументов. Кроме того, ParamArray нельзя использовать вместе с ключевыми 
+словами ByVal, ByRef, или Optional.
+<p>
+В принципе, можно было бы просто зарезервировать в вызывающей подпрограмме 
+массив Param (0 To 5) и использовать непосредственно его. Но в данном случае 
+подпрограмма выполнила бы расчет для всех элементов этого массива. Применение 
+ParamArray позволяет нам пропускать "ненужные" параметры. Например, в нашем
+обращении мы получим результат в полных годах и весь остаток интервала
+— в секундах:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Call DateIntervals("28.02.2000", "01.03.2001", Years, , , , ,Secs)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+</p></li><li>Для выбора нужного значения из двух вариантов мы используем функцию:
+<p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MyVal = IIf(expr, truepart, falsepart)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+которая равнозначна такому варианту:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If expr Then</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MyVal = truepart</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Else</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  MyVal = falsepart</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End If</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+</p></li><li>При коррекции временного интервала мы использовали такую конструкцию:
+<p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If DateAdd(itr, Prams(i), DateS) &lt;= DateF Then _</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                Prams(i) = Prams(i) - 1</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+Любители хитроумных преобразований данных могли бы предложить более
+"изящный" вариант:
+</p><p>
+</p><p style=" background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Prams(i) = Prams(i) + (DateAdd(itr, Prams(i), DateS) &gt; DateF)</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p>
+имея в виду, что арифметическое значение логического выражения будет
+равно -1 (True) или 0 (False). Мы, со своей стороны, настоятельно не
+рекомендуем пользоваться неявными преобразованиями типов данных.
+</p></li></ol>
+</body>
+</html></p></body></html>

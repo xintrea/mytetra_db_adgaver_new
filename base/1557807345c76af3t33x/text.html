@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">--\\ время в текствый формат</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">t_Point: IIf([TimePoint]&gt;#01.01.1900#;Format([TimePoint];&quot;Краткий формат времени&quot;) &amp; &quot;:00&quot;;&quot;&quot;)</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">--\\ Определить по какому расписанию считать</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Id_R: IIf([1_PJI(SFP2)]![TimePoint]&lt;CDate(&quot;04.02.2019 7:00:00&quot;) And [1_PJI(SFP2)]![TimePoint]&gt;CDate(&quot;04.12.2017 7:00:00&quot;);&quot;R&quot;;IIf(InStr(1;DatePart('ww';[1_PJI(SFP2)]![TimePoint];0;2)/2;&quot;,&quot;;0)=0;&quot;R1&quot;;&quot;R2&quot;))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EQ: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R&quot;;[List_hour_min_R]![EQ];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R1&quot;;[List_hour_min_R]![EQR1];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R2&quot;;[List_hour_min_R]![EQR2];&quot;-&quot;)))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Id_Hour: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R&quot;;[List_hour_min_R]![Id_Hour];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R1&quot;;[List_hour_min_R]![Id_Hour_R1];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R2&quot;;[List_hour_min_R]![Id_Hour_R2];&quot;-&quot;)))</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Lib_Hour: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R&quot;;[List_hour_min_R]![Lib_Hour];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R1&quot;;[List_hour_min_R]![Lib_hourR1];</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IIf([1_PJI(SFP2)_pr]![Id_R]=&quot;R2&quot;;[List_hour_min_R]![Lib_hourR2];&quot;-&quot;)))</p></body></html>

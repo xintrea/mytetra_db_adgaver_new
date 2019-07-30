@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<header class="node__header"><h1 class="node__title"><span class="field field-name-title field-formatter-string field-type-string field-label-hidden">Как работать в командной строке Linux</span>
+</h1></header>
+
+    <div class="node__content">
+    
+
+
+<ins class="adsbygoogle ad_top" style="display: block; width: 300px; height: 250px;" data-ad-client="ca-pub-4587725615773462" data-ad-slot="8642904531" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:300px;height:250px;" width="300" height="250" frameborder="0"></iframe></ins></ins></ins>
+<div class="clearfix text-formatted field field-node--body field-formatter-text-default field-name-body field-type-text-with-summary field-label-hidden has-single"><div class="field__items"><div class="field__item"><p><a href="https://younglinux.info/sites/default/files/pdf/input.pdf">Презентация к уроку</a></p>
+
+<h2>1 прерываение</h2>
+
+<p>Помните команду <strong>sleep</strong> из предыдущего урока? Если ввести что-то наподобие <strong>sleep 100</strong>, то может понадобиться прервать выполнение команды. Сделать это можно с помощью сочетания клавиш <strong>Ctrl + C</strong>. Есть много процессов командной оболочки, прерывание которых обеспечивается сочетанием клавиш <strong>Ctrl + D</strong> или <strong>Ctrl + C</strong> или <strong>Ctrl + Z</strong>.</p>
+
+<p class="text-align-center"><img alt="sleep_0.png" src="1.png" width="518" height="129"></p>
+
+<p>Другой пример, где может понадобиться прерывание, — это команда <strong>cat</strong>. Когда она используется без параметров, то выводит на экран то, что вводит пользователь.</p>
+
+<p class="text-align-center"><img alt="cat.png" src="2.png" width="283" height="288"></p>
+
+<h2>2 история команд</h2>
+
+<p>Работая в командной строке, очень часто требуется повторить ранее 
+введенную команду. Набирать ее снова не слишком рационально. Для повтора
+ ранее введенных команд в командной оболочке Linux возможна прокрутка 
+команд с помощью стрелок вверх и вниз на клавиатуре. Происходит 
+прокрутка команд назад или вперед. Когда появится нужная команда следует
+ нажать Enter и команда будет повторена. Понятно, что при этом можно 
+видоизменить команду (например, изменить параметр).</p>
+
+<h2>3 автозавершение</h2>
+
+<p>Автозавершение позволяет при нажатии определенной клавиши 
+автоматически дописывать начатую команду. Это очень удобное свойство 
+командной оболочки, т.к позволяет не знать команды и параметры наизусть и
+ экономит время при вводе. Автозавершение в командной оболочке Linux 
+срабатывает при нажатии клавиши Tab (табуляция). При этом автозавершение
+ сработает лишь в том случае, если команда (параметр) определяется 
+однозначно.</p>
+
+<p>Например, для просмотра содержимого рабочего стола не обязательно писать <strong>ls Desktop</strong>. Достаточно написать <strong>ls De</strong> и нажать клавишу Tab — оболочка допишет слово сама. Однако если написать <strong>ls D</strong> и нажать Tab, то ничего не произойдет, т. к. обычно в домашнем каталоге пользователя есть два каталога, начинающиеся с буквы <strong>D</strong>, и какой из них имеется ввиду командная оболочка определить не может.</p>
+
+<p>Бывает что мы не знаем что вводить далее после нескольких букв и 
+командная оболочка после одиночного нажатия клавиши табуляции ничего не 
+дополняет. В таком случае может помочь двойное нажатие Tab, после 
+которого на экране появляется перечень всех возможных вариантов. 
+Например, мы можем забыть как правильно писать команду <strong>echo</strong>. Но если введем букву e и нажмем два раза Tab, то увидим перечень команд, в котором можем узнать требуемую нам команду.</p>
+
+<p class="text-align-center"><img alt="echo_0.png" src="3.png" width="438" height="464"></p>
+
+<p>Тоже самое можно использовать в случае <strong>ls D</strong>. В этом случае выведется список каталогов, начинающихся с буквы <strong>D</strong>.</p>
+
+<p class="text-align-center"><img alt="lsd.png" src="4.png" width="282" height="54"></p>
+
+<h2>4 ctrl + u</h2>
+
+<p><strong>Ctrl + U</strong> отменяет введенную в текущей строке команду. Если команда длинная, то использовать <strong>Ctrl + U</strong> куда удобнее, чем стирать буквы по порядку с помощью клавиши Backspace.</p>
+
+<p>Есть и другие сочетания клавиш, облегчающие работу с командной строкой (например, <strong>Ctrl + W</strong> – удаление слова).</p>
+
+<h2>5 ввод данных в файл и вывод из файла</h2>
+
+<p>Когда мы работаем в командной оболочке, то работаем в интерактивном 
+режиме: спрашиваем и получаем ответ. При этом ответы оболочки не 
+сохраняются, но что делать, если результат работы команды требуется 
+сохранить? На этот случай командная оболочка поддерживает такие функции 
+как перенаправление стандартного ввода и вывода. Ввод можно направить не
+ на экран, а в файл.</p>
+
+<p>Аналогично, данные можно ввести не с помощью клавиатуры, а получить из файла.</p>
+
+<p>Перенаправление осуществляется с помощью знаков <strong>&lt;</strong> и <strong>&gt;</strong>. Угол указывает куда направить, а обратная сторона (широкая) — откуда взять. Например, команда <strong>cat &gt; fileX</strong> запишет все, что введет пользователь в процессе работы программы cat, в файл с именем fileX. А вот команда <strong>cat &lt; fileY</strong> сделает обратное — выведет на экран содержимое файла <strong>fileY</strong>.</p>
+
+<p>Рассмотрим пример более практического использования перенаправления. 
+Допустим нам надо оставить на потом сведения о содержимом домашнего 
+каталога. Для этого мы перенаправим вывод команды <strong>ls</strong> в файл (например, <strong>ls &gt; myhome</strong>).
+ Еще хорошо бы, чтобы в этом файле содержалась дата когда был взят этот 
+"срез". Для этого допишем в файл результат команды date, которая 
+позволяет получить дату и время (<strong>date &gt;&gt; myhome</strong>). Обратите внимание, что для дополнения файла используется два знака <strong>&gt;</strong>;
+ если использовать один знак, то произойдет перезапись (старые данные 
+сотрутся и заменятся новыми). Теперь предположим, что через какое-то 
+время потребовалось узнать, что же было в папке ранее: для этого 
+достаточно выполнить команду <strong>cat &lt; myhome</strong>.</p>
+
+<p class="text-align-center"><img alt="input.png" src="5.png" width="404" height="339"></p>
+
+<h2>вопросы</h2>
+
+<ol><li>Как прервать выполнение какой-либо команды?</li>
+	<li>Каким образом можно просматривать ранее введенные команды?</li>
+	<li>Что такое автозавершение? Как им пользоваться в командной оболочке bash?</li>
+	<li>Для чего предназначена комбинация клавиш <strong>Ctrl + U</strong>?</li>
+	<li>Что произойдет в результате выполнения следующих команд: <strong>cat &gt; text333, cal &gt; yest, date &gt;&gt; yest</strong>?</li>
+</ol><h2>практическая работа</h2>
+
+<ol><li>Выполните в командной оболочке bash команду <strong>cat</strong> без параметров. Введите несколько строк, а затем прервите выполнение данной команды.</li>
+	<li>Выполните в командной строке несколько команд, которые вы знаете. Повторите некоторые из них без записи самих команд.</li>
+	<li>Напишите в командной строке <strong>ls -l Do</strong>, нажмите Tab, затем Enter. Объясните поведение оболочки.</li>
+	<li>Узнайте какие команды есть на букву <strong>z</strong>.</li>
+	<li>Создайте файл, содержащий сведения о вашем имени, фамилии и возрасте. Выведите содержимое этого файла на экран.</li>
+</ol></div></div>
+</div>
+<div class="field field-node--field-date-create field-formatter-datetime-default field-name-field-date-create field-type-datetime field-label-inline clearfix has-single"><h3 class="field__label">Создано</h3><div class="field__items"><div class="field__item"><time datetime="2010-01-09T12:00:00Z" class="datetime">2010-01-09</time>
+</div></div>
+</div></div>
+</body>
+</html></p></body></html>

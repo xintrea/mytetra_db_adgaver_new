@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<div class="smallfont"><strong>Прилинковывание таблиц</strong>
+			</div>
+			<hr style="color:#5C5E5C; background-color:#5C5E5C" size="1">
+			
+		
+
+		
+		<div id="post_message_1097371">
+			  
+    
+
+
+
+			Доброго дня всем!<br>
+<br>
+Я разделил свою базу и прининковываю таблицы вот так<br>
+<br>
+<div style="margin:20px; margin-top:5px">
+	<div class="smallfont" style="margin-bottom:2px">Код:</div>
+<p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span class="hljs-keyword">Set</span> tdfLinked = CurrentDb().CreateTableDef(<span class="hljs-string">"T_Staff"</span>)</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tdfLinked.Connect = <span class="hljs-string">";DATABASE="</span> &amp; Pname</p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tdfLinked.SourceTableName = <span class="hljs-string">"T_Staff"</span></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CurrentDb().TableDefs.Append tdfLinked</p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</div>Это все работает. <br>
+Но хочется поставить пароль на  файл с таблицами и вот здесь возникает проблема. <br>
+Я делаю так:<br>
+<br>
+<div style="margin:20px; margin-top:5px">
+	<div class="smallfont" style="margin-bottom:2px">Код:</div>
+<p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style=" font-family:'Courier New,Courier,sans-serif'; background-color:#eff0f1; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">tdfLinked.Connect = <span class="hljs-string">";DATABASE="</span> &amp; Pname &amp; <span class="hljs-string">" ;PWD = '1'"</span></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; background-color:#eff0f1; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p><p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; font-size:10px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+</div>Если путь писать в явном виде то все работает, а если переменной то пароль почему-то не присоединяется к строке.<br>
+<br>
+За любую информацию спасибо.
+		</div>
+</body>
+</html></p></body></html>

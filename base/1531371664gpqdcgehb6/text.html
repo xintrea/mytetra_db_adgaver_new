@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<html>
+<a class="subscribe-menu" href="http://www.leadersoft.ru/Rus/Market/Db/Products/60/help/899.html"><font color="Red">065. Открытие таблиц в ADO и DAO</font></a><p style="font:large;margin-bottom :20px;font-family:Arial;">
+                04. Открыть таблицы базы данных можно по разному. Эти 
+функции показывают, как можно это сделать из разных библиотек.
+                </p>
+                
+                
+
+<table id="table01" width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody>
+  <tr>
+    <td valign="top" align="left">
+		<table style="background-color: #99CC99" width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#89bbcb">
+						<tbody><tr bgcolor="#ffffff">
+										<td>
+										<span class="product_header">
+										<a href="http://www.leadersoft.ru/Rus/Market/db/Default.aspx?go=product&amp;pid=60">
+										Все примеры Microsoft Access</a></span></td>
+						</tr>
+						<tr bgcolor="#ffffff">
+										<td>
+										<font size="-1" face="Courier New"><font color="#007700">'==============================================================</font><br>
+<font color="#007700">' ADO. Использование таблиц</font><br>
+<font color="#0000aa">Private Sub </font>butADO_Click()<br>
+<font color="#0000aa">Dim </font>rst <font color="#0000aa">As </font>ADODB.Recordset<br>
+    <br>
+    <font color="#007700">' Включаем обработку ошибок</font><br>
+    <font color="#0000aa">On Error GoTo </font>999<br>
+    <br>
+    <font color="#007700">' Создание запроса</font><br>
+    <font color="#0000aa">Set </font>rst = <font color="#0000aa">New </font>ADODB.Recordset<br>
+    <br>
+    <font color="#007700">' Заполняем запрос</font><br>
+    <font color="#0000aa">With </font>rst<br>
+        .CursorType = adOpenKeyset<br>
+        .LockType = adLockOptimistic<br>
+        .Source = <font color="#660000">"[Пример 04]"</font><br>
+        .Open , CurrentProject.Connection, , , adCmdTable<br>
+        <font color="#0000aa">If </font>rst.RecordCount <font color="#0000aa">Then</font><br>
+            .MoveLast <font color="#007700">' Заполнение запроса и расчет кол-ва записей</font><br>
+            .MoveFirst <font color="#007700">' Начнем с первой записи</font><br>
+            <font color="#0000aa">Do Until </font>.EOF<br>
+                <font color="#007700">' Изменение записей</font><br>
+                rst!Описание = <font color="#660000">"ADO. Пример 04"</font><br>
+                rst.Update<br>
+                rst.MoveNext<br>
+            <font color="#0000aa">Loop</font><br>
+        <font color="#0000aa">End If</font><br>
+    <font color="#0000aa">End With</font><br>
+    <br>
+    <font color="#007700">' Отображаем список</font><br>
+    Me.myList.RowSource = <font color="#660000">"ADODB. Изменение сделаны;Всего записей: "</font> &amp; Format(rst.RecordCount, <font color="#660000">"000"</font>)<br>
+    <br>
+    <font color="#007700">' Конец просмотра</font><br>
+    rst.Close<br>
+    <font color="#0000aa">Set </font>rst = <font color="#0000aa">Nothing</font><br>
+    <font color="#0000aa">Exit Sub</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+    Err.Clear<br>
+<font color="#0000aa">End Sub</font><br>
+<hr><br>
+<font color="#007700">'==============================================================</font><br>
+<font color="#007700">' DAO. Использование таблиц</font><br>
+<font color="#0000aa">Private Sub </font>butDAO_Click()<br>
+<font color="#0000aa">Dim </font>dbs <font color="#0000aa">As </font>DAO.Database<br>
+<font color="#0000aa">Dim </font>rst <font color="#0000aa">As </font>DAO.Recordset<br>
+    <br>
+    <font color="#007700">' Включаем обработку ошибок</font><br>
+    <font color="#0000aa">On Error GoTo </font>999<br>
+    <br>
+    <font color="#007700">' Создание запроса</font><br>
+    <font color="#0000aa">Set </font>dbs = CurrentDb <font color="#007700">' Текущая база данных</font><br>
+    <font color="#0000aa">Set </font>rst = dbs.OpenRecordset(<font color="#660000">"Пример 04"</font>, dbOpenTable)<br>
+    <br>
+    <font color="#007700">' Заполняем запрос</font><br>
+    <font color="#0000aa">With </font>rst<br>
+        <font color="#0000aa">If </font>.RecordCount <font color="#0000aa">Then</font><br>
+            .MoveLast <font color="#007700">' Заполнение запроса</font><br>
+            .MoveFirst <font color="#007700">' Начнем с первой записи</font><br>
+            <font color="#0000aa">Do Until </font>.EOF<br>
+                <font color="#007700">' Изменение записей</font><br>
+                rst.Edit<br>
+                rst!Описание = <font color="#660000">"DAO. Пример 04"</font><br>
+                rst.Update<br>
+                rst.MoveNext<br>
+            <font color="#0000aa">Loop</font><br>
+        <font color="#0000aa">End If</font><br>
+    <font color="#0000aa">End With</font><br>
+    <br>
+    <font color="#007700">' Отображаем список</font><br>
+    Me.myList.RowSource = <font color="#660000">"DAO. Изменения сделаны;Всего записей: "</font> &amp; Format(rst.RecordCount, <font color="#660000">"000"</font>)<br>
+    <br>
+    <font color="#007700">' Конец просмотра</font><br>
+    rst.Close<br>
+    <font color="#0000aa">Set </font>rst = <font color="#0000aa">Nothing</font><br>
+    <font color="#0000aa">Set </font>dbs = <font color="#0000aa">Nothing</font><br>
+    <font color="#0000aa">Exit Sub</font><br>
+999:<br>
+    MsgBox Err.Description<br>
+    Err.Clear<br>
+<font color="#0000aa">End Sub</font><br>
+<hr></font></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html></p></body></html>
