@@ -1,69 +1,40 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 <html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
 p, li { white-space: pre-wrap; }
-</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Как выборочно скрыть стрелки автофильтра</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Автор Дмитрий Якушев На чтение2 мин. Просмотров64 </p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Что делает макрос: </span>Само собой разумеется, что функция AutoFilter в Excel является одной из самых полезных. Единственная проблема заключается в том, что стандартная функциональность AutoFilter применяет стрелки раскрывающегося списка к каждому столбцу в выбранном наборе данных. Хорошей новостью является то, что с макросом VBA, вы можете выборочно скрыть стрелки автофильтра раскрывающегося списка.</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Содержание</p>
-<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kak-makros-rabotaet"><span style=" text-decoration: underline; color:#0000ff;">Как макрос работает</span></a></li>
-<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kod-makrosa"><span style=" text-decoration: underline; color:#0000ff;">Код макроса</span></a></li>
-<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kak-ispolzovat"><span style=" text-decoration: underline; color:#0000ff;">Как использовать</span></a></li></ol>
-<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kak-makros-rabotaet"></a><span style=" font-size:x-large; font-weight:600;">К</span><span style=" font-size:x-large; font-weight:600;">ак макрос работает</span></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В VBA, мы можем использовать объект AutoFilter, чтобы включить автофильтры для определенного диапазона. Например:</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
-<tr>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_433330"></a>1</p></td>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Range(&quot;B5:G5&quot;).AutoFilter</span></p></td></tr></table>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После того, как применится автофильтр, мы можем манипулировать с каждой колонкой в Автофильтре. Например, вы можете выполнить некоторые действия на третьей колонке в Автофильтре, вот так:</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
-<tr>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_874229"></a>1</p></td>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Range(&quot;B5:G5&quot;).AutoFilter Field:3</span></p></td></tr></table>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вы можете выполнять множество действий на поле Автофильтр. В этом случае, мы заинтересованы сделать стрелки раскрывающегося списка невидимыми в поле. Для этого мы можем использовать параметр <span style=" font-weight:600;">VisibleDropDown</span>. Установка этого параметра в значение False делает стрелку раскрывающегося списка невидимой.</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
-<tr>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_946241"></a>1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Range(&quot;B5:G5&quot;).AutoFilter Field:3,</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">VisibleDropDown:=False</span></p></td></tr></table>
-<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kod-makrosa"></a><span style=" font-size:x-large; font-weight:600;">К</span><span style=" font-size:x-large; font-weight:600;">од макроса</span></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример макроса, где мы включаем автофильтры, а затем делаем видимыми только первую и последнюю раскрывающиеся стрелки .</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
-<tr>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_320316"></a>1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">7</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">10</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">11</p></td>
-<td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Sub</span> <span style=" font-family:'Courier New';">SkritStrelkiAvtofiltra()</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">With</span> <span style=" font-family:'Courier New';">Range(&quot;B5:G5&quot;)</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=1, VisibleDropDown:=True</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=2, VisibleDropDown:=False</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=3, VisibleDropDown:=False</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=4, VisibleDropDown:=False</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=5, VisibleDropDown:=False</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">.AutoFilter Field:=6, VisibleDropDown:=True</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">End</span> <span style=" font-family:'Courier New';">With</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">End</span> <span style=" font-family:'Courier New';">Sub</span></p></td></tr></table>
-<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kak-ispolzovat"></a><span style=" font-size:x-large; font-weight:600;">К</span><span style=" font-size:x-large; font-weight:600;">ак использовать</span></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для реализации этого макроса, вы можете скопировать и вставить его в стандартный модуль:</p></body></html>
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; font-weight:600;">Как выборочно скрыть стрелки автофильтра</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">Автор Дмитрий Якушев На чтение2 мин. Просмотров64 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt; font-weight:600;">Что делает макрос: </span><span style=" font-size:9pt;">Само собой разумеется, что функция AutoFilter в Excel является одной из самых полезных. Единственная проблема заключается в том, что стандартная функциональность AutoFilter применяет стрелки раскрывающегося списка к каждому столбцу в выбранном наборе данных. Хорошей новостью является то, что с макросом VBA, вы можете выборочно скрыть стрелки автофильтра раскрывающегося списка.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">Содержание</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-size:9pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kak-makros-rabotaet"><span style=" text-decoration: underline; color:#0000ff;">Как макрос работает</span></a></li>
+<li style=" font-size:9pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kod-makrosa"><span style=" text-decoration: underline; color:#0000ff;">Код макроса</span></a></li>
+<li style=" font-size:9pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://excelpedia.ru/makrosi-v-excel/skrit-strelki-avtofiltra#kak-ispolzovat"><span style=" text-decoration: underline; color:#0000ff;">Как использовать</span></a></li></ol>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kak-makros-rabotaet"></a><span style=" font-size:9pt; font-weight:600;">К</span><span style=" font-size:9pt; font-weight:600;">ак макрос работает</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">В VBA, мы можем использовать объект AutoFilter, чтобы включить автофильтры для определенного диапазона. Например:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">Range(&quot;B5:G5&quot;).AutoFilter</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#00007f;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">После того, как применится автофильтр, мы можем манипулировать с каждой колонкой в Автофильтре. Например, вы можете выполнить некоторые действия на третьей колонке в Автофильтре, вот так:</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">Range(&quot;B5:G5&quot;).AutoFilter Field:3</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#00007f;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">Вы можете выполнять множество действий на поле Автофильтр. В этом случае, мы заинтересованы сделать стрелки раскрывающегося списка невидимыми в поле. Для этого мы можем использовать параметр </span><span style=" font-size:9pt; font-weight:600;">VisibleDropDown</span><span style=" font-size:9pt;">. Установка этого параметра в значение False делает стрелку раскрывающегося списка невидимой.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">Range(&quot;B5:G5&quot;).AutoFilter Field:3,</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">VisibleDropDown:=False</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#00007f;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kod-makrosa"></a><span style=" font-size:9pt; font-weight:600;">К</span><span style=" font-size:9pt; font-weight:600;">од макроса</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:9pt;">Пример макроса, где мы включаем автофильтры, а затем делаем видимыми только первую и последнюю раскрывающиеся стрелки .</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#00007f;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">Sub SkritStrelkiAvtofiltra()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">With Range(&quot;B5:G5&quot;)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=1, VisibleDropDown:=True</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=2, VisibleDropDown:=False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=3, VisibleDropDown:=False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=4, VisibleDropDown:=False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=5, VisibleDropDown:=False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">.AutoFilter Field:=6, VisibleDropDown:=True</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00007f;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#00007f;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;"><br /></p></body></html>
