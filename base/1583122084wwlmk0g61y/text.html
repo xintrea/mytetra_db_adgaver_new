@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вставь этот код <span style=" font-weight:600;">в новый программный модуль</span> (а не в модуль листа или книги, как ты делал это раньше)<br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Код: </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Declare Function GetSystemMetrics Lib &quot;user32.dll&quot; (ByVal nIndex As Long) As Long</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Const SM_CXSCREEN = 0, SM_CYSCREEN = 1</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">Private Sub Workbook_Open()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    x = GetSystemMetrics(SM_CXSCREEN)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    y = GetSystemMetrics(SM_CYSCREEN)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">    MsgBox &quot;Разрешение экрана &quot; &amp; x &amp; &quot; * &quot; &amp; y</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Пиксели и твипы на VBA</span></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><a href="https://www.programmersforum.ru/showthread.php?t=208444"><span style=" font-weight:600; text-decoration: underline; color:#0000ff;">https://www.programmersforum.ru/showthread.php?t=208444</span></a></p>
+<p style=" margin-top:0px; margin-bottom:12px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;"><a name="post_message_1080186"></a>Цитата: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px;" width="100%" cellspacing="0" cellpadding="8">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">вытащил GetDeviceCaps(hDC, HORZRES)=1024, a GetDeviceCaps(hDC, VERTRES)=768[/SIZE]! <br />Это размеры дисплея? </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Да, скорее всего.<br />Зачем так усложнять получение разрешения экрана?<br /><a href="http://www.programmersforum.ru/showpost.php?p=221709&amp;postcount=8"><span style=" text-decoration: underline; color:#0000ff;">http://www.programmersforum.ru/showp...09&amp;postcount=8</span></a><br /><br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Цитата: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px;" width="100%" cellspacing="0" cellpadding="8">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Но в каких единицах измерения выдаваемые числа? </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пиксели<br /><br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Цитата: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px;" width="100%" cellspacing="0" cellpadding="8">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В каких единицах измерения задаются UserForm1.Top, UserForm1.Left, UserForm1.Height, UserForm1.Width? </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пиксели<br /><br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Цитата: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px;" width="100%" cellspacing="0" cellpadding="8">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как все эти понятия (пиксели, поинты, твипы и DPI) связаны друг с другом? </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Яндекс вам в помощь, в этом вопросе<br />А нафига вам это всё?<br />Для вывода формы в нужном месте экрана всё это вроде как не требуется.<br /><br /></p>
+<p style=" margin-top:5px; margin-bottom:2px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;">Цитата: </p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px;" width="100%" cellspacing="0" cellpadding="8">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">дабы закрыть от пользователя нижнее Window'ое меню с кнопкой пуск и вкладку Excel'я с листами </p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">зачем так извращаться?<br />Полностью скрыть или отобразить панель задач Windows можно через WinAPI<br />(по сути, это то же самое окно, которому можно послать любую команду),<br />и делается это совсем несложно:<br /><a href="http://www.cyberforum.ru/vb-net/thread450625.html"><span style=" text-decoration: underline; color:#0000ff;">http://www.cyberforum.ru/vb-net/thread450625.html</span></a><span style=" color:#000000;"> </span></p></body></html>
