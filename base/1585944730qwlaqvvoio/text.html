@@ -1,0 +1,522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large; font-weight:600;">RecordSet</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The Recordset object is used to hold a set of records from a database table.<br />When you first open a recordset, the currrent record pointer will point to the first record, and the BOF and EOF properties are False.<br />If there are no reocrds, the BOF and EOF properties are True.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Recordset objects can support two types of updating<br /><span style=" font-weight:600;">Immediate Updating</span> - all changes are written immediately to the database once you call the Update method<br /><span style=" font-weight:600;">Batch Updating</span> - the provider cache multiple changes and then send them to the database with the UpdateBatch method</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Returning a RecordSet</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">There are in fact three ways you can create a recordset.<br />Another difference is the way the command is specified in the three methods: <br />Both the execute methods are intended for (but not limited to) executing commands that do not return data.<br />On the other hand, the Open method allows you to specify the CursorType (strategy and object used to access the data); and LockType (specify the degree of isolation from other users, and whether the cursor should support updates in immediate or batch modes).</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Connection.Execute(CommandText, RecordsAffected, Options)</span><br />The Connection.Execute method uses the connection embodied by the Connection object itself. In the Connection.Execute method, the command is a string.<br /><span style=" font-weight:600;">CommandText</span> - <br /><span style=" font-weight:600;">RecordsAffected</span> - <br /><span style=" font-weight:600;">Options</span> - </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Command.Execute(RecordsAffected, Parameters, Options)</span><br />The Command.Execute method allows you to use parameterized commands. The Command.Execute method uses the Connection object set in its ActiveConnection property. In the Command.Execute method, the command isn't visible, it's specified in the Command.CommandText property.<br />Furthermore, the command can contain parameter symbols ('?') which will be replaced by the corresponding parameter in the Parameters VARIANT array argument.<br /><span style=" font-weight:600;">RecordsAffected</span> - <br /><span style=" font-weight:600;">Parameters</span> - <br /><span style=" font-weight:600;">Options</span> - </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Recordset.Open [Source] [, Connection] [, CursorType] [, LockType] [, Options]</span><br />The Recordset.Open method specifies either a connect string or Connection object operand, or uses the Connection object set in its ActiveConnection property. In the Recordset.Open method, the command is the Source argument, which can be a string or a Command object.<br />Although you could invoke a short-cut method using Recordset.Open where the activeconnection could be a literal string or a connection object representing an open connection</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Source</span> - tells it what data it should retrieve. The Source could be any of the following: Command object - Name of a view / query; String variable - Stored procedure / function; Name of a table - Valid SQL stamement<br /><span style=" font-weight:600;">Connection</span> - Assign an existing connection object or a connection string. If you assign a connection string then the Recordset Object will create a Connection for you automatically<br /><span style=" font-weight:600;">CusorType</span> - indicates the type of cursor used when opening the recordset<br /><span style=" font-weight:600;">LockType</span> - indicates the type of the lock in effect for editing<br /><span style=" font-weight:600;">Options</span> - used to tell the provider how to interpret and execute the contents of the source argument</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">You can open three types of recordset - Snapshot, Dynaset, Table</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Recordset Properties and Methods</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Name</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Type</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Description</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Absolute</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AbsolutePage</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AbsolutePosition</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AddNew</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Creates a new record</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">BOF</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">returns True if the current record position is before the first record, otherwise False</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bookmark</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns a boomark. Lets the user flag a record in a recordset and return to it later</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CacheSize</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">lets you cache a given number of records to improve performance</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CancelBatch</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Cancels a batch update</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CancelUpdate</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Cancels changes made to a record</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Clone</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">creates copies of a reocrdset allowing the user position the record pointer of each copy idenpendently. Usually done by creating a small array of recordsets</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CompareBookmarks</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Compares two bookmarks</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CursorLocation</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the location of the cursor</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">CursorType</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the cursor type of the recordset object</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Data Member</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the name of the data member that will be retieved from the object referenced by the DataSource property</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DataSource</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Specifies an onject containing data to be represented as a Recordset object</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Delete</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EditMode</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Returns the editing status of the current record</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EOF</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Returns True if the current record position is after the last record, otehrwise False</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Exceute</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Fields</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Filter</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">allows you to restrict the records viewed in a reocrdset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">GetRows</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Retrieve a specified number of rows from a recordset and returns a Variant array. The first dimension contains columns the second dimension contains rows.</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">GetString</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Returns a recordset as a string</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Index</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the name of the current index for a recordset object</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">LockType</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns a value that specifies the type of locking when editing a recordset object</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MarshallOptions</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">specifies what rows are sent back to the server (whether all rows or just modified rows)</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MaxRecords</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">specifies the maximum of records returned before opening the recordset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Move</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">will move the current record position any number of places (either positive or negative) . This requires of a datatype of a type long</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveFirst</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The order of records depends on the current index, or, if there is no index, on the order of entry. This method functions with all cursor types. Its use with forward-only cursors can force a reexecution of the command that generated the recordset.</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveLast</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Establishes the last record in a recordset as the current record position. It requires a cursor type that supports backward movement or at least movement based on bookmarks. Using the method with a forward-only cursor generates a run-time error.</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MoveNext</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Relocates the current record position one record forward (in the direction of the recordset's final record). If the current record position is the last record, the recordset's EOF property is set to True. If this method is called when the recordset's EOF property is already True, a run-time error results.</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MovePrevious</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sends the current record position one record backward. If the current record position is the first record, the recordset's BOF property is set to True. If this method is called when the recordset's BOF property is already True, a run-time error results. This method also generates a run-time error if you use it with a forward-only cursor type.</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">NextRecordSet</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Lets you view the data in a recordset that uses a compound command statement made up of a series of SELECT statements</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Open</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Opens a database element giving you access to records in a table, the results of a query or to a previously saved recordset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PageCount</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Returns the number of pages with data</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PageSize</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the maximum number of records allowed on a single page</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">RecordCount</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Retruns the number of records</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Requery</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">to retrieve current data in a recordset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Resync</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Refreshes data in a static variable</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Save</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Saves a recordset to a file or a stream object</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Seek</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Searches the index of a recordset to find a record that matches the specified values</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sort</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns the field name(s) to sort on</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">State</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Status</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Returns the status of the current record with regard to batch updates or other bulk operations</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">StayInSyn</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Property</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sets or returns whether the reference to the child records will change when the parent record position changes</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Update</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">replaces the original data with the buffered data inb the Recordset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">UpdateBatch</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Method</p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Saves all changes when working in batch update maode</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The row you can examine and manipulate at any given time is the current row, and your location in the Recordset is the current row position. Every time you move to another row, that row becomes the new current row.<br />Several methods explicitly move or &quot;navigate&quot; through the Recordset (the Move methods). Some methods (the Find method) do so as a side effect of their operation. In addition, setting certain properties (Bookmark property) can also change your row position.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Fields Collection</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">A Recordset has a Fields collection, which is the set of Field objects that represent each field (or column).<br />Assign or retrieve the data for a field from the Field object's Value property.<br />As an option, you can access field data in bulk (the GetRows and Update methods).<br />This contains all the information about the fields returned including the column names of each field in the recordset.<br />This collection is most commonly used proir to accessing the actual contents of the recordset</p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#969696;">Public</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Sub</span><span style=" font-family:'Courier New';"> RecordsetToRange(</span><span style=" font-family:'Courier New'; color:#969696;">ByVal</span><span style=" font-family:'Courier New';"> sColFirst </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">String</span><span style=" font-family:'Courier New';">, _ <br />                            </span><span style=" font-family:'Courier New'; color:#969696;">ByVal</span><span style=" font-family:'Courier New';"> lRowFirst </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Long</span><span style=" font-family:'Courier New';">, _ <br />                   </span><span style=" font-family:'Courier New'; color:#969696;">Optional</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">ByVal</span><span style=" font-family:'Courier New';"> bIncludeFields </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Boolean</span><span style=" font-family:'Courier New';"> = </span><span style=" font-family:'Courier New'; color:#969696;">True</span><span style=" font-family:'Courier New';">) <br /></span><span style=" font-family:'Courier New'; color:#969696;">Dim</span><span style=" font-family:'Courier New';"> lrownumber <br /></span><span style=" font-family:'Courier New'; color:#969696;">Dim</span><span style=" font-family:'Courier New';"> icolumnnumber </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Integer</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">Dim</span><span style=" font-family:'Courier New';"> lrecordcounter </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Long</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">Dim</span><span style=" font-family:'Courier New';"> ifieldnumber </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Long</span><span style=" font-family:'Courier New';"> <br /><br />   lrownumber = lRowFirst <br />   </span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> dbADORecordSet.State = ADODB.adStateOpen </span><span style=" font-family:'Courier New'; color:#969696;">Then</span><span style=" font-family:'Courier New';"> <br />      icolumnnumber = Col_Number(sColFirst) <br />      </span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> bIncludeFields = </span><span style=" font-family:'Courier New'; color:#969696;">True</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Then</span><span style=" font-family:'Courier New';"> <br />         </span><span style=" font-family:'Courier New'; color:#969696;">For</span><span style=" font-family:'Courier New';"> ifieldnumber = 1 </span><span style=" font-family:'Courier New'; color:#969696;">To</span><span style=" font-family:'Courier New';"> dbADORecordSet.Fields.Count <br />            ActiveSheet.Range(Col_Letter(icolumnnumber) &amp; lrownumber).Value = _ <br />                              </span><span style=" font-family:'Courier New'; color:#969696;">CStr</span><span style=" font-family:'Courier New';">(dbADORecordSet.Fields(ifieldnumber - 1).Name) <br />            icolumnnumber = icolumnnumber + 1 <br />         </span><span style=" font-family:'Courier New'; color:#969696;">Next</span><span style=" font-family:'Courier New';"> ifieldnumber <br />         lrownumber = lrownumber + 1 <br />      </span><span style=" font-family:'Courier New'; color:#969696;">End</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> <br />      </span><span style=" font-family:'Courier New'; color:#969696;">While</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Not</span><span style=" font-family:'Courier New';"> dbADORecordSet.EOF <br />         icolumnnumber = Col_Number(sColFirst) <br />         </span><span style=" font-family:'Courier New'; color:#969696;">For</span><span style=" font-family:'Courier New';"> ifieldnumber = 1 </span><span style=" font-family:'Courier New'; color:#969696;">To</span><span style=" font-family:'Courier New';"> dbADORecordSet.Fields.Count <br />            ActiveSheet.Range(Col_Letter(icolumnnumber) &amp; lrownumber).Value = _ <br />                              </span><span style=" font-family:'Courier New'; color:#969696;">CStr</span><span style=" font-family:'Courier New';">(dbADORecordSet.Fields(ifieldnumber - 1).Value) <br />            icolumnnumber = icolumnnumber + 1 <br />         </span><span style=" font-family:'Courier New'; color:#969696;">Next</span><span style=" font-family:'Courier New';"> ifieldnumber <br />         dbADORecordSet.MoveNext <br />         lrownumber = lrownumber + 1 <br />      </span><span style=" font-family:'Courier New'; color:#969696;">Wend</span><span style=" font-family:'Courier New';"> <br />   </span><span style=" font-family:'Courier New'; color:#969696;">End</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> <br />   </span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> dbADORecordSet = </span><span style=" font-family:'Courier New'; color:#969696;">Nothing</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">End</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Sub</span><span style=" font-family:'Courier New';"> <br /><br /></span><span style=" font-family:'Courier New'; color:#969696;">Dim</span><span style=" font-family:'Courier New';"> arRecords </span><span style=" font-family:'Courier New'; color:#969696;">As</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">Variant</span><span style=" font-family:'Courier New';"> <br />arRecords = objRecordset.GetRows() <br /></span><span style=" font-family:'Courier New'; color:#7895e6;">'This array will be zero based and will also include the column names ???<br /></span></pre>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Navigation</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Use the Move methods to navigate from the beginning of the sorted, filtered recordset to the end</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">CursorLocation</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">CursorType</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adOpenDynamic - Lets you see changes to rows by others and any added rows</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adOpenStatic - A read only snapshot, you can't see any changes made by others</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adOpenUnspecified</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adOpenForwardOnly (default) - A read only snapshot, lets you move through the record only once. Use the .movenext method to access successive rows</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adOpenKeyset - Lets you see changes to rows made by others, but you will not see new rows added by others</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Lock Type</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adLockPessimistic - Locks rows as oon as you use the Edit method (which places the row in editable state)</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adLockOptimistic</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adLockReadOnly (default) - No locks, cursor is read only</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adLockUnspecified</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adLockBatchOptimistic</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adAsyncConnect</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Options</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adCmdUnknown</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adCmdText - source is an SQL statement</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adCmdTable (default) - source is a table name, basically produces a small piece of SQL code to Select the whole table (analogous to a DAO dynaset record)</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adCmdTableDirect - source is a table name (analygous to a DAO dbpentable recordset</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adCmdStoredProc - source is a stored procedure or function (analogous to a DAO dynaset on a sorted query)</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">State</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adStateClosed</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adStateExecuting</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adStateFetching</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adStateOpen</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Filter</span></p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adFilterConflictingRecords</p></td></tr>
+<tr>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td style=" vertical-align:top; padding-left:6; padding-right:6; padding-top:6; padding-bottom:6;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">adFilterNone</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The row you can examine and manipulate at any given time is the current row, and your location in the Recordset is the current row position. Every time you move to another row, that row becomes the new current row.<br />Several methods explicitly move or &quot;navigate&quot; through the Recordset (the Move methods). Some methods (the Find method) do so as a side effect of their operation. In addition, setting certain properties (Bookmark property) can also change your row position.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Filter Property</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">The Filter property can be applied to control rows you can access (that is, which rows are &quot;visible&quot; to you). The Sort property controls the order in which you navigate the rows of the Recordset.<br />You can set multiple filters and the records exposed by the filtered recordset will be only those records that meet all the conditions.<br />To remove a filter from a recordset, set the filter property to adFilterNone</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">When you specify a parameter you must append it to the parameter collection</p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#969696;">Public</span><span style=" font-family:'Courier New';"> dbADORecordset as ADODB.recordset <br /></span><span style=" font-family:'Courier New'; color:#969696;">Public</span><span style=" font-family:'Courier New';"> dbADORecordsetFiltered as ADODB.recordset <br /></span><span style=" font-family:'Courier New'; color:#969696;">Public</span><span style=" font-family:'Courier New';"> sSQLQuery as </span><span style=" font-family:'Courier New'; color:#969696;">String</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">Public</span><span style=" font-family:'Courier New';"> sFilterStr as </span><span style=" font-family:'Courier New'; color:#969696;">String</span><span style=" font-family:'Courier New';"> <br /><br /></span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> dbADORecordSet = </span><span style=" font-family:'Courier New'; color:#969696;">New</span><span style=" font-family:'Courier New';"> ADODB.recordset <br />dbADORecordset.Cursortype  = ADODB.adOpenStatic <br />dbADORecordset.LockType = ADODB.adLockReadOnly <br /><br />sSQLQuery = &quot;SELECT * FROM PROCEDURES WHERE procedure_name LIKE 'p%</span><span style=" font-family:'Courier New'; color:#7895e6;">'&quot; </span><span style=" font-family:'Courier New';"> <br />dbADORecordset.Open sSQLQuery, sConnectionStr, , , adCmdText <br /><br />sFilterStr = &quot;procedure_name = 'parse_string</span><span style=" font-family:'Courier New'; color:#7895e6;">'&quot; </span><span style=" font-family:'Courier New';"> <br />dbRecordsetFiltered = dbADORecordset.Filter = sFilterStr <br /><br /></span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> dbADORecordset = </span><span style=" font-family:'Courier New'; color:#969696;">Nothing</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> dbADORecordsetFiltered = </span><span style=" font-family:'Courier New'; color:#969696;">Nothing</span><span style=" font-family:'Courier New';"> <br /></span></pre>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Properties Collection</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This contains any extended provider specific properties.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Example - Recordset.Open, with an invisible connection</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">recordset.Open Source, ActiveConnection, CursorType, LockType, Options The Recordset.Open method specifies either a connect string or Connection object operand, or uses the Connection object set in its ActiveConnection property. In the Recordset.Open method, the command is the Source argument, which can be a string or a Command object. </p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> objADORecordSet = </span><span style=" font-family:'Courier New'; color:#969696;">New</span><span style=" font-family:'Courier New';"> ADODB.Recordset <br />sConnectionString = &quot;PROVIDER = &quot;SQLOLEDB&quot; <br />                                   SERVER = <br />                                   DATABASE = <br />                                   UID = <br />                                   PWD = <br />sSQLQuery = &quot;SELECT * FROM Books&quot; <br />objADORecordSet.Open sSQLQuery, sConnectionString <br /></span></pre>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Note: When a recordset is open by passing a connection string instead of a connection object an invisible connection object is created before the recordset is open. Every time this code is called another connection to the data source is created which is probably unnecessary. Below is the Vb code to do the same although using a connection object</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">When a recordset is open by passing a connection string instead of a connection object an invisible connection object is created before the recordset is open. Every time this code is called another connection to the data source is created</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">You should always explicitly create and re-use a connection object. Note that the same rules apply to the Enter, RecordSet and Field objects</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Example - Recordset.Open, with a visible connection</span></p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> objADOConnection = </span><span style=" font-family:'Courier New'; color:#969696;">New</span><span style=" font-family:'Courier New';"> ADODB.Connection <br />sConnectionStr = &quot;PROVIDER=MSDASQL;&quot; &amp; _ <br />                 &quot;DRIVER={Oracle ODBC Driver};&quot; &amp; _ <br />                 &quot;DBQ=&quot; &amp; sConnectingString &amp; &quot;;&quot; &amp; _ <br />                 &quot;UID=&quot; &amp; sUserId &amp; &quot;;&quot; &amp; _ <br />                 &quot;PWD=&quot; &amp; sPassWord &amp; &quot;;&quot; <br /><br />   objADOConnection.CursorLocation = ADODB.adUseClient <br />   objADOConnection.Open sConnectionStr, _ <br />                         sUserId, _ <br />                         sPassWord, _ <br />                         adConnectUnspecified <br /></span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> objADORecordSet = </span><span style=" font-family:'Courier New'; color:#969696;">New</span><span style=" font-family:'Courier New';"> ADODB.Recordset <br /><br />sSQLQuery = &quot;SELECT * FROM Books&quot; <br />objADORecordSet.Open sSQLQuery , objADOConnection <br /><br /></span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> Not(objADORecordSet </span><span style=" font-family:'Courier New'; color:#969696;">Is</span><span style=" font-family:'Courier New';"> Nothing) </span><span style=" font-family:'Courier New'; color:#969696;">Then</span><span style=" font-family:'Courier New';"> <br />   objADORecordSet.Close() <br />   </span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> objADORecordSet = </span><span style=" font-family:'Courier New'; color:#969696;">Nothing</span><span style=" font-family:'Courier New';">               <br /></span><span style=" font-family:'Courier New'; color:#969696;">End</span><span style=" font-family:'Courier New';"> </span><span style=" font-family:'Courier New'; color:#969696;">If</span><span style=" font-family:'Courier New';"> <br /></span><span style=" font-family:'Courier New'; color:#969696;">Set</span><span style=" font-family:'Courier New';"> objADOConnect = </span><span style=" font-family:'Courier New'; color:#969696;">Nothing</span><span style=" font-family:'Courier New';">                <br /></span></pre>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EOF - end of file / recordset<br />BOF - beginning of file / recordset</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">GetRows Method</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">GetRows(rows, start, fields)</span><br /><span style=" font-weight:600;">rows</span> - Optional - A GetRowsOptionEnum value that specifies the number of records to retrieve. Default is adGetRowsRest<br /><span style=" font-weight:600;">start</span> - Optional - What record to start on, a record number of a BookmarkEnum value.<br /><span style=" font-weight:600;">fields</span> - Optional - If you want to specify only the fields that the GetRows call will return. It is possible to pass a single fieldname/number or an array of field names/numbers.<br />This method returns a 0-based array wherer the first dimension is the columns and the second dimension is the rows.<br />This array will have to be transposed if the data is to be displayed correctly in Excel.</p>
+<pre style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New';">arArray = objRecordset.GetRows() <br />lNoOfRows = Ubound(arArray,2) + 1 <br /></span><span style=" font-family:'Courier New'; color:#7895e6;">'(plus1 since the array is zero based)<br /></span></pre>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This array can then be transposed so that the rows are the first dimension before populating the range with that array.</p></body></html>
