@@ -2,89 +2,89 @@
 <html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
 p, li { white-space: pre-wrap; }
 </style></head><body style=" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub minus_den()</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim dDate As Date</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    dDate = Range(&quot;Date_CDU&quot;).Value</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    dDate = dDate - 1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Range(&quot;Date_CDU&quot;).Value = dDate</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'    Cells(1, 1).Value = Cells(1, 1).Value - 1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Фильтр_сводной</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub plus_den()</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim dDate As Date</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    dDate = Range(&quot;Date_CDU&quot;).Value</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    dDate = dDate + 1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Range(&quot;Date_CDU&quot;).Value = dDate</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'    Cells(1, 1).Value = Cells(1, 1).Value + 1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Фильтр_сводной</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sub Фильтр_сводной()</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim oPt As PivotTable</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim oPf As PivotField</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim strPfName As String</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim strVal As String</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    strPfName = &quot;Дата PSFV&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    strVal = FnDatePi(Range(&quot;Date_CDU&quot;).Value)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    For Each oPt In ThisWorkbook.Sheets(&quot;Pv_CDU&quot;).PivotTables</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        'Set oPt = ActiveSheet.PivotTables(1)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        Set oPf = oPt.PageFields(strPfName)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        фильтр = FnФильтр_сводной(oPf, strVal)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Next oPt</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Sub</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Function FnФильтр_сводной(ByVal oPf As PivotField, _</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                            ByVal strVal As String) As Boolean</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim oPi As PivotItem</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Dim F_Run As Boolean</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EventsChange False</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Err.Clear</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    'проверяем наличие даты</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    For Each oPi In oPf.PivotItems</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        If oPi.Value = strVal Then F_Run = True</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Next oPi</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    If F_Run Then</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        With oPf</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            .ClearAllFilters</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            .CurrentPage = strVal</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        End With</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    Else</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        With oPf</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            .ClearAllFilters</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">            .CurrentPage = &quot;1/10/1900&quot; 'strVal</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        End With</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        FnФильтр_сводной = False</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">        Exit Function</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    End If</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">If Len(Err.Description) = 0 Then FnФильтр_сводной = True</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">EventsChange True</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Function</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'================================================================================</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'### Преобразует дату в басурманский формат</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Function FnDatePi(ByVal strDate As String) As String</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'    m = Split(strDate, &quot;/&quot;, -1, vbBinaryCompare)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    m = Split(strDate, &quot;.&quot;, -1, vbBinaryCompare)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'    If Len(m(0)) = 1 Then m(0) = &quot;0&quot; &amp; m(0)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'    If Len(m(1)) = 1 Then m(1) = &quot;0&quot; &amp; m(1)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    If Left(m(0), 1) = 0 Then m(0) = Right(m(0), Len(m(0) - 1))</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    If Left(m(1), 1) = 0 Then m(1) = Right(m(1), Len(m(1) - 1))</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    FnDatePi = m(1) &amp; &quot;/&quot; &amp; m(0) &amp; &quot;/&quot; &amp; m(2)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">End Function</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Sub minus_den()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim dDate As Date</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    dDate = Range(&quot;Date_CDU&quot;).Value</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    dDate = dDate - 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Range(&quot;Date_CDU&quot;).Value = dDate</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'    Cells(1, 1).Value = Cells(1, 1).Value - 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Фильтр_сводной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">End Sub</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Sub plus_den()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim dDate As Date</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    dDate = Range(&quot;Date_CDU&quot;).Value</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    dDate = dDate + 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Range(&quot;Date_CDU&quot;).Value = dDate</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'    Cells(1, 1).Value = Cells(1, 1).Value + 1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Фильтр_сводной</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Sub Фильтр_сводной()</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim oPt As PivotTable</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim oPf As PivotField</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim strPfName As String</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim strVal As String</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    strPfName = &quot;Дата PSFV&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    strVal = FnDatePi(Range(&quot;Date_CDU&quot;).Value)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    For Each oPt In ThisWorkbook.Sheets(&quot;Pv_CDU&quot;).PivotTables</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        'Set oPt = ActiveSheet.PivotTables(1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        Set oPf = oPt.PageFields(strPfName)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        фильтр = FnФильтр_сводной(oPf, strVal)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Next oPt</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">End Sub</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Function FnФильтр_сводной(ByVal oPf As PivotField, _</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">                            ByVal strVal As String) As Boolean</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim oPi As PivotItem</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Dim F_Run As Boolean</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">EventsChange False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Err.Clear</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    'проверяем наличие даты</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    For Each oPi In oPf.PivotItems</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        If oPi.Value = strVal Then F_Run = True</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Next oPi</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    If F_Run Then</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        With oPf</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">            .ClearAllFilters</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">            .CurrentPage = strVal</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    Else</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        With oPf</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">            .ClearAllFilters</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">            .CurrentPage = &quot;1/10/1900&quot; 'strVal</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        End With</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        FnФильтр_сводной = False</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">        Exit Function</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    End If</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">If Len(Err.Description) = 0 Then FnФильтр_сводной = True</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">EventsChange True</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">End Function</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'================================================================================</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'### Преобразует дату в басурманский формат</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">Function FnDatePi(ByVal strDate As String) As String</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'    m = Split(strDate, &quot;/&quot;, -1, vbBinaryCompare)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    m = Split(strDate, &quot;.&quot;, -1, vbBinaryCompare)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'    If Len(m(0)) = 1 Then m(0) = &quot;0&quot; &amp; m(0)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">'    If Len(m(1)) = 1 Then m(1) = &quot;0&quot; &amp; m(1)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    If Left(m(0), 1) = 0 Then m(0) = Right(m(0), Len(m(0) - 1))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    If Left(m(1), 1) = 0 Then m(1) = Right(m(1), Len(m(1) - 1))</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">    FnDatePi = m(1) &amp; &quot;/&quot; &amp; m(0) &amp; &quot;/&quot; &amp; m(2)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#0000ff;">End Function</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:4px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; color:#0000ff;"><br /></p></body></html>
